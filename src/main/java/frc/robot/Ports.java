@@ -9,8 +9,9 @@ public class Ports {
     public static int DRIVE_RIGHT_A_CANID = 4;
     public static int DRIVE_RIGHT_B_CANID = 5;
     public static int DRIVE_RIGHT_C_CANID = 6;
-    public static int LIFT_A_CANID = 11;
-    public static int LIFT_B_CANID = 12;
+    public static int SHOOTER_A_CANID = 11;
+    public static int SHOOTER_B_CANID = 12;
+    public static int SHOOTER_HOOD_CANID = 13;
     public static int POWERCELL_INTAKE_CANID = 21;
     public static int CLIMB_ELEVATOR_A_CANID = 31;
     public static int CLIMB_ELEVATOR_B_CANID = 32;

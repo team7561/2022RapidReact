@@ -4,6 +4,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.EncoderType;
+import com.revrobotics.CANEncoder;
+
+import frc.robot.Ports;
 
 
 public class Shooter extends SubsystemBase{
@@ -19,12 +25,25 @@ public class Shooter extends SubsystemBase{
 
     //private CANEncoder m_AEncoder;
     //private CANEncoder m_BEncoder;
-    // Hood Encoder
+    private CANEncoder m_hood_encoder;
 
     public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, m_setpoint;
     public double m_hood_position, m_hood_setpoint;
 
     public Shooter(){
+        shooterMotorA = new CANSparkMax(Ports.SHOOTER_A_CANID, MotorType.kBrushless);
+        shooterMotorB = new CANSparkMax(Ports.SHOOTER_B_CANID, MotorType.kBrushless);
+        shooterHood = new CANSparkMax(Ports.SHOOTER_HOOD_CANID, MotorType.kBrushed);
+        
+        shooterMotorA.restoreFactoryDefaults();
+        shooterMotorB.restoreFactoryDefaults();
+
+        shooterMotorA.setIdleMode(IdleMode.kCoast);
+        shooterMotorB.setIdleMode(IdleMode.kCoast);
+        
+        shooterMotorA.setSmartCurrentLimit(45);
+        shooterMotorB.setSmartCurrentLimit(45);
+
         // PID coefficients
         kP = 0.003; 
         kI = 0.000002;
@@ -52,6 +71,12 @@ public class Shooter extends SubsystemBase{
         m_BpidController.setIZone(kIz);
         m_BpidController.setFF(kFF);
         m_BpidController.setOutputRange(kMinOutput, kMaxOutput);
+
+        shooterHood.restoreFactoryDefaults();
+        shooterHood.setSmartCurrentLimit(2);
+        shooterHood.setIdleMode(IdleMode.kBrake);
+        m_hood_encoder = new CANEncoder(shooterHood, EncoderType.kQuadrature, 100);
+        m_hood_encoder.setPosition(0);
     }
 
     public void periodic(){

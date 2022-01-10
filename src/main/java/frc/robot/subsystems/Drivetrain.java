@@ -53,6 +53,7 @@ public class Drivetrain extends SubsystemBase {
         moduleC.stop();
 
     }
+
 	public void resetEncoders() {
         moduleA.resetEncoders();
         moduleB.resetEncoders();
@@ -176,39 +177,13 @@ public class Drivetrain extends SubsystemBase {
         moduleC.setTargetAngle(Co);
     }
 
-	public double getFrontRightEncoder() {
-		return 0;
-    }
-    public double getFrontLeftEncoder() {
-		return 0;
-	}
-
 	public double readGyro() {
-		return 0;
+		return imu.getAngle();
 	}
 
     public SwerveMode getMode()
     {
         return m_mode;
-    }
-    public void invertMode()
-    {
-        if (m_mode == SwerveMode.CAR)
-            m_mode = SwerveMode.CAR_X;
-        if (m_mode == SwerveMode.CAR_X)
-            m_mode = SwerveMode.CAR;
-        if (m_mode == SwerveMode.SNAKE)
-            m_mode = SwerveMode.SNAKE_X;
-        if (m_mode == SwerveMode.SNAKE_X)
-            m_mode = SwerveMode.SNAKE;
-        if (m_mode == SwerveMode.TANK)
-            m_mode = SwerveMode.TANK_X;
-        if (m_mode == SwerveMode.TANK_X)
-            m_mode = SwerveMode.TANK;
-        if (m_mode == SwerveMode.CRAB)
-            m_mode = SwerveMode.CRAB_X;
-        if (m_mode == SwerveMode.CRAB_X)
-            m_mode = SwerveMode.CRAB;
     }
 
     public void setMode(SwerveMode mode)
