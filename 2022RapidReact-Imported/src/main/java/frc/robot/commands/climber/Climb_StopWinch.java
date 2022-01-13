@@ -1,24 +1,26 @@
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.climber;
 
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DT_Drive_ResetEncoders extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drivetrain m_subsystem;
 
-  public DT_Drive_ResetEncoders(Drivetrain subsystem) {
+public class Climb_StopWinch extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  private final Climber m_subsystem;
+
+  public Climb_StopWinch(Climber subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
-    m_subsystem.resetEncoders();
   }
 
   @Override
   public void execute() {
+      m_subsystem.stop();
+
   }
 
   @Override
@@ -27,6 +29,6 @@ public class DT_Drive_ResetEncoders extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

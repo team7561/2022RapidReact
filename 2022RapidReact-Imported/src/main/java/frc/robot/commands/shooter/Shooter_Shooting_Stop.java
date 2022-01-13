@@ -1,19 +1,22 @@
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.shooter;
 
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import frc.robot.Constants;
 
-public class DT_Drive_Stop extends CommandBase {
+public class Shooter_Shooting_Stop extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drivetrain m_subsystem;
+  private final Shooter m_subsystem;
 
-  public DT_Drive_Stop(Drivetrain subsystem) {
+  public Shooter_Shooting_Stop(Shooter subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("LED Value", Constants.BLINKIN_COLOUR_WAVE_RAINBOW);
   }
 
   @Override

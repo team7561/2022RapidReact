@@ -1,24 +1,24 @@
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.intake;
 
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DT_Drive_ResetEncoders extends CommandBase {
+public class Intake_GrabBall extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drivetrain m_subsystem;
+  private final Intake m_subsystem;
 
-  public DT_Drive_ResetEncoders(Drivetrain subsystem) {
+  public Intake_GrabBall(Intake subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
-    m_subsystem.resetEncoders();
   }
 
   @Override
   public void execute() {
+      m_subsystem.grabBall();
   }
 
   @Override
@@ -27,6 +27,6 @@ public class DT_Drive_ResetEncoders extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

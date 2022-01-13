@@ -7,20 +7,12 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * An example command that uses an example subsystem.
- */
 public class DT_SwerveDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain m_subsystem;
   private DoubleSupplier m_x, m_y, m_twist, m_speed;
   private double abs_x, abs_y, target_angle, m_power, current_angle = 0;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param drivetrain The subsystem used by this command.
-   */
   public DT_SwerveDrive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier twist, DoubleSupplier speed) {
     m_subsystem = drivetrain;
     m_x = x;
@@ -31,12 +23,10 @@ public class DT_SwerveDrive extends CommandBase {
     addRequirements(drivetrain);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     abs_x = Math.abs(m_x.getAsDouble());
@@ -53,7 +43,7 @@ public class DT_SwerveDrive extends CommandBase {
     target_angle = Math.atan2(m_y.getAsDouble(), m_x.getAsDouble())+Math.PI;
     target_angle = target_angle * 360 / (2 * Math.PI);
 
-    System.out.println(target_angle);
+    //System.out.println(target_angle);
 
     SmartDashboard.putNumber("current_angle", current_angle);
     SmartDashboard.putNumber("measured_angle", m_subsystem.moduleD.getAngle());
@@ -65,7 +55,6 @@ public class DT_SwerveDrive extends CommandBase {
       m_subsystem.setTargetAngle(target_angle);
       drive(m_power, m_power);
     }
-    m_subsystem.updateDashboard();
   }
 
   public void drive(double leftSpeed, double rightSpeed) {
@@ -94,12 +83,10 @@ public class DT_SwerveDrive extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

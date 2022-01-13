@@ -10,8 +10,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.Ports;
 import frc.robot.SwerveMode;
 import frc.robot.drivers.ADIS16448_IMU;
+import edu.wpi.first.math.geometry.Pose2d;
 
 public class Drivetrain extends SubsystemBase {
     /**
@@ -19,17 +21,19 @@ public class Drivetrain extends SubsystemBase {
      */
     public SwerveModule moduleA, moduleB, moduleD, moduleC;
     double angleA, angleB, angleD, angleC;
+    double m_x, m_y;
     SwerveMode m_mode;
     public static final ADIS16448_IMU imu = new ADIS16448_IMU();
 
     public Drivetrain() {
-        m_mode = SwerveMode.CRAB; //
-        moduleA = new SwerveModule(Constants.SWERVE_A_OFFSET_ANGLE, Constants.SWERVE_A_ENCODER_PORT, Constants.CAN_ID_DRIVING_A, Constants.CAN_ID_STEERING_A, "A");
-        moduleB = new SwerveModule(Constants.SWERVE_B_OFFSET_ANGLE, Constants.SWERVE_B_ENCODER_PORT, Constants.CAN_ID_DRIVING_B, Constants.CAN_ID_STEERING_B, "B");
-        moduleD = new SwerveModule(Constants.SWERVE_D_OFFSET_ANGLE, Constants.SWERVE_D_ENCODER_PORT, Constants.CAN_ID_DRIVING_D, Constants.CAN_ID_STEERING_D, "D");
-        moduleC = new SwerveModule(Constants.SWERVE_C_OFFSET_ANGLE, Constants.SWERVE_C_ENCODER_PORT, Constants.CAN_ID_DRIVING_C, Constants.CAN_ID_STEERING_C, "C");
+        m_mode = SwerveMode.CRAB;
+        moduleA = new SwerveModule(Constants.SWERVE_A_OFFSET_ANGLE, Constants.SWERVE_A_ENCODER_PORT, Ports.CAN_ID_DRIVING_A, Ports.CAN_ID_STEERING_A, "A");
+        moduleB = new SwerveModule(Constants.SWERVE_B_OFFSET_ANGLE, Constants.SWERVE_B_ENCODER_PORT, Ports.CAN_ID_DRIVING_B, Ports.CAN_ID_STEERING_B, "B");
+        moduleD = new SwerveModule(Constants.SWERVE_D_OFFSET_ANGLE, Constants.SWERVE_D_ENCODER_PORT, Ports.CAN_ID_DRIVING_D, Ports.CAN_ID_STEERING_D, "D");
+        moduleC = new SwerveModule(Constants.SWERVE_C_OFFSET_ANGLE, Constants.SWERVE_C_ENCODER_PORT, Ports.CAN_ID_DRIVING_C, Ports.CAN_ID_STEERING_C, "C");
         resetEncoders();
-
+        m_x = 0;
+        m_y = 0;
         imu.calibrate();
         imu.reset();
 
@@ -37,7 +41,6 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE);
         SmartDashboard.putNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE);
         SmartDashboard.putNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE);
-
     }
 
     @Override
@@ -59,6 +62,18 @@ public class Drivetrain extends SubsystemBase {
         moduleB.resetEncoders();
         moduleD.resetEncoders();
         moduleC.resetEncoders();
+	}
+	public void resetPose() {
+        m_x = 0;
+        m_y = 0;
+	}
+	public void setPose(double x, double y) {
+        m_x = x;
+        m_y = y;
+	}
+	public void setPose(Pose2d pose) {
+        m_x = pose.getX();
+        m_y = pose.getY();
 	}
 
 	public void setTargetAngle(double angle) {
