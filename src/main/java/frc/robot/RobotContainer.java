@@ -9,9 +9,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.drivetrain.*;
+import frc.robot.commands.shooter.*;
 
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -26,12 +29,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain();
+  private final Shooter shooter = new Shooter();
 
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
   private Joystick joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
-  //private XboxController xboxController = new XboxController(1); //Logitech Extreme 3D Pro Joysick Controller
+  private XboxController xboxController = new XboxController(1); //Logitech Extreme 3D Pro Joysick Controller
     
 
   /**
@@ -41,7 +45,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
-
+    shooter.setDefaultCommand(new SH_TestMode(shooter, () -> xboxController.getY(Hand.kLeft), () -> xboxController.getY(Hand.kRight)));
   }
 
   /**

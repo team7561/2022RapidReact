@@ -184,27 +184,33 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void setSpeed(double speed){
-        //Sets motor power to appropriate value
-        if (m_inverted)
-        {
-            m_driveMotor.set(-speed);
-        }
-        else 
-        {
-            m_driveMotor.set(speed);
+        if (Math.abs(getAngleError()) < 10){
+            if (m_inverted)
+            {
+                m_driveMotor.set(-speed);
+            }
+            else 
+            {
+                m_driveMotor.set(speed);
+            }
+        } else {
+            m_driveMotor.set(0);
         }
         //m_steeringMotor.set(speed);
     }
     public void setVelocity(double velocity){
-        if (m_inverted)
-        {
-            driving_m_setpoint = -velocity;
+        if (Math.abs(getAngleError()) < 60){
+            if (m_inverted)
+            {
+                driving_m_setpoint = -velocity;
+            }
+            else 
+            {
+                driving_m_setpoint = velocity;
+            }
+        } else {
+            driving_m_setpoint = 0;
         }
-        else 
-        {
-            driving_m_setpoint = velocity;
-        }
-        //m_steeringMotor.set(speed);
     }
 
     public void setToZeroAngle(){
