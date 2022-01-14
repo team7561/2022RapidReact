@@ -54,4 +54,22 @@ public class VisionController extends SubsystemBase {
 		return get_ta()*100;
 	}
 
+	// Returns distance to target in metres
+	public double getDistance()
+	{
+		return 4;
+	}
+
+	public double calcSetpoint()
+	{
+		return getDistance()*200;
+	}
+	public double calcSpin()
+	{
+		return 100;
+	}
+	public double calcAngle()
+	{
+		return 0.5;
+	}
 }

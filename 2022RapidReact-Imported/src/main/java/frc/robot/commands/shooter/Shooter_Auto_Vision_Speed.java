@@ -10,36 +10,34 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.VisionController;
 
 public class Shooter_Auto_Vision_Speed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Shooter m_subsystem;
-  private final boolean m_auto_mode;
+  private final Shooter m_shooter;
+  private final VisionController m_visionController;
 
 
   /**
    * Creates a new Shooter_Retract.
    *  @param subsystem
    */
-  public Shooter_Auto_Vision_Speed(Shooter subsystem, boolean auto_mode) {
-    m_subsystem = subsystem;
-    m_auto_mode = auto_mode;
-    addRequirements(subsystem);
+  public Shooter_Auto_Vision_Speed(Shooter shooter, VisionController visionController) {
+    m_shooter = shooter;
+    m_visionController = visionController;
+    addRequirements(shooter, visionController);
   }
 
   @Override
   public void initialize() {
-    if (m_auto_mode)
-    {
-      m_subsystem.start_auto_vision_speed();
-    }
-    else {
-      m_subsystem.stop_auto_vision_speed();
-    }    
+    System.out.println("Starting Auto Shooting");
   }
 
   @Override
   public void execute() {
+    double speed = m_visionController.calcSetpoint();
+    double spin = m_visionController.calcSpin();
+    m_shooter.set_RPM(speed+spin, speed-spin);
   }
 
   @Override
@@ -48,6 +46,6 @@ public class Shooter_Auto_Vision_Speed extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

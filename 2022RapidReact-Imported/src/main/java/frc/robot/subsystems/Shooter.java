@@ -27,6 +27,8 @@ public class Shooter extends SubsystemBase{
     public double m_hood_position, m_hood_setpoint;
 
     public Shooter(){
+        shooting = true;
+        RPMcontrol = true;
         shooterMotorA = new CANSparkMax(Ports.CAN_ID_SHOOTER_A, MotorType.kBrushless);
         shooterMotorB = new CANSparkMax(Ports.CAN_ID_SHOOTER_B, MotorType.kBrushless);
         shooterHood = new Servo(Ports.PWM_SHOOTER_HOOD_SERVO);
@@ -43,9 +45,9 @@ public class Shooter extends SubsystemBase{
         shooterMotorB.setSmartCurrentLimit(45);
 
         // PID coefficients
-        kP = 0.0003; 
+        kP = 0.0008; 
         kI = 0.000002;
-        kD = 0.00000;//4; 
+        kD = 0.000003;//4; 
         kIz = 500; // Error process value must be within before I is used.
         kFF = 0; 
         m_setpoint = 0;
@@ -131,6 +133,8 @@ public class Shooter extends SubsystemBase{
         m_Btarget = b;
     }
     public void periodic(){
+        m_Atarget = SmartDashboard.getNumber("Shooter A Setpoint", 0);
+        m_Btarget = SmartDashboard.getNumber("Shooter B Setpoint", 0);
         if (shooting)
         {
             if (RPMcontrol)

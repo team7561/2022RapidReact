@@ -43,7 +43,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
-    shooter.setDefaultCommand(new Shooter_Stop(shooter));
+    shooter.setDefaultCommand(new Shooter_Set_Speed_Setpoints(shooter, 0, 0));//new Shooter_Stop(shooter));
   }
 
   /**
@@ -54,7 +54,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     final JoystickButton trigger = new JoystickButton(joystick, 1);
-    final JoystickButton button_3 = new JoystickButton(joystick, 3);
+    //final JoystickButton button_3 = new JoystickButton(joystick, 3);
     final JoystickButton button_5 = new JoystickButton(joystick, 5);
     final JoystickButton button_7 = new JoystickButton(joystick, 7);
     final JoystickButton button_8 = new JoystickButton(joystick, 8);
@@ -71,7 +71,7 @@ public class RobotContainer {
     final JoystickButton button_LB = new JoystickButton(xboxController, 5);
     final JoystickButton button_RB = new JoystickButton(xboxController, 6);
 
-    final JoystickButton back = new JoystickButton(xboxController, 7);
+    //final JoystickButton back = new JoystickButton(xboxController, 7);
     //final JoystickButton start = new JoystickButton(xboxController, 8);
     //final JoystickButton left_joystick_button = new JoystickButton(xboxController, 9);
     //final JoystickButton right_joystick_button = new JoystickButton(xboxController, 10);
@@ -95,13 +95,13 @@ public class RobotContainer {
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
-    button_A.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 800, -800), true);
+    button_A.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1800, -1800), true);
     button_A.whenReleased(new Shooter_Stop(shooter), true);
-    button_B.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 600, -600), true);
+    button_B.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1600, -1600), true);
     button_B.whenReleased(new Shooter_Stop(shooter), true);
-    button_X.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 400, -400), true);
+    button_X.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1400, -1400), true);
     button_X.whenReleased(new Shooter_Stop(shooter), true);
-    button_Y.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 200, -200), true);
+    button_Y.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1200, -1200), true);
     button_Y.whenReleased(new Shooter_Stop(shooter), true);
     button_LB.whenPressed(new Shooter_Extend(shooter), true);
     button_RB.whenPressed(new Shooter_Retract(shooter), true);
