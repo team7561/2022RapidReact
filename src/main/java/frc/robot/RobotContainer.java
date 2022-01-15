@@ -9,7 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.shooter.*;
 
@@ -30,7 +29,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain();
   private final Shooter shooter = new Shooter();
-
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
@@ -45,7 +43,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
-    shooter.setDefaultCommand(new SH_TestMode(shooter, () -> xboxController.getY(Hand.kLeft), () -> xboxController.getY(Hand.kRight)));
+    shooter.setDefaultCommand(new Shooter_Set_Speed_Setpoints(shooter, 0, 0));//new Shooter_Stop(shooter));
   }
 
   /**
@@ -56,13 +54,15 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     final JoystickButton trigger = new JoystickButton(joystick, 1);
+    //final JoystickButton button_3 = new JoystickButton(joystick, 3);
+    final JoystickButton button_5 = new JoystickButton(joystick, 5);
     final JoystickButton button_7 = new JoystickButton(joystick, 7);
     final JoystickButton button_8 = new JoystickButton(joystick, 8);
     final JoystickButton button_9 = new JoystickButton(joystick, 9);
     final JoystickButton button_10 = new JoystickButton(joystick, 10);
     final JoystickButton button_11 = new JoystickButton(joystick, 11);
     final JoystickButton button_12 = new JoystickButton(joystick, 12);
-/*
+
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
     final JoystickButton button_B = new JoystickButton(xboxController, 2);
     final JoystickButton button_X = new JoystickButton(xboxController, 3);
@@ -71,7 +71,7 @@ public class RobotContainer {
     final JoystickButton button_LB = new JoystickButton(xboxController, 5);
     final JoystickButton button_RB = new JoystickButton(xboxController, 6);
 
-    final JoystickButton back = new JoystickButton(xboxController, 7);*/
+    //final JoystickButton back = new JoystickButton(xboxController, 7);
     //final JoystickButton start = new JoystickButton(xboxController, 8);
     //final JoystickButton left_joystick_button = new JoystickButton(xboxController, 9);
     //final JoystickButton right_joystick_button = new JoystickButton(xboxController, 10);
@@ -84,8 +84,10 @@ public class RobotContainer {
     //final DPadButton dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
     
     //trigger.whenPressed(new DT_ArcadeDrive(drivetrain, 0.4, 0.4, 0.5),true);
+    
     trigger.whenPressed(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2),true);
     //trigger.whenReleased(new DT_Drive_Stop(drivetrain),true);
+    button_5.whenPressed(new shooter_Calibrate(shooter), true);
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.CRAB),true);
     button_8.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.SPIN),true);
     button_9.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ULTIMATESWERVE),true);
@@ -93,18 +95,16 @@ public class RobotContainer {
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
-/*
-    button_A.whenPressed(new Climb_RaiseHook(climberDeploy), true);
-    button_A.whenReleased(new Climb_StopHook(climberDeploy), true);
-    button_B.whenPressed(new Climb_LowerHook(climberDeploy), true);
-    button_B.whenReleased(new Climb_StopHook(climberDeploy), true);
-    button_X.whenPressed(new Climb_StartWinch(climberWinch), true);
-    button_X.whenReleased(new Climb_StopWinch(climberWinch), true);
-    back.whenPressed(new Climb_ReverseWinch(climberWinch), true);
-    back.whenReleased(new Climb_StopWinch(climberWinch), true);
-
-    button_Y.whenPressed(new Shooter_ShootAtSpeed(shooter), true);
-    button_Y.whenReleased(new Shooter_Stop(shooter), true);*/
+    button_A.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1800, -1800), true);
+    button_A.whenReleased(new Shooter_Stop(shooter), true);
+    button_B.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1600, -1600), true);
+    button_B.whenReleased(new Shooter_Stop(shooter), true);
+    button_X.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1400, -1400), true);
+    button_X.whenReleased(new Shooter_Stop(shooter), true);
+    button_Y.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1200, -1200), true);
+    button_Y.whenReleased(new Shooter_Stop(shooter), true);
+    button_LB.whenPressed(new Shooter_Extend(shooter), true);
+    button_RB.whenPressed(new Shooter_Retract(shooter), true);
   }
 
   /**

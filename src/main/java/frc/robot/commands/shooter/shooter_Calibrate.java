@@ -5,45 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.shooter;
 
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class ExampleCommand extends CommandBase {
+public class shooter_Calibrate extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  
+  private Shooter m_Shooter;
+  double a_speed, b_speed;
   //private final ExampleSubsystem m_subsystem;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    //m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
+  public shooter_Calibrate(Shooter subsystem) {
+    a_speed = SmartDashboard.getNumber("motorAValue", 0.1);
+    b_speed = SmartDashboard.getNumber("motorBValue", 0.1);
     addRequirements(subsystem);
+    m_Shooter = subsystem;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
-
-  // Called every time the scheduler runs while the command is scheduled.
+  
   @Override
   public void execute() {
+
+    m_Shooter.setMotorA(a_speed);
+    m_Shooter.setMotorB(b_speed);
+
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
