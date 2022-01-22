@@ -3,24 +3,24 @@ package frc.robot;
 public class Ports {
 
     // CAN Bus Node IDs
-    public static int CAN_ID_DRIVING_A = 1;
-    public static int CAN_ID_STEERING_A = 2;
-    public static int CAN_ID_DRIVING_B = 3;
-    public static int CAN_ID_STEERING_B = 4;
-    public static int CAN_ID_DRIVING_D = 5;
-    public static int CAN_ID_STEERING_D = 6;
-    public static int CAN_ID_DRIVING_C = 7;
-    public static int CAN_ID_STEERING_C = 8;
+    public static int CAN_ID_DRIVING_A = 8;
+    public static int CAN_ID_STEERING_A = 3;
+    public static int CAN_ID_DRIVING_B = 1;
+    public static int CAN_ID_STEERING_B = 2;
+    public static int CAN_ID_DRIVING_D = 7;
+    public static int CAN_ID_STEERING_D = 4;
+    public static int CAN_ID_DRIVING_C = 5;
+    public static int CAN_ID_STEERING_C = 6;
 
     public static int CAN_ID_CLIMBER_A = 10;
     public static int CAN_ID_CLIMBER_B = 11;
     public static int CAN_ID_CLIMBER_DEPLOY = 12;
 
-    public static int CAN_ID_SHOOTER_A = 20;
+    public static int CAN_ID_SHOOTER_A = 23;
     public static int CAN_ID_SHOOTER_B = 21;
 
     public static int CAN_ID_INTAKE_DEPLOY = 31;
-    public static int CAN_ID_INTAKE = 32;
+    public static int CAN_ID_INTAKE = 20;
     
     public static int CAN_ID_INJECTOR = 41;
 

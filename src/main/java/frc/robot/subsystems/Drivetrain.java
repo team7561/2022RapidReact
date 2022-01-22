@@ -41,6 +41,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE);
         SmartDashboard.putNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE);
         SmartDashboard.putNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE);
+        
     }
 
     @Override
@@ -92,10 +93,10 @@ public class Drivetrain extends SubsystemBase {
             moduleC.setTargetAngle(0);
         }
         if (m_mode == SwerveMode.SPIN){
-            moduleA.setTargetAngle(45);
-            moduleB.setTargetAngle(135);
-            moduleD.setTargetAngle(315);
-            moduleC.setTargetAngle(225);
+            moduleA.setTargetAngle(315);
+            moduleB.setTargetAngle(45);
+            moduleD.setTargetAngle(225);
+            moduleC.setTargetAngle(135);
         }
         if (m_mode == SwerveMode.TANK)
         {
@@ -146,20 +147,20 @@ public class Drivetrain extends SubsystemBase {
         double y = mag * Math.sin((target_angle + imu.getAngle()) * Math.PI/180);
 
 
-        double Ax = twist * Math.cos(Math.PI/4) + x; 
-        double Ay = twist * Math.sin(Math.PI/4) + y;
+        double Ax = twist * Math.cos(3 * Math.PI/4) + x; 
+        double Ay = twist * Math.sin(3 * Math.PI/4) + y;
         double Ao = (Math.atan2(Ay, Ax) * 180/Math.PI + 180) % 360;
 
-        double Bx = twist * Math.cos(3 * Math.PI/4) + x; 
-        double By = twist * Math.sin(3 * Math.PI/4) + y;
+        double Bx = twist * Math.cos(5 * Math.PI/4) + x; 
+        double By = twist * Math.sin(5 * Math.PI/4) + y;
         double Bo = (Math.atan2(By, Bx) * 180/Math.PI + 180) % 360;
 
-        double Cx = twist * Math.cos(5 * Math.PI/4) + x; 
-        double Cy = twist * Math.sin(5 * Math.PI/4) + y;
+        double Cx = twist * Math.cos(7 * Math.PI/4) + x; 
+        double Cy = twist * Math.sin(7 * Math.PI/4) + y;
         double Co = (Math.atan2(Cy, Cx) * 180/Math.PI + 180) % 360;
 
-        double Dx = twist * Math.cos(7 * Math.PI/4) + x; 
-        double Dy = twist * Math.sin(7 * Math.PI/4) + y;
+        double Dx = twist * Math.cos(Math.PI/4) + x; 
+        double Dy = twist * Math.sin(Math.PI/4) + y;
         double Do = (Math.atan2(Dy, Dx) * 180/Math.PI + 180) % 360;
 
         moduleA.setVelocity(
@@ -217,6 +218,7 @@ public class Drivetrain extends SubsystemBase {
         moduleD.updateDashboard();
         moduleC.updateDashboard();
         SmartDashboard.putNumber("Gyro Angle", imu.getAngle());
+        SmartDashboard.putNumber("Gyro Temp", imu.getTemperature());
     }
 
 }

@@ -27,15 +27,15 @@ public class Constants {
     public static double TURNING_THRESHOLD = 60;
     public static double ANGLE_TOLERANCE = 5;
 
-    public static double SWERVE_A_OFFSET_ANGLE = -0.16;
-    public static double SWERVE_B_OFFSET_ANGLE = 0.36;
-    public static double SWERVE_D_OFFSET_ANGLE = 0.44;
-    public static double SWERVE_C_OFFSET_ANGLE = 0.49;
+    public static double SWERVE_A_OFFSET_ANGLE = 0.2;
+    public static double SWERVE_B_OFFSET_ANGLE = 0.58;
+    public static double SWERVE_D_OFFSET_ANGLE = 0.23;
+    public static double SWERVE_C_OFFSET_ANGLE = 0.45;
 
     public static int SWERVE_A_ENCODER_PORT = 0;
-    public static int SWERVE_B_ENCODER_PORT = 1;
+    public static int SWERVE_B_ENCODER_PORT = 3;
     public static int SWERVE_D_ENCODER_PORT = 2;
-    public static int SWERVE_C_ENCODER_PORT = 3;
+    public static int SWERVE_C_ENCODER_PORT = 1;
 
     public static boolean DEBUG_INTAKE = true;
     public static boolean DEBUG_SHOOTER = true;

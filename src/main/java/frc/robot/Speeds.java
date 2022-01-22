@@ -2,9 +2,9 @@ package frc.robot;
 
 public class Speeds {
     //Ball Intake
-    public static double GET_BALL_SPEED = -0.6;
-    public static double KEEP_BALL_SPEED = -0.20;
-    public static double EJECT_BALL_SPEED = 1.0;
+    public static double GET_BALL_SPEED = -0.4;
+    public static double KEEP_BALL_SPEED = -0.05;
+    public static double EJECT_BALL_SPEED = 0.1;
     public static double STOP_BALL_SPEED = 0;
     //Shooter Hood
     public static double SHOOTER_HOOD_EXTENDED_POSITION = 1;

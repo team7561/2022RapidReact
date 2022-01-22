@@ -24,16 +24,16 @@ public class Intake extends SubsystemBase{
 
     public Intake(){
         intakeMotor = new CANSparkMax(Ports.CAN_ID_INTAKE, MotorType.kBrushless);
-        intakeDeployMotor = new CANSparkMax(Ports.CAN_ID_INTAKE_DEPLOY, MotorType.kBrushless);
+        //intakeDeployMotor = new CANSparkMax(Ports.CAN_ID_INTAKE_DEPLOY, MotorType.kBrushless);
         
         intakeMotor.restoreFactoryDefaults();
-        intakeDeployMotor.restoreFactoryDefaults();
+        //intakeDeployMotor.restoreFactoryDefaults();
 
         intakeMotor.setIdleMode(IdleMode.kCoast);
-        intakeDeployMotor.setIdleMode(IdleMode.kBrake);
+        //intakeDeployMotor.setIdleMode(IdleMode.kBrake);
         
-        intakeMotor.setSmartCurrentLimit(15);
-        intakeDeployMotor.setSmartCurrentLimit(4);
+        intakeMotor.setSmartCurrentLimit(20);
+        //intakeDeployMotor.setSmartCurrentLimit(4);
 
         SmartDashboard.putNumber("intakeMotor", 0.1);
         SmartDashboard.putNumber("intakeDeployMotor", 0.1);
@@ -50,7 +50,7 @@ public class Intake extends SubsystemBase{
         kMinOutput = -0.5;
         maxRPM = 1000;
 
-        m_pidController = intakeDeployMotor.getPIDController();
+        /*m_pidController = intakeDeployMotor.getPIDController();
 
         // set PID coefficients
         m_pidController.setP(kP);
@@ -59,6 +59,7 @@ public class Intake extends SubsystemBase{
         m_pidController.setIZone(kIz);
         m_pidController.setFF(kFF);
         m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+        */
 
     }
     public void stop()
@@ -83,14 +84,14 @@ public class Intake extends SubsystemBase{
     }
     public void periodic(){
         updateDashboard();
-        m_pidController.setReference(m_deployTarget, CANSparkMax.ControlType.kPosition);
+        //m_pidController.setReference(m_deployTarget, CANSparkMax.ControlType.kPosition);
     }
     public void updateDashboard()
     {
         if (Constants.DEBUG_INTAKE)
         {
             SmartDashboard.putNumber("Intake Speed", intakeMotor.get());
-            SmartDashboard.putNumber("Intake Deploy Speed", intakeDeployMotor.get());
+            //SmartDashboard.putNumber("Intake Deploy Speed", intakeDeployMotor.get());
         }
     }
 

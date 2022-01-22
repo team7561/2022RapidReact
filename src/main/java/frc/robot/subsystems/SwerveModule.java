@@ -110,26 +110,43 @@ public class SwerveModule extends SubsystemBase {
 
     @Override
     public void periodic() {
-
+        SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
+        SmartDashboard.putNumber(m_pos+"Encoder", absolute_encoder.getOutput());
         currentAngle = SmartDashboard.getNumber(m_pos+"_Angle", 0)-m_offset*360;
-
         if (currentAngle < 0)
         {
             currentAngle += 360;
         }
+        double error = (m_steering_target-currentAngle)%360;
+        double dir = 1;
 
-        double error = getAngleError();
-        SmartDashboard.putNumber(m_pos + "_Error", error);
+
+        if (error < 1){
+            dir = -0.1;
+        }
+
+        if (error > 1)
+        {
+            dir = 0.1;
+        }        
+
+        if (Math.abs(error) > 180){
+            dir *= -1;
+            dir *= (360 - Math.abs(error))/4.6;
+            SmartDashboard.putNumber(m_pos + "_Error", 360 - Math.abs(error));
+        } else {
+            dir *= Math.abs(error)/4.6;
+            SmartDashboard.putNumber(m_pos + "_Error", Math.abs(error));
+        }
 
         if (m_steering)
         {
-            m_steeringMotor.set(error * 0.1); 
+            m_steeringMotor.set(dir); 
         }
         else
         {
             m_steeringMotor.set(0);
         }
-
         if (m_driving)
         {
             m_driveMotor.set(driving_m_setpoint);

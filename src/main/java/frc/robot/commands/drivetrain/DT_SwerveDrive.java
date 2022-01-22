@@ -50,7 +50,7 @@ public class DT_SwerveDrive extends CommandBase {
     SmartDashboard.putNumber("target_angle", target_angle);
 
     if(m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE){
-      m_subsystem.setSwerveVector(m_twist.getAsDouble() * -0.4, target_angle, -m_power * m_speed.getAsDouble());
+      m_subsystem.setSwerveVector(m_twist.getAsDouble() * 0.4, target_angle + 180, -m_power * m_speed.getAsDouble());
     }else{
       m_subsystem.setTargetAngle(target_angle);
       drive(m_power, m_power);
