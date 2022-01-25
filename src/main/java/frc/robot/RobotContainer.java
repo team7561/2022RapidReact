@@ -61,6 +61,7 @@ public class RobotContainer {
     final JoystickButton trigger = new JoystickButton(joystick, 1);
     //final JoystickButton button_3 = new JoystickButton(joystick, 3);
     final JoystickButton button_5 = new JoystickButton(joystick, 5);
+    final JoystickButton button_6 = new JoystickButton(joystick, 6);
     final JoystickButton button_7 = new JoystickButton(joystick, 7);
     final JoystickButton button_8 = new JoystickButton(joystick, 8);
     final JoystickButton button_9 = new JoystickButton(joystick, 9);
@@ -92,8 +93,10 @@ public class RobotContainer {
     
     trigger.whenPressed(new Intake_GrabBall(intake), true);
     trigger.whenReleased(new Intake_Grabbing_Stop(intake), true);
+    
+    button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
+    button_6.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
 
-    //button_5.whenPressed(new shooter_Calibrate(shooter), true);
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.CRAB),true);
     button_8.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.SPIN),true);
     button_9.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ULTIMATESWERVE),true);

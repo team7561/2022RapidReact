@@ -10,5 +10,7 @@ public enum SwerveMode {
     CAR_X,
     TANK_X,
     CRAB_X,
-    ULTIMATESWERVE
+    ULTIMATESWERVE,
+    BALL_TRACK,
+    HUB_TRACK
   }

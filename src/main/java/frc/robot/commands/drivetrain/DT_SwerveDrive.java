@@ -5,6 +5,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.Constants;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DT_SwerveDrive extends CommandBase {
@@ -48,7 +49,15 @@ public class DT_SwerveDrive extends CommandBase {
     SmartDashboard.putNumber("current_angle", current_angle);
     SmartDashboard.putNumber("measured_angle", m_subsystem.moduleD.getAngle());
     SmartDashboard.putNumber("target_angle", target_angle);
-
+    if(m_subsystem.getMode() == SwerveMode.BALL_TRACK){
+      double ballTwist = NetworkTableInstance.getDefault().getTable("photonVision/ballCam").getEntry("targetYaw").getDouble(0);
+      m_subsystem.setSwerveVector(ballTwist * 0.4, target_angle + 180, -m_power * m_speed.getAsDouble());
+    }
+    if(m_subsystem.getMode() == SwerveMode.HUB_TRACK){
+      double ballTwist = NetworkTableInstance.getDefault().getTable("photonVision/limeight").getEntry("targetYaw").getDouble(0);
+      m_subsystem.setSwerveVector(ballTwist * 0.4, target_angle + 180, -m_power * m_speed.getAsDouble());
+    }
+		
     if(m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE){
       m_subsystem.setSwerveVector(m_twist.getAsDouble() * 0.4, target_angle + 180, -m_power * m_speed.getAsDouble());
     }else{
