@@ -143,10 +143,11 @@ public class Drivetrain extends SubsystemBase {
     }
     
     public void setSwerveVector(double twist, double target_angle, double mag){
+        //x and y component of translation vector (offest with imu value).
         double x = mag * Math.cos((target_angle + imu.getAngle()) * Math.PI/180);
         double y = mag * Math.sin((target_angle + imu.getAngle()) * Math.PI/180);
 
-
+        //Constants for individual modules (x component, y component, angle)
         double Ax = twist * Math.cos(3 * Math.PI/4) + x; 
         double Ay = twist * Math.sin(3 * Math.PI/4) + y;
         double Ao = (Math.atan2(Ay, Ax) * 180/Math.PI + 180) % 360;
@@ -163,6 +164,7 @@ public class Drivetrain extends SubsystemBase {
         double Dy = twist * Math.sin(Math.PI/4) + y;
         double Do = (Math.atan2(Dy, Dx) * 180/Math.PI + 180) % 360;
 
+        //Set drive motors
         moduleA.setVelocity(
             Math.sqrt(
                 Math.pow(Ax, 2) + Math.pow(Ay, 2)
@@ -187,6 +189,7 @@ public class Drivetrain extends SubsystemBase {
                 )
             );
 
+        //Set module angle targets
         moduleA.setTargetAngle(Ao);
         moduleB.setTargetAngle(Bo);
         moduleD.setTargetAngle(Do);

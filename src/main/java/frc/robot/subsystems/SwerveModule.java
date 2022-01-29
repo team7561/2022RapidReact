@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
+
+import java.io.Console;
+
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -113,40 +116,34 @@ public class SwerveModule extends SubsystemBase {
         SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
         SmartDashboard.putNumber(m_pos+"Encoder", absolute_encoder.getOutput());
         currentAngle = SmartDashboard.getNumber(m_pos+"_Angle", 0)-m_offset*360;
+
         if (currentAngle < 0)
         {
             currentAngle += 360;
         }
-        double error = (m_steering_target-currentAngle)%360;
+
+        //Error defines the magnitued and direction of the target angle from the current angle
+        double error = m_steering_target-currentAngle;
+
+        //dir is the motor power set to the steering motors
         double dir = 1;
 
-
-        if (error < 1){
-            dir = -0.1;
-        }
-
-        if (error > 1)
-        {
-            dir = 0.1;
-        }        
-
+        //Alters magnitued and direction of error if it exceeds 180 degrees.
         if (Math.abs(error) > 180){
-            dir *= -1;
-            dir *= (360 - Math.abs(error))/4.6;
-            SmartDashboard.putNumber(m_pos + "_Error", 360 - Math.abs(error));
-        } else {
-            dir *= Math.abs(error)/4.6;
-            SmartDashboard.putNumber(m_pos + "_Error", Math.abs(error));
+            error = (360 - Math.abs(error)) * -Math.signum(error);
         }
 
         if (m_steering)
         {
-            m_steeringMotor.set(dir); 
+            //Multiplies steering motor power by a function of the target drive power.
+            //This smooths the steering power for when modules are inverted.
+            m_steeringMotor.set(dir * (error * 0.1 / 4.6)* Math.pow(Math.abs(driving_m_setpoint), 0.25)); 
         }
         else
         {
             m_steeringMotor.set(0);
         }
+
         if (m_driving)
         {
             m_driveMotor.set(driving_m_setpoint);
@@ -158,14 +155,14 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public double getAngleError(){
-        double error = (m_steering_target-currentAngle)%360;
-        if(error > 180){
-            error -= 360;
+        //Gets magnitude and direction of target angle from current angle (-180 to 180)
+        double error = m_steering_target-currentAngle;
+
+        if (Math.abs(error) > 180){
+            error = (360 - Math.abs(error)) * -Math.signum(error);
         }
-        else if(error < -180){
-            error += 360;
-        }
-        return error;
+
+        return Math.abs(error);
     }
 
     public double getPulses()
@@ -185,13 +182,26 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void setTargetAngle(double angle){
-        m_steering_target = angle;
+        //Modules are inverted if the target angle is greater than 90 degrees.
+        if(getAngleError() > 90){
+            m_inverted = !m_inverted;
+        }
+
+        //If modules are inverted, the new zero is 180 degrees off.
+        if(m_inverted){
+            m_steering_target = (angle + 180) % 360;
+        }
+
+        else{
+            m_steering_target = angle;
+        }
     }
 
     public double getSpeed(){
-        //Gets speed in ms^-1
+        //Gets speed in rs^-1
         return m_driveMotor.getEncoder().getVelocity();
     }
+
     public double getSteerSpeed(){
         return m_steeringMotor.get();
     }
@@ -215,18 +225,15 @@ public class SwerveModule extends SubsystemBase {
         }
         //m_steeringMotor.set(speed);
     }
+
     public void setVelocity(double velocity){
-        if (Math.abs(getAngleError()) < 60){
-            if (m_inverted)
-            {
-                driving_m_setpoint = -velocity;
-            }
-            else 
-            {
-                driving_m_setpoint = velocity;
-            }
-        } else {
-            driving_m_setpoint = 0;
+        if (m_inverted)
+        {
+            driving_m_setpoint = -velocity;
+        }
+        else 
+        {
+            driving_m_setpoint = velocity;
         }
     }
 
@@ -250,6 +257,7 @@ public class SwerveModule extends SubsystemBase {
     public double getAngleOffset(){
         return m_offset;
     }
+   
     public void updateDashboard()
     {
         /*SmartDashboard.putNumber(m_pos+"_DrivingSP", driving_m_setpoint);

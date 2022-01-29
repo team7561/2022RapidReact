@@ -31,22 +31,22 @@ public class Climber extends SubsystemBase{
     public void climb()
     {
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_LIFT_SPEED);
-        climberMotorB.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_LIFT_SPEED);
+        climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_LIFT_SPEED);
     }
     public void climbDeploy()
     {
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_DEPLOY_SPEED);
-        climberMotorB.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_DEPLOY_SPEED);
+        climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_DEPLOY_SPEED);
     }
     public void climbReverse()
     {
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_REVERSE_SPEED);
-        climberMotorB.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_REVERSE_SPEED);
+        climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_REVERSE_SPEED);
     }
     public void stop()
     {
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_STOP_SPEED);
-        climberMotorB.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_STOP_SPEED);
+        climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_STOP_SPEED);
     }
     public void periodic(){
         updateDashboard();

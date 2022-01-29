@@ -50,19 +50,18 @@ public class DT_SwerveDrive extends CommandBase {
     SmartDashboard.putNumber("measured_angle", m_subsystem.moduleD.getAngle());
     SmartDashboard.putNumber("target_angle", target_angle);
     if(m_subsystem.getMode() == SwerveMode.BALL_TRACK){
-      double ballTwist = NetworkTableInstance.getDefault().getTable("photonVision/ballCam").getEntry("targetYaw").getDouble(0);
-      m_subsystem.setSwerveVector(ballTwist * 0.4, target_angle + 180, -m_power * m_speed.getAsDouble());
+      double ballTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ballCam").getEntry("targetYaw").getDouble(0);
+      m_subsystem.setSwerveVector(ballTwist * 0.0035, target_angle + 180, -m_power * m_speed.getAsDouble());
+      System.out.println(ballTwist);
     }
     if(m_subsystem.getMode() == SwerveMode.HUB_TRACK){
-      double ballTwist = NetworkTableInstance.getDefault().getTable("photonVision/limeight").getEntry("targetYaw").getDouble(0);
-      m_subsystem.setSwerveVector(ballTwist * 0.4, target_angle + 180, -m_power * m_speed.getAsDouble());
+      double targetTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetYaw").getDouble(0);
+      m_subsystem.setSwerveVector(targetTwist * 0.0045, target_angle + 180, -m_power * m_speed.getAsDouble());
+      System.out.println(targetTwist);
     }
 		
     if(m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE){
-      m_subsystem.setSwerveVector(m_twist.getAsDouble() * 0.4, target_angle + 180, -m_power * m_speed.getAsDouble());
-    }else{
-      m_subsystem.setTargetAngle(target_angle);
-      drive(m_power, m_power);
+      m_subsystem.setSwerveVector(m_twist.getAsDouble() * 0.3, target_angle + 180, -m_power * m_speed.getAsDouble());
     }
   }
 

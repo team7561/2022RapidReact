@@ -9,14 +9,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.climber.*;
 import frc.robot.commands.drivetrain.*;
-import frc.robot.commands.intake.Intake_GrabBall;
-import frc.robot.commands.intake.Intake_Grabbing_Stop;
+import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter.*;
-
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -33,6 +30,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   //private final Shooter shooter = new Shooter();
   private final Intake intake = new Intake();
+  private final Climber climber = new Climber();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
@@ -49,6 +47,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new Shooter_Set_Speed_Setpoints(shooter, 0, 0));//new Shooter_Stop(shooter));
     intake.setDefaultCommand(new Intake_Grabbing_Stop(intake));
+    climber.setDefaultCommand(new Climb_StopWinch(climber));
   }
 
   /**
@@ -59,6 +58,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     final JoystickButton trigger = new JoystickButton(joystick, 1);
+    final JoystickButton button_2 = new JoystickButton(joystick, 2);
     //final JoystickButton button_3 = new JoystickButton(joystick, 3);
     final JoystickButton button_5 = new JoystickButton(joystick, 5);
     final JoystickButton button_6 = new JoystickButton(joystick, 6);
@@ -93,6 +93,8 @@ public class RobotContainer {
     
     trigger.whenPressed(new Intake_GrabBall(intake), true);
     trigger.whenReleased(new Intake_Grabbing_Stop(intake), true);
+    button_2.whenPressed(new Intake_EjectBall(intake), true);
+    button_2.whenReleased(new Intake_Grabbing_Stop(intake), true);
     
     button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
     button_6.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
@@ -104,9 +106,12 @@ public class RobotContainer {
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
-    /*
-    button_A.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1800, -1800), true);
-    button_A.whenReleased(new Shooter_Stop(shooter), true);
+    
+    button_A.whenPressed(new Climb_StartWinch(climber), true);
+    button_A.whenReleased(new Climb_StopWinch(climber), true);
+    button_B.whenPressed(new Climb_ReverseWinch(climber), true);
+    button_B.whenReleased(new Climb_StopWinch(climber), true);
+/*
     button_B.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1600, -1600), true);
     button_B.whenReleased(new Shooter_Stop(shooter), true);
     button_X.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1400, -1400), true);
