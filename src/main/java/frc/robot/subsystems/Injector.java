@@ -9,13 +9,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants;
 
 import frc.robot.Ports;
+import frc.robot.Speeds;
 
 public class Injector extends SubsystemBase{
     double m_deployTarget;
 
     CANSparkMax injectorMotor;
 
-    public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, m_setpoint;
     public double m_hood_position, m_hood_setpoint;
 
     public Injector(){
@@ -27,19 +27,17 @@ public class Injector extends SubsystemBase{
     }
     public void transferBall()
     {
-        injectorMotor.set(1);
+        injectorMotor.set(Speeds.INJECTOR_TRANSFER_SPEED);
     }
     public void reverse()
     {
-        injectorMotor.set(-1);
+        injectorMotor.set(Speeds.INJECTOR_REVERSE_SPEED);
     }
     public void stop()
     {
-        injectorMotor.set(0);
+        injectorMotor.set(Speeds.INJECTOR_STOP_SPEED);
     }
     public void periodic(){
-        
-        //intakeDeployMotor.setReference(m_deployTarget, ControlType.kPosition);
     }
     public void updateDashboard()
     {

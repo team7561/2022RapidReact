@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.drivetrain.*;
+import frc.robot.commands.injector.Injector_Reverse;
+import frc.robot.commands.injector.Injector_Stop;
+import frc.robot.commands.injector.Injector_Transfer_Ball;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.subsystems.*;
@@ -30,6 +33,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   //private final Shooter shooter = new Shooter();
   private final Intake intake = new Intake();
+  private final Injector injector = new Injector();
   private final Climber climber = new Climber();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -59,7 +63,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     final JoystickButton trigger = new JoystickButton(joystick, 1);
     final JoystickButton button_2 = new JoystickButton(joystick, 2);
-    //final JoystickButton button_3 = new JoystickButton(joystick, 3);
+    final JoystickButton button_3 = new JoystickButton(joystick, 3);
+    final JoystickButton button_4 = new JoystickButton(joystick, 4);
     final JoystickButton button_5 = new JoystickButton(joystick, 5);
     final JoystickButton button_6 = new JoystickButton(joystick, 6);
     final JoystickButton button_7 = new JoystickButton(joystick, 7);
@@ -84,10 +89,10 @@ public class RobotContainer {
     //final JoystickAnalogButton LT = new JoystickAnalogButton(xboxController, 2);
     //final JoystickAnalogButton RT = new JoystickAnalogButton(xboxController, 3);
   
-    //final DPadButton dpad_Up = new DPadButton(xboxController, DPadButton.Direction.UP);
-    //final DPadButton dpad_Down = new DPadButton(xboxController, DPadButton.Direction.DOWN);
-    //final DPadButton dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
-    //final DPadButton dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
+    final DPadButton dpad_Up = new DPadButton(xboxController, DPadButton.Direction.UP);
+    final DPadButton dpad_Down = new DPadButton(xboxController, DPadButton.Direction.DOWN);
+    final DPadButton dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
+    final DPadButton dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
     
     //trigger.whenPressed(new DT_ArcadeDrive(drivetrain, 0.4, 0.4, 0.5),true);
     
@@ -95,6 +100,12 @@ public class RobotContainer {
     trigger.whenReleased(new Intake_Grabbing_Stop(intake), true);
     button_2.whenPressed(new Intake_EjectBall(intake), true);
     button_2.whenReleased(new Intake_Grabbing_Stop(intake), true);
+
+    button_3.whenPressed(new Intake_Toggle(intake), true);
+    //button_3.whenPressed(new Intake_Extend(intake), true);
+    //button_3.whenReleased(new Intake_Deploy_Stop(intake), true);
+    //button_4.whenPressed(new Intake_Retract(intake), true);
+    //button_4.whenReleased(new Intake_Deploy_Stop(intake), true);
     
     button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
     button_6.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
@@ -107,10 +118,16 @@ public class RobotContainer {
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
     
-    button_A.whenPressed(new Climb_StartWinch(climber), true);
-    button_A.whenReleased(new Climb_StopWinch(climber), true);
-    button_B.whenPressed(new Climb_ReverseWinch(climber), true);
-    button_B.whenReleased(new Climb_StopWinch(climber), true);
+    dpad_Up.whenPressed(new Climb_StartWinch(climber), true);
+    dpad_Up.whenReleased(new Climb_StopWinch(climber), true);
+    dpad_Down.whenPressed(new Climb_ReverseWinch(climber), true);
+    dpad_Down.whenReleased(new Climb_StopWinch(climber), true);
+    dpad_Left.whenPressed(new Climb_Deploy(climber), true);
+    dpad_Left.whenReleased(new Climb_StopWinch(climber), true);
+    button_X.whenPressed(new Injector_Transfer_Ball(injector), true);
+    button_X.whenReleased(new Injector_Stop(injector), true);
+    button_Y.whenPressed(new Injector_Reverse(injector), true);
+    button_Y.whenReleased(new Injector_Stop(injector), true);
 /*
     button_B.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1600, -1600), true);
     button_B.whenReleased(new Shooter_Stop(shooter), true);

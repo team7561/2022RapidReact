@@ -1,13 +1,13 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.climber;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Intake_Extend extends CommandBase {
+public class Climb_Deploy extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_subsystem;
+  private final Climber m_subsystem;
 
-  public Intake_Extend(Intake subsystem) {
+  public Climb_Deploy(Climber subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +18,7 @@ public class Intake_Extend extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.extendIntake();
+      m_subsystem.climbDeploy();
   }
 
   @Override
@@ -27,6 +27,6 @@ public class Intake_Extend extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return m_subsystem.isDone();
+    return false;
   }
 }

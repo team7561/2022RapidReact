@@ -3,9 +3,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAnalogSensor.Mode;
 
 import frc.robot.Constants;
 import frc.robot.Ports;
@@ -17,49 +17,30 @@ public class Intake extends SubsystemBase{
 
     private CANSparkMax intakeMotor;
     private CANSparkMax intakeDeployMotor;
-    private SparkMaxPIDController m_pidController;
 
-    public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, m_setpoint;
+    public boolean armUp = false;
+    public boolean armUpRequested = true;
+    public double intakeSpeed = 0;
+    public double intakeDeploySpeed = 0;
+
     public double m_hood_position, m_hood_setpoint;
 
     public Intake(){
         intakeMotor = new CANSparkMax(Ports.CAN_ID_INTAKE, MotorType.kBrushless);
-        //intakeDeployMotor = new CANSparkMax(Ports.CAN_ID_INTAKE_DEPLOY, MotorType.kBrushless);
+        intakeDeployMotor = new CANSparkMax(Ports.CAN_ID_INTAKE_DEPLOY, MotorType.kBrushless);
         
         intakeMotor.restoreFactoryDefaults();
-        //intakeDeployMotor.restoreFactoryDefaults();
+        intakeDeployMotor.restoreFactoryDefaults();
 
         intakeMotor.setIdleMode(IdleMode.kCoast);
-        //intakeDeployMotor.setIdleMode(IdleMode.kBrake);
+        intakeDeployMotor.setIdleMode(IdleMode.kBrake);
         
         intakeMotor.setSmartCurrentLimit(20);
-        //intakeDeployMotor.setSmartCurrentLimit(4);
+        intakeDeployMotor.setSmartCurrentLimit(35);
 
         SmartDashboard.putNumber("intakeMotor", 0.1);
         SmartDashboard.putNumber("intakeDeployMotor", 0.1);
 
-        // PID coefficients
-        kP = 0.003; 
-        kI = 0.000002;
-        kD = 0.000004; 
-        kIz = 500; // Error process value must be within before I is used.
-        kFF = 0; 
-        m_deployTarget = 0;
-        m_hood_setpoint = 0.2;
-        kMaxOutput = 0.5; 
-        kMinOutput = -0.5;
-        maxRPM = 1000;
-
-        /*m_pidController = intakeDeployMotor.getPIDController();
-
-        // set PID coefficients
-        m_pidController.setP(kP);
-        m_pidController.setI(kI);
-        m_pidController.setD(kD);
-        m_pidController.setIZone(kIz);
-        m_pidController.setFF(kFF);
-        m_pidController.setOutputRange(kMinOutput, kMaxOutput);
-        */
 
     }
     public void stop()
@@ -68,30 +49,68 @@ public class Intake extends SubsystemBase{
     }
     public void grabBall()
     {
-        intakeMotor.set(Speeds.GET_BALL_SPEED);
+        intakeSpeed = Speeds.GET_BALL_SPEED;
     }
     public void ejectBall()
     {
-        intakeMotor.set(Speeds.EJECT_BALL_SPEED);
+        intakeSpeed = Speeds.EJECT_BALL_SPEED;
     }
     public void extendIntake()
     {
+        armUpRequested = false;
+        intakeDeploySpeed = Speeds.INTAKE_DEPLOY_DOWN_SPEED;
+        //intakeDeployMotor.set(Speeds.INTAKE_DEPLOY_DOWN_SPEED);
         m_deployTarget = 1000;
+    }
+    public void stopDeploy()
+    {
+        intakeDeploySpeed = Speeds.INTAKE_DEPLOY_STOP_SPEED;
+        //intakeDeployMotor.set(Speeds.INTAKE_DEPLOY_STOP_SPEED);
     }
     public void retractIntake()
     {
+        armUpRequested = true;
+        intakeDeploySpeed = Speeds.INTAKE_DEPLOY_UP_SPEED;
+        //intakeDeployMotor.set(Speeds.INTAKE_DEPLOY_UP_SPEED);
         m_deployTarget = 0;
+    }
+    public void toggleIntake()
+    {
+        armUpRequested = !armUpRequested;
+    }
+    public boolean isDone()
+    {
+        return armUp == armUpRequested;
     }
     public void periodic(){
         updateDashboard();
-        //m_pidController.setReference(m_deployTarget, CANSparkMax.ControlType.kPosition);
+        intakeMotor.set(intakeSpeed);
+        if (armUp!=armUpRequested)
+        {
+            if (armUpRequested)
+            {
+                intakeDeploySpeed = Speeds.INTAKE_DEPLOY_UP_SPEED;
+            }
+            else {
+                intakeDeploySpeed = Speeds.INTAKE_DEPLOY_DOWN_SPEED;
+            }
+        }
+        if (intakeDeployMotor.getOutputCurrent()>Constants.INTAKE_DEPLOY_CURRENT_LIMIT)
+        {
+            System.out.println("Reached the end");
+            intakeDeploySpeed = 0;
+            armUp = armUpRequested;
+        }
+        intakeDeployMotor.set(intakeDeploySpeed);
     }
     public void updateDashboard()
     {
         if (Constants.DEBUG_INTAKE)
         {
             SmartDashboard.putNumber("Intake Speed", intakeMotor.get());
-            //SmartDashboard.putNumber("Intake Deploy Speed", intakeDeployMotor.get());
+            SmartDashboard.putNumber("Intake Deploy Speed", intakeDeployMotor.get());
+            SmartDashboard.putNumber("Intake Deploy Velocity", intakeDeployMotor.getAnalog(Mode.kRelative).getVelocity());
+            SmartDashboard.putNumber("Intake Deploy Current", intakeDeployMotor.getOutputCurrent());
         }
     }
 

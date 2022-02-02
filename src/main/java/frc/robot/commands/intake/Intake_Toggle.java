@@ -3,11 +3,11 @@ package frc.robot.commands.intake;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Intake_Extend extends CommandBase {
+public class Intake_Toggle extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_subsystem;
 
-  public Intake_Extend(Intake subsystem) {
+  public Intake_Toggle(Intake subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +18,7 @@ public class Intake_Extend extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.extendIntake();
+      m_subsystem.toggleIntake();
   }
 
   @Override
@@ -27,6 +27,6 @@ public class Intake_Extend extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return m_subsystem.isDone();
+    return true;
   }
 }
