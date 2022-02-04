@@ -9,10 +9,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.SwerveMode;
-import frc.robot.drivers.ADIS16448_IMU;
+import edu.wpi.first.wpilibj.ADIS16448_IMU;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public class Drivetrain extends SubsystemBase {
@@ -23,7 +24,7 @@ public class Drivetrain extends SubsystemBase {
     double angleA, angleB, angleD, angleC;
     double m_x, m_y;
     SwerveMode m_mode;
-    public static final ADIS16448_IMU imu = new ADIS16448_IMU();
+    public static final ADIS16448_IMU imu = new ADIS16448_IMU(ADIS16448_IMU.IMUAxis.kZ, SPI.Port.kMXP, ADIS16448_IMU.CalibrationTime._1s);
 
     public Drivetrain() {
         m_mode = SwerveMode.CRAB;
