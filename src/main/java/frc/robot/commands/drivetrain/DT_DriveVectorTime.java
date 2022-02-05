@@ -20,11 +20,13 @@ public class DT_DriveVectorTime extends CommandBase {
         m_angle = angle;
         m_speed = speed;
         m_time = time;
+        timer = new Timer();
         addRequirements(subsystem);
     }
     
     @Override
     public void initialize() {
+        timer.reset();
         timer.start();
     }
     
@@ -35,11 +37,19 @@ public class DT_DriveVectorTime extends CommandBase {
     
     @Override
     public void end(boolean interrupted) {
-        m_subsystem.setSwerveVector(m_twist, m_angle, 0);
+        System.out.println("Command ended");
+        stop();
     }
     
+  public void stop() {
+    m_subsystem.moduleD.setVelocity(0);
+    m_subsystem.moduleC.setVelocity(0);
+    m_subsystem.moduleA.setVelocity(0);
+    m_subsystem.moduleB.setVelocity(0);
+  }
     @Override
     public boolean isFinished() {
-        return (timer.get()<m_time);
+        System.out.println(timer.get());
+        return (timer.get()>m_time);
     }
 }

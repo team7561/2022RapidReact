@@ -13,8 +13,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.DutyCycle;
@@ -37,8 +37,8 @@ public class SwerveModule extends SubsystemBase {
     CANSparkMax m_driveMotor;
     CANSparkMax m_steeringMotor;
 
-    CANPIDController m_driving_pidController;
-    CANEncoder m_steering_encoder;
+    SparkMaxPIDController m_driving_pidController;
+    SparkMaxRelativeEncoder m_steering_encoder;
 
     DigitalSource absolute_encoder_source;
     DutyCycle absolute_encoder;

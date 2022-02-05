@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -22,6 +23,9 @@ public class Climber extends SubsystemBase{
         
         climberMotorA.configFactoryDefault();
         climberMotorB.configFactoryDefault();
+        
+        climberMotorA.configOpenloopRamp(0.5);
+        climberMotorB.configOpenloopRamp(0.5);
 
         climberMotorA.setNeutralMode(NeutralMode.Brake);
         climberMotorB.setNeutralMode(NeutralMode.Brake);
@@ -29,6 +33,13 @@ public class Climber extends SubsystemBase{
     }
     public void climb()
     {
+        if (Math.abs(SmartDashboard.getNumber("Gyro X", 0))> 10)
+        {
+            DriverStation.reportError("Robot over tilt! Climber stopped.", false);
+            stop();
+            return;
+
+        }
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_LIFT_SPEED);
         climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_LIFT_SPEED);
     }
@@ -44,6 +55,8 @@ public class Climber extends SubsystemBase{
     }
     public void stop()
     {
+        climberMotorA.configOpenloopRamp(0);
+        climberMotorB.configOpenloopRamp(0);
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_STOP_SPEED);
         climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_STOP_SPEED);
     }

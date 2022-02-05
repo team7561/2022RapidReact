@@ -21,6 +21,8 @@ public class Constants {
     
     public static int INTAKE_DEPLOY_CURRENT_LIMIT = 35;
 
+    public static int INJECTOR_CARGO_INDEX_PULSE_COUNT = -10;
+
     public static double DISTANCE_TOLERANCE = 0.08;
     public static double SLOW_DOWN_DISTANCE = 0.4;
     public static double AUTO_DRIVE_SPEED = 0.2;

@@ -10,6 +10,8 @@ public class Speeds {
     public static double INTAKE_DEPLOY_UP_SPEED = 0.1;
     public static double INTAKE_DEPLOY_DOWN_SPEED = -0.1;
     public static double INTAKE_DEPLOY_STOP_SPEED = -0.0;
+    public static double INTAKE_DEPLOY_HOLD_DOWN_SPEED = -0.03;
+    
 
     //Shooter Hood
     public static double SHOOTER_HOOD_EXTENDED_POSITION = 1;
@@ -21,7 +23,7 @@ public class Speeds {
     public static double CLIMBER_DEPLOY_SPEED = -0.85;
     public static double CLIMBER_STOP_SPEED = 0;
     //Injector
-    public static double INJECTOR_TRANSFER_SPEED = 0.55;
-    public static double INJECTOR_REVERSE_SPEED = -0.55;
+    public static double INJECTOR_TRANSFER_SPEED = -0.55;
+    public static double INJECTOR_REVERSE_SPEED = 0.55;
     public static double INJECTOR_STOP_SPEED = 0;
 }

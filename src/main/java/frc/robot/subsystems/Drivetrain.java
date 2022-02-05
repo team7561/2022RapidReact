@@ -41,8 +41,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE);
         SmartDashboard.putNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE);
         SmartDashboard.putNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE);
-        SmartDashboard.putNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE);
-        
+        SmartDashboard.putNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE);    
     }
 
     @Override
@@ -56,7 +55,6 @@ public class Drivetrain extends SubsystemBase {
         moduleB.stop();
         moduleD.stop();
         moduleC.stop();
-
     }
 
 	public void resetEncoders() {
@@ -142,7 +140,13 @@ public class Drivetrain extends SubsystemBase {
             moduleC.setTargetAngle(-angle);
         }
     }
-    
+    public void setSpeed(double speed)
+    {
+        moduleA.setVelocity(speed);
+        moduleB.setVelocity(speed);
+        moduleC.setVelocity(speed);
+        moduleD.setVelocity(speed);
+    }
     public void setSwerveVector(double twist, double target_angle, double mag){
         //x and y component of translation vector (offest with imu value).
         double x = mag * Math.cos((target_angle + imu.getAngle()) * Math.PI/180);
@@ -222,6 +226,9 @@ public class Drivetrain extends SubsystemBase {
         moduleD.updateDashboard();
         moduleC.updateDashboard();
         SmartDashboard.putNumber("Gyro Angle", imu.getAngle());
+        SmartDashboard.putNumber("Gyro X", imu.getGyroAngleX());
+        SmartDashboard.putNumber("Gyro Y", imu.getGyroAngleY());
+        SmartDashboard.putNumber("Gyro Z", imu.getGyroAngleZ());
         SmartDashboard.putNumber("Gyro Temp", imu.getTemperature());
     }
 

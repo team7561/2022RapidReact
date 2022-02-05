@@ -28,16 +28,16 @@ public class DT_DriveTime extends CommandBase {
   public void execute() {
     
     if (timer.get() < 1.5){
-      m_subsystem.setSwerveVector(0.5, 0, 0.15);
+      m_subsystem.setSwerveVector(0, 0, 0.15);
     }
     else if (timer.get() < 3){
-      m_subsystem.setSwerveVector(0.5, 270, 0.15);
+      m_subsystem.setSwerveVector(0, 270, 0.15);
     }
     else if (timer.get() < 4.5){
-      m_subsystem.setSwerveVector(0.5, 180, 0.15);
+      m_subsystem.setSwerveVector(0, 180, 0.15);
     }
     else if (timer.get() < 6){
-      m_subsystem.setSwerveVector(0.5, 90, 0.15);
+      m_subsystem.setSwerveVector(0, 90, 0.15);
     }
     System.out.println("Auto Drive");
   }

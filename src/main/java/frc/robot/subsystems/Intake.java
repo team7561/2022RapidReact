@@ -47,6 +47,10 @@ public class Intake extends SubsystemBase{
     {
         intakeMotor.set(0);
     }
+    public void hold()
+    {
+        intakeDeploySpeed = Speeds.INTAKE_DEPLOY_HOLD_DOWN_SPEED;
+    }
     public void grabBall()
     {
         intakeSpeed = Speeds.GET_BALL_SPEED;
@@ -98,8 +102,15 @@ public class Intake extends SubsystemBase{
         if (intakeDeployMotor.getOutputCurrent()>Constants.INTAKE_DEPLOY_CURRENT_LIMIT)
         {
             System.out.println("Reached the end");
-            intakeDeploySpeed = 0;
             armUp = armUpRequested;
+            if (armUp)
+            {
+                intakeDeploySpeed = 0;
+            }
+            else
+            {
+                intakeDeploySpeed = Speeds.INTAKE_DEPLOY_HOLD_DOWN_SPEED;
+            }
         }
         intakeDeployMotor.set(intakeDeploySpeed);
     }
