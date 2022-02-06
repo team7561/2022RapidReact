@@ -60,9 +60,22 @@ public class DT_SwerveDrive extends CommandBase {
       System.out.println(targetTwist);
     }
 		
-    if(m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE){
-      m_subsystem.setSwerveVector(m_twist.getAsDouble() * 0.3, target_angle + 180, -m_power * m_speed.getAsDouble());
-    }
+    if(m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE{
+      double swTwist = 0
+      double swPower = 0
+
+      if (Math.abs(m_twist.getAsDouble()) > 0.01){
+        swTwist = m_twist.getAsDouble() * 0.3
+      }
+
+      if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
+        swPower = -m_power * m_speed.getAsDouble()
+        m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);
+      } 
+      else {
+        m_subsystem.stop();
+      }
+    } 
   }
 
   public void drive(double leftSpeed, double rightSpeed) {

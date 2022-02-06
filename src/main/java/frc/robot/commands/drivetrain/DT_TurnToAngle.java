@@ -41,40 +41,28 @@ public class DT_TurnToAngle extends CommandBase {
   @Override
   public void execute() {
      // m_subsystem.turnToAngle(m_speed);
-     m_subsystem.setMode(SwerveMode.SPIN);
-     m_angleDifference = m_targetAngle - m_subsystem.readGyro();
-     if ((m_angleDifference > m_targetAngle/2) && (m_angleDifference < 180)) {
-      m_subsystem.setSpeed(m_speed);
-     }
-     if ((m_angleDifference > m_targetAngle/2) && (m_angleDifference > 180)) {
-      m_subsystem.setSpeed(m_speed/2);
-     }
-     if ((m_angleDifference > m_targetAngle/4) && (m_angleDifference < 180)) {
-      m_subsystem.setSpeed(m_speed/4);
-     }
-     if ((m_angleDifference > m_targetAngle/4) && (m_angleDifference > 180)) {
-      m_subsystem.setSpeed(m_speed/4);
-     }
-     else{
-      if (m_angleDifference > 180){
-        m_subsystem.setSpeed(-m_speed);
-      }
-      else if (m_angleDifference < 180){
-        m_subsystem.setSpeed(-m_speed);
-      }
-     }
-     m_subsystem.updateDashboard();
+    m_subsystem.setMode(SwerveMode.SPIN);
+    m_angleDifference = m_targetAngle - m_subsystem.readGyro();
+
+    if (Math.abs(m_angleDifference) > 180){
+      m_angleDifference = (360 - Math.abs(m_angleDifference)) * -Math.signum(m_angleDifference);
+    }
+
+    m_subsystem.setSpeed(m_speed * m_angleDifference / 180);
+
+    m_subsystem.updateDashboard();
    }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_subsystem.setSpeed(0);
     m_subsystem.setMode(orig_mode);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {        
-        return (m_angleDifference <= Constants.ANGLE_TOLERANCE);
+        return (Math.abs(m_angleDifference) <= Constants.ANGLE_TOLERANCE);
   }
 }
