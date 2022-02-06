@@ -40,16 +40,17 @@ public class DT_TurnToAngle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     // m_subsystem.turnToAngle(m_speed);
     m_subsystem.setMode(SwerveMode.SPIN);
     m_angleDifference = m_targetAngle - m_subsystem.readGyro();
 
+    //Error in appropriate direction and magnitude (-180 to 180)
     if (Math.abs(m_angleDifference) > 180){
       m_angleDifference = (360 - Math.abs(m_angleDifference)) * -Math.signum(m_angleDifference);
     }
 
+    //Command doesn't use target angle input in SPIN mode.
+    m_subsystem.setTargetAngle(0);
     m_subsystem.setSpeed(m_speed * m_angleDifference / 180);
-
     m_subsystem.updateDashboard();
    }
 

@@ -30,52 +30,61 @@ public class DT_SwerveDrive extends CommandBase {
 
   @Override
   public void execute() {
-    abs_x = Math.abs(m_x.getAsDouble());
-    abs_y = Math.abs(m_y.getAsDouble());
-    
+    //Set module offsets
     setOffsets();
 
-    if (m_subsystem.getMode() == SwerveMode.SPIN){
-      m_power = m_twist.getAsDouble() * m_speed.getAsDouble();
-    } else {
-      m_power = Math.sqrt(Math.pow(abs_x , 2) + Math.pow(abs_y , 2)) * m_speed.getAsDouble();
-    }
-    
-    target_angle = Math.atan2(m_y.getAsDouble(), m_x.getAsDouble())+Math.PI;
+    //Joystick input in magnitude/direction from
+    m_power = Math.sqrt(Math.pow(m_x.getAsDouble() , 2) + Math.pow(m_y.getAsDouble() , 2)) * m_speed.getAsDouble();
+    target_angle = Math.atan2(m_y.getAsDouble(), m_x.getAsDouble()) + Math.PI;
     target_angle = target_angle * 360 / (2 * Math.PI);
 
-    //System.out.println(target_angle);
-
-    SmartDashboard.putNumber("current_angle", current_angle);
-    SmartDashboard.putNumber("measured_angle", m_subsystem.moduleD.getAngle());
-    SmartDashboard.putNumber("target_angle", target_angle);
-    if(m_subsystem.getMode() == SwerveMode.BALL_TRACK){
-      double ballTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ballCam").getEntry("targetYaw").getDouble(0);
-      m_subsystem.setSwerveVector(ballTwist * 0.0035, target_angle + 180, -m_power * m_speed.getAsDouble());
-      System.out.println(ballTwist);
-    }
-    if(m_subsystem.getMode() == SwerveMode.HUB_TRACK){
-      double targetTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetYaw").getDouble(0);
-      m_subsystem.setSwerveVector(targetTwist * 0.0045, target_angle + 180, -m_power * m_speed.getAsDouble());
-      System.out.println(targetTwist);
-    }
-		
-    if(m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE{
-      double swTwist = 0
-      double swPower = 0
-
-      if (Math.abs(m_twist.getAsDouble()) > 0.01){
-        swTwist = m_twist.getAsDouble() * 0.3
+    //Mode specific code
+    switch (m_subsystem.getMode()){
+      case SwerveMode.SPIN{
+        m_power = m_twist.getAsDouble() * m_speed.getAsDouble();
+      }
+      case SwerveMode.BALL_TRACK{
+        double ballTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ballCam").getEntry("targetYaw").getDouble(0);
+        m_subsystem.setSwerveVector(ballTwist * 0.0035, target_angle + 180, -m_power * m_speed.getAsDouble());
+        System.out.println(ballTwist);
+        break;
       }
 
-      if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
-        swPower = -m_power * m_speed.getAsDouble()
-        m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);
-      } 
-      else {
-        m_subsystem.stop();
+      case SwerveMode.HUB_TRACK{
+        double targetTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetYaw").getDouble(0);
+        m_subsystem.setSwerveVector(targetTwist * 0.0045, target_angle + 180, -m_power * m_speed.getAsDouble());
+        System.out.println(targetTwist);
+        break;
       }
-    } 
+
+      case SwerveMode.ULTIMATESWERVE{
+        double swTwist = 0
+        double swPower = 0
+
+        //Filtering Inputs for central deadzone in twist input
+        if (Math.abs(m_twist.getAsDouble()) > 0.01){
+          swTwist = m_twist.getAsDouble() * 0.3
+        }
+
+        //Filtering Inputs for central deadzone in translatoin input
+        if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
+          swPower = -m_power * m_speed.getAsDouble()
+        } 
+
+        if (swPower != 0 || swTwist != 0){
+          m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);\
+        }
+        else {
+          m_subsystem.stop();
+        }
+        break;
+      }
+
+      default{
+        m_subsystem.setTargetAngle(target_angle);
+        drive(-m_speed * m_speed.getAsDouble(), -m_speed * m_speed.getAsDouble());
+      }
+    }
   }
 
   public void drive(double leftSpeed, double rightSpeed) {
