@@ -28,8 +28,8 @@ public class Constants {
     public static double AUTO_DRIVE_SPEED = 0.2;
     public static double AUTO_DRIVE_SLOW_SPEED = 0.15;
     public static double TURNING_THRESHOLD = 60;
-    public static double ANGLE_TOLERANCE = 5;
-
+    public static double ANGLE_TOLERANCE = 1;
+    
     public static double SWERVE_A_OFFSET_ANGLE = 0.2;
     public static double SWERVE_B_OFFSET_ANGLE = 0.58;
     public static double SWERVE_D_OFFSET_ANGLE = 0.23;

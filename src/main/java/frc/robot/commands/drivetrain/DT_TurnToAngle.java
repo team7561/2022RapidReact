@@ -25,7 +25,7 @@ public class DT_TurnToAngle extends CommandBase {
   public DT_TurnToAngle(Drivetrain subsystem, double speed, double targetAngle){
     m_subsystem = subsystem;
     m_speed = speed;
-    m_targetAngle = targetAngle;
+    m_targetAngle = (targetAngle + m_subsystem.readGyro()) % 360;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     
@@ -34,23 +34,20 @@ public class DT_TurnToAngle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    orig_mode = m_subsystem.getMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.setMode(SwerveMode.SPIN);
     m_angleDifference = m_targetAngle - m_subsystem.readGyro();
-
+    System.out.println(m_angleDifference);
     //Error in appropriate direction and magnitude (-180 to 180)
     if (Math.abs(m_angleDifference) > 180){
       m_angleDifference = (360 - Math.abs(m_angleDifference)) * -Math.signum(m_angleDifference);
     }
 
-    //Command doesn't use target angle input in SPIN mode.
-    m_subsystem.setTargetAngle(0);
-    m_subsystem.setSpeed(m_speed * m_angleDifference / 180);
+    //Command doesn't use target angle input in SPIN mode
+    m_subsystem.setSwerveVector(-m_speed * 8 *  m_angleDifference / 180, 0, 0);
     m_subsystem.updateDashboard();
    }
 
@@ -58,7 +55,6 @@ public class DT_TurnToAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.setSpeed(0);
-    m_subsystem.setMode(orig_mode);
   }
 
   // Returns true when the command should end.

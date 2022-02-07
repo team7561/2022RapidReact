@@ -32,7 +32,8 @@ public class DT_DriveVectorTime extends CommandBase {
     
     @Override
     public void execute() {
-        m_subsystem.setSwerveVector(m_twist, m_angle, m_speed);
+        m_subsystem.setSwerveVectorNoGyro(m_twist, (m_angle + 90) % 360, m_speed);
+        // 🤣
     }
     
     @Override

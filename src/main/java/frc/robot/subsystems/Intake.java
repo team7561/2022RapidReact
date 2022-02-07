@@ -53,11 +53,21 @@ public class Intake extends SubsystemBase{
     }
     public void grabBall()
     {
-        intakeSpeed = Speeds.GET_BALL_SPEED;
+        if(!armUp){
+            intakeSpeed = Speeds.GET_BALL_SPEED;
+        }
+        else {
+            intakeMotor.set(0);
+        }
     }
     public void ejectBall()
     {
-        intakeSpeed = Speeds.EJECT_BALL_SPEED;
+        if(!armUp){
+            intakeSpeed = Speeds.EJECT_BALL_SPEED;
+        }
+        else {
+            intakeMotor.set(0);
+        }
     }
     public void extendIntake()
     {
@@ -80,6 +90,7 @@ public class Intake extends SubsystemBase{
     }
     public void toggleIntake()
     {
+        intakeMotor.set(0);
         armUpRequested = !armUpRequested;
     }
     public boolean isDone()

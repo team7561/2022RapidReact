@@ -147,10 +147,16 @@ public class Drivetrain extends SubsystemBase {
         moduleC.setVelocity(speed);
         moduleD.setVelocity(speed);
     }
+
+
     public void setSwerveVector(double twist, double target_angle, double mag){
+        setSwerveVectorNoGyro(twist, target_angle + imu.getAngle(), mag);
+    }
+
+    public void setSwerveVectorNoGyro(double twist, double target_angle, double mag){
         //x and y component of translation vector (offest with imu value).
-        double x = mag * Math.cos((target_angle + imu.getAngle()) * Math.PI/180);
-        double y = mag * Math.sin((target_angle + imu.getAngle()) * Math.PI/180);
+        double x = mag * Math.cos((target_angle) * Math.PI/180);
+        double y = mag * Math.sin((target_angle) * Math.PI/180);
 
         //Constants for individual modules (x component, y component, angle)
         double Ax = twist * Math.cos(3 * Math.PI/4) + x; 

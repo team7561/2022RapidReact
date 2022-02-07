@@ -39,50 +39,43 @@ public class DT_SwerveDrive extends CommandBase {
     target_angle = target_angle * 360 / (2 * Math.PI);
 
     //Mode specific code
-    switch (m_subsystem.getMode()){
-      case SwerveMode.SPIN{
-        m_power = m_twist.getAsDouble() * m_speed.getAsDouble();
-      }
-      case SwerveMode.BALL_TRACK{
-        double ballTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ballCam").getEntry("targetYaw").getDouble(0);
-        m_subsystem.setSwerveVector(ballTwist * 0.0035, target_angle + 180, -m_power * m_speed.getAsDouble());
-        System.out.println(ballTwist);
-        break;
-      }
+    if (m_subsystem.getMode() == SwerveMode.SPIN){
+      m_power = m_twist.getAsDouble() * m_speed.getAsDouble();
+      m_subsystem.setTargetAngle(target_angle);
+      drive(-m_speed.getAsDouble() * m_speed.getAsDouble(), -m_speed.getAsDouble() * m_speed.getAsDouble());
+    }
+    
+    if (m_subsystem.getMode() == SwerveMode.BALL_TRACK){
+      double ballTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ballCam").getEntry("targetYaw").getDouble(0);
+      m_subsystem.setSwerveVector(ballTwist * 0.0035, target_angle + 180, -m_power * m_speed.getAsDouble());
+      System.out.println(ballTwist);
+    }
+    
+    if (m_subsystem.getMode() == SwerveMode.HUB_TRACK){
+      double targetTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetYaw").getDouble(0);
+      m_subsystem.setSwerveVector(targetTwist * 0.0045, target_angle + 180, -m_power * m_speed.getAsDouble());
+      System.out.println(targetTwist);
+    }
 
-      case SwerveMode.HUB_TRACK{
-        double targetTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetYaw").getDouble(0);
-        m_subsystem.setSwerveVector(targetTwist * 0.0045, target_angle + 180, -m_power * m_speed.getAsDouble());
-        System.out.println(targetTwist);
-        break;
-      }
+    if (m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE){
+      double swTwist = 0;
+      double swPower = 0;
 
-      case SwerveMode.ULTIMATESWERVE{
-        double swTwist = 0
-        double swPower = 0
-
-        //Filtering Inputs for central deadzone in twist input
-        if (Math.abs(m_twist.getAsDouble()) > 0.01){
-          swTwist = m_twist.getAsDouble() * 0.3
-        }
-
-        //Filtering Inputs for central deadzone in translatoin input
-        if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
-          swPower = -m_power * m_speed.getAsDouble()
-        } 
-
-        if (swPower != 0 || swTwist != 0){
-          m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);\
-        }
-        else {
-          m_subsystem.stop();
-        }
-        break;
+      //Filtering Inputs for central deadzone in twist input
+      if (Math.abs(m_twist.getAsDouble()) > 0.01){
+        swTwist = m_twist.getAsDouble() * 0.3;
       }
 
-      default{
-        m_subsystem.setTargetAngle(target_angle);
-        drive(-m_speed * m_speed.getAsDouble(), -m_speed * m_speed.getAsDouble());
+      //Filtering Inputs for central deadzone in translatoin input
+      if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
+        swPower = -m_power * m_speed.getAsDouble();
+      } 
+
+      if (swPower != 0 || swTwist != 0){
+        m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);
+      }
+      else {
+        m_subsystem.stop();
       }
     }
   }

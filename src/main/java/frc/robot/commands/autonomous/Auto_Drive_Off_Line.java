@@ -13,14 +13,19 @@ import frc.robot.subsystems.*;
 
 public class Auto_Drive_Off_Line extends SequentialCommandGroup  {
 
-    public Auto_Drive_Off_Line(Drivetrain drivetrain, Intake intake, Shooter shooter, Injector injector, LEDController ledController, VisionController visionController) {
+    public Auto_Drive_Off_Line(Drivetrain drivetrain) {
         addCommands(
-        new LED_Select_Random_Colour(ledController),
-        new DT_DriveVectorTime(drivetrain, 0, 0.3, 15, 2)
+        //new LED_Select_Random_Colour(ledController),
+        new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
+        new DT_TurnToAngle(drivetrain, 0.1, 90),
+        new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
+        new DT_TurnToAngle(drivetrain, 0.1, 90),
+        new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
+        new DT_TurnToAngle(drivetrain, 0.1, 90),
+        new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
+        new DT_TurnToAngle(drivetrain, 0.1, 90)
         );
-        //addSequential(new cmdTurnToHeading(90));
-    
-        
+        //addSequential(new cmdTurnToHeading(90));  
     }
 }
 
