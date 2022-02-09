@@ -48,7 +48,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
-    shooter.setDefaultCommand(new Shooter_Set_Speed_Setpoints(shooter, 0, 0));//new Shooter_Stop(shooter));
+    shooter.setDefaultCommand(new Shooter_Stop(shooter));//new Shooter_Stop(shooter));
     intake.setDefaultCommand(new Intake_Grabbing_Stop(intake));
     climber.setDefaultCommand(new Climb_StopWinch(climber));
   }
@@ -132,14 +132,8 @@ public class RobotContainer {
     button_Y.whenPressed(new Injector_Reverse(injector), true);
     button_Y.whenReleased(new Injector_Stop(injector), true);
 
-    button_LB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1600, -1600), true);
-    button_RB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1400, -1400), true);
-    button_X.whenReleased(new Shooter_Stop(shooter), true);
-    button_Y.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1200, -1200), true);
-    button_Y.whenReleased(new Shooter_Stop(shooter), true);
-    button_LB.whenPressed(new Shooter_Extend(shooter), true);
-    button_RB.whenPressed(new Shooter_Retract(shooter), true);
-    
+    button_LB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, () -> xboxController.getLeftY(), () -> xboxController.getRightY()), true);
+    button_RB.whenPressed(new Shooter_Stop(shooter), true);    
   }
 
   /**

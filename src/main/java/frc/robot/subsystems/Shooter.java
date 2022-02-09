@@ -133,8 +133,8 @@ public class Shooter extends SubsystemBase{
         m_Btarget = b;
     }
     public void periodic(){
-        m_Atarget = SmartDashboard.getNumber("Shooter A Setpoint", 0);
-        m_Btarget = SmartDashboard.getNumber("Shooter B Setpoint", 0);
+        //m_Atarget = SmartDashboard.getNumber("Shooter A Setpoint", 0);
+        //m_Btarget = SmartDashboard.getNumber("Shooter B Setpoint", 0);
         if (shooting)
         {
             if (RPMcontrol)
