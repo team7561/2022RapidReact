@@ -125,6 +125,8 @@ public class Shooter extends SubsystemBase{
         RPMcontrol = false;
         m_Atarget = a;
         m_Btarget = b;
+        SmartDashboard.putNumber("Shooter A Setpoint", m_Atarget);
+        SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);
     }
     public void set_RPM(double a, double b)
     {

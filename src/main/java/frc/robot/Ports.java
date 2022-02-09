@@ -17,7 +17,7 @@ public class Ports {
     public static int CAN_ID_CLIMBER_DEPLOY = 12;
 
     public static int CAN_ID_SHOOTER_A = 21;
-    public static int CAN_ID_SHOOTER_B = 0;
+    public static int CAN_ID_SHOOTER_B = 22;
 
     public static int CAN_ID_INTAKE_DEPLOY = 31;
     public static int CAN_ID_INTAKE = 20;

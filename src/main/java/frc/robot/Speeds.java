@@ -23,7 +23,7 @@ public class Speeds {
     public static double CLIMBER_DEPLOY_SPEED = -0.85;
     public static double CLIMBER_STOP_SPEED = 0;
     //Injector
-    public static double INJECTOR_TRANSFER_SPEED = -0.55;
+    public static double INJECTOR_TRANSFER_SPEED = -1;
     public static double INJECTOR_REVERSE_SPEED = 0.55;
     public static double INJECTOR_STOP_SPEED = 0;
 }
