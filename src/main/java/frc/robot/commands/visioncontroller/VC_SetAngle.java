@@ -9,34 +9,29 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.VisionController;
 import java.util.function.DoubleSupplier;
 
 
-public class Shooter_Set_Speed_Setpoints extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Shooter m_subsystem;
-  private final double m_setpointA, m_setpointB;
+public class VC_SetAngle extends CommandBase {
+  private final VisionController m_subsystem;
+  private double m_angle;
 
-  /**
-   * Creates a new Shooter_Retract.
-   *  @param subsystem
-   */
-  public Shooter_Set_Speed_Setpoints(Shooter subsystem, double setpointA, double setpointB) {
+  public VC_SetAngle(VisionController subsystem, double angle) {
     m_subsystem = subsystem;
-    m_setpointA = setpointA;
-    m_setpointB = setpointB;
+    m_angle = angle;
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
     //m_subsystem.start();
-    System.out.println("Set speed setpoint");
+    System.out.println("Set LimelightController Angle");
+    m_subsystem.setAngle(m_angle);
+
   }
   @Override
   public void execute() {
-    m_subsystem.set_RPM(m_setpointA, m_setpointB);
   }
 
   @Override

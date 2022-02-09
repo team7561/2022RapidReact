@@ -15,6 +15,7 @@ import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.autonomous.*;
+import frc.robot.commands.visioncontroller.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
@@ -34,6 +35,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Injector injector = new Injector();
   private final Climber climber = new Climber();
+  private final VisionController visionController = new VisionController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
@@ -48,9 +50,10 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
-    shooter.setDefaultCommand(new Shooter_Stop(shooter));//new Shooter_Stop(shooter));
+    //shooter.setDefaultCommand(new Shooter_Stop(shooter));//new Shooter_Stop(shooter));
     intake.setDefaultCommand(new Intake_Grabbing_Stop(intake));
     climber.setDefaultCommand(new Climb_StopWinch(climber));
+    visionController.setDefaultCommand(new VC_SetAngle(visionController, 65));
   }
 
   /**
@@ -101,9 +104,10 @@ public class RobotContainer {
     button_2.whenReleased(new Intake_Grabbing_Stop(intake), true);
 
     button_3.whenPressed(new Intake_Toggle(intake), true);
-    button_4.whenPressed(new Intake_Retract(intake), true);
-    button_4.whenReleased(new Intake_Deploy_Stop(intake), true);
-    
+
+    button_4.whenPressed(new VC_SetAngle(visionController, 45), true);
+    button_4.whenReleased(new VC_SetAngle(visionController, 90), true);
+
     button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
     button_6.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
 
@@ -113,8 +117,6 @@ public class RobotContainer {
     button_10.whenPressed(new DT_ManualAlign(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2),true);
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
-    button_LT.whenPressed(new DT_DriveVectorTime(drivetrain, 0, 0, 0.15, 2),true);
-    button_RT.whenPressed(new DT_DriveVectorTime(drivetrain, 0, 270, 0.15, 2),true);
 
     dpad_Up.whenPressed(new Climb_StartWinch(climber), true);
     dpad_Up.whenReleased(new Climb_StopWinch(climber), true);
@@ -132,8 +134,19 @@ public class RobotContainer {
     button_Y.whenPressed(new Injector_Reverse(injector), true);
     button_Y.whenReleased(new Injector_Stop(injector), true);
 
-    button_LB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, () -> xboxController.getLeftY(), () -> xboxController.getRightY()), true);
-    button_RB.whenPressed(new Shooter_Stop(shooter), true);    
+    button_LB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1600, -1600), true);
+    button_LB.whenPressed(new Shooter_Extend(shooter), true);
+
+    button_RB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1400, -1400), true);
+    button_RB.whenPressed(new Shooter_Retract(shooter), true);
+    
+    button_Y.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1200, -1200), true);
+    button_Y.whenReleased(new Shooter_Stop(shooter), true);
+
+    button_X.whenReleased(new Shooter_Stop(shooter), true);
+
+
+
   }
 
   /**

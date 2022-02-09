@@ -13,19 +13,19 @@ import frc.robot.subsystems.Shooter;
 import java.util.function.DoubleSupplier;
 
 
-public class Shooter_Set_Speed_Setpoints extends CommandBase {
+public class Shooter_JoystickControl extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
-  private final double m_setpointA, m_setpointB;
+  private final DoubleSupplier m_R_joyY, m_L_joyY;
 
   /**
    * Creates a new Shooter_Retract.
    *  @param subsystem
    */
-  public Shooter_Set_Speed_Setpoints(Shooter subsystem, double setpointA, double setpointB) {
+  public Shooter_JoystickControl(Shooter subsystem, DoubleSupplier L_joyY, DoubleSupplier R_joyY) {
     m_subsystem = subsystem;
-    m_setpointA = setpointA;
-    m_setpointB = setpointB;
+    m_L_joyY = L_joyY;
+    m_R_joyY = R_joyY;
     addRequirements(subsystem);
   }
 
@@ -36,7 +36,9 @@ public class Shooter_Set_Speed_Setpoints extends CommandBase {
   }
   @Override
   public void execute() {
-    m_subsystem.set_RPM(m_setpointA, m_setpointB);
+    SmartDashboard.putNumber("Left: ", m_L_joyY.getAsDouble());
+    SmartDashboard.putNumber("Right: ", m_R_joyY.getAsDouble());
+    m_subsystem.set_voltage(m_L_joyY.getAsDouble(), m_R_joyY.getAsDouble());
   }
 
   @Override
