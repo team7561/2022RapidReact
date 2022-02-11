@@ -41,7 +41,6 @@ public class RobotContainer {
   //HID
   private Joystick joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
   private XboxController xboxController = new XboxController(1); //Logitech Extreme 3D Pro Joysick Controller
-    
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -140,13 +139,6 @@ public class RobotContainer {
     button_RB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1400, -1400), true);
     button_RB.whenPressed(new Shooter_Retract(shooter), true);
     
-    button_Y.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1200, -1200), true);
-    button_Y.whenReleased(new Shooter_Stop(shooter), true);
-
-    button_X.whenReleased(new Shooter_Stop(shooter), true);
-
-
-
   }
 
   /**

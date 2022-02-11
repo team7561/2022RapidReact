@@ -47,7 +47,7 @@ public class Shooter extends SubsystemBase{
         // PID coefficients
         kP = 0.0008; 
         kI = 0.000002;
-        kD = 0.000003;//4; 
+        kD = 0.000003;
         kIz = 500; // Error process value must be within before I is used.
         kFF = 0; 
         m_setpoint = 0;
@@ -90,7 +90,6 @@ public class Shooter extends SubsystemBase{
     public void fullyRetractHood()
     {
         m_hood_setpoint = 1;
-
     }
     public void fullyExtendHood()
     {

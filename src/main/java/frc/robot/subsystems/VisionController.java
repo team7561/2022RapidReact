@@ -4,6 +4,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Servo;
+import frc.robot.Constants;
 import frc.robot.Ports;
 
 public class VisionController extends SubsystemBase {
@@ -39,6 +40,8 @@ public class VisionController extends SubsystemBase {
 		SmartDashboard.putNumber("ta", get_ta());
 		SmartDashboard.putNumber("tx", get_tx());
 		SmartDashboard.putNumber("ty", get_ty());
+		SmartDashboard.putNumber("calcDistance", calcDistance());
+		SmartDashboard.putNumber("calcSetpoint", calcSetpoint());
 	}
 
 	public void setAngle(double angle){
@@ -77,14 +80,14 @@ public class VisionController extends SubsystemBase {
 	}
 
 	// Returns distance to target in metres
-	public double getDistance()
+	public double calcDistance()
 	{
-		return 4;
+		return (Constants.HIGH_HUB_HEIGHT-Constants.LIMELIGHT_HEIGHT)/Math.tan(m_angle_L);
 	}
 
 	public double calcSetpoint()
 	{
-		return getDistance()*200;
+		return calcDistance()*200;
 	}
 	public double calcSpin()
 	{
