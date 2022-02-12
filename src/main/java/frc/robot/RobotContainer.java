@@ -51,8 +51,6 @@ public class RobotContainer {
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
-    intake.setDefaultCommand(new INT_Main(intake));
-    injector.setDefaultCommand(new INJ_Main(injector));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
     visionController.setDefaultCommand(new VC_SetAngle(visionController, 65));
   }

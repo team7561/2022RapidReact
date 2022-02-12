@@ -52,6 +52,34 @@ public class Injector extends SubsystemBase{
         injectorMotor.set(Speeds.INJ_stop_SPEED);
     }
     public void periodic(){
+        if(m_mode == InjectorMode.INJECTOR_FORWARD) {
+            forward();
+        }
+  
+        if(m_mode == InjectorMode.INJECTOR_REVERSE) {
+            reverse();
+        }
+  
+        if(m_mode == InjectorMode.INJECTOR_INDEX_BALL){
+            if(getEncoderCount() < Constants.INJECTOR_CARGO_INDEX_PULSE_COUNT){
+                forward();
+            } else {
+                setMode(InjectorMode.INJECTOR_STOP);
+            }
+        }
+  
+        if(m_mode == InjectorMode.INJECTOR_REVERSE_INDEX_BALL){
+            if(getEncoderCount() > -Constants.INJECTOR_CARGO_INDEX_PULSE_COUNT){
+                forward();
+            } else {
+                setMode(InjectorMode.INJECTOR_STOP);
+            }
+        }
+  
+        if(m_mode == InjectorMode.INJECTOR_STOP){
+            stop();
+        }
+        
         updateDashboard();
     }
     public void resetEncoder()
