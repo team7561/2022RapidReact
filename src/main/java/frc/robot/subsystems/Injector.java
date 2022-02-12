@@ -24,6 +24,7 @@ public class Injector extends SubsystemBase{
         injectorMotor.restoreFactoryDefaults();
         injectorMotor.setIdleMode(IdleMode.kCoast);
         injectorMotor.setSmartCurrentLimit(20);
+        resetEncoder();
     }
 
     public void setMode(InjectorMode mode){

@@ -53,4 +53,8 @@ public class Constants {
     public static double BLINKIN_BLUE                   = 0.83; 
     public static double BLINKIN_LIGHTCHASE             = -0.29;
     public static double BLINKIN_COLOUR_WAVE_RAINBOW    = -0.45;
+
+
+    public static double HIGH_HUB_HEIGHT = 2.3;
+    public static double LIMELIGHT_HEIGHT = 0.8;
 }
