@@ -29,7 +29,7 @@ public class Drivetrain extends SubsystemBase {
     public static final ADIS16448_IMU imu = new ADIS16448_IMU(ADIS16448_IMU.IMUAxis.kZ, SPI.Port.kMXP, ADIS16448_IMU.CalibrationTime._1s);
 
     public Drivetrain() {
-        m_mode = SwerveMode.CRAB;
+        m_mode = SwerveMode.ULTIMATESWERVE;
         moduleA = new SwerveModule(Constants.SWERVE_A_OFFSET_ANGLE, Constants.SWERVE_A_ENCODER_PORT, Ports.CAN_ID_DRIVING_A, Ports.CAN_ID_STEERING_A, "A");
         moduleB = new SwerveModule(Constants.SWERVE_B_OFFSET_ANGLE, Constants.SWERVE_B_ENCODER_PORT, Ports.CAN_ID_DRIVING_B, Ports.CAN_ID_STEERING_B, "B");
         moduleD = new SwerveModule(Constants.SWERVE_D_OFFSET_ANGLE, Constants.SWERVE_D_ENCODER_PORT, Ports.CAN_ID_DRIVING_D, Ports.CAN_ID_STEERING_D, "D");

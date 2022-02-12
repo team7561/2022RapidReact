@@ -42,7 +42,7 @@ public class DT_SwerveDrive extends CommandBase {
     if (m_subsystem.getMode() == SwerveMode.SPIN){
       m_power = m_twist.getAsDouble() * m_speed.getAsDouble();
       m_subsystem.setTargetAngle(target_angle);
-      drive(-m_speed.getAsDouble() * m_speed.getAsDouble(), -m_speed.getAsDouble() * m_speed.getAsDouble());
+      drive(m_power, m_power);
     }
     
     if (m_subsystem.getMode() == SwerveMode.BALL_TRACK){

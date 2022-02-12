@@ -128,9 +128,11 @@ public class Intake extends SubsystemBase{
 
         if(getMode() == IntakeMode.INTAKE_DEPLOY_REQUESTED){
             intakeDeploySpeed = Speeds.INTAKE_DEPLOY_DOWN_SPEED;
-            intakeRequested = false;
-            reverse = false;
-            stop();
+            if(intakeRequested){
+                grabBall();
+            } else {
+                stop();
+            }
             if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT){
                 System.out.println("Intake Deployed");
                 setMode(IntakeMode.INTAKE_DEPLOYED);
