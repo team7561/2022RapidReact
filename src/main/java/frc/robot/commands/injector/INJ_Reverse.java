@@ -1,35 +1,33 @@
 package frc.robot.commands.injector;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Injector;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.InjectorMode;
 
-public class Injector_Reverse_Index_Ball extends CommandBase {
+public class INJ_Reverse extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Injector m_subsystem;
 
-  public Injector_Reverse_Index_Ball(Injector subsystem) {
+  public INJ_Reverse(Injector subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
-    m_subsystem.resetEncoder();
   }
 
   @Override
   public void execute() {
-      m_subsystem.reverse();
+      m_subsystem.setMode(InjectorMode.INJECTOR_REVERSE);
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.stop();
   }
 
   @Override
   public boolean isFinished() {
-    return m_subsystem.getEncoderCount() > -Constants.INJECTOR_CARGO_INDEX_PULSE_COUNT;
+    return true;
   }
 }

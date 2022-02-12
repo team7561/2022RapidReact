@@ -50,9 +50,10 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
-    //shooter.setDefaultCommand(new Shooter_Stop(shooter));//new Shooter_Stop(shooter));
-    intake.setDefaultCommand(new Intake_Grabbing_Stop(intake));
-    climber.setDefaultCommand(new Climb_StopWinch(climber));
+    //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
+    intake.setDefaultCommand(new INT_Main(intake));
+    injector.setDefaultCommand(new INJ_Main(injector));
+    climber.setDefaultCommand(new CLB_StopWinch(climber));
     visionController.setDefaultCommand(new VC_SetAngle(visionController, 65));
   }
 
@@ -98,18 +99,15 @@ public class RobotContainer {
     
     //trigger.whenPressed(new DT_ArcadeDrive(drivetrain, 0.4, 0.4, 0.5),true);
     
-    trigger.whenPressed(new Intake_GrabBall(intake), true);
-    trigger.whenReleased(new Intake_Grabbing_Stop(intake), true);
-    button_2.whenPressed(new Intake_EjectBall(intake), true);
-    button_2.whenReleased(new Intake_Grabbing_Stop(intake), true);
+    trigger.whenPressed(new INT_Grabbing_Start(intake), true);
+    trigger.whenReleased(new INT_Grabbing_Stop(intake), true);
+    button_2.whenPressed(new INT_EjectBall(intake), true);
+    button_2.whenReleased(new INT_Grabbing_Stop(intake), true);
 
-    button_3.whenPressed(new Intake_Toggle(intake), true);
+    button_3.whenPressed(new INT_Toggle(intake), true);
 
-    button_4.whenPressed(new VC_SetAngle(visionController, 45), true);
-    button_4.whenReleased(new VC_SetAngle(visionController, 90), true);
-
-    button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
-    button_6.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
+    button_4.whenPressed(new SH_Extend(shooter), true);
+    button_4.whenReleased(new SH_Retract(shooter), true);
 
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.CRAB),true);
     button_8.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.SPIN),true);
@@ -118,34 +116,32 @@ public class RobotContainer {
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
-    dpad_Up.whenPressed(new Climb_StartWinch(climber), true);
-    dpad_Up.whenReleased(new Climb_StopWinch(climber), true);
-    dpad_Down.whenPressed(new Climb_ReverseWinch(climber), true);
-    dpad_Down.whenReleased(new Climb_StopWinch(climber), true);
-    dpad_Left.whenPressed(new Climb_Deploy(climber), true);
-    dpad_Left.whenReleased(new Climb_StopWinch(climber), true);
-    dpad_Right.whenPressed(new Climb_Deploy(climber), true);
-    dpad_Right.whenReleased(new Climb_StopWinch(climber), true);
+    dpad_Up.whenPressed(new CLB_StartWinch(climber, intake), true);
+    dpad_Up.whenReleased(new CLB_StopWinch(climber), true);
+    dpad_Down.whenPressed(new CLB_ReverseWinch(climber, intake), true);
+    dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
+    dpad_Left.whenPressed(new CLB_Deploy(climber, intake), true);
+    dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
+    dpad_Right.whenPressed(new CLB_Deploy(climber, intake), true);
+    dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
 
-    button_A.whenPressed(new Injector_Index_Ball(injector), true);
-    button_B.whenPressed(new Injector_Reverse_Index_Ball(injector), true);
-    button_X.whenPressed(new Injector_Forward(injector), true);
-    button_X.whenReleased(new Injector_Stop(injector), true);
-    button_Y.whenPressed(new Injector_Reverse(injector), true);
-    button_Y.whenReleased(new Injector_Stop(injector), true);
+    button_A.whenPressed(new INJ_Index_Ball(injector), true);
+    button_B.whenPressed(new INJ_Reverse_Index_Ball(injector), true);
+    button_X.whenPressed(new INJ_Forward(injector), true);
+    button_X.whenReleased(new INJ_Stop(injector), true);
+    button_Y.whenPressed(new INJ_Reverse(injector), true);
+    button_Y.whenReleased(new INJ_Stop(injector), true);
 
-    button_LB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1600, -1600), true);
-    button_LB.whenPressed(new Shooter_Extend(shooter), true);
+    button_LB.whenPressed(new SH_Set_Speed_Setpoints(shooter, 1600, -1600), true);
+    button_LB.whenPressed(new SH_Extend(shooter), true);
 
-    button_RB.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1400, -1400), true);
-    button_RB.whenPressed(new Shooter_Retract(shooter), true);
+    button_RB.whenPressed(new SH_Set_Speed_Setpoints(shooter, 1400, -1400), true);
+    button_RB.whenPressed(new SH_Retract(shooter), true);
     
-    button_Y.whenPressed(new Shooter_Set_Speed_Setpoints(shooter, 1200, -1200), true);
-    button_Y.whenReleased(new Shooter_Stop(shooter), true);
+    button_Y.whenPressed(new SH_Set_Speed_Setpoints(shooter, 1200, -1200), true);
+    button_Y.whenReleased(new SH_Stop(shooter), true);
 
-    button_X.whenReleased(new Shooter_Stop(shooter), true);
-
-
+    button_X.whenReleased(new SH_Stop(shooter), true);
 
   }
 

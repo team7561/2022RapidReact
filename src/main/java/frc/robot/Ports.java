@@ -25,7 +25,9 @@ public class Ports {
     public static int CAN_ID_INJECTOR = 41;
 
     // PWM control channels
-    public static int PWM_SHOOTER_HOOD_SERVO = 3;
+    //0 and 1 for LimeLight
+    public static int PWM_SHOOTER_HOOD_LEFT_SERVO = 2;
+    public static int PWM_SHOOTER_HOOD_RIGHT_SERVO = 3;
     public static int PWM_LED_CONTROLLER_CHANNEL = 6;
 
     // DIO ports

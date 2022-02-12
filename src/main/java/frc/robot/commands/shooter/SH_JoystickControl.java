@@ -7,28 +7,38 @@
 
 package frc.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import java.util.function.DoubleSupplier;
 
-public class Shooter_Retract extends CommandBase {
+
+public class SH_JoystickControl extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
+  private final DoubleSupplier m_R_joyY, m_L_joyY;
+
   /**
-   * Creates a new Shooter_Retract.
+   * Creates a new SH_Retract.
    *  @param subsystem
    */
-  public Shooter_Retract(Shooter subsystem) {
+  public SH_JoystickControl(Shooter subsystem, DoubleSupplier L_joyY, DoubleSupplier R_joyY) {
     m_subsystem = subsystem;
+    m_L_joyY = L_joyY;
+    m_R_joyY = R_joyY;
     addRequirements(subsystem);
   }
+
   @Override
-  public void initialize()
-  {
-    System.out.println("Starting Shooter Retract");
+  public void initialize() {
+    //m_subsystem.start();
+    System.out.println("Set speed setpoint");
   }
   @Override
   public void execute() {
-    m_subsystem.fullyRetractHood();
+    SmartDashboard.putNumber("Left: ", m_L_joyY.getAsDouble());
+    SmartDashboard.putNumber("Right: ", m_R_joyY.getAsDouble());
+    m_subsystem.set_voltage(m_L_joyY.getAsDouble(), m_R_joyY.getAsDouble());
   }
 
   @Override

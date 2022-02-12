@@ -2,12 +2,13 @@ package frc.robot.commands.injector;
 
 import frc.robot.subsystems.Injector;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.InjectorMode;
 
-public class Injector_Stop extends CommandBase {
+public class INJ_Stop extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Injector m_subsystem;
 
-  public Injector_Stop(Injector subsystem) {
+  public INJ_Stop(Injector subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,16 +19,15 @@ public class Injector_Stop extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.stop();
+      m_subsystem.setMode(InjectorMode.INJECTOR_STOP);
   }
 
   @Override
   public void end(boolean interrupted) {
-      m_subsystem.stop();
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -10,18 +10,22 @@ import com.revrobotics.SparkMaxAnalogSensor.Mode;
 import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.Speeds;
+import frc.robot.IntakeMode;
 
 
 public class Intake extends SubsystemBase{
-    double m_deployTarget;
-
     private CANSparkMax intakeMotor;
     private CANSparkMax intakeDeployMotor;
 
     public boolean armUp = false;
     public boolean armUpRequested = true;
+    public boolean intakeRequested = false;
+    public boolean reverse = false;
     public double intakeSpeed = 0;
     public double intakeDeploySpeed = 0;
+
+
+    public IntakeMode m_mode = IntakeMode.INTAKE_RETRACT_REQUESTED;
 
     public double m_hood_position, m_hood_setpoint;
 
@@ -40,12 +44,21 @@ public class Intake extends SubsystemBase{
 
         SmartDashboard.putNumber("intakeMotor", 0.1);
         SmartDashboard.putNumber("intakeDeployMotor", 0.1);
-
-
     }
+
+    public IntakeMode getMode(){
+        return m_mode;
+    }
+
+    public void setMode(IntakeMode mode){
+        m_mode = mode;
+    }
+
     public void stop()
     {
-        intakeMotor.set(0);
+        intakeRequested = false;
+        reverse = false;
+        intakeSpeed = 0;
     }
     public void hold()
     {
@@ -74,7 +87,6 @@ public class Intake extends SubsystemBase{
         armUpRequested = false;
         intakeDeploySpeed = Speeds.INTAKE_DEPLOY_DOWN_SPEED;
         //intakeDeployMotor.set(Speeds.INTAKE_DEPLOY_DOWN_SPEED);
-        m_deployTarget = 1000;
     }
     public void stopDeploy()
     {
@@ -85,8 +97,6 @@ public class Intake extends SubsystemBase{
     {
         armUpRequested = true;
         intakeDeploySpeed = Speeds.INTAKE_DEPLOY_UP_SPEED;
-        //intakeDeployMotor.set(Speeds.INTAKE_DEPLOY_UP_SPEED);
-        m_deployTarget = 0;
     }
     public void toggleIntake()
     {
@@ -99,30 +109,44 @@ public class Intake extends SubsystemBase{
     }
     public void periodic(){
         updateDashboard();
+
+        if(getMode() == IntakeMode.INTAKE_RETRACT_REQUESTED){
+            intakeDeploySpeed = Speeds.INTAKE_DEPLOY_UP_SPEED;
+            intakeRequested = false;
+            reverse = false;
+            stop();
+            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT){
+                System.out.println("Intake Retracted");
+                setMode(IntakeMode.INTAKE_RETRACTED);
+            }
+        }
+
+        else if(getMode() == IntakeMode.INTAKE_RETRACTED){
+            intakeDeploySpeed = 0;
+            stop();
+        }
+
+        if(getMode() == IntakeMode.INTAKE_DEPLOY_REQUESTED){
+            intakeDeploySpeed = Speeds.INTAKE_DEPLOY_DOWN_SPEED;
+            intakeRequested = false;
+            reverse = false;
+            stop();
+            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT){
+                System.out.println("Intake Deployed");
+                setMode(IntakeMode.INTAKE_DEPLOYED);
+            }
+        }
+
+        else if(getMode() == IntakeMode.INTAKE_DEPLOYED){
+            intakeDeploySpeed = Speeds.INTAKE_DEPLOY_HOLD_DOWN_SPEED;
+            if(intakeRequested){
+                grabBall();
+            } else {
+                stop();
+            }
+        }
+
         intakeMotor.set(intakeSpeed);
-        if (armUp!=armUpRequested)
-        {
-            if (armUpRequested)
-            {
-                intakeDeploySpeed = Speeds.INTAKE_DEPLOY_UP_SPEED;
-            }
-            else {
-                intakeDeploySpeed = Speeds.INTAKE_DEPLOY_DOWN_SPEED;
-            }
-        }
-        if (intakeDeployMotor.getOutputCurrent()>Constants.INTAKE_DEPLOY_CURRENT_LIMIT)
-        {
-            System.out.println("Reached the end");
-            armUp = armUpRequested;
-            if (armUp)
-            {
-                intakeDeploySpeed = 0;
-            }
-            else
-            {
-                intakeDeploySpeed = Speeds.INTAKE_DEPLOY_HOLD_DOWN_SPEED;
-            }
-        }
         intakeDeployMotor.set(intakeDeploySpeed);
     }
     public void updateDashboard()
@@ -135,5 +159,4 @@ public class Intake extends SubsystemBase{
             SmartDashboard.putNumber("Intake Deploy Current", intakeDeployMotor.getOutputCurrent());
         }
     }
-
 }

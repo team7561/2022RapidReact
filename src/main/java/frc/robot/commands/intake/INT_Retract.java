@@ -1,13 +1,14 @@
-package frc.robot.commands.injector;
+package frc.robot.commands.intake;
 
-import frc.robot.subsystems.Injector;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.IntakeMode;
 
-public class Injector_Forward extends CommandBase {
+public class INT_Retract extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Injector m_subsystem;
+  private final Intake m_subsystem;
 
-  public Injector_Forward(Injector subsystem) {
+  public INT_Retract(Intake subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +19,7 @@ public class Injector_Forward extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.forward();
+      m_subsystem.setMode(IntakeMode.INTAKE_RETRACT_REQUESTED);
   }
 
   @Override
@@ -27,6 +28,6 @@ public class Injector_Forward extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

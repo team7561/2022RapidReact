@@ -17,48 +17,48 @@ public class Auto1 extends SequentialCommandGroup  {
         addCommands(
             new ParallelDeadlineGroup(new TimerCommand(4),
                 new DT_TurnToAngle(drivetrain, 0.4, 0.4),
-                new Shooter_Shooting_Start(shooter),
-                new Intake_Extend(intake),
+                new SH_Shooting_Start(shooter),
+                new INT_Deploy(intake),
                 new LED_Select_Random_Colour(ledController)
                 ),
             new ParallelDeadlineGroup(new TimerCommand(3),
-                new Shooter_Extend(shooter),
+                new SH_Extend(shooter),
                 new LED_Select_Random_Colour(ledController)
                 ),
         
         new ParallelDeadlineGroup(new TimerCommand(0.5),
-            new Injector_Index_Ball(injector),
-            new Intake_Extend(intake),
+            new INJ_Index_Ball(injector),
+            new INT_Deploy(intake),
             new LED_Select_Random_Colour(ledController)
         ),
         new ParallelCommandGroup(
             new TimerCommand(1),
-            new Intake_Extend(intake),
+            new INT_Deploy(intake),
             new LED_Select_Random_Colour(ledController)
             ),
         new ParallelDeadlineGroup(new TimerCommand(0.5),
-            new Intake_GrabBall(intake),
+            new INT_Grabbing_Start(intake),
             new LED_Select_Random_Colour(ledController)
                 ),
         new ParallelCommandGroup(
             new TimerCommand(1),
-            new Intake_Extend(intake),
+            new INT_Deploy(intake),
             new LED_Select_Random_Colour(ledController)
             ),
         new ParallelCommandGroup(
             new TimerCommand(1),
-            new Intake_Extend(intake),
+            new INT_Deploy(intake),
             new LED_Select_Random_Colour(ledController)
             ),
         //new DT_DriveDistance(drivetrain, 0.5, 1),
         //new DT_TurnToVisionAngle(drivetrain, visionController, () -> 0.4),
-        new Intake_Retract(intake),
+        new INT_Retract(intake),
         new DT_DriveVectorTime(drivetrain, 0, 0.3, 15, 2),
 
         new ParallelCommandGroup(
             new DT_Drive_Stop(drivetrain),
-            new Shooter_Stop(shooter),
-            new Injector_Stop(injector),
+            new SH_Stop(shooter),
+            new INJ_Stop(injector),
             new LED_Select_Random_Colour(ledController)
             )
         );

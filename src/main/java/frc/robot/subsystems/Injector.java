@@ -7,16 +7,16 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants;
-
 import frc.robot.Ports;
 import frc.robot.Speeds;
+import frc.robot.InjectorMode;
 
 public class Injector extends SubsystemBase{
     double m_deployTarget;
-
     CANSparkMax injectorMotor;
-
     public double m_hood_position, m_hood_setpoint;
+
+    public InjectorMode m_mode = InjectorMode.INJECTOR_STOP;
 
     public Injector(){
         injectorMotor = new CANSparkMax(Ports.CAN_ID_INJECTOR, MotorType.kBrushless);
@@ -25,6 +25,15 @@ public class Injector extends SubsystemBase{
         injectorMotor.setIdleMode(IdleMode.kCoast);
         injectorMotor.setSmartCurrentLimit(20);
     }
+
+    public void setMode(InjectorMode mode){
+        m_mode = mode;
+    }
+
+    public InjectorMode getMode(){
+        return m_mode;
+    }
+
     public void transferBall()
     {
         injectorMotor.set(Speeds.INJECTOR_TRANSFER_SPEED);
@@ -35,11 +44,11 @@ public class Injector extends SubsystemBase{
     }
     public void reverse()
     {
-        injectorMotor.set(Speeds.INJECTOR_REVERSE_SPEED);
+        injectorMotor.set(Speeds.INJ_Reverse_SPEED);
     }
     public void stop()
     {
-        injectorMotor.set(Speeds.INJECTOR_STOP_SPEED);
+        injectorMotor.set(Speeds.INJ_stop_SPEED);
     }
     public void periodic(){
         updateDashboard();

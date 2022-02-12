@@ -15,6 +15,7 @@ import frc.robot.Ports;
 import frc.robot.SwerveMode;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class Drivetrain extends SubsystemBase {
     /**
@@ -23,6 +24,7 @@ public class Drivetrain extends SubsystemBase {
     public SwerveModule moduleA, moduleB, moduleD, moduleC;
     double angleA, angleB, angleD, angleC;
     double m_x, m_y;
+    double prevGyro = 0;
     SwerveMode m_mode;
     public static final ADIS16448_IMU imu = new ADIS16448_IMU(ADIS16448_IMU.IMUAxis.kZ, SPI.Port.kMXP, ADIS16448_IMU.CalibrationTime._1s);
 
@@ -37,7 +39,6 @@ public class Drivetrain extends SubsystemBase {
         m_y = 0;
         imu.calibrate();
         imu.reset();
-
         SmartDashboard.putNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE);
         SmartDashboard.putNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE);
         SmartDashboard.putNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE);
@@ -46,6 +47,11 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if(prevGyro != imu.getAngle()){
+            prevGyro = imu.getAngle();
+        } else {
+            DriverStation.reportError("Robot Gyro Failed!", false);
+        }
         // This method will be called once per scheduler run
         updateDashboard();
     }

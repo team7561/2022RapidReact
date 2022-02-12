@@ -7,38 +7,29 @@
 
 package frc.robot.commands.shooter;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
-import java.util.function.DoubleSupplier;
 
-
-public class Shooter_JoystickControl extends CommandBase {
+public class SH_Stop extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
-  private final DoubleSupplier m_R_joyY, m_L_joyY;
-
   /**
-   * Creates a new Shooter_Retract.
-   *  @param subsystem
+   * 
+   * Creates a new SH_Extend.
+   * @param subsystem
    */
-  public Shooter_JoystickControl(Shooter subsystem, DoubleSupplier L_joyY, DoubleSupplier R_joyY) {
+  public SH_Stop(Shooter subsystem) {
     m_subsystem = subsystem;
-    m_L_joyY = L_joyY;
-    m_R_joyY = R_joyY;
     addRequirements(subsystem);
   }
-
   @Override
-  public void initialize() {
-    //m_subsystem.start();
-    System.out.println("Set speed setpoint");
+  public void initialize()
+  {
+    System.out.println("Stopping Shooter.");
   }
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Left: ", m_L_joyY.getAsDouble());
-    SmartDashboard.putNumber("Right: ", m_R_joyY.getAsDouble());
-    m_subsystem.set_voltage(m_L_joyY.getAsDouble(), m_R_joyY.getAsDouble());
+    m_subsystem.stop();
   }
 
   @Override

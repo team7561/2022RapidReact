@@ -1,13 +1,14 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.intake;
 
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.IntakeMode;
 
-public class Climb_StartWinch extends CommandBase {
+public class INT_Deploy extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Climber m_subsystem;
+  private final Intake m_subsystem;
 
-  public Climb_StartWinch(Climber subsystem) {
+  public INT_Deploy(Intake subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +19,7 @@ public class Climb_StartWinch extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.climb();
+      m_subsystem.setMode(IntakeMode.INTAKE_DEPLOY_REQUESTED);
   }
 
   @Override
@@ -27,6 +28,6 @@ public class Climb_StartWinch extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -28,8 +28,8 @@ public class VisionController extends SubsystemBase {
 	}
 	public void periodic()
 	{
-        servo_L.setAngle(m_angle_L);
-        servo_R.setAngle(m_angle_R);
+        //servo_L.setAngle(m_angle_L);
+        //servo_R.setAngle(m_angle_R);
 
 		if(!useAngle){
 				m_angle_L -= 4 * get_ty()/40;

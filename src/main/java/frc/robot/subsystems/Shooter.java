@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.Servo;
 
 import frc.robot.Constants;
 import frc.robot.Ports;
@@ -14,10 +15,11 @@ import frc.robot.Ports;
 
 public class Shooter extends SubsystemBase{
     double m_Atarget, m_Btarget;
+    double hoodServoPos = 0;
 
     CANSparkMax shooterMotorA;
     CANSparkMax shooterMotorB;
-    Servo shooterHood; 
+    Servo shooterHoodA, shooterHoodB; 
     boolean shooting, RPMcontrol, autoHood, autoVelocityControl;
 
     private SparkMaxPIDController m_ApidController;
@@ -31,7 +33,6 @@ public class Shooter extends SubsystemBase{
         RPMcontrol = true;
         shooterMotorA = new CANSparkMax(Ports.CAN_ID_SHOOTER_A, MotorType.kBrushless);
         shooterMotorB = new CANSparkMax(Ports.CAN_ID_SHOOTER_B, MotorType.kBrushless);
-        shooterHood = new Servo(Ports.PWM_SHOOTER_HOOD_SERVO);
         
         m_ApidController = shooterMotorA.getPIDController();
         m_BpidController = shooterMotorB.getPIDController();
@@ -71,6 +72,9 @@ public class Shooter extends SubsystemBase{
         m_BpidController.setIZone(kIz);
         m_BpidController.setFF(kFF);
         m_BpidController.setOutputRange(kMinOutput, kMaxOutput);
+
+        shooterHoodA = new Servo(Ports.PWM_SHOOTER_HOOD_LEFT_SERVO);
+        shooterHoodB = new Servo(Ports.PWM_SHOOTER_HOOD_RIGHT_SERVO);
     }
 
     public void setMotorA(double target){
@@ -89,12 +93,12 @@ public class Shooter extends SubsystemBase{
     }
     public void fullyRetractHood()
     {
-        m_hood_setpoint = 1;
+        hoodServoPos = 0;
 
     }
     public void fullyExtendHood()
     {
-        m_hood_setpoint = 0;
+        hoodServoPos = 1;
     }
     public void stop()
     {
@@ -135,6 +139,11 @@ public class Shooter extends SubsystemBase{
         m_Btarget = b;
     }
     public void periodic(){
+        hoodServoPos = SmartDashboard.getNumber("Shooter Hood", 0);
+
+        shooterHoodA.set(1 - hoodServoPos);
+        shooterHoodB.set(hoodServoPos);
+
         m_Atarget = SmartDashboard.getNumber("Shooter A Setpoint", 0);
         m_Btarget = SmartDashboard.getNumber("Shooter B Setpoint", 0);
         if (shooting)
@@ -151,7 +160,6 @@ public class Shooter extends SubsystemBase{
 
             }
         }
-        shooterHood.set(m_hood_setpoint);
         updateDashboard();
         if (autoHood)
         {
@@ -168,7 +176,8 @@ public class Shooter extends SubsystemBase{
             SmartDashboard.putNumber("Shooter B Speed", shooterMotorB.getEncoder().getVelocity());
             SmartDashboard.putNumber("Shooter A Setpoint", m_Atarget);
             SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);
-            SmartDashboard.putNumber("Shooter Hood Position", shooterHood.get());
+            SmartDashboard.putNumber("Shooter Hood", hoodServoPos);
+            //SmartDashboard.putNumber("Shooter Hood Position", shooterHood.get());
         }
     }
 }

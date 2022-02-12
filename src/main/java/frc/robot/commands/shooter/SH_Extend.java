@@ -7,40 +7,32 @@
 
 package frc.robot.commands.shooter;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
-import java.util.function.DoubleSupplier;
 
-
-public class Shooter_Set_Speed_Setpoints extends CommandBase {
+public class SH_Extend extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
-  private final double m_setpointA, m_setpointB;
-
   /**
-   * Creates a new Shooter_Retract.
-   *  @param subsystem
+   * 
+   * Creates a new SH_Extend.
+   * @param subsystem
    */
-  public Shooter_Set_Speed_Setpoints(Shooter subsystem, double setpointA, double setpointB) {
+  public SH_Extend(Shooter subsystem) {
     m_subsystem = subsystem;
-    m_setpointA = setpointA;
-    m_setpointB = setpointB;
     addRequirements(subsystem);
   }
 
-  @Override
   public void initialize() {
-    //m_subsystem.start();
-    System.out.println("Set speed setpoint");
+    System.out.println("Starting Shooter Extend");
   }
   @Override
   public void execute() {
-    m_subsystem.set_RPM(m_setpointA, m_setpointB);
+    m_subsystem.fullyExtendHood();
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

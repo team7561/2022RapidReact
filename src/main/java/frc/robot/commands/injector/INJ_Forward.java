@@ -1,13 +1,14 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.injector;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Injector;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.InjectorMode;
 
-public class Intake_Grabbing_Stop extends CommandBase {
+public class INJ_Forward extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_subsystem;
+  private final Injector m_subsystem;
 
-  public Intake_Grabbing_Stop(Intake subsystem) {
+  public INJ_Forward(Injector subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +19,7 @@ public class Intake_Grabbing_Stop extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.stop();
+      m_subsystem.setMode(InjectorMode.INJECTOR_FORWARD);
   }
 
   @Override
@@ -27,6 +28,6 @@ public class Intake_Grabbing_Stop extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

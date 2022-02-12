@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.Constants;
 
-public class Shooter_Shooting_Start extends CommandBase {
+public class SH_Shooting_Start extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
 
-  public Shooter_Shooting_Start(Shooter subsystem) {
+  public SH_Shooting_Start(Shooter subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }

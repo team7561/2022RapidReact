@@ -10,26 +10,25 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class Shooter_Stop extends CommandBase {
+public class SH_Retract extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_subsystem;
   /**
-   * 
-   * Creates a new Shooter_Extend.
-   * @param subsystem
+   * Creates a new SH_Retract.
+   *  @param subsystem
    */
-  public Shooter_Stop(Shooter subsystem) {
+  public SH_Retract(Shooter subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
   @Override
   public void initialize()
   {
-    System.out.println("Stopping Shooter.");
+    System.out.println("Starting Shooter Retract");
   }
   @Override
   public void execute() {
-    m_subsystem.stop();
+    m_subsystem.fullyRetractHood();
   }
 
   @Override

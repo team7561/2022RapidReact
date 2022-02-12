@@ -1,13 +1,15 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.injector;
 
-import frc.robot.subsystems.Intake;
+import frc.robot.Constants;
+import frc.robot.subsystems.Injector;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.InjectorMode;
 
-public class Intake_Toggle extends CommandBase {
+public class INJ_Reverse_Index_Ball extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_subsystem;
+  private final Injector m_subsystem;
 
-  public Intake_Toggle(Intake subsystem) {
+  public INJ_Reverse_Index_Ball(Injector subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +20,8 @@ public class Intake_Toggle extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.toggleIntake();
+    m_subsystem.resetEncoder();
+    m_subsystem.setMode(InjectorMode.INJECTOR_REVERSE_INDEX_BALL);
   }
 
   @Override

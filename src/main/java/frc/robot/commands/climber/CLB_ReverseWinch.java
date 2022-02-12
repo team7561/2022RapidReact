@@ -2,13 +2,17 @@ package frc.robot.commands.climber;
 
 import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Intake;
+import frc.robot.IntakeMode;
 
-public class Climb_Deploy extends CommandBase {
+public class CLB_ReverseWinch extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Climber m_subsystem;
+  private final Intake m_intake;
 
-  public Climb_Deploy(Climber subsystem) {
+  public CLB_ReverseWinch(Climber subsystem, Intake intake) {
     m_subsystem = subsystem;
+    m_intake = intake;
     addRequirements(subsystem);
   }
 
@@ -18,7 +22,9 @@ public class Climb_Deploy extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.climbDeploy();
+    if(m_intake.getMode() == IntakeMode.INTAKE_DEPLOYED){
+      m_subsystem.climbReverse();
+    }
   }
 
   @Override

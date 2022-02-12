@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.VisionController;
 
-public class Shooter_ShootAtTarget extends CommandBase {
+public class SH_ShootAtTarget extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final Shooter m_subsystem;
     private final VisionController m_vision_subsystem;
@@ -23,11 +23,11 @@ public class Shooter_ShootAtTarget extends CommandBase {
 
     /**
      * 
-     * Creates a new Shooter_Extend.
+     * Creates a new SH_Extend.
      * 
      * @param subsystem
      */
-    public Shooter_ShootAtTarget(Shooter subsystem, VisionController vision_subsystem) {
+    public SH_ShootAtTarget(Shooter subsystem, VisionController vision_subsystem) {
     m_subsystem = subsystem;
     m_vision_subsystem = vision_subsystem;
     addRequirements(subsystem);

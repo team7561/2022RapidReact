@@ -2,12 +2,14 @@ package frc.robot.commands.intake;
 
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.IntakeMode;
 
-public class Intake_GrabBall extends CommandBase {
+
+public class INT_Grabbing_Stop extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Intake m_subsystem;
 
-  public Intake_GrabBall(Intake subsystem) {
+  public INT_Grabbing_Stop(Intake subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +20,9 @@ public class Intake_GrabBall extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.grabBall();
+    m_subsystem.reverse = false;
+    m_subsystem.intakeRequested = false;
+    m_subsystem.stop();
   }
 
   @Override
@@ -27,6 +31,6 @@ public class Intake_GrabBall extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
