@@ -61,10 +61,13 @@ public class Injector extends SubsystemBase{
         }
   
         if(m_mode == InjectorMode.INJECTOR_INDEX_BALL){
-            if(getEncoderCount() < Constants.INJECTOR_CARGO_INDEX_PULSE_COUNT){
+            if(
+                Math.abs(SmartDashboard.getNumber("Shooter A Speed", 0) - SmartDashboard.getNumber("Shooter A Setpoint", 0)) < Constants.SHOOTER_TOLERANCE &&
+                Math.abs(SmartDashboard.getNumber("Shooter B Speed", 0) - SmartDashboard.getNumber("Shooter B Setpoint", 0)) < Constants.SHOOTER_TOLERANCE
+            ){
                 forward();
             } else {
-                setMode(InjectorMode.INJECTOR_STOP);
+                stop();
             }
         }
   
@@ -96,6 +99,7 @@ public class Injector extends SubsystemBase{
         {
             SmartDashboard.putNumber("Injector Speed", injectorMotor.get());
             SmartDashboard.putNumber("Injector Encoder Count", getEncoderCount());
+            System.out.println("Mode: " + m_mode);
         }
     }
 }

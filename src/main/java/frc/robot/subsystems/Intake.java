@@ -142,7 +142,12 @@ public class Intake extends SubsystemBase{
         else if(getMode() == IntakeMode.INTAKE_DEPLOYED){
             intakeDeploySpeed = Speeds.INTAKE_DEPLOY_HOLD_DOWN_SPEED;
             if(intakeRequested){
-                grabBall();
+                if (!reverse) {
+                    grabBall();
+                }
+                else {
+                    ejectBall();
+                }
             } else {
                 stop();
             }

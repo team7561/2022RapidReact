@@ -14,6 +14,7 @@ import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.SwerveMode;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 
@@ -26,7 +27,7 @@ public class Drivetrain extends SubsystemBase {
     double m_x, m_y;
     double prevGyro = 0;
     SwerveMode m_mode;
-    public static final ADIS16448_IMU imu = new ADIS16448_IMU(ADIS16448_IMU.IMUAxis.kZ, SPI.Port.kMXP, ADIS16448_IMU.CalibrationTime._1s);
+    public static final ADXRS450_Gyro imu = new ADXRS450_Gyro();
 
     public Drivetrain() {
         m_mode = SwerveMode.ULTIMATESWERVE;
@@ -238,10 +239,6 @@ public class Drivetrain extends SubsystemBase {
         moduleD.updateDashboard();
         moduleC.updateDashboard();
         SmartDashboard.putNumber("Gyro Angle", imu.getAngle());
-        SmartDashboard.putNumber("Gyro X", imu.getGyroAngleX());
-        SmartDashboard.putNumber("Gyro Y", imu.getGyroAngleY());
-        SmartDashboard.putNumber("Gyro Z", imu.getGyroAngleZ());
-        SmartDashboard.putNumber("Gyro Temp", imu.getTemperature());
     }
 
 }
