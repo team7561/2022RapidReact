@@ -109,6 +109,7 @@ public class Intake extends SubsystemBase{
     }
     public void periodic(){
         updateDashboard();
+        SmartDashboard.putString("Intake Mode", getMode().name());
 
         if(getMode() == IntakeMode.INTAKE_RETRACT_REQUESTED){
             intakeDeploySpeed = Speeds.INTAKE_DEPLOY_UP_SPEED;
