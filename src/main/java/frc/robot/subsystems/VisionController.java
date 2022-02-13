@@ -57,6 +57,7 @@ public class VisionController extends SubsystemBase {
 		SmartDashboard.putNumber("ty", get_ty());
 		SmartDashboard.putNumber("calcDistance", calcDistance());
 		SmartDashboard.putNumber("calcSetpoint", calcSetpoint());
+		SmartDashboard.putString("visionMode", m_mode.name());
 	}
 
 	public void setAngle(double angle){
