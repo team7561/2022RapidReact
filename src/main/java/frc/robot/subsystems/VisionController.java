@@ -6,36 +6,51 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants;
 import frc.robot.Ports;
+import frc.robot.VisionControllerMode;
 
 public class VisionController extends SubsystemBase {
 	public int ledState;
     public Servo servo_L, servo_R;
-    private double m_angle_L, m_angle_R;
+    private double m_angle;
 	public boolean useAngle = false;
+	public VisionControllerMode m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
 
 	public VisionController()
 	{
 		servo_L = new Servo(0);
         servo_R = new Servo(1);
-        m_angle_L = 0;
-        m_angle_R = 90;
+        m_angle = 0;
 		turnOnLED();
-		NetworkTableInstance.getDefault().getTable("photonvision").getEntry("stream").setNumber(2);
+		NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("stream").setNumber(2);
 	}
 	public void turnOffLED()
 	{
-		NetworkTableInstance.getDefault().getTable("photonvision").getEntry("ledMode").setNumber(1);
+		NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("ledMode").setNumber(1);
 		//NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
 	}
 	public void periodic()
 	{
-        //servo_L.setAngle(m_angle_L);
-        //servo_R.setAngle(m_angle_R);
-
-		if(!useAngle){
-				m_angle_L -= 4 * get_ty()/40;
-				m_angle_R += 4 * get_ty()/40;
+		if(m_mode == VisionControllerMode.VISONCONTROLLER_IDLE){
+			m_angle = 45;
+			if(get_ta() != 0){
+				m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
+			}
 		}
+
+		if(m_mode == VisionControllerMode.VISONCONTROLLER_HUBTRACK){
+			if(get_ta() == 0){
+				m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
+			}
+
+			if(get_ty() < 0){
+				m_angle -= 1;
+			} else if (get_ty() > 0){
+				m_angle = 1;
+			}
+		}
+
+		servo_L.setAngle(m_angle);
+		servo_R.setAngle(90 - m_angle);
 
 		SmartDashboard.putNumber("ta", get_ta());
 		SmartDashboard.putNumber("tx", get_tx());
@@ -45,22 +60,21 @@ public class VisionController extends SubsystemBase {
 	}
 
 	public void setAngle(double angle){
-		m_angle_L = angle;
-		m_angle_R = 90-angle;
+		m_angle = angle;
 	}
 	public void turnOnLED()
 	{
-		NetworkTableInstance.getDefault().getTable("photonvision").getEntry("ledMode").setNumber(3);
-		NetworkTableInstance.getDefault().getTable("photonvision").getEntry("camMode").setNumber(0);
+		NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("ledMode").setNumber(3);
+		NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("camMode").setNumber(0);
 	}
 	public void blinkLED()
 	{
-		NetworkTableInstance.getDefault().getTable("photonvision").getEntry("ledMode").setNumber(2);
+		NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("ledMode").setNumber(2);
 
 	}
 	public double get_tx()
 	{
-		return NetworkTableInstance.getDefault().getTable("photonvision").getEntry("tx").getDouble(0);
+		return NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("tx").getDouble(0);
 	}
 	public double get_ty()
 	{
@@ -68,11 +82,11 @@ public class VisionController extends SubsystemBase {
 	}
 	public double get_ta()
 	{
-		return NetworkTableInstance.getDefault().getTable("photonvision").getEntry("ta").getDouble(0);
+		return NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetArea").getDouble(0);
 	}
 	public boolean has_target()
 	{
-		return NetworkTableInstance.getDefault().getTable("photonvision").getEntry("tv").getBoolean(false);
+		return NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("tv").getBoolean(false);
 	}
 	public double getRange()
 	{
@@ -82,7 +96,7 @@ public class VisionController extends SubsystemBase {
 	// Returns distance to target in metres
 	public double calcDistance()
 	{
-		return (Constants.HIGH_HUB_HEIGHT-Constants.LIMELIGHT_HEIGHT)/Math.tan(m_angle_L);
+		return (Constants.HIGH_HUB_HEIGHT-Constants.LIMELIGHT_HEIGHT)/Math.tan(m_angle);
 	}
 
 	public double calcSetpoint()
