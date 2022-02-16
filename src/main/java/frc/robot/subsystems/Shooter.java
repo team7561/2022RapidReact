@@ -92,11 +92,11 @@ public class Shooter extends SubsystemBase{
     }
     public void fullyRetractHood()
     {
-        m_hood_setpoint = 1;
+        m_angle = 0;
     }
     public void fullyExtendHood()
     {
-        m_hood_setpoint = 0;
+        m_angle = 1;
     }
     public void stop()
     {
@@ -152,8 +152,8 @@ public class Shooter extends SubsystemBase{
             }
             else
             {
-                shooterMotorA.set(m_Atarget);
-                shooterMotorB.set(m_Btarget);
+                shooterMotorA.set(0);
+                shooterMotorB.set(0);
 
             }
         }

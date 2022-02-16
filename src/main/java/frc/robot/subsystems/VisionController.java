@@ -31,7 +31,7 @@ public class VisionController extends SubsystemBase {
 	public void periodic()
 	{
 		if(m_mode == VisionControllerMode.VISONCONTROLLER_IDLE){
-			m_angle = 45;
+			m_angle = 0.2;
 			if(get_ta() != 0){
 				m_mode = VisionControllerMode.VISONCONTROLLER_HUBTRACK;
 			}
@@ -42,19 +42,29 @@ public class VisionController extends SubsystemBase {
 				m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
 			}
 
+<<<<<<< Updated upstream
 			if(get_ty() < 0){
 				m_angle -= 0.005;
 			} else if (get_ty() > 0){
 				m_angle = 0.005;
+=======
+			if(get_ty() < -0.001 && m_angle > 0){
+				m_angle += 0.00005 * get_ty();
+			}
+			if(get_ty() > 0.001 && m_angle < 1){
+				m_angle += 0.00005 * get_ty();
+>>>>>>> Stashed changes
 			}
 		}
+		// m_angle = SmartDashboard.getNumber("Vis Angle", 0);
 
-		servo_L.setAngle(m_angle);
-		servo_R.setAngle(90 - m_angle);
+		servo_L.set(1 - m_angle);
+		servo_R.set(m_angle);
 
 		SmartDashboard.putNumber("ta", get_ta());
 		SmartDashboard.putNumber("tx", get_tx());
 		SmartDashboard.putNumber("ty", get_ty());
+		SmartDashboard.putNumber("Vis Dist", (1.79 - Constants.LIMELIGHT_HEIGHT)/Math.tan((m_angle * 4.57 - 0.34)));
 		SmartDashboard.putNumber("calcDistance", calcDistance());
 		SmartDashboard.putNumber("calcSetpoint", calcSetpoint());
 		SmartDashboard.putString("visionMode", m_mode.name());

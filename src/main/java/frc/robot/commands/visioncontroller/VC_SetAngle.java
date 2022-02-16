@@ -27,7 +27,7 @@ public class VC_SetAngle extends CommandBase {
   public void initialize() {
     //m_subsystem.start();
     System.out.println("Set LimelightController Angle");
-    //m_subsystem.setAngle(m_angle);
+    m_subsystem.setAngle(m_angle);
 
   }
   @Override

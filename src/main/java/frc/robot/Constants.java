@@ -58,5 +58,5 @@ public class Constants {
 
 
     public static double HIGH_HUB_HEIGHT = 2.3;
-    public static double LIMELIGHT_HEIGHT = 0.8;
+    public static double LIMELIGHT_HEIGHT = 0.55;
 }
