@@ -28,7 +28,7 @@ public class Ports {
     //0 and 1 for LimeLight
     public static int PWM_SHOOTER_HOOD_LEFT_SERVO = 2;
     public static int PWM_SHOOTER_HOOD_RIGHT_SERVO = 3;
-    public static int PWM_LED_CONTROLLER_CHANNEL = 6;
+    public static int PWM_LED_CONTROLLER_CHANNEL = 4;
 
     // DIO ports
     public static int LIMIT_ARM_LOWER = 0;

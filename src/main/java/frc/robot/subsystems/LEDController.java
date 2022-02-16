@@ -13,7 +13,7 @@ public class LEDController extends SubsystemBase{
     PWM blinkin;
     public LEDController() {
         blinkin = new PWM(Ports.PWM_LED_CONTROLLER_CHANNEL);
-        SmartDashboard.putNumber("LED Value", 0.83);
+        SmartDashboard.putNumber("LED Value", -0.31);
     }
 
     public void periodic(){

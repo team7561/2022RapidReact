@@ -20,11 +20,11 @@ public class INT_Toggle extends CommandBase {
   @Override
   public void execute() {
       m_subsystem.stop();
-      if(m_subsystem.getMode() == IntakeMode.INTAKE_DEPLOYED){
+      if(m_subsystem.getMode() == IntakeMode.INTAKE_DEPLOYED || m_subsystem.getMode() == IntakeMode.INTAKE_DEPLOY_REQUESTED){
         m_subsystem.setMode(IntakeMode.INTAKE_RETRACT_REQUESTED);
       }
 
-      else if(m_subsystem.getMode() == IntakeMode.INTAKE_RETRACTED){
+      else if(m_subsystem.getMode() == IntakeMode.INTAKE_RETRACTED || m_subsystem.getMode() == IntakeMode.INTAKE_RETRACT_REQUESTED){
         m_subsystem.setMode(IntakeMode.INTAKE_DEPLOY_REQUESTED);
       }
   }

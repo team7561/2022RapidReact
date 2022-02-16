@@ -13,7 +13,7 @@ import frc.robot.Ports;
 
 
 public class Shooter extends SubsystemBase{
-    double m_Atarget, m_Btarget, m_angle;
+    double m_Atarget, m_Btarget, m_angle, m_shooterMultiplier;
 
     CANSparkMax shooterMotorA;
     CANSparkMax shooterMotorB;
@@ -74,6 +74,7 @@ public class Shooter extends SubsystemBase{
         m_BpidController.setFF(kFF);
         m_BpidController.setOutputRange(kMinOutput, kMaxOutput);
 
+        m_shooterMultiplier = 0;
     }
 
     public void setMotorA(double target){
@@ -82,6 +83,12 @@ public class Shooter extends SubsystemBase{
     public void setMotorB(double target){
         m_Btarget = target;
     }
+
+    public void setHood(double angle){
+        m_angle = angle;
+        SmartDashboard.putNumber("ShooterHood", m_angle);
+    }
+
     public void start_auto_hood()
     {
         autoHood = true;
@@ -100,11 +107,11 @@ public class Shooter extends SubsystemBase{
     }
     public void stop()
     {
-        set_voltage(0,0);
+        m_shooterMultiplier = 0;
     }
     public void start()
     {
-        shooting = true;
+        m_shooterMultiplier = -1;
     }
     public boolean hood_at_setpoint()
     {
@@ -135,6 +142,8 @@ public class Shooter extends SubsystemBase{
         RPMcontrol = true;
         m_Atarget = a;
         m_Btarget = b;
+        SmartDashboard.putNumber("Shooter A Setpoint", m_Atarget);
+        SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);
     }
     public void periodic(){
         m_angle = SmartDashboard.getNumber("ShooterHood", 0);
@@ -147,8 +156,8 @@ public class Shooter extends SubsystemBase{
         {
             if (RPMcontrol)
             {
-                m_ApidController.setReference(m_Atarget, CANSparkMax.ControlType.kVelocity);
-                m_BpidController.setReference(m_Btarget, CANSparkMax.ControlType.kVelocity);
+                m_ApidController.setReference(m_Atarget * m_shooterMultiplier, CANSparkMax.ControlType.kVelocity);
+                m_BpidController.setReference(m_Btarget * m_shooterMultiplier, CANSparkMax.ControlType.kVelocity);
             }
             else
             {
@@ -169,9 +178,9 @@ public class Shooter extends SubsystemBase{
         if (Constants.DEBUG_SHOOTER)
         {
             SmartDashboard.putNumber("Shooter A Voltage", shooterMotorA.get());
-            SmartDashboard.putNumber("Shooter A Speed", shooterMotorA.getEncoder().getVelocity());
+            SmartDashboard.putNumber("Shooter A Speed", -shooterMotorA.getEncoder().getVelocity());
             SmartDashboard.putNumber("Shooter B Voltage", shooterMotorB.get());
-            SmartDashboard.putNumber("Shooter B Speed", shooterMotorB.getEncoder().getVelocity());
+            SmartDashboard.putNumber("Shooter B Speed", -shooterMotorB.getEncoder().getVelocity());
             SmartDashboard.putNumber("Shooter A Setpoint", m_Atarget);
             SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);
             SmartDashboard.putNumber("ShooterHood", m_angle);

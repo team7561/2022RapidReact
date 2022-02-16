@@ -23,6 +23,7 @@ public class CLB_ReverseWinch extends CommandBase {
   @Override
   public void execute() {
     if(m_intake.getMode() == IntakeMode.INTAKE_DEPLOYED){
+      System.out.println("Reverse Command Set");
       m_subsystem.climbReverse();
     }
   }

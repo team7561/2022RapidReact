@@ -20,6 +20,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * This class is where the bulk of the robot sho
@@ -30,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final LEDController leds = new LEDController();
   private final Drivetrain drivetrain = new Drivetrain();
   private final Shooter shooter = new Shooter();
   private final Intake intake = new Intake();
@@ -52,6 +54,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
+    CameraServer.startAutomaticCapture();
   }
 
   /**
@@ -103,8 +106,8 @@ public class RobotContainer {
 
     button_3.whenPressed(new INT_Toggle(intake), true);
 
-    button_4.whenPressed(new SH_Extend(shooter), true);
-    button_4.whenReleased(new SH_Retract(shooter), true);
+    button_4.whenPressed(new SH_Close_Shot(shooter), true);
+    button_6.whenPressed(new SH_Perfect_Shot(shooter), true);
 
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ROBOTCENTRICSWERVE),true);
     button_8.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.SPIN),true);
@@ -113,14 +116,10 @@ public class RobotContainer {
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
-    dpad_Up.whenPressed(new CLB_StartWinch(climber, intake), true);
-    dpad_Up.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Down.whenPressed(new CLB_ReverseWinch(climber, intake), true);
-    dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Left.whenPressed(new CLB_Deploy(climber, intake), true);
-    dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Right.whenPressed(new CLB_Deploy(climber, intake), true);
-    dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
+    button_LT.whenPressed(new CLB_Deploy(climber, intake), true);
+    button_LT.whenReleased(new CLB_StopWinch(climber), true);
+    button_RT.whenPressed(new CLB_StartWinch(climber, intake), true);
+    button_RT.whenReleased(new CLB_StopWinch(climber), true);
 
     button_X.whenPressed(new INJ_Forward(injector), true);
     button_X.whenReleased(new INJ_Stop(injector), true);
@@ -128,12 +127,13 @@ public class RobotContainer {
     button_Y.whenReleased(new INJ_Stop(injector), true);
     button_A.whenPressed(new INJ_Index_Ball(injector), true);
     button_A.whenReleased(new INJ_Stop(injector), true);    
-    //button_Y.whenPressed(new SH_Set_Speed_Setpoints(shooter, 1200, -1200), true);
-    //button_Y.whenReleased(new SH_Stop(shooter), true);
+    button_B.whenPressed(new CLB_ReverseWinch(climber, intake), true);
+    button_B.whenReleased(new CLB_StopWinch(climber), true);
 
     //button_X.whenReleased(new SH_Stop(shooter), true);
-
-    back.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
+    button_RB.whenPressed(new INT_Toggle(intake), true);
+    button_LB.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
+    back.whenPressed(new SH_Shooting_Stop(shooter), true);
     start.whenPressed(new SH_Shooting_Start(shooter), true);
   }
 
@@ -146,6 +146,6 @@ public class RobotContainer {
    */
     public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-      return new Auto_Drive_Off_Line(drivetrain);
+      return new Auto_Shoot_Ball(shooter, injector);
   }
 }

@@ -15,6 +15,7 @@ public class Injector extends SubsystemBase{
     double m_deployTarget;
     CANSparkMax injectorMotor;
     public double m_hood_position, m_hood_setpoint;
+    public boolean balls;
 
     public InjectorMode m_mode = InjectorMode.INJECTOR_STOP;
 
@@ -22,9 +23,10 @@ public class Injector extends SubsystemBase{
         injectorMotor = new CANSparkMax(Ports.CAN_ID_INJECTOR, MotorType.kBrushless);
         
         injectorMotor.restoreFactoryDefaults();
-        injectorMotor.setIdleMode(IdleMode.kCoast);
+        injectorMotor.setIdleMode(IdleMode.kBrake);
         injectorMotor.setSmartCurrentLimit(20);
         resetEncoder();
+        balls = false;
     }
 
     public void setMode(InjectorMode mode){
@@ -33,6 +35,10 @@ public class Injector extends SubsystemBase{
 
     public InjectorMode getMode(){
         return m_mode;
+    }
+
+    public double getSpeed(){
+        return injectorMotor.getEncoder().getVelocity();
     }
 
     public void transferBall()
@@ -53,33 +59,30 @@ public class Injector extends SubsystemBase{
     }
     public void periodic(){
         if(m_mode == InjectorMode.INJECTOR_FORWARD) {
+            balls = true;
             forward();
         }
   
         if(m_mode == InjectorMode.INJECTOR_REVERSE) {
+            balls = true;
             reverse();
         }
   
         if(m_mode == InjectorMode.INJECTOR_INDEX_BALL){
             if(
-                Math.abs(SmartDashboard.getNumber("Shooter A Speed", 0) - SmartDashboard.getNumber("Shooter A Setpoint", 0)) < Constants.SHOOTER_TOLERANCE &&
-                Math.abs(SmartDashboard.getNumber("Shooter B Speed", 0) - SmartDashboard.getNumber("Shooter B Setpoint", 0)) < Constants.SHOOTER_TOLERANCE
+                Math.abs(SmartDashboard.getNumber("Shooter A Speed", 0) + SmartDashboard.getNumber("Shooter A Setpoint", 0)) < Constants.SHOOTER_TOLERANCE &&
+                Math.abs(SmartDashboard.getNumber("Shooter B Speed", 0) + SmartDashboard.getNumber("Shooter B Setpoint", 0)) < Constants.SHOOTER_TOLERANCE
             ){
+                balls = true;
                 forward();
             } else {
+                balls = false;
                 stop();
             }
         }
   
-        if(m_mode == InjectorMode.INJECTOR_REVERSE_INDEX_BALL){
-            if(getEncoderCount() > -Constants.INJECTOR_CARGO_INDEX_PULSE_COUNT){
-                forward();
-            } else {
-                setMode(InjectorMode.INJECTOR_STOP);
-            }
-        }
-  
         if(m_mode == InjectorMode.INJECTOR_STOP){
+            balls = false;
             stop();
         }
         

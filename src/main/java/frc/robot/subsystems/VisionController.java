@@ -42,18 +42,11 @@ public class VisionController extends SubsystemBase {
 				m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
 			}
 
-<<<<<<< Updated upstream
-			if(get_ty() < 0){
-				m_angle -= 0.005;
-			} else if (get_ty() > 0){
-				m_angle = 0.005;
-=======
 			if(get_ty() < -0.001 && m_angle > 0){
-				m_angle += 0.00005 * get_ty();
+				m_angle += 0.00008 * get_ty();
 			}
 			if(get_ty() > 0.001 && m_angle < 1){
-				m_angle += 0.00005 * get_ty();
->>>>>>> Stashed changes
+				m_angle += 0.00008 * get_ty();
 			}
 		}
 		// m_angle = SmartDashboard.getNumber("Vis Angle", 0);

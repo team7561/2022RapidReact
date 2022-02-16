@@ -23,6 +23,7 @@ public class CLB_StartWinch extends CommandBase {
   @Override
   public void execute() {
     if(m_intake.getMode() == IntakeMode.INTAKE_DEPLOYED){
+      System.out.println("Winch Command Set");
       m_subsystem.climb();
     }
   }

@@ -20,7 +20,7 @@ public class CLB_StopWinch extends CommandBase {
   @Override
   public void execute() {
       m_subsystem.stop();
-
+      System.out.println("Stop Command Set");
   }
 
   @Override

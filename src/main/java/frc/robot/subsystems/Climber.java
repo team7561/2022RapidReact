@@ -33,28 +33,25 @@ public class Climber extends SubsystemBase{
     }
     public void climb()
     {
-        if (Math.abs(SmartDashboard.getNumber("Gyro X", 0))> 10)
-        {
-            DriverStation.reportError("Robot over tilt! Climber stopped.", false);
-            stop();
-            return;
-
-        }
+        System.out.println("Climb");
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_LIFT_SPEED);
         climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_LIFT_SPEED);
     }
     public void climbDeploy()
     {
+        System.out.println("Deploy Climb");
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_DEPLOY_SPEED);
         climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_DEPLOY_SPEED);
     }
     public void climbReverse()
     {
+        System.out.println("Reverse Climb");
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_REVERSE_SPEED);
         climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_REVERSE_SPEED);
     }
     public void stop()
     {
+        System.out.println("Stop Climbing");
         climberMotorA.configOpenloopRamp(0);
         climberMotorB.configOpenloopRamp(0);
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_STOP_SPEED);

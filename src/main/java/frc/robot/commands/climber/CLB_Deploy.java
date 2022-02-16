@@ -23,6 +23,7 @@ public class CLB_Deploy extends CommandBase {
   @Override
   public void execute() {
     if(m_intake.getMode() == IntakeMode.INTAKE_DEPLOYED){
+      System.out.println("Deploy Command Set");
       m_climber.climbDeploy(); 
     }
 

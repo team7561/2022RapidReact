@@ -97,7 +97,7 @@ public class DT_SwerveDrive extends CommandBase {
         swPower = -m_power * m_speed.getAsDouble() * 0.4;
       } 
 
-      m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);
+      m_subsystem.setSwerveVectorNoGyro(swTwist, target_angle + 180, swPower);
     }
   }
 
