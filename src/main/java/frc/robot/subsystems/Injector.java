@@ -99,7 +99,6 @@ public class Injector extends SubsystemBase{
         {
             SmartDashboard.putNumber("Injector Speed", injectorMotor.get());
             SmartDashboard.putNumber("Injector Encoder Count", getEncoderCount());
-            System.out.println("Mode: " + m_mode);
             SmartDashboard.putString("Injector Mode", m_mode.name());
         }
     }

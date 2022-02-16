@@ -106,10 +106,10 @@ public class RobotContainer {
     button_4.whenPressed(new SH_Extend(shooter), true);
     button_4.whenReleased(new SH_Retract(shooter), true);
 
-    button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.CRAB),true);
+    button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ROBOTCENTRICSWERVE),true);
     button_8.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.SPIN),true);
     button_9.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ULTIMATESWERVE),true);
-    button_10.whenPressed(new DT_ManualAlign(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2),true);
+    button_10.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ULTIMATEDEFENCE),true);
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
@@ -127,20 +127,13 @@ public class RobotContainer {
     button_Y.whenPressed(new INJ_Reverse(injector), true);
     button_Y.whenReleased(new INJ_Stop(injector), true);
     button_A.whenPressed(new INJ_Index_Ball(injector), true);
-    button_A.whenReleased(new INJ_Stop(injector), true);
-
-    button_LB.whenPressed(new SH_Set_Speed_Setpoints(shooter, 1600, -1600), true);
-    button_LB.whenPressed(new SH_Extend(shooter), true);
-
-    button_RB.whenPressed(new SH_Set_Speed_Setpoints(shooter, 1400, -1400), true);
-    button_RB.whenPressed(new SH_Retract(shooter), true);
-    
+    button_A.whenReleased(new INJ_Stop(injector), true);    
     //button_Y.whenPressed(new SH_Set_Speed_Setpoints(shooter, 1200, -1200), true);
     //button_Y.whenReleased(new SH_Stop(shooter), true);
 
     //button_X.whenReleased(new SH_Stop(shooter), true);
 
-    back.whenPressed(new SH_Shooting_Stop(shooter), true);
+    back.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
     start.whenPressed(new SH_Shooting_Start(shooter), true);
   }
 

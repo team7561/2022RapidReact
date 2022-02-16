@@ -123,7 +123,7 @@ public class Intake extends SubsystemBase{
         }
 
         else if(getMode() == IntakeMode.INTAKE_RETRACTED){
-            intakeDeploySpeed = 0;
+            intakeDeploySpeed = Speeds.INTAKE_DEPLOY_HOLD_UP_SPEED;
             stop();
         }
 

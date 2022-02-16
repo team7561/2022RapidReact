@@ -241,8 +241,8 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void stop(){
+        driving_m_setpoint = 0;
         m_driveMotor.set(0);
-        m_steeringMotor.set(0);
     }
 
     public void setAngleOffset(double angleOffset){

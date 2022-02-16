@@ -11,6 +11,7 @@ public class Speeds {
     public static double INTAKE_DEPLOY_DOWN_SPEED = -0.1;
     public static double INTAKE_DEPLOY_STOP_SPEED = -0.0;
     public static double INTAKE_DEPLOY_HOLD_DOWN_SPEED = -0.03;
+    public static double INTAKE_DEPLOY_HOLD_UP_SPEED = 0.03;
     
 
     //Shooter Hood

@@ -33,7 +33,7 @@ public class VisionController extends SubsystemBase {
 		if(m_mode == VisionControllerMode.VISONCONTROLLER_IDLE){
 			m_angle = 45;
 			if(get_ta() != 0){
-				m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
+				m_mode = VisionControllerMode.VISONCONTROLLER_HUBTRACK;
 			}
 		}
 
@@ -43,9 +43,9 @@ public class VisionController extends SubsystemBase {
 			}
 
 			if(get_ty() < 0){
-				m_angle -= 1;
+				m_angle -= 0.005;
 			} else if (get_ty() > 0){
-				m_angle = 1;
+				m_angle = 0.005;
 			}
 		}
 

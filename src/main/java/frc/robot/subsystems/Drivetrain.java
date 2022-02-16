@@ -55,6 +55,7 @@ public class Drivetrain extends SubsystemBase {
         }
         // This method will be called once per scheduler run
         updateDashboard();
+        SmartDashboard.putString("Drivetrain Mode", m_mode.name());
     }
 
 	public void stop() {

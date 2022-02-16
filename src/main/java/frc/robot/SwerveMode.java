@@ -12,5 +12,7 @@ public enum SwerveMode {
     CRAB_X,
     ULTIMATESWERVE,
     BALL_TRACK,
-    HUB_TRACK
+    HUB_TRACK,
+    ROBOTCENTRICSWERVE,
+    ULTIMATEDEFENCE
   }

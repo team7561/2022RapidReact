@@ -57,7 +57,7 @@ public class DT_SwerveDrive extends CommandBase {
       System.out.println(targetTwist);
     }
 
-    if (m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE){
+    if (m_subsystem.getMode() == SwerveMode.ULTIMATESWERVE || m_subsystem.getMode() == SwerveMode.ROBOTCENTRICSWERVE){
       double swTwist = 0;
       double swPower = 0;
 
@@ -72,11 +72,32 @@ public class DT_SwerveDrive extends CommandBase {
       } 
 
       if (swPower != 0 || swTwist != 0){
-        m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);
+        if (m_subsystem.getMode() == SwerveMode.ROBOTCENTRICSWERVE){
+          m_subsystem.setSwerveVectorNoGyro(swTwist, target_angle + 180, swPower);
+        } else {
+          m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);
+        }
       }
       else {
         m_subsystem.stop();
       }
+    }
+
+    if (m_subsystem.getMode() == SwerveMode.ULTIMATEDEFENCE){
+      double swTwist = 0;
+      double swPower = 0;
+
+      //Filtering Inputs for central deadzone in twist input
+      if (Math.abs(m_twist.getAsDouble()) > 0.01){
+        swTwist = m_twist.getAsDouble() * 0.6;
+      }
+
+      //Filtering Inputs for central deadzone in translatoin input
+      if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
+        swPower = -m_power * m_speed.getAsDouble() * 0.4;
+      } 
+
+      m_subsystem.setSwerveVector(swTwist, target_angle + 180, swPower);
     }
   }
 
