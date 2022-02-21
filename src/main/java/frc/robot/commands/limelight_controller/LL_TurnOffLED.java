@@ -1,13 +1,13 @@
-package frc.robot.commands.visioncontroller;
+package frc.robot.commands.limelight_controller;
 
-import frc.robot.subsystems.VisionController;
+import frc.robot.subsystems.LimeLightController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class VC_TurnOffLED extends CommandBase {
+public class LL_TurnOffLED extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final VisionController m_subsystem;
+  private final LimeLightController m_subsystem;
 
-  public VC_TurnOffLED(VisionController subsystem) {
+  public LL_TurnOffLED(LimeLightController subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }

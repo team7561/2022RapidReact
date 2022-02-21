@@ -1,13 +1,13 @@
-package frc.robot.commands.visioncontroller;
+package frc.robot.commands.onboard_vision_controller;
 
-import frc.robot.subsystems.VisionController;
+import frc.robot.subsystems.OnboardVisionController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class VC_TurnOnLED extends CommandBase {
+public class OVC_Stop_Tracking extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final VisionController m_subsystem;
+  private final OnboardVisionController m_subsystem;
 
-  public VC_TurnOnLED(VisionController subsystem) {
+  public OVC_Stop_Tracking(OnboardVisionController subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +18,7 @@ public class VC_TurnOnLED extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.turnOnLED();
+    m_subsystem.stopTracking();
   }
 
   @Override
@@ -27,6 +27,6 @@ public class VC_TurnOnLED extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.visioncontroller;
+package frc.robot.commands.limelight_controller;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.VisionController;
+import frc.robot.subsystems.LimeLightController;
 
-public class VC_SetAngle extends CommandBase {
-  private final VisionController m_subsystem;
+public class LL_SetAngle extends CommandBase {
+  private final LimeLightController m_subsystem;
   private double m_angle;
 
-  public VC_SetAngle(VisionController subsystem, double angle) {
+  public LL_SetAngle(LimeLightController subsystem, double angle) {
     m_subsystem = subsystem;
     m_angle = angle;
     addRequirements(subsystem);

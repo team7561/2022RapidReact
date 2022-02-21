@@ -1,13 +1,13 @@
-package frc.robot.commands.visioncontroller;
+package frc.robot.commands.limelight_controller;
 
-import frc.robot.subsystems.VisionController;
+import frc.robot.subsystems.LimeLightController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class VC_Blink_LED extends CommandBase {
+public class LL_TurnOnLED extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final VisionController m_subsystem;
+  private final LimeLightController m_subsystem;
 
-  public VC_Blink_LED(VisionController subsystem) {
+  public LL_TurnOnLED(LimeLightController subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -18,7 +18,7 @@ public class VC_Blink_LED extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.blinkLED();
+      m_subsystem.turnOnLED();
   }
 
   @Override

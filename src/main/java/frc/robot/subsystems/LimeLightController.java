@@ -5,16 +5,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants;
-import frc.robot.VisionControllerMode;
+import frc.robot.LimeLightControllerMode;
 
-public class VisionController extends SubsystemBase {
+public class LimeLightController extends SubsystemBase {
 	public int ledState;
     public Servo servo_L, servo_R;
     private double m_angle;
 	public boolean useAngle = false;
-	public VisionControllerMode m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
+	public LimeLightControllerMode m_mode = LimeLightControllerMode.LIMELIGHTCONTROLLER_IDLE;
 
-	public VisionController()
+	public LimeLightController()
 	{
 		servo_L = new Servo(0);
         servo_R = new Servo(1);
@@ -29,16 +29,16 @@ public class VisionController extends SubsystemBase {
 	}
 	public void periodic()
 	{
-		if(m_mode == VisionControllerMode.VISONCONTROLLER_IDLE){
+		if(m_mode == LimeLightControllerMode.LIMELIGHTCONTROLLER_IDLE){
 			m_angle = 0.2;
 			if(get_ta() != 0){
-				m_mode = VisionControllerMode.VISONCONTROLLER_HUBTRACK;
+				m_mode = LimeLightControllerMode.LIMELIGHTCONTROLLER_HUBTRACK;
 			}
 		}
 
-		if(m_mode == VisionControllerMode.VISONCONTROLLER_HUBTRACK){
+		if(m_mode == LimeLightControllerMode.LIMELIGHTCONTROLLER_HUBTRACK){
 			if(get_ta() == 0){
-				m_mode = VisionControllerMode.VISONCONTROLLER_IDLE;
+				m_mode = LimeLightControllerMode.LIMELIGHTCONTROLLER_IDLE;
 			}
 
 			if(get_ty() < -0.001 && m_angle > 0){

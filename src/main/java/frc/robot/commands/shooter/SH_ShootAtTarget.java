@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.VisionController;
+import frc.robot.subsystems.LimeLightController;
 
 public class SH_ShootAtTarget extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final Shooter m_subsystem;
-    private final VisionController m_vision_subsystem;
+    private final LimeLightController m_vision_subsystem;
     private double m_targetAngle, m_hood_encoder;
     private Timer timer;
 
@@ -27,7 +27,7 @@ public class SH_ShootAtTarget extends CommandBase {
      * 
      * @param subsystem
      */
-    public SH_ShootAtTarget(Shooter subsystem, VisionController vision_subsystem) {
+    public SH_ShootAtTarget(Shooter subsystem, LimeLightController vision_subsystem) {
     m_subsystem = subsystem;
     m_vision_subsystem = vision_subsystem;
     addRequirements(subsystem);

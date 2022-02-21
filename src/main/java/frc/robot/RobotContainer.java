@@ -13,9 +13,9 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
+import frc.robot.commands.limelight_controller.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.autonomous.*;
-import frc.robot.commands.visioncontroller.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,7 +37,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Injector injector = new Injector();
   private final Climber climber = new Climber();
-  private final VisionController visionController = new VisionController();
+  private final LimeLightController visionController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
@@ -68,7 +68,7 @@ public class RobotContainer {
     final JoystickButton button_2 = new JoystickButton(joystick, 2);
     final JoystickButton button_3 = new JoystickButton(joystick, 3);
     final JoystickButton button_4 = new JoystickButton(joystick, 4);
-    final JoystickButton button_5 = new JoystickButton(joystick, 5);
+    //final JoystickButton button_5 = new JoystickButton(joystick, 5);
     final JoystickButton button_6 = new JoystickButton(joystick, 6);
     final JoystickButton button_7 = new JoystickButton(joystick, 7);
     final JoystickButton button_8 = new JoystickButton(joystick, 8);
@@ -79,7 +79,7 @@ public class RobotContainer {
 
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
     final JoystickButton button_B = new JoystickButton(xboxController, 2);
-    final JoystickButton button_X = new JoystickButton(xboxController, 3);
+    //final JoystickButton button_X = new JoystickButton(xboxController, 3);
     final JoystickButton button_Y = new JoystickButton(xboxController, 4);
 
     final JoystickButton button_LB = new JoystickButton(xboxController, 5);

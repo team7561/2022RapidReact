@@ -1,4 +1,4 @@
-package frc.robot.commands.LED_Controller;
+package frc.robot.commands.led_controller;
 
 import frc.robot.subsystems.LEDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;

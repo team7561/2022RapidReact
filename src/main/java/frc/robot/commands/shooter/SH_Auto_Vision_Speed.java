@@ -10,19 +10,19 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.VisionController;
+import frc.robot.subsystems.LimeLightController;
 
 public class SH_Auto_Vision_Speed extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_shooter;
-  private final VisionController m_visionController;
+  private final LimeLightController m_visionController;
 
 
   /**
    * Creates a new SH_Retract.
    *  @param subsystem
    */
-  public SH_Auto_Vision_Speed(Shooter shooter, VisionController visionController) {
+  public SH_Auto_Vision_Speed(Shooter shooter, LimeLightController visionController) {
     m_shooter = shooter;
     m_visionController = visionController;
     addRequirements(shooter, visionController);

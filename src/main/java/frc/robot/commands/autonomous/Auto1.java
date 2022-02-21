@@ -4,16 +4,16 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.TimerCommand;
-import frc.robot.commands.LED_Controller.LED_Select_Random_Colour;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
+import frc.robot.commands.led_controller.LED_Select_Random_Colour;
 import frc.robot.commands.shooter.*;
 import frc.robot.subsystems.*;
 
 public class Auto1 extends SequentialCommandGroup  {
 
-    public Auto1(Drivetrain drivetrain, Intake intake, Shooter shooter, Injector injector, LEDController ledController, VisionController visionController) {
+    public Auto1(Drivetrain drivetrain, Intake intake, Shooter shooter, Injector injector, LEDController ledController, LimeLightController visionController) {
         addCommands(
             new ParallelDeadlineGroup(new TimerCommand(4),
                 new DT_TurnToAngle(drivetrain, 0.4, 0.4),
