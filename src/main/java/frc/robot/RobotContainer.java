@@ -87,8 +87,8 @@ public class RobotContainer {
 
     final JoystickButton back = new JoystickButton(xboxController, 7);
     final JoystickButton start = new JoystickButton(xboxController, 8);
-    //final JoystickButton left_joystick_button = new JoystickButton(xboxController, 9);
-    //final JoystickButton right_joystick_button = new JoystickButton(xboxController, 10);
+    final JoystickButton left_joystick_button = new JoystickButton(xboxController, 9);
+    final JoystickButton right_joystick_button = new JoystickButton(xboxController, 10);
     final JoystickAnalogButton button_LT = new JoystickAnalogButton(xboxController, 2);
     final JoystickAnalogButton button_RT = new JoystickAnalogButton(xboxController, 3);
   
@@ -116,25 +116,34 @@ public class RobotContainer {
     button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
-    button_LT.whenPressed(new CLB_Deploy(climber, intake), true);
-    button_LT.whenReleased(new CLB_StopWinch(climber), true);
-    button_RT.whenPressed(new CLB_StartWinch(climber, intake), true);
-    button_RT.whenReleased(new CLB_StopWinch(climber), true);
+    button_LT.whenPressed(new INJ_Reverse_Index_Ball(injector), true);
+    button_LT.whenReleased(new INJ_Stop(injector), true);
+    button_RT.whenPressed(new INJ_Index_Ball(injector), true);
+    button_RT.whenReleased(new INJ_Stop(injector), true);
+    button_LB.whenPressed(new INJ_Reverse(injector), true);
+    button_LB.whenReleased(new INJ_Stop(injector), true);
+    button_RB.whenPressed(new INJ_Forward(injector), true);
+    button_RB.whenReleased(new INJ_Stop(injector), true);
 
-    button_X.whenPressed(new INJ_Forward(injector), true);
-    button_X.whenReleased(new INJ_Stop(injector), true);
-    button_Y.whenPressed(new INJ_Reverse(injector), true);
-    button_Y.whenReleased(new INJ_Stop(injector), true);
-    button_A.whenPressed(new INJ_Index_Ball(injector), true);
-    button_A.whenReleased(new INJ_Stop(injector), true);    
-    button_B.whenPressed(new CLB_ReverseWinch(climber, intake), true);
-    button_B.whenReleased(new CLB_StopWinch(climber), true);
+    //button_X.whenPressed(new INJ_Forward(injector), true);
+    button_Y.whenPressed(new SH_Perfect_Shot(shooter), true);
+    button_A.whenPressed(new SH_Close_Shot(shooter), true); 
+    button_B.whenPressed(new SH_Perfect_Shot(shooter), true);
 
-    //button_X.whenReleased(new SH_Stop(shooter), true);
-    button_RB.whenPressed(new INT_Toggle(intake), true);
-    button_LB.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
     back.whenPressed(new SH_Shooting_Stop(shooter), true);
     start.whenPressed(new SH_Shooting_Start(shooter), true);
+
+    dpad_Up.whenPressed(new CLB_ReverseWinch(climber, intake), true);
+    dpad_Up.whenReleased(new CLB_StopWinch(climber), true);
+    dpad_Down.whenPressed(new CLB_StartWinch(climber, intake), true);
+    dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
+    dpad_Left.whenPressed(new CLB_Deploy(climber, intake), true);
+    dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
+    dpad_Right.whenPressed(new CLB_Deploy(climber, intake), true);
+    dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
+
+    left_joystick_button.whenPressed(new INT_Toggle(intake));
+    right_joystick_button.whenPressed(new INT_Toggle(intake));
   }
 
   /**
