@@ -7,11 +7,8 @@
 
 package frc.robot.commands.visioncontroller;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.VisionController;
-import java.util.function.DoubleSupplier;
-
 
 public class VC_SetAngle extends CommandBase {
   private final VisionController m_subsystem;

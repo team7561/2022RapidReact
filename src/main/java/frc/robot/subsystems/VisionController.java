@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.Constants;
-import frc.robot.Ports;
 import frc.robot.VisionControllerMode;
 
 public class VisionController extends SubsystemBase {
