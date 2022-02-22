@@ -1,12 +1,12 @@
 package frc.robot.commands.onboard_vision_controller;
 
-import frc.robot.subsystems.LimeLightController;
+import frc.robot.subsystems.OnboardVisionController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class OVC_Start_Tracking extends CommandBase {
-  private final LimeLightController m_subsystem;
+  private final OnboardVisionController m_subsystem;
 
-  public OVC_Start_Tracking(LimeLightController subsystem) {
+  public OVC_Start_Tracking(OnboardVisionController subsystem) {
     m_subsystem = subsystem;
     addRequirements(subsystem);
   }
@@ -17,7 +17,7 @@ public class OVC_Start_Tracking extends CommandBase {
 
   @Override
   public void execute() {
-      m_subsystem.turnOffLED();
+      m_subsystem.startTracking();
   }
 
   @Override

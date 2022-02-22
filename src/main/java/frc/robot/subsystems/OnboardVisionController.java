@@ -3,22 +3,19 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
-import frc.robot.Ports;
-import frc.robot.Speeds;
 import frc.robot.InjectorMode;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import frc.robot.GripPipeline;
+import frc.robot.GripPipelineContours;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
-    private GripPipeline gripPipeline = new GripPipeline();
+    private GripPipelineContours gripPipelineContours = new GripPipelineContours();
     public boolean balls;
-    private long processCount = 0;
     private double centreX = 0.0;
     private double ballY = 0.0;
     private final Object imgLock = new Object();  // to lock access to te centreX variable
@@ -44,66 +41,21 @@ public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
         }
 
     }
-    private double getFinalPosition() {
-        Rect leftTape = null;
-        double leftMiddle = 0;
-
-        Rect rightTape = null;
-        double rightMiddle = 0;
-
-        double finalPosition = 0;
-
-        double powerIncrement = 0;
-
-        //This is the middle of the distance between the tapes
-        double centreOfDistanceBetweenTapes;
+    private double getPosition() {
+        Rect ballRect = null;
+        double ball_x = 0;
 
         //assumes that contour 0 is right hand tape
-        rightTape = Imgproc.boundingRect(gripPipeline.filterContoursOutput().get(0));
-        //SmartDashboard.putNumber("rightTape.x", rightTape.x);
+        ballRect = Imgproc.boundingRect(gripPipelineContours.filterContoursOutput().get(0));
 
-
-        setBallY(rightTape.y);
+        setBallY(ballRect.y);
 
         //SmartDashboard.putNumber("rightTape.width", rightTape.width);
-        rightMiddle = rightTape.x + (rightTape.width/2);
-            SmartDashboard.putNumber("rightMiddle",rightMiddle);
-
-        if (gripPipeline.filterContoursOutput().size()==2){
-            //Assumes we have two tapes, and that contour 1 is the left tape
-            leftTape = Imgproc.boundingRect(gripPipeline.filterContoursOutput().get(1));
-            //SmartDashboard.putNumber("leftTape.x", leftTape.x);
-            //SmartDashboard.putNumber("leftTape.width", leftTape.width);
-            leftMiddle = leftTape.x + (leftTape.width/2);
-                SmartDashboard.putNumber("leftMiddle", leftMiddle);
+        ball_x = ballRect.x + (ballRect.width/2);
+        SmartDashboard.putNumber("ball_x",ball_x);
 
 
-            //final position for two tapes
-            centreOfDistanceBetweenTapes = (rightMiddle - leftMiddle) / 2;
-            //SmartDashboard.putNumber("centreOfDistanceBetweenTapes",centreOfDistanceBetweenTapes);
-            finalPosition = rightMiddle-centreOfDistanceBetweenTapes;
-                SmartDashboard.putBoolean("Two contours",true);
-
-        }
-        else{
-
-            finalPosition = (rightTape.x + (rightTape.width / 2));
-            // scale back to a number between -1 to 1, and then divides by 3 for a power cap, hence 240
-                SmartDashboard.putBoolean("Two contours",false);
-
-
-        }
-
-        //SmartDashboard.putNumber("Final middle X", finalPosition);
-
-        finalPosition = finalPosition-80;
-
-
-        powerIncrement = finalPosition / 240;
-
-            SmartDashboard.putNumber("scaled finalPosition", finalPosition);
-            SmartDashboard.putNumber("powerIncrement", powerIncrement);
-        return powerIncrement;
+        return (ball_x-160)/160;
     }
 
     /**
@@ -151,30 +103,24 @@ public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
     }
     public void processImageInPipeline()
     {
-        // if we have no camera we can't process images
         if (camera == null)
             return;
 
         if (performVisionTracking) {
 
-            // get camera image
-            sourceMat.empty();  // we re-use the same Map to process the source image
+            sourceMat.empty(); 
             CvSink cvSink = CameraServer.getVideo();
             cvSink.grabFrame(sourceMat);
-
+           
             // create an instance of the GRIP gripPipeline
-            gripPipeline.process(sourceMat);
-
-            System.out.println("Inside thread [contours:" + gripPipeline.filterContoursOutput().size() + "] [processCount:" + processCount++ + "]");
+            gripPipelineContours.process(sourceMat);
 
             //process image through gripPipeline
-
-            if (!gripPipeline.filterContoursOutput().isEmpty()) {
+            SmartDashboard.putNumber("Num Contours",gripPipelineContours.filterContoursOutput().size());
+            if (!gripPipelineContours.filterContoursOutput().isEmpty()) {
                 // process contours
-                double finalPosition = getFinalPosition();
-
+                double finalPosition = getPosition();
                 setBallX(finalPosition);
-                System.out.println("Peg X = " + getBallX());
             }
             else
             {
@@ -189,8 +135,8 @@ public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
     private void configureCamera() {
 
         camera.setResolution(320, 240);
-        camera.setBrightness(0);
-        camera.setExposureManual(0);
+        camera.setBrightness(50);
+        camera.setExposureManual(50);
         camera.setWhiteBalanceManual(0);
     }
     public void setMode(InjectorMode mode){
@@ -203,7 +149,7 @@ public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
 
 
     public void periodic(){
-        
+        processImageInPipeline();
         updateDashboard();
     }
     public void updateDashboard()

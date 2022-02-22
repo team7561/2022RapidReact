@@ -14,6 +14,7 @@ import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.limelight_controller.*;
+import frc.robot.commands.onboard_vision_controller.OVC_Start_Tracking;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.autonomous.*;
 import frc.robot.subsystems.*;
@@ -37,6 +38,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Injector injector = new Injector();
   private final Climber climber = new Climber();
+  private final OnboardVisionController onboardVisionController = new OnboardVisionController();
   private final LimeLightController visionController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -54,7 +56,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
-    CameraServer.startAutomaticCapture();
+    //CameraServer.startAutomaticCapture();
   }
 
   /**
@@ -68,7 +70,7 @@ public class RobotContainer {
     final JoystickButton button_2 = new JoystickButton(joystick, 2);
     final JoystickButton button_3 = new JoystickButton(joystick, 3);
     final JoystickButton button_4 = new JoystickButton(joystick, 4);
-    //final JoystickButton button_5 = new JoystickButton(joystick, 5);
+    final JoystickButton button_5 = new JoystickButton(joystick, 5);
     final JoystickButton button_6 = new JoystickButton(joystick, 6);
     final JoystickButton button_7 = new JoystickButton(joystick, 7);
     final JoystickButton button_8 = new JoystickButton(joystick, 8);
@@ -107,6 +109,8 @@ public class RobotContainer {
     button_3.whenPressed(new INT_Toggle(intake), true);
 
     button_4.whenPressed(new SH_Close_Shot(shooter), true);
+
+    button_5.whenPressed(new OVC_Start_Tracking(onboardVisionController), true);
     button_6.whenPressed(new SH_Perfect_Shot(shooter), true);
 
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ROBOTCENTRICSWERVE),true);
