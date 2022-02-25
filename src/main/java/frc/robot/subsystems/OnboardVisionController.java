@@ -2,24 +2,25 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.Constants;
-import frc.robot.InjectorMode;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import frc.robot.GripPipelineContours;
+import java.util.concurrent.atomic.AtomicBoolean;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
-public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
+public class OnboardVisionController extends SubsystemBase implements Runnable {
     private GripPipelineContours gripPipelineContours = new GripPipelineContours();
     private boolean performVisionTracking = true;
     private UsbCamera camera = null;
     private Mat sourceMat = new Mat();
+    private Boolean started = false;
+    private AtomicBoolean stopRequested = new AtomicBoolean(false);
 
     public OnboardVisionController(){
         try {
@@ -70,13 +71,12 @@ public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
                     Rect ballRect = null;
                     ballRect = Imgproc.boundingRect(gripPipelineContours.filterContoursOutput().get(0));
                     ball_x = ballRect.x + (ballRect.width/2);
-                    SmartDashboard.putNumber("ball_x",(ball_x-16)/16);
+                    
+                    SmartDashboard.putNumber("ball_x_coord", ball_x);
+                    
+                    ball_x = (ball_x-150)/16;
             }
-            else
-            {
-                SmartDashboard.putNumber("ball_x",0);
-            }
-
+            SmartDashboard.putNumber("ball_x",ball_x);
             sourceMat.release();
         }
     }
@@ -89,26 +89,31 @@ public class OnboardVisionController /*extends Thread*/ extends SubsystemBase {
         camera.setExposureManual(50);
         camera.setWhiteBalanceManual(0);
     }
-    public void setMode(InjectorMode mode){
-        m_mode = mode;
-    }
 
     public void periodic(){
         boolean redAlliance = (DriverStation.getAlliance() == Alliance.Red);
         gripPipelineContours.redCargo = redAlliance;
-        try{
-        processImageInPipeline();
-        }
-        catch(Exception e)
-        {
-            System.out.println(e.getStackTrace().toString());
-        }
-        updateDashboard();
-    }
-    public void updateDashboard()
-    {
-        if (Constants.DEBUG_INJECTOR)
-        {
+
+        if (!started) {
+            started = true;
+            Thread thread = new Thread(this);
+            thread.setPriority( Thread.MIN_PRIORITY + 1); // or  Thread.NORM_PRIORITY - 2
+            thread.start();
         }
     }
+
+    public void run() {
+        while (!stopRequested.get()) {
+
+            try{
+            processImageInPipeline();
+            System.out.println("test");
+            }
+            catch(Exception e)
+            {
+                System.out.println(e.getStackTrace().toString());
+            }
+        }
+    }
+    
 }
