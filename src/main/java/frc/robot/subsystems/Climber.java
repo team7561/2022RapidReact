@@ -50,7 +50,7 @@ public class Climber extends SubsystemBase{
     }
     public void stop()
     {
-        System.out.println("Stop Climbing");
+        //System.out.println("Stop Climbing");
         climberMotorA.configOpenloopRamp(0);
         climberMotorB.configOpenloopRamp(0);
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_STOP_SPEED);

@@ -34,6 +34,7 @@ public class DT_TurnToAngle extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    orig_mode = m_subsystem.getMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,6 +56,7 @@ public class DT_TurnToAngle extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.setSpeed(0);
+    m_subsystem.setMode(orig_mode);
   }
 
   // Returns true when the command should end.

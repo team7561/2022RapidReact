@@ -21,14 +21,9 @@ public class Auto1 extends SequentialCommandGroup  {
                 new INT_Deploy(intake),
                 new LED_Select_Random_Colour(ledController)
                 ),
-            new ParallelDeadlineGroup(new TimerCommand(3),
-                new SH_Extend(shooter),
-                new LED_Select_Random_Colour(ledController)
-                ),
         
         new ParallelDeadlineGroup(new TimerCommand(0.5),
             new INJ_Index_Ball(injector),
-            new INT_Deploy(intake),
             new LED_Select_Random_Colour(ledController)
         ),
         new ParallelCommandGroup(

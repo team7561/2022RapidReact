@@ -13,7 +13,6 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
-import frc.robot.commands.limelight_controller.*;
 import frc.robot.commands.onboard_vision_controller.OVC_Start_Tracking;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.autonomous.*;
@@ -21,7 +20,6 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * This class is where the bulk of the robot sho
@@ -32,14 +30,14 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final LEDController leds = new LEDController();
+  //private final LEDController leds = new LEDController();
   private final Drivetrain drivetrain = new Drivetrain();
   private final Shooter shooter = new Shooter();
   private final Intake intake = new Intake();
   private final Injector injector = new Injector();
   private final Climber climber = new Climber();
   private final OnboardVisionController onboardVisionController = new OnboardVisionController();
-  private final LimeLightController visionController = new LimeLightController();
+  //private final LimeLightController visionController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
@@ -110,9 +108,10 @@ public class RobotContainer {
 
     button_4.whenPressed(new SH_Close_Shot(shooter), true);
 
-    button_5.whenPressed(new OVC_Start_Tracking(onboardVisionController), true);
+    button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
+    //button_5.whenPressed(new OVC_Start_Tracking(onboardVisionController), true);
     button_6.whenPressed(new SH_Perfect_Shot(shooter), true);
-
+    
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ROBOTCENTRICSWERVE),true);
     button_8.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.SPIN),true);
     button_9.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ULTIMATESWERVE),true);
