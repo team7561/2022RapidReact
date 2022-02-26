@@ -34,11 +34,11 @@ public class DT_Auto_Hub_Align extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    drive(0, 0);
-  }
+        m_subsystem.setSwerveVector(0, 0, 0);
+    }
 
   @Override
   public boolean isFinished() {
-    return (m_lc.get_ta() != 0 && Math.abs(m_lc.get_tx() < 10);
+    return (m_lc.get_ta() != 0 && Math.abs(m_lc.get_tx()) < 10);
   }
 }

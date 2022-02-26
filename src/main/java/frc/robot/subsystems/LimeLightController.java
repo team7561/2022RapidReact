@@ -30,7 +30,7 @@ public class LimeLightController extends SubsystemBase {
 	public void periodic()
 	{
 		if(m_mode == LimeLightControllerMode.LIMELIGHTCONTROLLER_IDLE){
-			m_angle = 0.2;
+			m_angle = 0;
 			if(get_ta() != 0){
 				m_mode = LimeLightControllerMode.LIMELIGHTCONTROLLER_HUBTRACK;
 			}

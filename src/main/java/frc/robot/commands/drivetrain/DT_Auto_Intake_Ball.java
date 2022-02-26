@@ -29,13 +29,13 @@ public class DT_Auto_Intake_Ball extends CommandBase {
     System.out.println("Starting auto");
     timer.start();
     m_intake.setMode(IntakeMode.INTAKE_DEPLOY_REQUESTED);  
-    obvc.startTracking();
+    m_obvc.startTracking();
   }
 
   @Override
   public void execute() {
-    if (Math.abs(ball_x) < 10){
-        m_subsystem.setSwerveVectorNoGyro(0.02 * Math.signum(ball_x), 0, 0.1);
+    if (Math.abs(m_obvc.ball_x) != 0){
+        m_subsystem.setSwerveVectorNoGyro(0.02 * Math.signum(m_obvc.ball_x), 0, 0.1);
     } else {
         m_subsystem.setSwerveVectorNoGyro(0, 0, 0.1);
     }
@@ -46,11 +46,11 @@ public class DT_Auto_Intake_Ball extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    drive(0, 0);
+    m_subsystem.setSwerveVector(0, 0, 0);
     m_intake.setMode(IntakeMode.INTAKE_RETRACT_REQUESTED);  
     m_intake.intakeRequested = false;
-    m_intake.stop()
-    obvc.stopTracking();
+    m_intake.stop();
+    m_obvc.stopTracking();
   }
 
   @Override

@@ -21,6 +21,7 @@ public class OnboardVisionController extends SubsystemBase implements Runnable {
     private Mat sourceMat = new Mat();
     private Boolean started = false;
     private AtomicBoolean stopRequested = new AtomicBoolean(false);
+    public double ball_x;
 
     public OnboardVisionController(){
         try {
@@ -66,7 +67,7 @@ public class OnboardVisionController extends SubsystemBase implements Runnable {
 
             SmartDashboard.putNumber("Num Contours",gripPipelineContours.filterContoursOutput().size());
             
-            double ball_x = 0;
+            ball_x = 0;
             if (!gripPipelineContours.filterContoursOutput().isEmpty()) {
                     Rect ballRect = null;
                     ballRect = Imgproc.boundingRect(gripPipelineContours.filterContoursOutput().get(0));

@@ -37,7 +37,7 @@ public class RobotContainer {
   private final Injector injector = new Injector();
   private final Climber climber = new Climber();
   private final OnboardVisionController onboardVisionController = new OnboardVisionController();
-  //private final LimeLightController visionController = new LimeLightController();
+  private final LimeLightController visionController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
