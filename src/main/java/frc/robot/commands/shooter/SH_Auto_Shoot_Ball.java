@@ -22,7 +22,7 @@ public class SH_Auto_Shoot_Ball extends CommandBase {
     private boolean shooterSpeedAcheived, ballShot;
     private double m_setpointA, m_setpointB;
 
-    Timer timer;
+    Timer timer = new Timer();
 
     /**
      * Creates a new SH_Retract.
@@ -64,7 +64,8 @@ public class SH_Auto_Shoot_Ball extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         m_subsystem.stop();
-        m_subsystem.set_RPM(0, 0);
+        m_subsystem.set_voltage(0,0);
+//        m_subsystem.set_RPM(0, 0);
         m_injector.setMode(InjectorMode.INJECTOR_STOP);
     }
 
