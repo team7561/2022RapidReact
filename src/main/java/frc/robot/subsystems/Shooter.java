@@ -47,9 +47,9 @@ public class Shooter extends SubsystemBase{
         shooterMotorB.setSmartCurrentLimit(45);
 
         // PID coefficients
-        kP = 0.004; 
-        kI = 0.000002;
-        kD = 0.000003;
+        kP = 0.007; 
+        kI = 0.0000015;
+        kD = 0.000002;
         kIz = 500; // Error process value must be within before I is used.
         kFF = 0; 
         m_setpoint = 0;
@@ -107,10 +107,12 @@ public class Shooter extends SubsystemBase{
     }
     public void stop()
     {
+        RPMcontrol = false;
         m_shooterMultiplier = 0;
     }
     public void start()
     {
+        RPMcontrol = true;
         m_shooterMultiplier = -1;
     }
     public boolean hood_at_setpoint()
@@ -146,7 +148,7 @@ public class Shooter extends SubsystemBase{
         SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);
     }
     public void periodic(){
-        m_angle = SmartDashboard.getNumber("ShooterHood", 0);
+        m_angle = SmartDashboard.getNumber("ShooterHood", 0.2);
         shooterServoA.set(1-m_angle);
         shooterServoB.set(m_angle);
 
