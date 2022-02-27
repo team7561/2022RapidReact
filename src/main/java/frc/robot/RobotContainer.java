@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
@@ -36,6 +38,8 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Injector injector = new Injector();
   private final Climber climber = new Climber();
+  SendableChooser<Command> mAutoChooser = new SendableChooser<>();
+
   private final OnboardVisionController onboardVisionController = new OnboardVisionController();
   private final LimeLightController visionController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -55,6 +59,14 @@ public class RobotContainer {
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
     //CameraServer.startAutomaticCapture();
+
+
+    mAutoChooser.setDefaultOption("Do Nothing", new Auto_Do_Nothing(drivetrain, intake, shooter, injector, leds, visionController));
+    mAutoChooser.addOption("Shoot 1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("Shoot 2 Balls", new Auto_Shoot_2_Balls(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("Shoot 3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
+
+    SmartDashboard.putData("Auto", mAutoChooser);
   }
 
   /**
@@ -158,6 +170,7 @@ public class RobotContainer {
    */
     public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-      return new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake);
+    return mAutoChooser.getSelected();
+      //return new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake);
   }
 }

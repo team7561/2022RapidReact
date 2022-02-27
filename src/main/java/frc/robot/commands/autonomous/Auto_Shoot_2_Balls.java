@@ -20,9 +20,9 @@ import frc.robot.Constants;
 import frc.robot.commands.LED_Select_Random_Colour;
 import frc.robot.commands.LED_Set_Colour_Mode;
 
-public class Auto_Shoot_Ball extends SequentialCommandGroup  {
+public class Auto_Shoot_2_Balls extends SequentialCommandGroup  {
 
-    public Auto_Shoot_Ball(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
+    public Auto_Shoot_2_Balls(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
         addCommands(
         new LED_Select_Random_Colour(ledController),
         new ParallelCommandGroup(
@@ -41,6 +41,39 @@ public class Auto_Shoot_Ball extends SequentialCommandGroup  {
             new INJ_Forward(injector),
             new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
         ),
+            
+        new ParallelCommandGroup(
+            new INJ_Stop(injector),
+            new DT_TurnToAngle(drivetrain,0.18,90),
+            new INT_Deploy(intake),
+            new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_LIGHTCHASE)
+        ),
+            
+        new ParallelCommandGroup(
+            new INJ_Stop(injector),
+            new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 2.5),
+            //new DT_Auto_Cargo_Align(drivetrain, 0.4, 2.5),
+            new LED_Select_Random_Colour(ledController),
+            new INT_Grabbing_Start(intake)
+        ),
+            
+        new ParallelCommandGroup(
+            new DT_TurnToAngle(drivetrain,0.25, -35),
+            new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_LIGHTCHASE)
+        ),
+        new ParallelCommandGroup(
+            new TimerCommand(1),
+            new INT_Grabbing_Stop(intake),
+            new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 0.45),
+            new LED_Select_Random_Colour(ledController)
+        ),    
+        // Shoot Ball 2
+        new ParallelCommandGroup(
+            new TimerCommand(1),
+            new INJ_Forward(injector),
+            new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
+        ),
+            
         new ParallelCommandGroup(
             new TimerCommand(1),
             new INJ_Stop(injector),
@@ -48,8 +81,6 @@ public class Auto_Shoot_Ball extends SequentialCommandGroup  {
             new INT_Grabbing_Start(intake),
             new LED_Select_Random_Colour(ledController)
         )
-
-            
         //addSequential(new cmdTurnToHeading(90));  
         );
     }
