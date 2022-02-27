@@ -4,7 +4,7 @@ public class Speeds {
     //Ball Intake
     public static double GET_BALL_SPEED = 1.0;
     public static double KEEP_BALL_SPEED = 0.05;
-    public static double EJECT_BALL_SPEED = -0.1;
+    public static double EJECT_BALL_SPEED = -0.4;
     public static double STOP_BALL_SPEED = 0;
 
     public static double INTAKE_DEPLOY_UP_SPEED = 0.1;
