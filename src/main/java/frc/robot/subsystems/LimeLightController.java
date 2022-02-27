@@ -12,13 +12,13 @@ public class LimeLightController extends SubsystemBase {
     public Servo servo_L, servo_R;
     private double m_angle;
 	public boolean useAngle = false;
-	public LimeLightControllerMode m_mode = LimeLightControllerMode.LIMELIGHTCONTROLLER_IDLE;
+	public LimeLightControllerMode m_mode = LimeLightControllerMode.LIMELIGHTCONTROLLER_HUBTRACK;
 
 	public LimeLightController()
 	{
 		servo_L = new Servo(0);
         servo_R = new Servo(1);
-        m_angle = 0;
+        m_angle = 0.4;
 		turnOnLED();
 		NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("stream").setNumber(2);
 	}
