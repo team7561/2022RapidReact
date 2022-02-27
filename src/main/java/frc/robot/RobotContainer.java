@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //private final LEDController leds = new LEDController();
+  private final LEDController leds = new LEDController();
   private final Drivetrain drivetrain = new Drivetrain();
   private final Shooter shooter = new Shooter();
   private final Intake intake = new Intake();
@@ -108,8 +108,8 @@ public class RobotContainer {
 
     button_4.whenPressed(new SH_Close_Shot(shooter), true);
 
-    button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
-    //button_5.whenPressed(new OVC_Start_Tracking(onboardVisionController), true);
+    //button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
+    button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
     button_6.whenPressed(new SH_Perfect_Shot(shooter), true);
     
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ROBOTCENTRICSWERVE),true);
@@ -158,6 +158,6 @@ public class RobotContainer {
    */
     public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-      return new Auto_Shoot_Ball(shooter, injector);
+      return new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake);
   }
 }
