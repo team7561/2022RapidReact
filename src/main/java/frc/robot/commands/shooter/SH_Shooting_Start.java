@@ -30,6 +30,6 @@ public class SH_Shooting_Start extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
