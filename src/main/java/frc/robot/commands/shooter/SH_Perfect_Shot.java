@@ -31,8 +31,8 @@ public class SH_Perfect_Shot extends CommandBase {
   
   @Override
   public void execute() {
-    m_subsystem.set_RPM(723, 1045);
-    m_subsystem.setHood(0.88);
+    m_subsystem.set_RPM(1027, 1045);
+    m_subsystem.setHood(0.58);
   }
 
   @Override
