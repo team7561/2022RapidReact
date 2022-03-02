@@ -48,10 +48,10 @@ public class Shooter extends SubsystemBase{
         shooterMotorB.setSmartCurrentLimit(45);
 
         // PID coefficients
-        kP = 0.007; 
-        kI = 0.0000015;
-        kD = 0.000002;
-        kIz = 500; // Error process value must be within before I is used.
+        kP = 0.009; 
+        kI = 0.000001;
+        kD = 0.5;
+        kIz = 400; // Error process value must be within before I is used.
         kFF = 0; 
         m_setpoint = 0;
         m_hood_setpoint = 0.2;
