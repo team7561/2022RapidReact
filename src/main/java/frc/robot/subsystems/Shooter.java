@@ -18,7 +18,7 @@ public class Shooter extends SubsystemBase{
     CANSparkMax shooterMotorA;
     CANSparkMax shooterMotorB;
     Servo shooterServoA, shooterServoB; 
-    boolean shooting, RPMcontrol, autoHood, autoVelocityControl;
+    boolean shooting, RPMcontrol, autoSetpointControl;
 
     private SparkMaxPIDController m_ApidController;
     private SparkMaxPIDController m_BpidController;
@@ -29,6 +29,7 @@ public class Shooter extends SubsystemBase{
     public Shooter(){
         shooting = true;
         RPMcontrol = true;
+        autoSetpointControl = false;
         shooterServoA = new Servo(Ports.PWM_SHOOTER_HOOD_LEFT_SERVO);
         shooterServoB = new Servo(Ports.PWM_SHOOTER_HOOD_RIGHT_SERVO);
         shooterMotorA = new CANSparkMax(Ports.CAN_ID_SHOOTER_A, MotorType.kBrushless);
@@ -91,11 +92,11 @@ public class Shooter extends SubsystemBase{
 
     public void start_auto_hood()
     {
-        autoHood = true;
+        autoSetpointControl = true;
     }
     public void stop_auto_hood()
     {
-        autoHood = false;
+        autoSetpointControl = false;
     }
     public void fullyRetractHood()
     {
@@ -170,9 +171,11 @@ public class Shooter extends SubsystemBase{
         }
         //shooterHood.set(m_hood_setpoint);
         updateDashboard();
-        if (autoHood)
+        if (autoSetpointControl)
         {
-            
+            double distance = 5;
+            set_RPM(1000+distance*100, 700+distance*100);
+            setHood(distance/10);
         }
     }
     public void updateDashboard()

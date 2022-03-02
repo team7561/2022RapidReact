@@ -31,6 +31,7 @@ public class SH_Close_Shot extends CommandBase {
   
   @Override
   public void execute() {
+    m_subsystem.stop_auto_hood();
     m_subsystem.set_RPM(1179, 759);
     m_subsystem.setHood(0.09);
   }

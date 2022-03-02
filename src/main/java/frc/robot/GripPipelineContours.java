@@ -31,9 +31,9 @@ public class GripPipelineContours implements VisionPipeline {
 		double[] hsvThresholdValue = {46, 255};
 		if (redCargo)
 		{
-			hsvThresholdHue[0] = 129;
+			hsvThresholdHue[0] = 150;
 			hsvThresholdHue[1] = 180;
-			hsvThresholdSaturation[0] = 115;
+			hsvThresholdSaturation[0] = 120;
 			hsvThresholdSaturation[1] = 203;
 		}
 		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
@@ -45,15 +45,15 @@ public class GripPipelineContours implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 200.0;
+		double filterContoursMinArea = 20.0;
 		double filterContoursMinPerimeter = 0;
-		double filterContoursMinWidth = 10.0;
+		double filterContoursMinWidth = 5.0;
 		double filterContoursMaxWidth = 10000;
-		double filterContoursMinHeight = 50.0;
+		double filterContoursMinHeight = 5.0;
 		double filterContoursMaxHeight = 10000;
 		double[] filterContoursSolidity = {46, 100};
-		double filterContoursMinRatio = 0;
-		double filterContoursMaxRatio = 1000;
+		double filterContoursMinRatio = 0.1;
+		double filterContoursMaxRatio = 1.5;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 		source0.release();
 		hsvThresholdOutput.release();

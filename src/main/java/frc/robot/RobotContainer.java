@@ -7,15 +7,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
-import frc.robot.commands.onboard_vision_controller.OVC_Start_Tracking;
+//import frc.robot.commands.onboard_vision_controller.OVC_Start_Tracking;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.autonomous.*;
 import frc.robot.subsystems.*;
@@ -41,12 +41,13 @@ public class RobotContainer {
   SendableChooser<Command> mAutoChooser = new SendableChooser<>();
 
   private final OnboardVisionController onboardVisionController = new OnboardVisionController();
+  
   private final LimeLightController visionController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
   private Joystick joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
-  private XboxController xboxController = new XboxController(1); //Logitech Extreme 3D Pro Joysick Controller
+  private XboxController xboxController = new XboxController(1);
     
 
   /**
@@ -60,21 +61,18 @@ public class RobotContainer {
     climber.setDefaultCommand(new CLB_StopWinch(climber));
     //CameraServer.startAutomaticCapture();
 
-
+    LiveWindow.disableAllTelemetry();
     mAutoChooser.setDefaultOption("Do Nothing", new Auto_Do_Nothing(drivetrain, intake, shooter, injector, leds, visionController));
-    mAutoChooser.addOption("Shoot 1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake));
-    mAutoChooser.addOption("Shoot 2 Balls", new Auto_Shoot_2_Balls(shooter, injector, drivetrain,leds, intake));
-    mAutoChooser.addOption("Shoot 3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("90 degrees turn", new Auto_Shoot_2_Balls(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("5 second tracking cargo", new Auto_Drive_5s_Cargo(drivetrain, leds));
+    mAutoChooser.addOption("1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("2 Balls", new Auto_Shoot_2_Balls(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("2 Balls with Tracking", new Auto_Shoot_2_Balls_Tracking(shooter, injector, drivetrain,leds, intake, visionController));
+    mAutoChooser.addOption("3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
 
     SmartDashboard.putData("Auto", mAutoChooser);
   }
 
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
   private void configureButtonBindings() {
     final JoystickButton trigger = new JoystickButton(joystick, 1);
     final JoystickButton button_2 = new JoystickButton(joystick, 2);

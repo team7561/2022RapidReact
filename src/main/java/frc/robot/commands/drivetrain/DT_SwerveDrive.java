@@ -12,7 +12,7 @@ public class DT_SwerveDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain m_subsystem;
   private DoubleSupplier m_x, m_y, m_twist, m_speed;
-  private double abs_x, abs_y, target_angle, m_power, current_angle = 0;
+  private double target_angle, m_power;
 
   public DT_SwerveDrive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier twist, DoubleSupplier speed) {
     m_subsystem = drivetrain;

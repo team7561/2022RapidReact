@@ -10,22 +10,13 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.LimeLightController;
 
 public class SH_Auto_Vision_Speed extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter m_shooter;
-  private final LimeLightController m_visionController;
 
-
-  /**
-   * Creates a new SH_Retract.
-   *  @param subsystem
-   */
-  public SH_Auto_Vision_Speed(Shooter shooter, LimeLightController visionController) {
+  public SH_Auto_Vision_Speed(Shooter shooter) {
     m_shooter = shooter;
-    m_visionController = visionController;
-    addRequirements(shooter, visionController);
+    addRequirements(shooter);
   }
 
   @Override
@@ -35,9 +26,7 @@ public class SH_Auto_Vision_Speed extends CommandBase {
 
   @Override
   public void execute() {
-    double speed = m_visionController.calcSetpoint();
-    double spin = m_visionController.calcSpin();
-    m_shooter.set_RPM(speed+spin, speed-spin);
+    m_shooter.start_auto_hood();
   }
 
   @Override
@@ -46,6 +35,6 @@ public class SH_Auto_Vision_Speed extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

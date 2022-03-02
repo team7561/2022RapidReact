@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 /**
  * An example command that uses an example subsystem.
  */
-public class DT_TurnToAngle extends CommandBase {
+public class DT_TurnToRelativeAngle extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain m_subsystem;
   private final double m_speed;
@@ -22,7 +22,7 @@ public class DT_TurnToAngle extends CommandBase {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DT_TurnToAngle(Drivetrain subsystem, double speed, double targetAngle){
+  public DT_TurnToRelativeAngle(Drivetrain subsystem, double speed, double targetAngle){
     m_subsystem = subsystem;
     m_speed = speed;
     m_targetAngle = (targetAngle + m_subsystem.readGyro()) % 360;

@@ -1,20 +1,12 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.drivetrain.DT_Auto_Cargo_Align;
-import frc.robot.commands.drivetrain.DT_DriveVectorTime;
-import frc.robot.commands.drivetrain.DT_TurnToAngle;
-import frc.robot.commands.injector.INJ_Forward;
-import frc.robot.commands.injector.INJ_Index_Ball;
-import frc.robot.commands.injector.INJ_Stop;
-import frc.robot.commands.intake.INT_Deploy;
-import frc.robot.commands.intake.INT_Grabbing_Start;
-import frc.robot.commands.intake.INT_Grabbing_Stop;
+import frc.robot.commands.drivetrain.*;
+import frc.robot.commands.injector.*;
+import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.subsystems.*;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.TimerCommand;
 import frc.robot.Constants;
 import frc.robot.commands.LED_Select_Random_Colour;
@@ -25,6 +17,7 @@ public class Auto_Shoot_Ball extends SequentialCommandGroup  {
     public Auto_Shoot_Ball(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
         addCommands(
         new LED_Select_Random_Colour(ledController),
+        new DT_Drive_Reset_Gyro(drivetrain),
         new ParallelCommandGroup(
             //new DT_TurnToAngle(drivetrain,0.4,30),
             new LED_Select_Random_Colour(ledController),

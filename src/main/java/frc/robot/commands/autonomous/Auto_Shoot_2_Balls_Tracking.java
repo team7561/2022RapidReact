@@ -3,6 +3,7 @@ package frc.robot.commands.autonomous;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
+import frc.robot.commands.injector.INJ_Stop;
 import frc.robot.commands.intake.INT_Deploy;
 import frc.robot.commands.intake.INT_Grabbing_Start;
 import frc.robot.commands.intake.INT_Grabbing_Stop;
@@ -14,9 +15,9 @@ import frc.robot.Constants;
 import frc.robot.commands.LED_Select_Random_Colour;
 import frc.robot.commands.LED_Set_Colour_Mode;
 
-public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
+public class Auto_Shoot_2_Balls_Tracking extends SequentialCommandGroup  {
 
-    public Auto_Shoot_3_Balls(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
+    public Auto_Shoot_2_Balls_Tracking(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake, LimeLightController lc) {
         addCommands(
         new LED_Select_Random_Colour(ledController),
         new DT_Drive_Reset_Gyro(drivetrain),
@@ -46,8 +47,7 @@ public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
             
         new ParallelCommandGroup(
             new INJ_Stop(injector),
-            new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 2.5),
-            //new DT_Auto_Cargo_Align(drivetrain, 0.4, 2.5),
+            new DT_Auto_Cargo_Align(drivetrain, 0.4, 2.5),
             new LED_Select_Random_Colour(ledController),
             new INT_Grabbing_Start(intake)
         ),
@@ -61,43 +61,21 @@ public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
             new INT_Grabbing_Stop(intake),
             new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 0.45),
             new LED_Select_Random_Colour(ledController)
+        ),   
+        new ParallelCommandGroup(
+            new TimerCommand(1),
+            new DT_Auto_Hub_Align(drivetrain, lc),
+            new LED_Select_Random_Colour(ledController)
         ),    
+
+        
         // Shoot Ball 2
         new ParallelCommandGroup(
             new TimerCommand(1),
             new INJ_Forward(injector),
             new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
         ),
-        new ParallelCommandGroup(
-            new DT_TurnToRelativeAngle(drivetrain,0.25, 180),
-            new INJ_Stop(injector),
-            new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_LIGHTCHASE)
-        ),
-        new ParallelCommandGroup(
-            new TimerCommand(2),
-            new INT_Grabbing_Start(intake),
-            new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 1),
-            new LED_Select_Random_Colour(ledController)
-        ),    
-        new ParallelDeadlineGroup(
-            new TimerCommand(2),
-            new DT_TurnToRelativeAngle(drivetrain,0.2, 0),
-            new INT_Grabbing_Stop(intake),
-            new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_LIGHTCHASE)
-        ),
-        new ParallelCommandGroup(
-            new TimerCommand(2),
-            new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 1),
-            new LED_Select_Random_Colour(ledController)
-        ),    
-        
-        // Shoot Ball 3
-        new ParallelCommandGroup(
-            new TimerCommand(1),
-            new INJ_Forward(injector),
-            new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
-        ),
-    
+            
         new ParallelCommandGroup(
             new TimerCommand(1),
             new INJ_Stop(injector),
@@ -105,8 +83,6 @@ public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
             new INT_Grabbing_Start(intake),
             new LED_Select_Random_Colour(ledController)
         )
-
-            
         //addSequential(new cmdTurnToHeading(90));  
         );
     }

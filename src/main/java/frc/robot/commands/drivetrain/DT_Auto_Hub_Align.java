@@ -3,7 +3,6 @@ package frc.robot.commands.drivetrain;
 import frc.robot.subsystems.*;
 import frc.robot.SwerveMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.Timer;
 
 public class DT_Auto_Hub_Align extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

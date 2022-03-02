@@ -108,7 +108,7 @@ public class OnboardVisionController extends SubsystemBase implements Runnable {
 
             try{
             processImageInPipeline();
-            System.out.println("test");
+            //System.out.println("test");
             }
             catch(Exception e)
             {

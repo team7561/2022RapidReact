@@ -10,13 +10,13 @@ public class Auto_Drive_Off_Line extends SequentialCommandGroup  {
         addCommands(
         //new LED_Select_Random_Colour(ledController),
         new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
-        new DT_TurnToAngle(drivetrain, 0.1, 90),
+        new DT_TurnToRelativeAngle(drivetrain, 0.1, 90),
         new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
-        new DT_TurnToAngle(drivetrain, 0.1, 90),
+        new DT_TurnToRelativeAngle(drivetrain, 0.1, 90),
         new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
-        new DT_TurnToAngle(drivetrain, 0.1, 90),
+        new DT_TurnToRelativeAngle(drivetrain, 0.1, 90),
         new DT_DriveVectorTime(drivetrain, 0, 0, 0.3, 1),
-        new DT_TurnToAngle(drivetrain, 0.1, 90)
+        new DT_TurnToRelativeAngle(drivetrain, 0.1, 90)
         );
         //addSequential(new cmdTurnToHeading(90));  
     }
