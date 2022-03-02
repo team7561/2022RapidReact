@@ -53,7 +53,8 @@ public class DT_SwerveDrive extends CommandBase {
     }
     
     if (m_subsystem.getMode() == SwerveMode.HUB_TRACK){
-      double targetTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetYaw").getDouble(0);
+      //Photonvision: double targetTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("targetYaw").getDouble(0);
+      double targetTwist = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
       m_subsystem.setSwerveVector(targetTwist * 0.0045, target_angle + 180, -m_power * m_speed.getAsDouble());
       System.out.println(targetTwist);
     }

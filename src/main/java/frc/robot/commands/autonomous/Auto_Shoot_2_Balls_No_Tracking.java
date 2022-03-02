@@ -15,9 +15,9 @@ import frc.robot.Constants;
 import frc.robot.commands.LED_Select_Random_Colour;
 import frc.robot.commands.LED_Set_Colour_Mode;
 
-public class Auto_Shoot_2_Balls extends SequentialCommandGroup  {
+public class Auto_Shoot_2_Balls_No_Tracking extends SequentialCommandGroup  {
 
-    public Auto_Shoot_2_Balls(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
+    public Auto_Shoot_2_Balls_No_Tracking(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
         addCommands(
         new LED_Select_Random_Colour(ledController),
         new DT_Drive_Reset_Gyro(drivetrain),

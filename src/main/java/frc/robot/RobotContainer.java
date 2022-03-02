@@ -42,7 +42,7 @@ public class RobotContainer {
 
   private final OnboardVisionController onboardVisionController = new OnboardVisionController();
   
-  private final LimeLightController visionController = new LimeLightController();
+  private final LimeLightController limeLightController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
@@ -59,15 +59,15 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
-    //CameraServer.startAutomaticCapture();
+    //CameraServer.startAutomaticCapture(); //Commented out as this is part of OnboardVisionController
 
     LiveWindow.disableAllTelemetry();
-    mAutoChooser.setDefaultOption("Do Nothing", new Auto_Do_Nothing(drivetrain, intake, shooter, injector, leds, visionController));
-    mAutoChooser.addOption("90 degrees turn", new Auto_Shoot_2_Balls(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.setDefaultOption("Do Nothing", new Auto_Do_Nothing(drivetrain, intake, shooter, injector, leds, limeLightController));
+    mAutoChooser.addOption("90 degrees turn", new Auto_Turn_90_Degrees(drivetrain, leds));
     mAutoChooser.addOption("5 second tracking cargo", new Auto_Drive_5s_Cargo(drivetrain, leds));
     mAutoChooser.addOption("1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake));
-    mAutoChooser.addOption("2 Balls", new Auto_Shoot_2_Balls(shooter, injector, drivetrain,leds, intake));
-    mAutoChooser.addOption("2 Balls with Tracking", new Auto_Shoot_2_Balls_Tracking(shooter, injector, drivetrain,leds, intake, visionController));
+    mAutoChooser.addOption("2 Balls (No tracking)", new Auto_Shoot_2_Balls_No_Tracking(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("2 Balls  (Tracking)", new Auto_Shoot_2_Balls_Tracking(shooter, injector, drivetrain,leds, intake, limeLightController));
     mAutoChooser.addOption("3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
 
     SmartDashboard.putData("Auto", mAutoChooser);
@@ -89,7 +89,7 @@ public class RobotContainer {
 
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
     final JoystickButton button_B = new JoystickButton(xboxController, 2);
-    //final JoystickButton button_X = new JoystickButton(xboxController, 3);
+    final JoystickButton button_X = new JoystickButton(xboxController, 3);
     final JoystickButton button_Y = new JoystickButton(xboxController, 4);
 
     final JoystickButton button_LB = new JoystickButton(xboxController, 5);
@@ -138,7 +138,7 @@ public class RobotContainer {
     button_RB.whenPressed(new INJ_Forward(injector), true);
     button_RB.whenReleased(new INJ_Stop(injector), true);
 
-    //button_X.whenPressed(new INJ_Forward(injector), true);
+    button_X.whenPressed(new SH_Auto_Vision_Speed(shooter), true);
     button_Y.whenPressed(new SH_Perfect_Shot(shooter), true);
     button_A.whenPressed(new SH_Close_Shot(shooter), true); 
     button_B.whenPressed(new SH_Perfect_Shot(shooter), true);

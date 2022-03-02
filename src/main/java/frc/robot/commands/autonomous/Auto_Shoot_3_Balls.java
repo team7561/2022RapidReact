@@ -46,8 +46,8 @@ public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
             
         new ParallelCommandGroup(
             new INJ_Stop(injector),
-            new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 2.5),
-            //new DT_Auto_Cargo_Align(drivetrain, 0.4, 2.5),
+            //new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 2.5),
+            new DT_Auto_Cargo_Align(drivetrain, 0.4, 2.5),
             new LED_Select_Random_Colour(ledController),
             new INT_Grabbing_Start(intake)
         ),
@@ -76,7 +76,8 @@ public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
         new ParallelCommandGroup(
             new TimerCommand(2),
             new INT_Grabbing_Start(intake),
-            new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 1),
+            new DT_Auto_Cargo_Align(drivetrain, 0.4, 1),
+            //new DT_DriveVectorTime(drivetrain,0, 0, 0.4, 1),
             new LED_Select_Random_Colour(ledController)
         ),    
         new ParallelDeadlineGroup(
