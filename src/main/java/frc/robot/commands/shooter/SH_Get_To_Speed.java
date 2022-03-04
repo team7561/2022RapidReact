@@ -10,17 +10,14 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Injector;
 import frc.robot.Constants;
-import frc.robot.InjectorMode;
 import frc.robot.subsystems.Shooter;
 
-public class SH_Auto_Shoot_Ball extends CommandBase {
+public class SH_Get_To_Speed extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Shooter m_subsystem;
-    private final Injector m_injector;
-    private boolean shooterSpeedAcheived, ballShot;
-    private double m_setpointA, m_setpointB;
+    private boolean shooterSpeedAcheived;
+    double m_timeout;
 
     Timer timer = new Timer();
 
@@ -28,21 +25,16 @@ public class SH_Auto_Shoot_Ball extends CommandBase {
      * Creates a new SH_Retract.
      *  @param subsystem
      */
-    public SH_Auto_Shoot_Ball(Shooter subsystem, Injector injector, double setpointA, double setpointB) {
+    public SH_Get_To_Speed(Shooter subsystem, double timeout) {
         shooterSpeedAcheived = false;
-        ballShot = false;
         m_subsystem = subsystem;
-        m_setpointA = setpointA;
-        m_setpointB = setpointB;
-        m_injector = injector;
+        m_timeout = timeout;
         addRequirements(subsystem);
     }
 
     @Override
     public void initialize() {
         m_subsystem.start();
-        m_subsystem.set_RPM(m_setpointA, m_setpointB);
-        m_injector.setMode(InjectorMode.INJECTOR_INDEX_BALL);
         timer.start();
     }
 
@@ -55,9 +47,6 @@ public class SH_Auto_Shoot_Ball extends CommandBase {
             shooterSpeedAcheived = true;
         } 
         
-        if(shooterSpeedAcheived && !m_injector.balls){
-            ballShot = true;
-        }
         
     }
 
@@ -65,12 +54,10 @@ public class SH_Auto_Shoot_Ball extends CommandBase {
     public void end(boolean interrupted) {
         m_subsystem.stop();
         m_subsystem.set_voltage(0,0);
-//        m_subsystem.set_RPM(0, 0);
-        m_injector.setMode(InjectorMode.INJECTOR_STOP);
     }
 
     @Override
     public boolean isFinished() {
-        return ballShot;
+        return timer.get() > m_timeout || shooterSpeedAcheived;
     }
 }

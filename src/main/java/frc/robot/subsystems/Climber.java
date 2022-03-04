@@ -48,6 +48,12 @@ public class Climber extends SubsystemBase{
         climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_REVERSE_SPEED);
         climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_REVERSE_SPEED);
     }
+    public void climbReverseSlow()
+    {
+        System.out.println("Reverse Climb");
+        climberMotorA.set(TalonFXControlMode.PercentOutput, Speeds.CLIMBER_REVERSE_SLOW_SPEED);
+        climberMotorB.set(TalonFXControlMode.PercentOutput, -Speeds.CLIMBER_REVERSE_SLOW_SPEED);
+    }
     public void stop()
     {
         //System.out.println("Stop Climbing");

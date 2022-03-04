@@ -21,6 +21,7 @@ public class Speeds {
     //Climber
     public static double CLIMBER_LIFT_SPEED = 0.55;
     public static double CLIMBER_REVERSE_SPEED = -0.25;
+    public static double CLIMBER_REVERSE_SLOW_SPEED = -0.1;
     public static double CLIMBER_DEPLOY_SPEED = -0.85;
     public static double CLIMBER_STOP_SPEED = 0;
     //Injector

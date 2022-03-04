@@ -152,7 +152,7 @@ public class RobotContainer {
     dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
     dpad_Left.whenPressed(new CLB_Deploy(climber, intake), true);
     dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Right.whenPressed(new CLB_Deploy(climber, intake), true);
+    dpad_Right.whenPressed(new CLB_ReverseWinchSlow(climber, intake), true);
     dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
 
     left_joystick_button.whenPressed(new INT_Toggle(intake));

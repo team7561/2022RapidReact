@@ -18,17 +18,15 @@ public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
 
     public Auto_Shoot_3_Balls(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
         addCommands(
-        new LED_Select_Random_Colour(ledController),
-        new DT_Drive_Reset_Gyro(drivetrain),
         new ParallelCommandGroup(
             //new DT_TurnToAngle(drivetrain,0.4,30),
             new LED_Select_Random_Colour(ledController),
+            new DT_Drive_Reset_Gyro(drivetrain),
             new SH_Perfect_Shot(shooter)
             ),
         new ParallelCommandGroup(
-                new TimerCommand(4),
-                new SH_Shooting_Start(shooter),
-                new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
+            new SH_Get_To_Speed(shooter,3),
+            new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
         ),
         // Pre loaded ball
         new ParallelCommandGroup(
