@@ -33,6 +33,6 @@ public class INJ_Detect_Ball_Intaken extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return timer.get() > m_timeout || m_subsystem.getEncoderCount() > 100;
+    return timer.get() > m_timeout || m_subsystem.getEncoderCount() < -0.3;
   }
 }

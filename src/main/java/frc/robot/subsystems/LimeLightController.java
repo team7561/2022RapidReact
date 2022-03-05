@@ -42,7 +42,7 @@ public class LimeLightController extends SubsystemBase {
 			if(get_ta() == 0){
 				m_mode = LimeLightControllerMode.LIMELIGHTCONTROLLER_IDLE;
 			}
-
+			// This has been increased 50%
 			if(get_ty() < -0.001 && m_angle > 0){
 				//m_angle += 0.00008 * get_ty();
 				m_angle += 0.00012 * get_ty();
@@ -52,7 +52,6 @@ public class LimeLightController extends SubsystemBase {
 				m_angle += 0.00012 * get_ty();
 			}
 		}
-		// m_angle = SmartDashboard.getNumber("Vis Angle", 0);
 
 		servo_L.set(1 - m_angle);
 		servo_R.set(m_angle);

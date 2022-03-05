@@ -16,7 +16,6 @@ import frc.robot.subsystems.Shooter;
 public class SH_Get_To_Speed extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Shooter m_subsystem;
-    private boolean shooterSpeedAcheived;
     double m_timeout;
 
     Timer timer = new Timer();
@@ -26,7 +25,6 @@ public class SH_Get_To_Speed extends CommandBase {
      *  @param subsystem
      */
     public SH_Get_To_Speed(Shooter subsystem, double timeout) {
-        shooterSpeedAcheived = false;
         m_subsystem = subsystem;
         m_timeout = timeout;
         addRequirements(subsystem);
@@ -35,29 +33,22 @@ public class SH_Get_To_Speed extends CommandBase {
     @Override
     public void initialize() {
         m_subsystem.start();
+        SmartDashboard.putNumber("LED Value", Constants.BLINKIN_LIGHTCHASE);
         timer.start();
     }
 
     @Override
-    public void execute() {
-        if(
-            Math.abs(SmartDashboard.getNumber("Shooter A Speed", 0) - SmartDashboard.getNumber("Shooter A Setpoint", 0)) < Constants.SHOOTER_TOLERANCE &&
-            Math.abs(SmartDashboard.getNumber("Shooter B Speed", 0) - SmartDashboard.getNumber("Shooter B Setpoint", 0)) < Constants.SHOOTER_TOLERANCE
-        ){
-            shooterSpeedAcheived = true;
-        } 
-        
-        
+    public void execute() {        
     }
 
     @Override
     public void end(boolean interrupted) {
-        m_subsystem.stop();
-        m_subsystem.set_voltage(0,0);
+        
+        SmartDashboard.putNumber("LED Value", Constants.BLINKIN_BLUE);
     }
 
     @Override
     public boolean isFinished() {
-        return timer.get() > m_timeout || shooterSpeedAcheived;
+        return timer.get() > m_timeout || m_subsystem.atSetpoint();
     }
 }

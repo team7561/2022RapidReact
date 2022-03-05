@@ -48,7 +48,7 @@ public class DT_SwerveDrive extends CommandBase {
     if (m_subsystem.getMode() == SwerveMode.BALL_TRACK){
       //double ballTwist = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ballCam").getEntry("targetYaw").getDouble(0);
       double ballTwist = SmartDashboard.getNumber("ball_x",0);
-      m_subsystem.setSwerveVector(ballTwist * 0.0085, target_angle + 180, -m_power * m_speed.getAsDouble());
+      m_subsystem.setSwerveVector(ballTwist * 0.005, target_angle + 180, -m_power * m_speed.getAsDouble());
       System.out.println(ballTwist);
     }
     

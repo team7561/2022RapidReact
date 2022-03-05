@@ -15,7 +15,6 @@ import frc.robot.commands.climber.*;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
-//import frc.robot.commands.onboard_vision_controller.OVC_Start_Tracking;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.autonomous.*;
 import frc.robot.subsystems.*;
@@ -62,6 +61,7 @@ public class RobotContainer {
     //CameraServer.startAutomaticCapture(); //Commented out as this is part of OnboardVisionController
 
     LiveWindow.disableAllTelemetry();
+    
     mAutoChooser.setDefaultOption("Do Nothing", new Auto_Do_Nothing(drivetrain, intake, shooter, injector, leds, limeLightController));
     mAutoChooser.addOption("90 degrees turn", new Auto_Turn_90_Degrees(drivetrain, leds));
     mAutoChooser.addOption("5 second tracking cargo", new Auto_Drive_5s_Cargo(drivetrain, leds));
@@ -69,7 +69,7 @@ public class RobotContainer {
     mAutoChooser.addOption("2 Balls (No tracking)", new Auto_Shoot_2_Balls_No_Tracking(shooter, injector, drivetrain,leds, intake));
     mAutoChooser.addOption("2 Balls  (Tracking)", new Auto_Shoot_2_Balls_Tracking(shooter, injector, drivetrain,leds, intake, limeLightController));
     mAutoChooser.addOption("3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
-
+    mAutoChooser.addOption("Auto_Injector_Detect_Ball", new Auto_Injector_Detect_Ball(shooter, injector, drivetrain, leds, intake));
     SmartDashboard.putData("Auto", mAutoChooser);
   }
 
@@ -139,7 +139,7 @@ public class RobotContainer {
     button_RB.whenReleased(new INJ_Stop(injector), true);
 
     button_X.whenPressed(new SH_Auto_Vision_Speed(shooter), true);
-    button_Y.whenPressed(new SH_Perfect_Shot(shooter), true);
+    button_Y.whenPressed(new SH_Far_Shot(shooter), true);
     button_A.whenPressed(new SH_Close_Shot(shooter), true); 
     button_B.whenPressed(new SH_Perfect_Shot(shooter), true);
 
