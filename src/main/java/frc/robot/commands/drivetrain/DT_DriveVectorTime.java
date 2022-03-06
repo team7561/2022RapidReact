@@ -10,6 +10,8 @@ public class DT_DriveVectorTime extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Drivetrain m_subsystem;
     private final double m_twist, m_angle, m_speed, m_time;
+    double m_targetAngle;
+    double m_angleDifference;
     Timer timer;
     
 
@@ -28,11 +30,21 @@ public class DT_DriveVectorTime extends CommandBase {
     public void initialize() {
         timer.reset();
         timer.start();
+        m_targetAngle = m_subsystem.readGyro();
     }
     
     @Override
     public void execute() {
-        m_subsystem.setSwerveVectorNoGyro(m_twist, (m_angle + 90) % 360, m_speed);
+        m_angleDifference = m_targetAngle - m_subsystem.readGyro();
+        System.out.println(m_angleDifference);
+        //Error in appropriate direction and magnitude (-180 to 180)
+        if (Math.abs(m_angleDifference) > 180){
+          m_angleDifference = (360 - Math.abs(m_angleDifference)) * -Math.signum(m_angleDifference);
+        }
+    
+        //Command doesn't use target angle input in SPIN mode
+        m_subsystem.updateDashboard();
+        m_subsystem.setSwerveVectorNoGyro(-m_angleDifference * 0.01, (m_angle + 90) % 360, m_speed);
         // 🤣
     }
     

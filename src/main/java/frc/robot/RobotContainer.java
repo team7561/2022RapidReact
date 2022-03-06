@@ -69,6 +69,9 @@ public class RobotContainer {
     mAutoChooser.addOption("2 Balls (No tracking)", new Auto_Shoot_2_Balls_No_Tracking(shooter, injector, drivetrain,leds, intake));
     mAutoChooser.addOption("2 Balls  (Tracking)", new Auto_Shoot_2_Balls_Tracking(shooter, injector, drivetrain,leds, intake, limeLightController));
     mAutoChooser.addOption("3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("3 Balls (Luke)", new Auto_3_Ball(drivetrain, intake, shooter, injector, leds, limeLightController));
+    mAutoChooser.addOption("2 Balls A", new Auto_2_Ball_A(drivetrain, intake, shooter, injector, leds, limeLightController));
+    mAutoChooser.addOption("2 Balls B", new Auto_2_Ball_B(drivetrain, intake, shooter, injector, leds, limeLightController));
     mAutoChooser.addOption("Auto_Injector_Detect_Ball", new Auto_Injector_Detect_Ball(shooter, injector, drivetrain, leds, intake));
     SmartDashboard.putData("Auto", mAutoChooser);
   }
@@ -88,8 +91,8 @@ public class RobotContainer {
     final JoystickButton button_12 = new JoystickButton(joystick, 12);
 
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
-    final JoystickButton button_B = new JoystickButton(xboxController, 2);
-    final JoystickButton button_X = new JoystickButton(xboxController, 3);
+    final JoystickButton button_B = new JoystickButton(xboxController, 3);
+    final JoystickButton button_X = new JoystickButton(xboxController, 2);
     final JoystickButton button_Y = new JoystickButton(xboxController, 4);
 
     final JoystickButton button_LB = new JoystickButton(xboxController, 5);
@@ -116,10 +119,8 @@ public class RobotContainer {
 
     button_3.whenPressed(new INT_Toggle(intake), true);
 
-    button_4.whenPressed(new SH_Close_Shot(shooter), true);
+    button_4.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
 
-    //button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.BALL_TRACK),true);
-    button_5.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
     button_6.whenPressed(new SH_Perfect_Shot(shooter), true);
     
     button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ROBOTCENTRICSWERVE),true);
@@ -138,10 +139,9 @@ public class RobotContainer {
     button_RB.whenPressed(new INJ_Forward(injector), true);
     button_RB.whenReleased(new INJ_Stop(injector), true);
 
-    button_X.whenPressed(new SH_Auto_Vision_Speed(shooter), true);
     button_Y.whenPressed(new SH_Far_Shot(shooter), true);
-    button_A.whenPressed(new SH_Close_Shot(shooter), true); 
-    button_B.whenPressed(new SH_Perfect_Shot(shooter), true);
+    button_B.whenPressed(new SH_Close_Shot(shooter), true); 
+    button_A.whenPressed(new SH_Perfect_Shot(shooter), true);
 
     back.whenPressed(new SH_Shooting_Stop(shooter), true);
     start.whenPressed(new SH_Shooting_Start(shooter), true);

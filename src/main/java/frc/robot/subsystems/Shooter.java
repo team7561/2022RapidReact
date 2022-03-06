@@ -189,12 +189,6 @@ public class Shooter extends SubsystemBase{
         }
         //shooterHood.set(m_hood_setpoint);
         updateDashboard();
-        if (autoSetpointControl)
-        {
-            double distance = 5;
-            set_RPM(1000+distance*100, 700+distance*100);
-            setHood(distance/10);
-        }
     }
     public void updateDashboard()
     {

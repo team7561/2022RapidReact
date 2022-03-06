@@ -16,7 +16,6 @@ import frc.robot.subsystems.Shooter;
 public class SH_Get_To_Speed extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final Shooter m_subsystem;
-    double m_timeout;
 
     Timer timer = new Timer();
 
@@ -24,9 +23,8 @@ public class SH_Get_To_Speed extends CommandBase {
      * Creates a new SH_Retract.
      *  @param subsystem
      */
-    public SH_Get_To_Speed(Shooter subsystem, double timeout) {
+    public SH_Get_To_Speed(Shooter subsystem) {
         m_subsystem = subsystem;
-        m_timeout = timeout;
         addRequirements(subsystem);
     }
 
@@ -34,7 +32,6 @@ public class SH_Get_To_Speed extends CommandBase {
     public void initialize() {
         m_subsystem.start();
         SmartDashboard.putNumber("LED Value", Constants.BLINKIN_LIGHTCHASE);
-        timer.start();
     }
 
     @Override
@@ -49,6 +46,6 @@ public class SH_Get_To_Speed extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return timer.get() > m_timeout || m_subsystem.atSetpoint();
+        return m_subsystem.atSetpoint();
     }
 }

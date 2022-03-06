@@ -33,7 +33,7 @@ public class Auto_Shoot_3_Balls extends SequentialCommandGroup  {
             
             // Shooter has up to 3 seconds to get to setpoint
             new ParallelCommandGroup(
-                new SH_Get_To_Speed(shooter,3)
+                new SH_Get_To_Speed(shooter)
             ),
             // Shoot Preloaded ball
             new ParallelDeadlineGroup(

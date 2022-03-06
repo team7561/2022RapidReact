@@ -116,7 +116,7 @@ public class Intake extends SubsystemBase{
             intakeRequested = false;
             reverse = false;
             stop();
-            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT){
+            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT + 2){
                 System.out.println("Intake Retracted");
                 setMode(IntakeMode.INTAKE_RETRACTED);
             }
