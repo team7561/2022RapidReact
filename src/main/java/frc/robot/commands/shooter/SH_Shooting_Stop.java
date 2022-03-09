@@ -16,7 +16,6 @@ public class SH_Shooting_Stop extends CommandBase {
 
   @Override
   public void initialize() {
-    SmartDashboard.putNumber("LED Value", Constants.BLINKIN_COLOUR_WAVE_RAINBOW);
   }
 
   @Override

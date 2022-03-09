@@ -183,10 +183,6 @@ public class Shooter extends SubsystemBase{
             }
         
         SmartDashboard.putBoolean("Shooter At Setpoint", atSetpoint());
-        if (atSetpoint())
-        {
-            SmartDashboard.putNumber("LED Value", Constants.BLINKIN_BLUE);
-        }
         //shooterHood.set(m_hood_setpoint);
         updateDashboard();
     }

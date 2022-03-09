@@ -7,10 +7,12 @@ import java.util.Random;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LED_Mode;
 
 public class LEDController extends SubsystemBase{
 
     PWM blinkin;
+    LED_Mode m_mode = LED_Mode.LED_RED;
     public LEDController() {
         blinkin = new PWM(Ports.PWM_LED_CONTROLLER_CHANNEL);
         SmartDashboard.putNumber("LED Value", -0.31);

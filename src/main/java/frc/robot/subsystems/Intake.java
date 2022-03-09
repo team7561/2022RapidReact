@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAnalogSensor.Mode;
+import edu.wpi.first.wpilibj.Timer;
 
 import frc.robot.Constants;
 import frc.robot.Ports;
@@ -23,7 +24,7 @@ public class Intake extends SubsystemBase{
     public boolean reverse = false;
     public double intakeSpeed = 0;
     public double intakeDeploySpeed = 0;
-
+    Timer timer;
 
     public IntakeMode m_mode = IntakeMode.INTAKE_RETRACT_REQUESTED;
 
@@ -44,6 +45,11 @@ public class Intake extends SubsystemBase{
 
         SmartDashboard.putNumber("intakeMotor", 0.1);
         SmartDashboard.putNumber("intakeDeployMotor", 0.1);
+
+        timer = new Timer();
+
+        timer.reset();
+        timer.start();
     }
 
     public IntakeMode getMode(){
@@ -52,6 +58,11 @@ public class Intake extends SubsystemBase{
 
     public void setMode(IntakeMode mode){
         m_mode = mode;
+    }
+
+    public void resetTimer(){
+        timer.reset();
+        timer.start();
     }
 
     public void stop()
@@ -116,7 +127,7 @@ public class Intake extends SubsystemBase{
             intakeRequested = false;
             reverse = false;
             stop();
-            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT + 2){
+            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT + 2 && timer.get() > 0.5){
                 System.out.println("Intake Retracted");
                 setMode(IntakeMode.INTAKE_RETRACTED);
             }
@@ -134,7 +145,7 @@ public class Intake extends SubsystemBase{
             } else {
                 stop();
             }
-            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT){
+            if(intakeDeployMotor.getOutputCurrent() > Constants.INTAKE_DEPLOY_CURRENT_LIMIT && timer.get() > 0.5){
                 System.out.println("Intake Deployed");
                 setMode(IntakeMode.INTAKE_DEPLOYED);
             }

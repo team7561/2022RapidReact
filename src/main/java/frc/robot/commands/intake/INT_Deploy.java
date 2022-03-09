@@ -19,6 +19,7 @@ public class INT_Deploy extends CommandBase {
 
   @Override
   public void execute() {
+      m_subsystem.resetTimer();
       m_subsystem.setMode(IntakeMode.INTAKE_DEPLOY_REQUESTED);
   }
 

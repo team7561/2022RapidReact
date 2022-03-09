@@ -20,6 +20,7 @@ public class INT_Toggle extends CommandBase {
   @Override
   public void execute() {
       m_subsystem.stop();
+      m_subsystem.resetTimer();
       if(m_subsystem.getMode() == IntakeMode.INTAKE_DEPLOYED || m_subsystem.getMode() == IntakeMode.INTAKE_DEPLOY_REQUESTED){
         m_subsystem.setMode(IntakeMode.INTAKE_RETRACT_REQUESTED);
       }

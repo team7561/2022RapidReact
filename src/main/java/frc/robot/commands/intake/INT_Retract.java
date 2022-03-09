@@ -19,6 +19,7 @@ public class INT_Retract extends CommandBase {
 
   @Override
   public void execute() {
+      m_subsystem.resetTimer();
       m_subsystem.setMode(IntakeMode.INTAKE_RETRACT_REQUESTED);
   }
 
