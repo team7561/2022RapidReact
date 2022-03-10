@@ -18,7 +18,7 @@ public class Shooter extends SubsystemBase{
     CANSparkMax shooterMotorA;
     CANSparkMax shooterMotorB;
     Servo shooterServoA, shooterServoB; 
-    boolean shooting, RPMcontrol, autoSetpointControl;
+    public boolean shooting, RPMcontrol, autoSetpointControl;
 
     private SparkMaxPIDController m_ApidController;
     private SparkMaxPIDController m_BpidController;
@@ -50,12 +50,12 @@ public class Shooter extends SubsystemBase{
         shooterMotorB.setSmartCurrentLimit(45);
 
         // PID coefficients
-        kP_shooterMotorA = 0.009; 
+        kP_shooterMotorA = 0.008; 
         kI_shooterMotorA = 0.000001;
-        kD_shooterMotorA = 0.5;
-        kP_shooterMotorB = 0.003; 
+        kD_shooterMotorA = 2;
+        kP_shooterMotorB = 0.005; 
         kI_shooterMotorB = 0.000001;
-        kD_shooterMotorB = 0;
+        kD_shooterMotorB = 1;
         kIz = 400; // Error process value must be within before I is used.
         kFF = 0; 
         m_setpoint = 0;
@@ -170,7 +170,7 @@ public class Shooter extends SubsystemBase{
         m_Btarget = SmartDashboard.getNumber("Shooter B Setpoint", 0);
         if (shooting)
         {
-            if (RPMcontrol)
+            if (RPMcontrol && (m_Atarget > 25 || m_Btarget > 25))
             {
                 m_ApidController.setReference(m_Atarget * m_shooterMultiplier, CANSparkMax.ControlType.kVelocity);
                 m_BpidController.setReference(m_Btarget * m_shooterMultiplier, CANSparkMax.ControlType.kVelocity);

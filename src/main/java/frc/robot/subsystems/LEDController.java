@@ -11,9 +11,11 @@ import frc.robot.LED_Mode;
 
 public class LEDController extends SubsystemBase{
 
+
     PWM blinkin;
     LED_Mode m_mode = LED_Mode.LED_RED;
     public LEDController() {
+
         blinkin = new PWM(Ports.PWM_LED_CONTROLLER_CHANNEL);
         SmartDashboard.putNumber("LED Value", -0.31);
     }
@@ -22,6 +24,7 @@ public class LEDController extends SubsystemBase{
         blinkin.setSpeed(SmartDashboard.getNumber("LED Value", 0.83));
         SmartDashboard.putNumber("LED Value", blinkin.getSpeed());
     }    
+
     public void setValue(double value){
         SmartDashboard.putNumber("LED Value", value);
     }    

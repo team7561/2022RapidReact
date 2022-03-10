@@ -32,19 +32,19 @@ public class Constants {
 
     public static double SHOOTER_TOLERANCE = 50;
     
-    public static double SWERVE_A_OFFSET_ANGLE = 0.26;
+    public static double SWERVE_A_OFFSET_ANGLE = 0.267;
     public static double SWERVE_B_OFFSET_ANGLE = -0.9;
-    public static double SWERVE_D_OFFSET_ANGLE = 0.23;
-    public static double SWERVE_C_OFFSET_ANGLE = 0.45;
+    public static double SWERVE_D_OFFSET_ANGLE = -0.876;
+    public static double SWERVE_C_OFFSET_ANGLE = -0.318;
 
     public static int SWERVE_A_ENCODER_PORT = 0;
     public static int SWERVE_B_ENCODER_PORT = 3;
     public static int SWERVE_D_ENCODER_PORT = 2;
     public static int SWERVE_C_ENCODER_PORT = 1;
 
-    public static boolean DEBUG_INTAKE = true;
+    public static boolean DEBUG_INTAKE = false;
     public static boolean DEBUG_SHOOTER = true;
-    public static boolean DEBUG_CLIMBER = true;
+    public static boolean DEBUG_CLIMBER = false;
     public static boolean DEBUG_INJECTOR = true;
         
     public static double BLINKIN_RAINBOW                = -0.91;

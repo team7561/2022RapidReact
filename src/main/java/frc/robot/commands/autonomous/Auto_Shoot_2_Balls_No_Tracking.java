@@ -17,7 +17,7 @@ import frc.robot.commands.LED_Set_Colour_Mode;
 
 public class Auto_Shoot_2_Balls_No_Tracking extends SequentialCommandGroup  {
 
-    public Auto_Shoot_2_Balls_No_Tracking(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake) {
+    public Auto_Shoot_2_Balls_No_Tracking(Shooter shooter, Injector injector, Drivetrain drivetrain, LEDController ledController, Intake intake, LimeLightController visionController) {
         addCommands(
         new LED_Select_Random_Colour(ledController),
         new DT_Drive_Reset_Gyro(drivetrain),
@@ -28,7 +28,7 @@ public class Auto_Shoot_2_Balls_No_Tracking extends SequentialCommandGroup  {
             ),
         new ParallelCommandGroup(
                 new TimerCommand(4),
-                new SH_Shooting_Start(shooter),
+                new SH_Shooting_Start(shooter, visionController),
                 new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
         ),
         // Pre loaded ball

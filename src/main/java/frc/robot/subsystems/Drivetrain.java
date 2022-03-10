@@ -15,12 +15,14 @@ import frc.robot.SwerveMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Drivetrain extends SubsystemBase {
     /**
      * Creates a new ExampleSubsystem.
      */
     public SwerveModule moduleA, moduleB, moduleD, moduleC;
+    public Timer timer;
     double angleA, angleB, angleD, angleC;
     double m_x, m_y;
     double prevGyro = 0;
@@ -42,6 +44,10 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE);
         SmartDashboard.putNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE);
         SmartDashboard.putNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE);    
+
+        timer = new Timer();
+        timer.reset();
+        timer.start();
     }
 
     @Override
@@ -222,6 +228,14 @@ public class Drivetrain extends SubsystemBase {
         return m_mode;
     }
 
+    public boolean isStill(){
+        if(moduleA.getSpeed() == 0 && moduleB.getSpeed() == 0 && moduleC.getSpeed() == 0 &&  moduleD.getSpeed() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void setMode(SwerveMode mode)
     {
         m_mode = mode;
@@ -229,6 +243,9 @@ public class Drivetrain extends SubsystemBase {
 
     public void resetGyro(){
         imu.reset();
+        timer.reset();
+        timer.start();
+        SmartDashboard.putNumber("LED Value", 0.77);
     }
 
     public void updateDashboard()

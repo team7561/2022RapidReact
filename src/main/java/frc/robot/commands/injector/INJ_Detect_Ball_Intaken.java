@@ -19,6 +19,7 @@ public class INJ_Detect_Ball_Intaken extends CommandBase {
 
   @Override
   public void initialize() {
+    timer.reset();
     timer.start();
     m_subsystem.resetEncoder();
   }
@@ -29,10 +30,11 @@ public class INJ_Detect_Ball_Intaken extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    m_subsystem.resetEncoder();
   }
 
   @Override
   public boolean isFinished() {
-    return timer.get() > m_timeout || m_subsystem.getEncoderCount() < -0.3;
+    return timer.get() > m_timeout || m_subsystem.getEncoderCount() < -0.2;
   }
 }

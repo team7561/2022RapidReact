@@ -17,6 +17,7 @@ import frc.robot.commands.injector.*;
 import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter.*;
 import frc.robot.commands.autonomous.*;
+import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
@@ -31,7 +32,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final LEDController leds = new LEDController();
   private final Drivetrain drivetrain = new Drivetrain();
   private final Shooter shooter = new Shooter();
   private final Intake intake = new Intake();
@@ -47,7 +47,7 @@ public class RobotContainer {
   //HID
   private Joystick joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
   private XboxController xboxController = new XboxController(1);
-    
+  private final LEDController leds = new LEDController();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -58,6 +58,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist(), () -> (joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
+    leds.setDefaultCommand(new LED_Teleop(leds, drivetrain, shooter, limeLightController));
     //CameraServer.startAutomaticCapture(); //Commented out as this is part of OnboardVisionController
 
     LiveWindow.disableAllTelemetry();
@@ -65,8 +66,8 @@ public class RobotContainer {
     mAutoChooser.setDefaultOption("Do Nothing", new Auto_Do_Nothing(drivetrain, intake, shooter, injector, leds, limeLightController));
     mAutoChooser.addOption("90 degrees turn", new Auto_Turn_90_Degrees(drivetrain, leds));
     mAutoChooser.addOption("5 second tracking cargo", new Auto_Drive_5s_Cargo(drivetrain, leds));
-    mAutoChooser.addOption("1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake));
-    mAutoChooser.addOption("2 Balls (No tracking)", new Auto_Shoot_2_Balls_No_Tracking(shooter, injector, drivetrain,leds, intake));
+    mAutoChooser.addOption("1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake, limeLightController));
+    mAutoChooser.addOption("2 Balls (No tracking)", new Auto_Shoot_2_Balls_No_Tracking(shooter, injector, drivetrain,leds, intake, limeLightController));
     mAutoChooser.addOption("2 Balls  (Tracking)", new Auto_Shoot_2_Balls_Tracking(shooter, injector, drivetrain,leds, intake, limeLightController));
     mAutoChooser.addOption("3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
     mAutoChooser.addOption("3 Balls (Luke)", new Auto_3_Ball(drivetrain, intake, shooter, injector, leds, limeLightController));
@@ -91,8 +92,8 @@ public class RobotContainer {
     final JoystickButton button_12 = new JoystickButton(joystick, 12);
 
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
-    final JoystickButton button_B = new JoystickButton(xboxController, 3);
-    final JoystickButton button_X = new JoystickButton(xboxController, 2);
+    final JoystickButton button_B = new JoystickButton(xboxController, 2);
+    final JoystickButton button_X = new JoystickButton(xboxController, 3);
     final JoystickButton button_Y = new JoystickButton(xboxController, 4);
 
     final JoystickButton button_LB = new JoystickButton(xboxController, 5);
@@ -140,11 +141,11 @@ public class RobotContainer {
     button_RB.whenReleased(new INJ_Stop(injector), true);
 
     button_Y.whenPressed(new SH_Far_Shot(shooter), true);
-    button_B.whenPressed(new SH_Close_Shot(shooter), true); 
-    button_A.whenPressed(new SH_Perfect_Shot(shooter), true);
+    button_A.whenPressed(new SH_Close_Shot(shooter), true); 
+    button_X.whenPressed(new SH_Perfect_Shot(shooter), true);
 
-    back.whenPressed(new SH_Shooting_Stop(shooter), true);
-    start.whenPressed(new SH_Shooting_Start(shooter), true);
+    back.whenPressed(new SH_Shooting_Stop(shooter, limeLightController), true);
+    start.whenPressed(new SH_Shooting_Start(shooter, limeLightController), true);
 
     dpad_Up.whenPressed(new CLB_ReverseWinch(climber, intake), true);
     dpad_Up.whenReleased(new CLB_StopWinch(climber), true);

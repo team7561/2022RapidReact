@@ -27,7 +27,7 @@ public class Auto_2_Ball_B extends SequentialCommandGroup  {
             new INT_Grabbing_Stop(intake),
             new INT_Retract(intake),
             new SH_Perfect_Shot(shooter),
-            new SH_Shooting_Start(shooter),
+            new SH_Shooting_Start(shooter, visionController),
             new DT_TurnToAbsoluteAngle(drivetrain, 0.1, 180),
             new DT_DriveVectorTime(drivetrain, 0, 0, 0.15, 1.2),
             new SH_Get_To_Speed(shooter),
@@ -41,7 +41,7 @@ public class Auto_2_Ball_B extends SequentialCommandGroup  {
                 new INJ_Forward(injector)
             ),
             new INT_Retract(intake),
-            new SH_Shooting_Stop(shooter),
+            new SH_Shooting_Stop(shooter, visionController),
             new INJ_Stop(injector)
         );
         //addSequential(new cmdTurnToHeading(90));

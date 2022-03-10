@@ -15,7 +15,7 @@ public class Auto_3_Ball extends SequentialCommandGroup  {
             new DT_Drive_Reset_Gyro(drivetrain),
             new INT_Deploy(intake),
             new SH_Perfect_Shot(shooter),
-            new SH_Shooting_Start(shooter),
+            new SH_Shooting_Start(shooter, visionController),
             new LED_Select_Random_Colour(ledController),
             new DT_TurnToAbsoluteAngle(drivetrain, 0.1, 135),
             new DT_DriveVectorTime(drivetrain, 0, 0, 0.25, 1.4),
@@ -60,7 +60,7 @@ public class Auto_3_Ball extends SequentialCommandGroup  {
                 new INJ_Forward(injector)
             ),
             new INT_Retract(intake),
-            new SH_Shooting_Stop(shooter),
+            new SH_Shooting_Stop(shooter, visionController),
             new INJ_Stop(injector)
         );
         //addSequential(new cmdTurnToHeading(90));

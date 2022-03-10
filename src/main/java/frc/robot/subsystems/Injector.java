@@ -85,7 +85,6 @@ public class Injector extends SubsystemBase{
             balls = false;
             stop();
         }
-        
         updateDashboard();
     }
     public void resetEncoder()

@@ -17,7 +17,7 @@ public class Auto1 extends SequentialCommandGroup  {
         addCommands(
             new ParallelDeadlineGroup(new TimerCommand(4),
                 new DT_TurnToRelativeAngle(drivetrain, 0.4, 0.4),
-                new SH_Shooting_Start(shooter),
+                new SH_Shooting_Start(shooter, visionController),
                 new INT_Deploy(intake),
                 new LED_Select_Random_Colour(ledController)
                 ),

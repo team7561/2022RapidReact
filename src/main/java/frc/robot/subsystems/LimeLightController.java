@@ -19,7 +19,7 @@ public class LimeLightController extends SubsystemBase {
 		servo_L = new Servo(0);
         servo_R = new Servo(1);
         m_angle = 0.4;
-		turnOnLED();
+		turnOffLED();
 		NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
 		//NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("limelight").getEntry("stream").setNumber(2);
 	}
