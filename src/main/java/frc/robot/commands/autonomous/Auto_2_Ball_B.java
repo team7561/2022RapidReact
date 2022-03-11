@@ -28,7 +28,7 @@ public class Auto_2_Ball_B extends SequentialCommandGroup  {
             new INT_Retract(intake),
             new SH_Perfect_Shot(shooter),
             new SH_Shooting_Start(shooter, visionController),
-            new DT_TurnToAbsoluteAngle(drivetrain, 0.1, 180),
+            new DT_TurnToAbsoluteAngle(drivetrain, 0.1, 190),
             new DT_DriveVectorTime(drivetrain, 0, 0, 0.15, 1.2),
             new SH_Get_To_Speed(shooter),
             new ParallelCommandGroup(
