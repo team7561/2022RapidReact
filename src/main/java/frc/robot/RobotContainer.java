@@ -45,7 +45,7 @@ public class RobotContainer {
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
-  private Joystick joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
+  private Joystick  joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
   private XboxController xboxController = new XboxController(1);
   private final LEDController leds = new LEDController();
 

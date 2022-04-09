@@ -8,7 +8,7 @@ vid = cv2.VideoCapture(0)
 
 cTime = time.time()
 
-def apply_hsv_filter(self, original_image, hsv_filter=None):
+def apply_hsv_fiplter(self, original_image, hsv_filter=None):
     # convert image to HSV
     hsv = cv2.cvtColor(original_image, cv2.COLOR_BGR2HSV)
 
