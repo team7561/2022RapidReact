@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="counter-container">
+        <h1 class="counter-text">{{ timerString }}</h1>
+    </div>
+    <div class="options-container">
+        <mat-checkbox class="options-check" 
+            [color]="'primary'"
+            [checked]=true 
+            disabled="{{ timerStarted }}"
+            (change)="timerChange($event)"
+            id="timerCheckBox">Do Timer?</mat-checkbox>
+    </div>
+</div>

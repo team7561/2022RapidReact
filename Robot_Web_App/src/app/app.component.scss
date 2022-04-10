@@ -1,0 +1,71 @@
+.connection{
+    &-container{
+        width: 20%;
+        height: 100px;
+
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+}
+
+.timer{
+    &-container{
+        width: 25%;
+        height: 12%;
+        padding-top: 10px;
+        margin: auto;
+    }
+}
+
+.subsystems{
+    &-container{
+        margin: auto;
+        margin-top: 50px;
+        width: fit-content;
+        height: fit-content;
+    }
+}
+
+// For different screen sizes
+@media screen and(max-width: 1800px){
+    .connection{
+        &-container{
+            width: 30%;
+        }
+    }
+
+
+}
+@media screen and(max-width: 1350px){
+    .connection{
+        &-container{
+            width: 40%;
+        }
+    }
+}
+@media screen and(max-width: 1050px){
+    .connection{
+        &-container{
+            width: 55%;
+        }
+    }
+    .timer{
+        &-container{
+            width: 50%;       
+        }
+    }
+}
+@media screen and(max-width: 750px){
+    .connection{
+        &-container{
+            width: 70%;
+        }
+    }
+}
+@media screen and(max-width: 500px){
+    .connection{
+        &-container{
+            width: 90%;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+@font-face {
+    font-family: oxygen-regular;
+    src: url("assets/Oxygen/Oxygen-Regular.ttf");
+}
+
+*{
+    font-family: oxygen-regular;
+    line-height: normal;
+}
+
+body{
+    background-color: #E7ECEF;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="status-container">
+        <div class="status-indicator-container">
+            <div class="status-indicator" id="commsIndicator"></div>
+            <p class="status-indicator-text">Comms</p>
+        </div>
+    </div>
+
+    <div class="info-container">
+        <form (submit)="updateConnectionSettings($event)" class="info-form">
+            <mat-form-field class="info-field" appearance="fill">
+                <mat-label>Connection URL</mat-label>
+                <input matInput class="info-input" id="connectionURLInput" value="{{ connectionURL }}">
+            </mat-form-field>
+            <mat-form-field class="info-field info-polling" appearance="fill">
+                <mat-label>Polling Rate (ms)</mat-label>
+                <input type="number" matInput class="info-input info-polling-input " id="pollingRateInput" value="{{ pollingRate }}">
+            </mat-form-field>
+            <button class="info-submit" (click)="updateConnectionSettings($event)">Submit</button>
+        </form>
+    </div>
+</div>
