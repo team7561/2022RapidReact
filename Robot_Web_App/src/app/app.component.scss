@@ -1,3 +1,13 @@
+.top{
+    &-cards{
+        &-container{
+            width: 100%;
+            height: auto;
+
+        }
+    }
+}
+
 .connection{
     &-container{
         width: 20%;
@@ -5,6 +15,17 @@
 
         margin-top: 10px;
         margin-left: 10px;
+    }
+}
+
+.swerve{
+    &-container{
+        height: 100px;
+        width: 20%;
+        position: fixed;
+        top: 0px;    
+        right: 0px;
+        z-index: 4;
     }
 }
 
@@ -21,8 +42,8 @@
     &-container{
         margin: auto;
         margin-top: 50px;
-        width: fit-content;
-        height: fit-content;
+        width: 85%;
+        height: 750px;
     }
 }
 
@@ -30,7 +51,7 @@
 @media screen and(max-width: 1800px){
     .connection{
         &-container{
-            width: 30%;
+            width: 40%;
         }
     }
 
@@ -39,14 +60,33 @@
 @media screen and(max-width: 1350px){
     .connection{
         &-container{
-            width: 40%;
+            width: 65%;
+        }
+    }
+}
+
+@media screen and(max-width: 1200px){
+    .top{
+        &-cards{
+            &-container{
+                display: block;
+                justify-content: center;
+                margin-left: 5px;
+    
+            }
+        }
+    }    
+
+    .connection{
+        &-container{
+            width: 35%;
         }
     }
 }
 @media screen and(max-width: 1050px){
     .connection{
         &-container{
-            width: 55%;
+            width: 75%;
         }
     }
     .timer{

@@ -14,11 +14,14 @@ export class GetRobotDataService {
   startDataStream(): void{
     this.globalVars.addVar("connectionStatus", "connecting");
     const dataInterval = setInterval(()=>{
-      this.getRobotData().subscribe((res)=>{
+      this.getRobotData().subscribe((res: Object)=>{
         if(this.globalVars.getVar("connectionStatus") != "connected"){
           this.globalVars.addVar("connectionStatus", "connected")
         }
-        this.globalVars.addVar("robotResponse", JSON.stringify(res));
+        for(var i:number=0; i<Object.keys(res).length; i++){
+          var thisKey: string = Object.keys(res)[i]
+          this.globalVars.addVar(thisKey, (res as any)[thisKey]);
+        }
       })
     }, parseInt(this.globalVars.getVar("pollingRate")));
   }
@@ -30,5 +33,10 @@ export class GetRobotDataService {
       }
       return throwError("CANNOT CONNECT TO ROBOT")
     }));
+  }
+
+  // TODO send data to robot
+  sendRobotData(key: string, val: any){
+    console.log("SENDING DATA " + key)
   }
 }

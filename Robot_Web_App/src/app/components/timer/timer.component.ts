@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { interval } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 
 @Component({
@@ -15,13 +15,14 @@ export class TimerComponent implements OnInit {
   private timerVal: number; 
   public timerString: string;
   private startTime: Date; 
+  private globalSub: Subscription;
 
   constructor(private globalVar: DynamicGlobalsService) { }
 
   ngOnInit(): void {
     this.timerVal = parseInt(this.globalVar.getVar("matchTime"));
     this.timerString =  Math.floor(this.timerVal / 60).toString() + ":" + (this.timerVal % 60).toString();
-    this.globalVar.getSubject().subscribe(()=>{
+    this.globalSub = this.globalVar.getSubject().subscribe(()=>{
       if(this.globalVar.getVar("connectionStatus") == "connected" && this.doTimer){
         if(!this.timerStarted){ // Ensure the timer hasn't already begun
           this.startTime = new Date();
@@ -31,6 +32,12 @@ export class TimerComponent implements OnInit {
 
       }
     })
+  }
+
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
   }
 
   timerChange(event: MatCheckboxChange):void{

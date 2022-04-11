@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="heading-container">
+        <h1 class="heading-text">General Info</h1>
+    </div>
+
+    <div class="info-container">
+        <div class="info-item">
+            <h2 class="info-text">Intake Speed: {{ intakeStatus }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Injector Direction: {{ injectorMode }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Selected Auto: {{ selectedAuto }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Drivetrain Mode: {{ selectedDrivetrain }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Gyro Angle: {{ gyroAngle | number }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Vision Mode: {{ visionMode }}</h2>
+        </div>
+    </div>
+    <div class="info-container">
+        <div class="info-item">
+            <h2 class="info-text">Shooter A Speed: {{ shooterASpeed | number }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Shooter A Target: {{ shooterATarget | number }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Shooter B Speed: {{ shooterBSpeed | number }}</h2>
+        </div>
+        <div class="info-item">
+            <h2 class="info-text">Shooter B Target: {{ shooterBTarget | number }}</h2>
+        </div>
+    </div>
+    <div class="image-container">
+        <h2 class="image-text">Camera Output</h2>
+        <img class="image" src="../../../assets/no_img.png" alt="Robot Web Cam Feed">
+    </div>
+</div>

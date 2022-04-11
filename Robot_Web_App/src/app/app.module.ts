@@ -9,18 +9,33 @@ import { HttpClientModule } from '@angular/common/http';
 // Custom modules
 import { ConnectionMenuComponent } from './components/connection-menu/connection-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SwerveDirectionComponent } from './components/swerve-direction/swerve-direction.component';
+import { OffsetsComponent } from './components/offsets/offsets.component';
+import { GeneralStatsComponent } from './components/general-stats/general-stats.component';
+import { AutoComponent } from './components/auto/auto.component';
 
 // Angular material imports
 import { MatInputModule } from '@angular/material/input';
 import { TimerComponent } from './components/timer/timer.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
+import { ShooterControlComponent } from './components/shooter-control/shooter-control.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConnectionMenuComponent,
-    TimerComponent
+    TimerComponent,
+    SwerveDirectionComponent,
+    GeneralStatsComponent,
+    OffsetsComponent,
+    AutoComponent,
+    ShooterControlComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +44,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatInputModule,
     HttpClientModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatIconModule,
+    MatSliderModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

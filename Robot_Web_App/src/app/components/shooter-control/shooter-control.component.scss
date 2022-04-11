@@ -1,0 +1,27 @@
+.options{
+    &-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        gap: 15px;
+
+        width: 100%;
+        height: 85%;
+    }
+}
+
+.option{
+    &-container{
+        width: 45%;
+        height: fit-content;
+        background-color: #6096BA;
+        box-shadow: #8aa5bb 5px 5px 5px;
+    }
+}
+
+
+.slider{
+    width: 100%;
+}

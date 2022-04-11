@@ -1,0 +1,51 @@
+.container{
+    width: 100%;
+    height: 100%;
+    padding-top: 5px;
+    border-radius: 15px;
+    box-shadow: #83a2bb 5px 5px 5px;
+}
+
+.robot{
+    &-frame{
+        border: 3px black solid;
+        height: 90px;
+        width: 90px;
+        margin: auto;
+        margin-top: 2px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    &-module{
+        border: 3px blue solid;
+        height: 15px;
+        width: 15px;
+        border-radius: 100%;
+        display: grid;
+
+        &-icon{
+            margin-left: -5px;
+            margin-top: -5px;
+            transition: all 0.3s ease;
+        }
+
+        &-text{
+            color: #fff;
+            margin-top: -25px;
+            margin-left: 20px
+        }
+    }
+}
+
+
+#moduleB{
+    margin-left: 15px;
+}
+#moduleC{
+    margin-top: 45px;
+}
+#moduleD{
+    margin-top: 45px;
+    margin-left: 15px;
+}

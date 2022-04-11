@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 import { environment } from 'src/environments/environment';
 
@@ -10,15 +11,21 @@ import { environment } from 'src/environments/environment';
 export class ConnectionMenuComponent implements OnInit {
   public connectionURL: string = this.globalVarService.getVar("connectionURL");
   public pollingRate: number = parseInt(this.globalVarService.getVar("pollingRate"));
-
+  private globalSub: Subscription;
 
   constructor(private globalVarService: DynamicGlobalsService) { }
 
   ngOnInit(): void {
     console.log(this.pollingRate)
-    this.globalVarService.getSubject().subscribe((res)=>{
+    this.globalSub = this.globalVarService.getSubject().subscribe((res)=>{
       this.reloadStats();
     });
+  }
+
+  ngOnDestroy(): void{
+    if(this.globalSub){ // Unsubscribe from global vars if elem becomes unloaded
+      this.globalSub.unsubscribe();
+    }
   }
 
   reloadStats():void{
@@ -28,7 +35,6 @@ export class ConnectionMenuComponent implements OnInit {
     commsIndictaor.classList.remove("indicator-connecting");
     commsIndictaor.classList.remove("indicator-connected");
     commsIndictaor.classList.remove("indicator-failed");
-    console.log(this.globalVarService.getVar("connectionStatus"))
     switch(this.globalVarService.getVar("connectionStatus")){
       case "disconnected": {
         commsIndictaor.classList.add("indicator-unknown");

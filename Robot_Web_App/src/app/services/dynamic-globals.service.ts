@@ -20,6 +20,7 @@ export class DynamicGlobalsService {
         this.addVar("connectionURL", environment.defaultURL);
         this.addVar("pollingRate", environment.defaultPollingRate.toString());
         this.addVar("matchTime", environment.matchTime.toString());
+        this.addVar("autoModes", JSON.stringify(environment.autoList))
         console.log("CANNOT FIND LOCAL STORAGE VARIABLES")
       }
     }

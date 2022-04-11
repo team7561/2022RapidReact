@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="heading-container">
+        <h1 class="heading-text">Shooter Options</h1>
+    </div>
+
+    <div class="options-container">
+        <div class="option-container">
+            <div class="heading-container">
+                <h2 class="heading-text">Shooter A</h2>
+            </div>
+            <div class="heading-container">
+                <h2 class="heading-text">Value: {{ shooterAVal | number}}</h2>
+            </div>
+            <div class="slide-container">
+                <mat-slider
+                    class="slider"
+                    color="primary"
+                    thumbLabel
+                    disabled="disabled"
+                    min="-1000"
+                    max="1000"
+                    value="{{ shooterAVal }}"></mat-slider>
+            </div>
+            <div class="heading-container">
+                <h2 class="heading-text">Setpoint: {{ shooterASetPoint | number}}</h2>
+            </div>
+            <div class="slide-container">
+                <mat-slider
+                    class="slider"
+                    color="primary"
+                    thumbLabel
+                    min="-1000"
+                    max="1000"
+                    (valueChange)="updateShooterVal()"
+                    [(value)]="shooterASetPoint"></mat-slider>
+            </div>
+        </div>
+        <div class="option-container">
+            <div class="heading-container">
+                <h2 class="heading-text">Shooter B</h2>
+            </div>
+            <div class="heading-container">
+                <h2 class="heading-text">Value: {{ shooterBVal | number}}</h2>
+            </div>
+            <div class="slide-container">
+                <mat-slider
+                    class="slider"
+                    thumbLabel
+                    disabled="disabled"
+                    min="-1000"
+                    max="1000"
+                    value="{{ shooterBVal }}"></mat-slider>
+            </div>
+            <div class="heading-container">
+                <h2 class="heading-text">Setpoint: {{ shooterBSetPoint | number}}</h2>
+            </div>
+            <div class="slide-container">
+                <mat-slider
+                    class="slider"
+                    color="primary"
+                    thumbLabel
+                    min="-1000"
+                    max="1000"
+                    (valueChange)="updateShooterVal()"
+                    [(value)]="shooterBSetPoint"></mat-slider>
+            </div>
+        </div>
+    </div>
+</div>

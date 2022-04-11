@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="heading-container">
+        <h1 class="heading-text">Swerve Module Offsets</h1>
+    </div>
+
+    <div class="robot-container">
+        <div class="robot-module" id="moduleA">
+            <h2 class="robot-module-text headingText">A</h2>
+            <div class="robot-module-circle">
+                <mat-icon class="robot-module-circle-icon" id="iconA">keyboard_arrow_up</mat-icon>
+            </div>
+            <p class="robot-module-text">Offset: {{ offsetValA }}</p>
+            <mat-slider
+                min="-1"
+                max="1"
+                step="0.01"
+                thumbLabel
+                color="primary"
+                [(value)]="offsetValA"
+                (valueChange)="updateOffsets()"
+            ></mat-slider>
+        </div>
+        <div class="robot-module" id="moduleB">
+            <h2 class="robot-module-text headingText">B</h2>
+            <div class="robot-module-circle">
+                <mat-icon class="robot-module-circle-icon" id="iconB">keyboard_arrow_up</mat-icon>
+            </div>
+            <p class="robot-module-text">Offset: {{ offsetValB }}</p>
+            <mat-slider
+                min="-1"
+                max="1"
+                step="0.01"
+                thumbLabel
+                color="primary"
+                [(value)]="offsetValB"
+                (valueChange)="updateOffsets()"
+            ></mat-slider>
+        </div>
+        <div class="robot-module" id="moduleC">
+            <h2 class="robot-module-text headingText" >C</h2>
+            <div class="robot-module-circle">
+                <mat-icon class="robot-module-circle-icon" id="iconC">keyboard_arrow_up</mat-icon>
+            </div>
+            <p class="robot-module-text">Offset: {{ offsetValC }}</p>
+            <mat-slider
+                min="-1"
+                max="1"
+                step="0.01"
+                thumbLabel
+                color="primary"
+                [(value)]="offsetValC"
+                (valueChange)="updateOffsets()"
+            ></mat-slider>
+        </div>
+        <div class="robot-module" id="moduleD">
+            <h2 class="robot-module-text headingText">D</h2>
+            <div class="robot-module-circle">
+                <mat-icon class="robot-module-circle-icon" id="iconD">keyboard_arrow_up</mat-icon>
+            </div>
+            <p class="robot-module-text">Offset: {{ offsetValD }}</p>
+            <mat-slider
+                min="-1"
+                max="1"
+                step="0.01"
+                thumbLabel
+                color="primary"
+                [(value)]="offsetValD"
+                (valueChange)="updateOffsets()"
+            ></mat-slider>
+        </div>
+    </div>
+</div>

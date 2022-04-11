@@ -2,15 +2,21 @@
   <app-connection-menu></app-connection-menu>
 </div>
 
+<div class="swerve-container">
+  <app-swerve-direction></app-swerve-direction>
+</div>
+
 <div class="timer-container">
   <app-timer></app-timer>
 </div>
 
 <div class="subsystems-container">
   <mat-tab-group mat-align-tabs="center" [backgroundColor]="'primary'">
-    <mat-tab label="General"></mat-tab>
-    <mat-tab label="Climber"></mat-tab>
-    <mat-tab label="Intake"></mat-tab>
+    <mat-tab label="Settings"><app-settings></app-settings></mat-tab>
+    <mat-tab label="General"><app-general-stats></app-general-stats></mat-tab>
+    <mat-tab label="Offsets"><app-offsets></app-offsets></mat-tab>
+    <mat-tab label="Shooter"><app-shooter-control></app-shooter-control></mat-tab>
+    <mat-tab label="Auto"><app-auto></app-auto></mat-tab>
     <mat-tab label="Indexer"></mat-tab>
   </mat-tab-group>
 </div>

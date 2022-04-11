@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="heading-container">
+       <h1 class="heading-text">Settings</h1>
+    </div>
+
+    <div class="settings-container">
+        <div class="option-container">
+            <div class="heading-container">
+                <h3 class="heading-text">Add Auto Routine</h3>
+            </div>
+            <form (submit)="addAutoRoutine($event)" class="option-form">
+                <mat-form-field class="option-field" appearance="fill">
+                    <mat-label>Routine Name</mat-label>
+                    <input matInput class="optionInput" id="newRoutineInput">
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="option-container">
+            <div class="heading-container">
+                <h3 class="heading-text">Delete Auto Routine</h3>
+            </div>
+            <ul class="option-list">
+                <li *ngFor="let item of routineList" 
+                    class="option-list-item" 
+                    (click)="deleteRoutine($event)"
+                    id="{{ item }}">{{ item }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
