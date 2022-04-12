@@ -10,6 +10,7 @@ export class DynamicGlobalsService {
   private globalVars: Array<keyValPair> = [];
   private runInit: boolean = false;
   private static varSubject: Subject<Array<keyValPair>> = new Subject();
+  private doLocalBackup: boolean = true;
 
   constructor(){
     // Read past global variables from localstorage and init default fields
@@ -65,10 +66,15 @@ export class DynamicGlobalsService {
     return res;
   }
 
+  setDoLocalBackup(val: boolean){
+    this.doLocalBackup = val;
+  }
+
   saveVar(): void{
-    
     // Save the global variables to localstorage
-    localStorage.setItem("globalVars", JSON.stringify(this.globalVars))
+    if(this.doLocalBackup){
+      localStorage.setItem("globalVars", JSON.stringify(this.globalVars))
+    }
   }
   
 }

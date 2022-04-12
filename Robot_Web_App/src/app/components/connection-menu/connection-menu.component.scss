@@ -20,7 +20,6 @@
     &-indicator{
         width: 100%;
         height: 25px;
-        background-color: #8B8C89;
         
         &-container{
             margin-top: 5px;
@@ -77,14 +76,14 @@
     background-color: #8B8C89;
 }
 
-.indicator-connecting{
+.indicator-warning{
     background-color: #eec643;
 }
 
-.indicator-connected{
+.indicator-good{
     background-color: #20bf55;
 }
 
-.indicator-failed{
+.indicator-error{
     background-color: #fb3640;
 }

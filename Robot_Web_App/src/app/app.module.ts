@@ -13,6 +13,8 @@ import { SwerveDirectionComponent } from './components/swerve-direction/swerve-d
 import { OffsetsComponent } from './components/offsets/offsets.component';
 import { GeneralStatsComponent } from './components/general-stats/general-stats.component';
 import { AutoComponent } from './components/auto/auto.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { ShooterControlComponent } from './components/shooter-control/shooter-control.component';
 
 // Angular material imports
 import { MatInputModule } from '@angular/material/input';
@@ -22,8 +24,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
-import { ShooterControlComponent } from './components/shooter-control/shooter-control.component';
-import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     OffsetsComponent,
     AutoComponent,
     ShooterControlComponent,
-    SettingsComponent
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

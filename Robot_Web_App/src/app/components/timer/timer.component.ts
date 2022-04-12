@@ -21,7 +21,11 @@ export class TimerComponent implements OnInit {
 
   ngOnInit(): void {
     this.timerVal = parseInt(this.globalVar.getVar("matchTime"));
-    this.timerString =  Math.floor(this.timerVal / 60).toString() + ":" + (this.timerVal % 60).toString();
+    var blankSpace = ""
+    if((this.timerVal % 60).toString().length <= 1){ // Add an extra 0 to seconds if necessary
+      blankSpace = "0"
+    }
+    this.timerString =  Math.floor(this.timerVal / 60).toString() + ":" + blankSpace + (this.timerVal % 60).toString();
     this.globalSub = this.globalVar.getSubject().subscribe(()=>{
       if(this.globalVar.getVar("connectionStatus") == "connected" && this.doTimer){
         if(!this.timerStarted){ // Ensure the timer hasn't already begun
@@ -53,7 +57,7 @@ export class TimerComponent implements OnInit {
       var timeRemaining = this.timerVal - timeElapsed;
 
       var blankSpace = ""
-      if((timeRemaining % 60).toString().length == 1 ){ // Add an extra 0 to seconds if necessary
+      if((timeRemaining % 60).toString().length <= 1){ // Add an extra 0 to seconds if necessary
         blankSpace = "0"
       }
       this.timerString =  Math.floor(timeRemaining / 60).toString() + ":" + blankSpace + (timeRemaining % 60).toString();

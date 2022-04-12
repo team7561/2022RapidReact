@@ -19,6 +19,7 @@ export class GeneralStatsComponent implements OnInit {
   public shooterATarget: number;
   public shooterBSpeed: number;
   public shooterBTarget: number;
+  public batteryVoltage: number;
 
   private globalSub: Subscription;
 
@@ -32,6 +33,7 @@ export class GeneralStatsComponent implements OnInit {
       this.selectedDrivetrain = this.globalVars.getVar("Drivetrain Mode");
       this.gyroAngle = this.globalVars.getVar("Gyro Angle");
       this.visionMode = this.globalVars.getVar("visionMode");
+      this.batteryVoltage = parseFloat(this.globalVars.getVar("Battery Voltage"));
       this.shooterASpeed = parseInt(this.globalVars.getVar("Shooter A Speed"));
       this.shooterATarget = parseInt(this.globalVars.getVar("Shooter A Setpoint"));
       this.shooterBSpeed = parseInt(this.globalVars.getVar("Shooter B Speed"));

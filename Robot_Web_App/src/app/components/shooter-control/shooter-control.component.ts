@@ -11,8 +11,8 @@ import { GetRobotDataService } from 'src/app/services/get-robot-data.service';
 export class ShooterControlComponent implements OnInit {
   public shooterAVal: number;
   public shooterBVal: number;
-  public shooterASetPoint: number |null;
-  public shooterBSetPoint: number |null;
+  public shooterASetPoint: number |null = 0;
+  public shooterBSetPoint: number |null = 0;
 
   private gloabalSub: Subscription;
 

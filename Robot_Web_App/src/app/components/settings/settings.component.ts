@@ -9,12 +9,14 @@ import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service'
 })
 export class SettingsComponent implements OnInit {
   public routineList: Array<string>;
+  public gameLength: number | null;
 
   private globalSub: Subscription;
 
   constructor(private globalVar: DynamicGlobalsService) { }
 
   ngOnInit(): void {
+    this.gameLength = parseInt(this.globalVar.getVar("matchTime"));
     this.globalSub = this.globalVar.getSubject().subscribe(()=>{
       if(this.routineList != JSON.parse(this.globalVar.getVar("autoModes"))){
         this.routineList = JSON.parse(this.globalVar.getVar("autoModes"));
@@ -40,6 +42,23 @@ export class SettingsComponent implements OnInit {
     }
     this.globalVar.addVar("autoModes", JSON.stringify(this.routineList));
     
+  }
+
+  changeMatchTime():void{
+    this.gameLength = parseInt((document.getElementById("gameLengthInput") as HTMLInputElement).value);
+    this.globalVar.addVar("matchTime", this.gameLength.toString());
+  }
+
+  wipeLocalStorage():void{
+    if(confirm("Are you sure you want to delete ALL locally stored variables?")){
+      this.globalVar.setDoLocalBackup(false); // Stop the global vars from backing up between clearing local storage and reloading
+      setTimeout(()=>{
+        localStorage.clear();
+        console.log("Local storage cleared");
+        location.reload();
+      }, 100);
+
+    }
   }
 
 

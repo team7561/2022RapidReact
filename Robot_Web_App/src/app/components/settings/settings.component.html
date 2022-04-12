@@ -11,8 +11,9 @@
             <form (submit)="addAutoRoutine($event)" class="option-form">
                 <mat-form-field class="option-field" appearance="fill">
                     <mat-label>Routine Name</mat-label>
-                    <input matInput class="optionInput" id="newRoutineInput">
+                    <input matInput class="option-input" id="newRoutineInput">
                 </mat-form-field>
+                <button class="option-submit">Submit</button>
             </form>
         </div>
         <div class="option-container">
@@ -21,10 +22,32 @@
             </div>
             <ul class="option-list">
                 <li *ngFor="let item of routineList" 
-                    class="option-list-item" 
-                    (click)="deleteRoutine($event)"
-                    id="{{ item }}">{{ item }}</li>
+                class="option-list-item" 
+                (click)="deleteRoutine($event)"
+                id="{{ item }}">{{ item }}</li>
             </ul>
+        </div>
+        <div class="option-container">
+            <div class="heading-container">
+                <h3 class="heading-text">Adjust game time</h3>
+            </div>
+            <form (submit)="changeMatchTime()" class="option-form">
+                <mat-form-field class="option-field">
+                    <mat-label>Number of seconds a game lasts</mat-label>
+                    <input matInput type="number" [value]="gameLength" id="gameLengthInput">
+                </mat-form-field>
+                <button class="option-submit">Submit</button>
+            </form>
+        </div>
+        <div class="option-container">
+            <div class="heading-container">
+                <h3 class="heading-text">Wipe locally stored data</h3>
+            </div>
+            <div class="heading-container">
+                <p class="heading-text">Clears all local storage data, and resets all custom vals to the defaults</p>
+                <button class="option-wipe" (click)="wipeLocalStorage()">Wipe</button>
+            </div>
+            
         </div>
     </div>
 </div>

@@ -26,6 +26,18 @@
         margin-left: 10px;
         margin-top: 20px;
     }
+
+    &-submit{
+        width: 80px;
+        height: 30px;
+        margin-top: -10px;
+        margin-left: 15px;
+        border-radius: 15px;
+        border: none;
+        background-color: #80ffdb;
+        cursor: pointer;
+    }
+
     &-list{
         width: fit-content;
         text-decoration: none;
@@ -39,6 +51,17 @@
             }
 
         }
+    }
+
+    &-wipe{
+        width: 30%;
+        height: 60px;
+        margin: auto;
+        cursor: pointer;
+        background-color: #fb3640;
+        border: none;
+        border-radius: 15px;
+
     }
 
     

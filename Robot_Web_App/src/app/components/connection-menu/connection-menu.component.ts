@@ -32,22 +32,36 @@ export class ConnectionMenuComponent implements OnInit {
     (document.getElementById("connectionURLInput") as HTMLInputElement).value = this.globalVarService.getVar("connectionURL");
     var commsIndictaor: HTMLElement = document.getElementById("commsIndicator") as HTMLElement; 
     commsIndictaor.classList.remove("indicator-unknown");
-    commsIndictaor.classList.remove("indicator-connecting");
-    commsIndictaor.classList.remove("indicator-connected");
-    commsIndictaor.classList.remove("indicator-failed");
+    commsIndictaor.classList.remove("indicator-warning");
+    commsIndictaor.classList.remove("indicator-good");
+    commsIndictaor.classList.remove("indicator-error");
     switch(this.globalVarService.getVar("connectionStatus")){
       case "disconnected": {
         commsIndictaor.classList.add("indicator-unknown");
         break;
       } case "connecting" :{
-        commsIndictaor.classList.add("indicator-connecting");
+        commsIndictaor.classList.add("indicator-warning");
         break;
       }case "connected":{
-        commsIndictaor.classList.add("indicator-connected");
+        commsIndictaor.classList.add("indicator-good");
         break;
       }case "failed": {
-        commsIndictaor.classList.add("indicator-failed")
+        commsIndictaor.classList.add("indicator-error")
       }
+    }
+
+    var batteryIndicator: HTMLElement = document.getElementById("batteryIndicator") as HTMLElement;
+    batteryIndicator.classList.remove("indicator-unknown");
+    batteryIndicator.classList.remove("indicator-warning");
+    batteryIndicator.classList.remove("indicator-good");
+    batteryIndicator.classList.remove("indicator-error");
+    var batteryVoltage: number = parseFloat(this.globalVarService.getVar("Battery Voltage"));
+    if(batteryVoltage < 11){
+      batteryIndicator.classList.add("indicator-error")
+    }else if(batteryVoltage < 11.5){
+      batteryIndicator.classList.add("indicator-warning")
+    }else{
+      batteryIndicator.classList.add("indicator-good")
     }
   }
 

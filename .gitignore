@@ -103,6 +103,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Ignores all node module files
+node_modules 
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
