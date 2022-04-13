@@ -24,6 +24,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
+import { GraphsComponent } from './components/graphs/graphs.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     AutoComponent,
     ShooterControlComponent,
     SettingsComponent,
+    GraphsComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatTabsModule,
     MatIconModule,
     MatSliderModule,
-    MatSelectModule
+    MatSelectModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
