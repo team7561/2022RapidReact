@@ -2,14 +2,54 @@
     <div class="heading-container">
         <h1 class="heading-text">Graphs</h1>
     </div>
-    <div class="chart" *ngIf="batteryChartData">
-        <canvas baseChart
-                id="batteryChart"
-                width="100%" height="30"
-                [datasets]="batteryChartData"
-                [labels]="batteryChartLabels"
-                [options]="batterChartConfig"
-                [type]="'line'">
-        </canvas>
+    <div class="graph-container">
+        <mat-tab-group class="graph-tab">
+            <!-- NOTE - For some reason the vision tracking graph ONLY updates when it is first in the tab group? -->
+            <mat-tab label="Vision Tracking">
+                <div class="heading-container">
+                    <h2 class="heading-text">Vision Tracking</h2>
+                </div>
+                <div class="graph-shooter-container">
+                    <canvas baseChart
+                            id="visionChart"
+                            width="100%" height="30"
+                            [datasets]="visionChartData"
+                            [labels]="visionChartLabels"
+                            [options]="visionChartConfig"
+                            [type]="'bubble'">
+                    </canvas>
+                </div>
+            </mat-tab>
+            <mat-tab label="Battery Voltage">
+                <div class="heading-container">
+                    <h2 class="heading-text">Battery Voltage</h2>
+                </div>
+                <div class="graph-battery-container">
+                    <canvas baseChart 
+                            id="batteryChart"
+                            width="100%" height="30"
+                            [datasets]="batteryChartData"
+                            [labels]="batteryChartLabels"
+                            [options]="batterChartConfig"
+                            [type]="'line'">
+                    </canvas>
+                </div>
+            </mat-tab>
+            <mat-tab label="Shooter Speeds">
+                <div class="heading-container">
+                    <h2 class="heading-text">Shooter Speeds</h2>
+                </div>
+                <div class="graph-shooter-container">
+                    <canvas baseChart
+                            id="shooterChart"
+                            width="100%" height="30"
+                            [datasets]="shooterChartData"
+                            [labels]="shooterChartLabels"
+                            [options]="shooterChartConfig"
+                            [type]="'line'">
+                    </canvas>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
     </div>
 </div>

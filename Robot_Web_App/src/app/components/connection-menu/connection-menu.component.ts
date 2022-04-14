@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './connection-menu.component.html',
   styleUrls: ['./connection-menu.component.scss']
 })
-export class ConnectionMenuComponent implements OnInit {
+export class ConnectionMenuComponent implements OnInit { // Displays basic connection data and basic robot stats
   public connectionURL: string = this.globalVarService.getVar("connectionURL");
   public pollingRate: number = parseInt(this.globalVarService.getVar("pollingRate"));
   private globalSub: Subscription;
@@ -16,7 +16,6 @@ export class ConnectionMenuComponent implements OnInit {
   constructor(private globalVarService: DynamicGlobalsService) { }
 
   ngOnInit(): void {
-    console.log(this.pollingRate)
     this.globalSub = this.globalVarService.getSubject().subscribe((res)=>{
       this.reloadStats();
     });
@@ -29,7 +28,6 @@ export class ConnectionMenuComponent implements OnInit {
   }
 
   reloadStats():void{
-    (document.getElementById("connectionURLInput") as HTMLInputElement).value = this.globalVarService.getVar("connectionURL");
     var commsIndictaor: HTMLElement = document.getElementById("commsIndicator") as HTMLElement; 
     commsIndictaor.classList.remove("indicator-unknown");
     commsIndictaor.classList.remove("indicator-warning");
@@ -69,8 +67,8 @@ export class ConnectionMenuComponent implements OnInit {
     this.connectionURL = (<HTMLInputElement>document.getElementById("connectionURLInput")).value
     this.pollingRate = parseInt((<HTMLInputElement>document.getElementById("pollingRateInput")).value)
 
-    this.globalVarService.addVar("connectionURL", this.connectionURL);
-    this.globalVarService.addVar("pollingRate", this.pollingRate.toString());
+    this.globalVarService.addVar("connectionURL", this.connectionURL, false);
+    this.globalVarService.addVar("pollingRate", this.pollingRate.toString(), false);
 
     setTimeout(()=>{
       location.reload();

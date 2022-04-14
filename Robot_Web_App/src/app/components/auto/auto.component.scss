@@ -7,16 +7,6 @@
     margin-top: 20px;
 }
 
-.heading{
-    &-container{
-        width: fit-content;
-        margin: auto;
-        text-align: center;
-        margin-top: 5px;
-        
-    }
-}
-
 .select{
     &-container{
         width: fit-content;
@@ -30,5 +20,38 @@
             width: 300px;
             margin-top: 10px;
         }
+    }
+}
+
+.field{
+    &-heading{
+        margin-top: 30px;
+    }
+
+    &-container{
+        width: 95%;
+        height: 500px;
+        margin: auto;
+        margin-top: 15px;
+
+        border: 10px black solid;
+    }
+}
+
+.robot{
+    width: 60px;
+    height: 60px;
+    position: relative;
+
+    transition: all 0.5s ease;
+
+    border: 5px blue solid;
+    display: flex;
+    justify-content: center;
+
+    &-direction-icon{
+        transform: scale(3) rotate(90deg);
+        margin-top: 17px;
+
     }
 }

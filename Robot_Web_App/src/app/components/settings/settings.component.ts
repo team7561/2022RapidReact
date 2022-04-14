@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
     this.gameLength = parseInt(this.globalVar.getVar("matchTime"));
     this.globalSub = this.globalVar.getSubject().subscribe(()=>{
       if(this.routineList != JSON.parse(this.globalVar.getVar("autoModes"))){
-        this.routineList = JSON.parse(this.globalVar.getVar("autoModes"));
+        this.routineList = JSON.parse(this.globalVar.getVar("autoModes")); // Auto update routine list when changed
       }
     })
   }
@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit {
     var currentAutoList = JSON.parse(this.globalVar.getVar("autoModes"));
     currentAutoList.push((document.getElementById("newRoutineInput") as HTMLInputElement).value);
     (document.getElementById("newRoutineInput") as HTMLInputElement).value = ""
-    this.globalVar.addVar("autoModes", JSON.stringify(currentAutoList));
+    this.globalVar.addVar("autoModes", JSON.stringify(currentAutoList), false);
   }
 
   deleteRoutine(event: Event):void{
@@ -40,13 +40,13 @@ export class SettingsComponent implements OnInit {
         break;
       }
     }
-    this.globalVar.addVar("autoModes", JSON.stringify(this.routineList));
+    this.globalVar.addVar("autoModes", JSON.stringify(this.routineList), false);
     
   }
 
   changeMatchTime():void{
     this.gameLength = parseInt((document.getElementById("gameLengthInput") as HTMLInputElement).value);
-    this.globalVar.addVar("matchTime", this.gameLength.toString());
+    this.globalVar.addVar("matchTime", this.gameLength.toString(), false);
   }
 
   wipeLocalStorage():void{

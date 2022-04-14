@@ -12,16 +12,19 @@ export class GetRobotDataService {
               private httpClient: HttpClient) { }
 
   startDataStream(): void{
-    this.globalVars.addVar("connectionStatus", "connecting");
+    this.globalVars.addVar("connectionStatus", "connecting", true);
     const dataInterval = setInterval(()=>{
       this.getRobotData().subscribe((res: Object)=>{
         if(this.globalVars.getVar("connectionStatus") != "connected"){
-          this.globalVars.addVar("connectionStatus", "connected")
+          this.globalVars.addVar("connectionStatus", "connected", true)
         }
+        var keyArray: string[] = [];
+        var valArray: string[] = [];
         for(var i:number=0; i<Object.keys(res).length; i++){
-          var thisKey: string = Object.keys(res)[i]
-          this.globalVars.addVar(thisKey, (res as any)[thisKey]);
+          keyArray.push(Object.keys(res)[i]);
+          valArray.push((res as any)[Object.keys(res)[i]].toString())
         }
+        this.globalVars.addMultipleVars(keyArray, valArray, true);
       })
     }, parseInt(this.globalVars.getVar("pollingRate")));
   }
@@ -29,7 +32,7 @@ export class GetRobotDataService {
   getRobotData(): Observable<any>{
     return this.httpClient.get(this.globalVars.getVar("connectionURL")).pipe(catchError(()=>{
       if(this.globalVars.getVar("connectionStatus") != "failed"){
-        this.globalVars.addVar("connectionStatus", "failed");
+        this.globalVars.addVar("connectionStatus", "failed", true);
       }
       return throwError("CANNOT CONNECT TO ROBOT")
     }));

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { keyValPair } from 'src/model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DynamicGlobalsService {
+export class DynamicGlobalsService { // Keeps track of variables across components and updates each when new robot data packets arrive
   private globalVars: Array<keyValPair> = [];
   private runInit: boolean = false;
   private static varSubject: Subject<Array<keyValPair>> = new Subject();
@@ -18,16 +18,17 @@ export class DynamicGlobalsService {
       if(localStorage.getItem("globalVars")){
         this.globalVars = JSON.parse(localStorage.getItem("globalVars") as string);
       }else{
-        this.addVar("connectionURL", environment.defaultURL);
-        this.addVar("pollingRate", environment.defaultPollingRate.toString());
-        this.addVar("matchTime", environment.matchTime.toString());
-        this.addVar("autoModes", JSON.stringify(environment.autoList))
-        console.log("CANNOT FIND LOCAL STORAGE VARIABLES")
+        this.addVar("connectionURL", environment.defaultURL, false);
+        this.addVar("pollingRate", environment.defaultPollingRate.toString(), false);
+        this.addVar("matchTime", environment.matchTime.toString(), false);
+        this.addVar("autoModes", JSON.stringify(environment.autoList), false)
+        console.log("CANNOT FIND LOCAL STORAGE VARIABLES", false)
       }
     }
     this.runInit = true;
     setTimeout(()=>{ // Buffer the first update to allow components to load
-      this.varsChanged();
+      this.saveVar();
+      DynamicGlobalsService.varSubject.next(this.globalVars);
     }, 250)
   }
 
@@ -35,12 +36,8 @@ export class DynamicGlobalsService {
     return DynamicGlobalsService.varSubject;
   }
 
-  varsChanged():void{
-    DynamicGlobalsService.varSubject.next(this.globalVars);
-    this.saveVar();
-  }
 
-  addVar(key: string, val: string):void{
+  addVar(key: string, val: string, isRobotData: boolean):void{ // Add one val to globals
     // Ensure the var is not already in the dict
     var foundVal = false
     for(var i:number=0; i<this.globalVars.length; i++){
@@ -53,7 +50,32 @@ export class DynamicGlobalsService {
     if(!foundVal){
       this.globalVars.push({"key": key, "val": val});
     }
-    this.varsChanged();
+    if(isRobotData){
+      DynamicGlobalsService.varSubject.next(this.globalVars);
+    }
+    this.saveVar();
+  }
+
+  addMultipleVars(keyArray: string[], valArray: string[], isRobotData: boolean){ // Add multiple vals altogether to globals
+    for(var i=0; i<keyArray.length; i++){
+      // Ensure the var is not already in the dict
+      var key = keyArray[i];
+      var val = valArray[i];
+      var foundVal = false
+      for(var k:number=0; k<this.globalVars.length; k++){
+        if(this.globalVars[k]["key"] == key){
+          this.globalVars[k]["val"] = val
+          foundVal = true;
+          break;
+        }
+      }
+      if(!foundVal){
+        this.globalVars.push({"key": key, "val": val});
+      }
+    }
+    if(isRobotData){
+      DynamicGlobalsService.varSubject.next(this.globalVars);
+    }
   }
   
   getVar(key: string): string{

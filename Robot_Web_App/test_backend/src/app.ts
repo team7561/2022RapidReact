@@ -1,3 +1,5 @@
+// Sample backend to use when testing the web-app, some variables change randomly to simulate new input
+
 const express = require('express');
 const cors = require('cors');
 
@@ -28,9 +30,14 @@ app.get('/robot_info', (req: any, res: any) => {
         "visionMode": "Hub Track",  
         "Shooter A Speed": 900 + Math.random() * 100,
         "Shooter A Setpoint": 950,
-        "Shooter B Speed": 900 + Math.random() * 100,
+        "Shooter B Speed": 800 + Math.random() * 100,
         "Shooter B Setpoint": 950,
-        "Battery Voltage": 10.8 + (Math.random())
+        "Battery Voltage": 10.8 + (Math.random()),
+        "ta": Math.random() * 20 + 5,
+        "tx": Math.random() * 20,
+        "ty": Math.random() * 20,
+        "robotX": Math.random(),
+        "robotY": Math.random(),
     }))
 });
 

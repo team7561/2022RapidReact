@@ -27,6 +27,7 @@ export class GeneralStatsComponent implements OnInit {
 
   ngOnInit(): void {
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
+      // Get robot data 
       this.intakeStatus = this.globalVars.getVar("Intake Speed");
       this.injectorMode = this.globalVars.getVar("Injector Mode");
       this.selectedAuto = this.globalVars.getVar("Auto");
