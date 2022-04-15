@@ -26,6 +26,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
 import { GraphsComponent } from './components/graphs/graphs.component';
 import { NgChartsModule } from 'ng2-charts';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { NgChartsModule } from 'ng2-charts';
     ShooterControlComponent,
     SettingsComponent,
     GraphsComponent,
+    NotificationsComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

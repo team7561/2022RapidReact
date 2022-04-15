@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
+import { notificationObj } from 'src/model';
 
 @Component({
   selector: 'app-settings',
@@ -10,6 +11,7 @@ import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service'
 export class SettingsComponent implements OnInit {
   public routineList: Array<string>;
   public gameLength: number | null;
+  public notifList: Array<notificationObj>;
 
   private globalSub: Subscription;
 
@@ -18,6 +20,9 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.gameLength = parseInt(this.globalVar.getVar("matchTime"));
     this.globalSub = this.globalVar.getSubject().subscribe(()=>{
+      if(this.notifList != JSON.parse(this.globalVar.getVar("notificationList"))){
+        this.notifList = JSON.parse(this.globalVar.getVar("notificationList"));
+      }
       if(this.routineList != JSON.parse(this.globalVar.getVar("autoModes"))){
         this.routineList = JSON.parse(this.globalVar.getVar("autoModes")); // Auto update routine list when changed
       }
@@ -47,6 +52,31 @@ export class SettingsComponent implements OnInit {
   changeMatchTime():void{
     this.gameLength = parseInt((document.getElementById("gameLengthInput") as HTMLInputElement).value);
     this.globalVar.addVar("matchTime", this.gameLength.toString(), false);
+  }
+
+  addNotification():void{
+    var newNotifName: string = (document.getElementById("newNotifNameInput") as HTMLInputElement).value;
+    var newNotifTime: number = parseInt((document.getElementById("newNotifTimeInput") as HTMLInputElement).value);
+    this.notifList.push({"title": newNotifName, "timeVal": newNotifTime});
+    this.globalVar.addVar("notificationList", JSON.stringify(this.notifList), true);
+    setTimeout(()=>{
+      location.reload();
+    }, 250);
+  }
+
+  deleteNotification(event: Event){
+    var valToDelete = (event.target as HTMLElement).id
+    console.log(valToDelete)
+    for(var i=0; i<this.notifList.length; i++){
+      if(this.notifList[i]["title"] == valToDelete){
+        this.notifList.splice(i, 1);
+        break;
+      }
+    }
+    this.globalVar.addVar("notificationList", JSON.stringify(this.notifList), false);
+    setTimeout(()=>{
+      location.reload();
+    }, 250)
   }
 
   wipeLocalStorage():void{

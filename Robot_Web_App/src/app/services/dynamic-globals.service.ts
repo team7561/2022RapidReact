@@ -22,6 +22,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
         this.addVar("pollingRate", environment.defaultPollingRate.toString(), false);
         this.addVar("matchTime", environment.matchTime.toString(), false);
         this.addVar("autoModes", JSON.stringify(environment.autoList), false)
+        this.addVar("notificationList", JSON.stringify(environment.notificationList), false)
         console.log("CANNOT FIND LOCAL STORAGE VARIABLES", false)
       }
     }

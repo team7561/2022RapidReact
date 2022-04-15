@@ -10,6 +10,10 @@
 
 body{
     background-color: #E7ECEF;
+    
+    &::-webkit-scrollbar{ // Hides the pages' scroll bar
+        display: none;
+    }
 }
 
 html, body { height: 100%; }
@@ -22,6 +26,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: #A3CEF1;
     border-radius: 15px;
     margin-top: 20px;
+    padding-bottom: 30px;
 }
 
 .heading{

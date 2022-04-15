@@ -42,10 +42,11 @@ export class AutoComponent implements OnInit {
 
   moveRobot():void{
     var robotElem = document.getElementById("robot") as HTMLElement;
-    console.log(this.robotHeading);
-    robotElem.style.top = (this.robotY * 440).toString() + "px"
-    robotElem.style.left = (this.robotX * window.innerWidth * 0.71).toString() + "px"
-    robotElem.style.transform = "rotate(" + this.robotHeading.toString() + "deg)"
+    if(robotElem){
+      robotElem.style.top = (this.robotY * 440).toString() + "px"
+      robotElem.style.left = (this.robotX * window.innerWidth * 0.71).toString() + "px"
+      robotElem.style.transform = "rotate(" + this.robotHeading.toString() + "deg)"
+    }
   }
 
 }

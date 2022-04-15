@@ -16,11 +16,12 @@ export class TimerComponent implements OnInit {
   public timerString: string;
   private startTime: Date; 
   private globalSub: Subscription;
-
+  
   constructor(private globalVar: DynamicGlobalsService) { }
-
+  
   ngOnInit(): void {
     this.timerVal = parseInt(this.globalVar.getVar("matchTime"));
+    this.globalVar.addVar("timeRemaining", this.timerVal.toString(), false);
     var blankSpace = ""
     if((this.timerVal % 60).toString().length <= 1){ // Add an extra 0 to seconds if necessary
       blankSpace = "0"
@@ -60,6 +61,7 @@ export class TimerComponent implements OnInit {
       if((timeRemaining % 60).toString().length <= 1){ // Add an extra 0 to seconds if necessary
         blankSpace = "0"
       }
+      this.globalVar.addVar("timeRemaining", timeRemaining.toString(), false);
       this.timerString =  Math.floor(timeRemaining / 60).toString() + ":" + blankSpace + (timeRemaining % 60).toString();
     }, 1000)
   }
