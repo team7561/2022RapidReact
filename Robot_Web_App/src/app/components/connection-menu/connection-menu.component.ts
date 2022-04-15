@@ -28,6 +28,7 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
   }
 
   reloadStats():void{
+    // Set the comms indicator to the correct status
     var commsIndictaor: HTMLElement = document.getElementById("commsIndicator") as HTMLElement; 
     commsIndictaor.classList.remove("indicator-unknown");
     commsIndictaor.classList.remove("indicator-warning");
@@ -48,6 +49,7 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
       }
     }
 
+    // Set the battery indicator to the correct status
     var batteryIndicator: HTMLElement = document.getElementById("batteryIndicator") as HTMLElement;
     batteryIndicator.classList.remove("indicator-unknown");
     batteryIndicator.classList.remove("indicator-warning");
@@ -72,7 +74,7 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
 
     setTimeout(()=>{
       location.reload();
-    }, this.pollingRate)
+    }, 250)
   }
 
 

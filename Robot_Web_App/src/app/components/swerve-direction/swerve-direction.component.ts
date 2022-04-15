@@ -12,7 +12,7 @@ export class SwerveDirectionComponent implements OnInit {
   
   constructor(private globalVars: DynamicGlobalsService) { }
 
-  ngOnInit(): void {      
+  ngOnInit(): void { // Shows the angle if each swerve module
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
       (document.getElementById("moduleAIcon") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("A_Angle") + "deg)";
       (document.getElementById("moduleBIcon") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("B_Angle") + "deg)";

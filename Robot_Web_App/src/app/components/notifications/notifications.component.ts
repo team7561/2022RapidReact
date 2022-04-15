@@ -7,19 +7,19 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
-  animations: [
+  animations: [ // Animations to have the notification fade in and out 
     trigger('inOut', [
       transition('void => *', [ 
-        style({ opacity: 0 }),           // initial styles
+        style({ opacity: 0 }),           
         animate('750ms',
           style({ 
             opacity: 1 
-          })          // final style after the transition has finished
+          })         
         )
       ]),
       transition('* => void', [
         animate('750ms', 
-          style({ opacity: 0 })          // we asume the initial style will be always opacity: 1
+          style({ opacity: 0 }) 
         ) 
       ])
     ]) 
@@ -50,10 +50,14 @@ export class NotificationsComponent implements OnInit {
   }
 
   displayNotification(title: string):void{
-    this.notificationText = title;
-    setTimeout(()=>{
-      this.notificationText = null;
-    }, 5000)
+    this.notificationText = title; // Set the text to a val to make it render
+    setTimeout(()=>{ 
+      this.notificationText = null; // Unrender the container by setting the text to null
+    }, 7500)
+  }
+
+  ngOnDestroy():void{
+    this.globalSub.unsubscribe();
   }
 
 }

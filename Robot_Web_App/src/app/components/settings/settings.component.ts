@@ -18,9 +18,10 @@ export class SettingsComponent implements OnInit {
   constructor(private globalVar: DynamicGlobalsService) { }
 
   ngOnInit(): void {
+    // Get default settings values
     this.gameLength = parseInt(this.globalVar.getVar("matchTime"));
     this.globalSub = this.globalVar.getSubject().subscribe(()=>{
-      if(this.notifList != JSON.parse(this.globalVar.getVar("notificationList"))){
+      if(this.notifList != JSON.parse(this.globalVar.getVar("notificationList"))){ // Only update list when changed
         this.notifList = JSON.parse(this.globalVar.getVar("notificationList"));
       }
       if(this.routineList != JSON.parse(this.globalVar.getVar("autoModes"))){
@@ -29,7 +30,7 @@ export class SettingsComponent implements OnInit {
     })
   }
 
-  addAutoRoutine(event: Event):void{
+  addAutoRoutine(event: Event):void{ 
     event.preventDefault();
     var currentAutoList = JSON.parse(this.globalVar.getVar("autoModes"));
     currentAutoList.push((document.getElementById("newRoutineInput") as HTMLInputElement).value);
@@ -60,7 +61,7 @@ export class SettingsComponent implements OnInit {
     this.notifList.push({"title": newNotifName, "timeVal": newNotifTime});
     this.globalVar.addVar("notificationList", JSON.stringify(this.notifList), true);
     setTimeout(()=>{
-      location.reload();
+      location.reload(); // Reload the page to ensure changes take effect 
     }, 250);
   }
 
@@ -80,7 +81,7 @@ export class SettingsComponent implements OnInit {
   }
 
   wipeLocalStorage():void{
-    if(confirm("Are you sure you want to delete ALL locally stored variables?")){
+    if(confirm("Are you sure you want to delete ALL locally stored variables?")){ // Only wipe data if user confirms
       this.globalVar.setDoLocalBackup(false); // Stop the global vars from backing up between clearing local storage and reloading
       setTimeout(()=>{
         localStorage.clear();

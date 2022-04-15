@@ -40,7 +40,7 @@ export class AutoComponent implements OnInit {
     this.robotData.sendRobotData("Auto", this.selectedAuto);
   }
 
-  moveRobot():void{
+  moveRobot():void{ // Move the robot iconm to a given point and adjust the heading
     var robotElem = document.getElementById("robot") as HTMLElement;
     if(robotElem){
       robotElem.style.top = (this.robotY * 440).toString() + "px"

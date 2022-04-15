@@ -13,8 +13,8 @@ export class GraphsComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
   private tickCount: number = 20; // How many values the graph shows
-  private batteryPointsAdded: number = 1; // How many values have been put on graph
-  private shooterPointsAdded: number = 1; // How many values have been put on graph
+  private batteryPointsAdded: number = 1; // How many values have been put on graph for battery voltages
+  private shooterPointsAdded: number = 1; // How many values have been put on graph for shooter vals
 
   // Battery Chart
   private globalSub: Subscription;
@@ -143,10 +143,10 @@ export class GraphsComponent implements OnInit {
   addBatteryDataPoint(newVal: number):void{
     if(newVal != this.lastBatteryVal){ // Ensure the point is different from the last (not every update subscription ca)
       if(this.batteryChartData[0]["data"].length == 20){
-        this.batteryChartData[0]["data"] = this.batteryChartData[0]["data"].slice(1)
+        this.batteryChartData[0]["data"] = this.batteryChartData[0]["data"].slice(1) // Remove the last point and label from the chart
         this.batteryChartLabels = this.batteryChartLabels?.slice(1)
       }
-      this.batteryChartData[0]["data"].push(newVal);
+      this.batteryChartData[0]["data"].push(newVal); // Add the new point and label
       this.batteryChartLabels?.push(this.batteryPointsAdded);
       this.batteryPointsAdded += 1;
       this.lastBatteryVal = newVal;

@@ -18,6 +18,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
       if(localStorage.getItem("globalVars")){
         this.globalVars = JSON.parse(localStorage.getItem("globalVars") as string);
       }else{
+        // Load the default values
         this.addVar("connectionURL", environment.defaultURL, false);
         this.addVar("pollingRate", environment.defaultPollingRate.toString(), false);
         this.addVar("matchTime", environment.matchTime.toString(), false);
@@ -33,7 +34,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     }, 250)
   }
 
-  getSubject(): Subject<Array<keyValPair>>{
+  getSubject(): Subject<Array<keyValPair>>{ // Gets the subject so components can subscribe to it 
     return DynamicGlobalsService.varSubject;
   }
 
@@ -51,7 +52,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     if(!foundVal){
       this.globalVars.push({"key": key, "val": val});
     }
-    if(isRobotData){
+    if(isRobotData){ // Only update all subscribers if the data is from the robot
       DynamicGlobalsService.varSubject.next(this.globalVars);
     }
     this.saveVar();
@@ -59,7 +60,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
 
   addMultipleVars(keyArray: string[], valArray: string[], isRobotData: boolean){ // Add multiple vals altogether to globals
     for(var i=0; i<keyArray.length; i++){
-      // Ensure the var is not already in the dict
+      // If the var is already in the dict, update it, otherwise make a new key 
       var key = keyArray[i];
       var val = valArray[i];
       var foundVal = false
@@ -79,7 +80,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     }
   }
   
-  getVar(key: string): string{
+  getVar(key: string): string{ // Get a specified var from the globals
     var res:string = ""
     for(var i:number=0; i<this.globalVars.length; i++){
       if(this.globalVars[i]["key"] == key){

@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private robotDataService: GetRobotDataService){}
 
   ngOnInit():void{
-    this.robotDataService.startDataStream();
+    this.robotDataService.startDataStream(); // Initialize the data stream between robot and client
   }
 }
 
