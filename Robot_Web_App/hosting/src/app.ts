@@ -3,6 +3,8 @@ const cors = require("cors");
 const compression = require("compression");
 const path = require("path");
 
+const networkTables = require("../networktables.js");
+
 const app = express();
 const webPagePort: Number = 4000;
 const backEndTestPort: Number = 3000;
@@ -26,6 +28,10 @@ app.get('/', function (req: any, res: any) {
 app.listen(webPagePort, function () {
     console.log("Front end server is listening at http://localhost:" + webPagePort.toString());
 });
+
+networkTables.addRobotConnectionListener(()=>{
+    console.log("CONNECTED")
+}, true);
 
 // Serve test backend
 app.get('/robot_info', (req: any, res: any) => {

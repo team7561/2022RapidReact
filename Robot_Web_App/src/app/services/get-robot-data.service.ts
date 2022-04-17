@@ -18,6 +18,7 @@ export class GetRobotDataService {
         if(this.globalVars.getVar("connectionStatus") != "connected"){
           this.globalVars.addVar("connectionStatus", "connected", true)
         }
+        console.log(res);
         var keyArray: string[] = []; // List of keys returned by the robot
         var valArray: string[] = []; // List of values returned
         for(var i:number=0; i<Object.keys(res).length; i++){
@@ -35,7 +36,7 @@ export class GetRobotDataService {
         this.globalVars.addVar("connectionStatus", "failed", true);
       }
       return throwError("CANNOT CONNECT TO ROBOT")
-    }));
+    })); 
   }
 
   // TODO send data to robot
