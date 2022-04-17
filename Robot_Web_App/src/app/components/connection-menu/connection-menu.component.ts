@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 import { environment } from 'src/environments/environment';
@@ -10,6 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ConnectionMenuComponent implements OnInit { // Displays basic connection data and basic robot stats
   public connectionURL: string = this.globalVarService.getVar("connectionURL");
+  public sendURL: string = this.globalVarService.getVar("sendURL");
   public pollingRate: number = parseInt(this.globalVarService.getVar("pollingRate"));
   private globalSub: Subscription;
 
@@ -34,19 +36,23 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
     commsIndictaor.classList.remove("indicator-warning");
     commsIndictaor.classList.remove("indicator-good");
     commsIndictaor.classList.remove("indicator-error");
-    switch(this.globalVarService.getVar("connectionStatus")){
-      case "disconnected": {
-        commsIndictaor.classList.add("indicator-unknown");
-        break;
-      } case "connecting" :{
-        commsIndictaor.classList.add("indicator-warning");
-        break;
-      }case "connected":{
-        commsIndictaor.classList.add("indicator-good");
-        break;
-      }case "failed": {
-        commsIndictaor.classList.add("indicator-error")
+    if(this.globalVarService.getVar("doConnection") == "true"){
+      switch(this.globalVarService.getVar("connectionStatus")){
+        case "disconnected": {
+          commsIndictaor.classList.add("indicator-unknown");
+          break;
+        } case "connecting" :{
+          commsIndictaor.classList.add("indicator-warning");
+          break;
+        }case "connected":{
+          commsIndictaor.classList.add("indicator-good");
+          break;
+        }case "failed": {
+          commsIndictaor.classList.add("indicator-error")
+        }
       }
+    }else{
+      commsIndictaor.classList.add("indicator-unknown")
     }
 
     // Set the battery indicator to the correct status
@@ -67,14 +73,24 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
 
   updateConnectionSettings(event: Event):void{
     this.connectionURL = (<HTMLInputElement>document.getElementById("connectionURLInput")).value
+    this.sendURL = (<HTMLInputElement>document.getElementById("sendURLInput")).value
     this.pollingRate = parseInt((<HTMLInputElement>document.getElementById("pollingRateInput")).value)
 
     this.globalVarService.addVar("connectionURL", this.connectionURL, false);
+    this.globalVarService.addVar("sendURL", this.sendURL, false);
     this.globalVarService.addVar("pollingRate", this.pollingRate.toString(), false);
 
     setTimeout(()=>{
       location.reload();
     }, 250)
+  }
+
+  updateDoConnection(event: MatCheckboxChange): void{
+    if(event.checked){
+      this.globalVarService.addVar("doConnection", "true", true)
+    }else{
+      this.globalVarService.addVar("doConnection", "false", true)
+    }
   }
 
 

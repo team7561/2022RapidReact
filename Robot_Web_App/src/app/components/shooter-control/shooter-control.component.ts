@@ -32,8 +32,8 @@ export class ShooterControlComponent implements OnInit {
   }
 
   updateShooterVal():void{
-    this.robotData.sendRobotData("Shooter A Setpoint", this.shooterASetPoint); // Send the robot the new setpoints when they are updated
-    this.robotData.sendRobotData("Shooter B Setpoint", this.shooterBSetPoint);
+    this.robotData.sendRobotData("Shooter A Setpoint", this.shooterASetPoint?.toString() as string); // Send the robot the new setpoints when they are updated
+    this.robotData.sendRobotData("Shooter B Setpoint", this.shooterBSetPoint?.toString() as string);
   }
 
 }

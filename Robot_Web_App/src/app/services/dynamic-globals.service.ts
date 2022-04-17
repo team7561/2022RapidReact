@@ -17,9 +17,11 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     if(!this.runInit){ // Ensure the variables only gett initialized once`
       if(localStorage.getItem("globalVars")){
         this.globalVars = JSON.parse(localStorage.getItem("globalVars") as string);
+        this.addVar("doConnection", "true", false); // Assume user always wants to connect
       }else{
         // Load the default values
         this.addVar("connectionURL", environment.defaultURL, false);
+        this.addVar("sendURL", environment.sendURL, false)
         this.addVar("pollingRate", environment.defaultPollingRate.toString(), false);
         this.addVar("matchTime", environment.matchTime.toString(), false);
         this.addVar("autoModes", JSON.stringify(environment.autoList), false)
@@ -92,6 +94,10 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
 
   setDoLocalBackup(val: boolean){
     this.doLocalBackup = val;
+  }
+
+  getAllVars(): Array<keyValPair>{
+    return this.globalVars;
   }
 
   saveVar(): void{

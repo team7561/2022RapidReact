@@ -1,6 +1,6 @@
 .container{
     width: 100%;
-    height: 100%;
+    height: 125px;
     border-radius: 15px;
     box-shadow: #83a2bb 5px 5px 5px;
     
@@ -49,14 +49,21 @@
     
     &-field{
         font-size: 0.75rem;
+        margin-bottom: 15px;
         height: 40%;
         max-height: 30px;
+
     }
 
     &-polling{
         width: 25%;
         margin-left: 10px;
         margin-right: 10px;
+    }
+
+    &-check{
+        width: 45%;
+        margin-left: 15px;
     }
 
     &-submit{
@@ -71,6 +78,10 @@
             transform: scale(1.1);
         }
     }
+}
+
+.bottomInput{
+    margin-top: 15px;
 }
 .indicator-unknown{
     background-color: #8B8C89;

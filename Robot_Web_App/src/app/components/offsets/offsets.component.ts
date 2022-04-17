@@ -41,10 +41,10 @@ export class OffsetsComponent implements OnInit {
   }
 
   updateOffsets():void{
-    this.robotData.sendRobotData("A_Offset_Angle", this.offsetValA); // Send the new offsets to the robot
-    this.robotData.sendRobotData("B_Offset_Angle", this.offsetValB);
-    this.robotData.sendRobotData("C_Offset_Angle", this.offsetValC);
-    this.robotData.sendRobotData("D_Offset_Angle", this.offsetValD);
+    this.robotData.sendRobotData("A_Offset_Angle", this.offsetValA?.toString() as string); // Send the new offsets to the robot
+    this.robotData.sendRobotData("B_Offset_Angle", this.offsetValB?.toString() as string);
+    this.robotData.sendRobotData("C_Offset_Angle", this.offsetValC?.toString() as string);
+    this.robotData.sendRobotData("D_Offset_Angle", this.offsetValD?.toString() as string);
   }
 
   

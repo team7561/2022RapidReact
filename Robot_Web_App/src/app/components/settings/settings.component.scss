@@ -1,3 +1,7 @@
+.container{
+    height: 1000px;
+}
+
 .settings{
     &-container{
         width: 85%;
@@ -62,6 +66,19 @@
         border: none;
         border-radius: 15px;
 
+    }
+}
+
+.vars{
+    &-list{
+        height: 175px;
+        width: 85%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    &-option{
+        width: 100%;
+        word-wrap: break-word;
     }
 }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
-import { notificationObj } from 'src/model';
+import { keyValPair, notificationObj } from 'src/model';
 
 @Component({
   selector: 'app-settings',
@@ -12,6 +12,7 @@ export class SettingsComponent implements OnInit {
   public routineList: Array<string>;
   public gameLength: number | null;
   public notifList: Array<notificationObj>;
+  public globalVarData: Array<keyValPair> = [];
 
   private globalSub: Subscription;
 
@@ -27,6 +28,7 @@ export class SettingsComponent implements OnInit {
       if(this.routineList != JSON.parse(this.globalVar.getVar("autoModes"))){
         this.routineList = JSON.parse(this.globalVar.getVar("autoModes")); // Auto update routine list when changed
       }
+      this.globalVarData = this.globalVar.getAllVars();
     })
   }
 
