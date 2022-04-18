@@ -14,15 +14,24 @@ portNumber = 3000
 def handleRobotData():
     dataDict = {"sucess": True}
     sd = NetworkTables.getTable("SmartDashboard")
+    limelightData = NetworkTables.getTable("limelight")
     for entry in sd.getKeys():
-        dataDict[entry] = NetworkTables.getTable("SmartDashboard").getEntry(entry).getDouble(10)
+        dataDict[entry] = NetworkTables.getTable("SmartDashboard").getEntry(entry).getDouble(0)
+    for entry in limelightData.getKeys():
+      dataDict[entry] = NetworkTables.getTable("SmartDashboard").getEntry(entry).getDouble(0)
     return jsonify(dataDict)
 
 @app.route("/to_robot")
 def sendRobotData():
     key = request.args.get("key")
     val = request.args.get("val")
-    print({key: val})
+    sd = NetworkTables.getTable("SmartDashboard")
+    try:
+      val = float(val)
+      sd.putNumber(key, val)
+    except TypeError:
+      sd.putString(key, val)
+
     return jsonify({"status": 200})
 
 @app.route('/')
