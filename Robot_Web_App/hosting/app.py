@@ -16,9 +16,19 @@ def handleRobotData():
     sd = NetworkTables.getTable("SmartDashboard")
     limelightData = NetworkTables.getTable("limelight")
     for entry in sd.getKeys():
-        dataDict[entry] = NetworkTables.getTable("SmartDashboard").getEntry(entry).getDouble(0)
+      try:
+        val = sd.getEntry(entry).get()
+        val = float(val)
+        dataDict[entry] = val
+      except (ValueError, TypeError):
+        dataDict[entry] = sd.getEntry(entry).getString("")
     for entry in limelightData.getKeys():
-      dataDict[entry] = NetworkTables.getTable("SmartDashboard").getEntry(entry).getDouble(0)
+      try:
+        val = limelightData.getEntry(entry).get()
+        val = float(val)
+        dataDict[entry] = val
+      except (ValueError, TypeError):
+        dataDict[entry] = limelightData.getEntry(entry).getString("")
     return jsonify(dataDict)
 
 @app.route("/to_robot")
