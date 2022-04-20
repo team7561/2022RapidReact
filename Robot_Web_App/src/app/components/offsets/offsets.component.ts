@@ -26,10 +26,10 @@ export class OffsetsComponent implements OnInit {
     
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
       if(document.getElementById("iconA")){ // Ensure the element is rendered before transforming them all
-        (document.getElementById("iconA") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("A_Angle") + "deg) scale(3)";
-        (document.getElementById("iconB") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("B_Angle") + "deg) scale(3)";
-        (document.getElementById("iconC") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("C_Angle") + "deg) scale(3)";
-        (document.getElementById("iconD") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("D_Angle") + "deg) scale(3)";
+        (document.getElementById("iconA") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("A_Angle") + "deg)";
+        (document.getElementById("iconB") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("B_Angle") + "deg)";
+        (document.getElementById("iconC") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("C_Angle") + "deg)";
+        (document.getElementById("iconD") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("D_Angle") + "deg)";
       }
     });
   }

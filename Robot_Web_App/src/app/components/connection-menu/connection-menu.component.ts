@@ -72,9 +72,13 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
   }
 
   updateConnectionSettings(event: Event):void{
+    event.preventDefault();
     this.connectionURL = (<HTMLInputElement>document.getElementById("connectionURLInput")).value
     this.sendURL = (<HTMLInputElement>document.getElementById("sendURLInput")).value
     this.pollingRate = parseInt((<HTMLInputElement>document.getElementById("pollingRateInput")).value)
+
+    console.log(this.connectionURL);
+    console.log(this.sendURL);
 
     this.globalVarService.addVar("connectionURL", this.connectionURL, false);
     this.globalVarService.addVar("sendURL", this.sendURL, false);

@@ -43,7 +43,7 @@ export class GetRobotDataService {
 
   sendRobotData(key: string, val: string){
     if(this.globalVars.getVar("doConnection") == "true"){ // Only Send data to the robot if user enables it 
-      var url: string = this.globalVars.getVar("sendURL") + "/?key=" + key.replace(/ /g, "%20") + "&val=" + val.replace(/ /g, "%20")
+      var url: string = this.globalVars.getVar("sendURL") + "?key=" + key.replace(/ /g, "%20") + "&val=" + val.replace(/ /g, "%20")
       this.httpClient.get(url).subscribe((res)=>{});
     }
   }

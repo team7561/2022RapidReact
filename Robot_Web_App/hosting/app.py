@@ -35,11 +35,12 @@ def handleRobotData():
 def sendRobotData():
     key = request.args.get("key")
     val = request.args.get("val")
+    print("RECIEVED DATA " + str({key: val}))
     sd = NetworkTables.getTable("SmartDashboard")
     try:
       val = float(val)
       sd.putNumber(key, val)
-    except TypeError:
+    except(TypeError, ValueError):
       sd.putString(key, val)
 
     return jsonify({"status": 200})

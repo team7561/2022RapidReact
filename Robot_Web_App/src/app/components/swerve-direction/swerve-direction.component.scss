@@ -18,15 +18,17 @@
     }
     
     &-module{
-        border: 3px blue solid;
+        padding: 3px;
         height: 15px;
         width: 15px;
         border-radius: 100%;
         display: grid;
 
         &-icon{
-            margin-left: -5px;
-            margin-top: -5px;
+            margin-left: 0px;
+            margin-top: 0px;
+            height: 15px;
+            width: 1  15px;
             transition: all 0.3s ease;
         }
 
