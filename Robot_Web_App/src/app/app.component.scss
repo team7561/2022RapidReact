@@ -71,6 +71,11 @@
             width: 30%;
         }
     }
+    .timer{
+        &-container{
+            height: 15%;
+        }
+    }
 }
 
 @media screen and(max-width: 1300px){
