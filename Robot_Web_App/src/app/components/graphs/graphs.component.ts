@@ -16,6 +16,7 @@ export class GraphsComponent implements OnInit {
   private batteryPointsAdded: number = 1; // How many values have been put on graph for battery voltages
   private shooterPointsAdded: number = 1; // How many values have been put on graph for shooter vals
 
+
   // Battery Chart
   private globalSub: Subscription;
   public batteryChartLabels: ChartConfiguration["data"]["labels"] = [];
@@ -27,7 +28,7 @@ export class GraphsComponent implements OnInit {
   ];
   
   public batterChartConfig: ChartConfiguration["options"];
-  private lastBatteryVal: number;
+  private lastBatteryDate: Date = new Date();
 
   // Shooter Chart
   public shooterChartLabels: ChartConfiguration["data"]["labels"] = [];
@@ -42,7 +43,7 @@ export class GraphsComponent implements OnInit {
   ];
   
   public shooterChartConfig: ChartConfiguration["options"];
-  private lastShooterAVal: number;
+  private lastShooterDate: Date = new Date();
 
   // Vision tracking Chart
   public visionChartLabels: ChartConfiguration["data"]["labels"] = [];
@@ -103,8 +104,8 @@ export class GraphsComponent implements OnInit {
         'y-axis-0':
           {
             position: 'left',
-            min: -1250,
-            max: 1250
+            min: -2000,
+            max: 2000
           }
       }
     };
@@ -141,7 +142,7 @@ export class GraphsComponent implements OnInit {
   }
 
   addBatteryDataPoint(newVal: number):void{
-    if(newVal != this.lastBatteryVal){ // Ensure the point is different from the last (not every update subscription ca)
+    if(new Date().getTime() - this.lastBatteryDate.getTime() > 500){ // Ensure the point is different from the last (not every update subscription ca)
       if(this.batteryChartData[0]["data"].length == 20){
         this.batteryChartData[0]["data"] = this.batteryChartData[0]["data"].slice(1) // Remove the last point and label from the chart
         this.batteryChartLabels = this.batteryChartLabels?.slice(1)
@@ -149,12 +150,12 @@ export class GraphsComponent implements OnInit {
       this.batteryChartData[0]["data"].push(newVal); // Add the new point and label
       this.batteryChartLabels?.push(this.batteryPointsAdded);
       this.batteryPointsAdded += 1;
-      this.lastBatteryVal = newVal;
+      this.lastBatteryDate = new Date();
     }
   }
  
   addShooterDataPoint(newAVal: number, newBVal: number){
-    if(newAVal != this.lastShooterAVal){
+    if(new Date().getTime() - this.lastShooterDate.getTime() > 500){
       if(this.shooterChartData[0]["data"].length == 20){
         this.shooterChartData[0]["data"] = this.shooterChartData[0]["data"].slice(1)
         this.shooterChartData[1]["data"] = this.shooterChartData[1]["data"].slice(1)
@@ -164,13 +165,13 @@ export class GraphsComponent implements OnInit {
       this.shooterChartData[1]["data"].push(newBVal);
       this.shooterChartLabels?.push(this.shooterPointsAdded);
       this.shooterPointsAdded += 1;
-      this.lastShooterAVal = newAVal;
+      this.lastShooterDate = new Date();
     }
   }
 
   moveVisionPoint(xVal: number, yVal: number, aVal: number){
     if(xVal != this.lastVisionXVal){
-      this.visionChartData[0]["data"] = [{x: xVal, y: yVal, r: aVal}];
+      this.visionChartData[0]["data"] = [{x: xVal, y: yVal, r: aVal * 5}];
       this.lastVisionXVal = xVal;
       this.chart.update();
 

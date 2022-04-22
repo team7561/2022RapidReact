@@ -25,3 +25,25 @@
 .slider{
     width: 100%;
 }
+
+.button{
+    &-container{
+        width: 80%;
+        height: 75px;
+        margin: auto;
+        padding-bottom: 35px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    &-setpoint{
+        width: 110px;
+        height: 50px;
+        border: none;
+        background-color: #3b6b8a;
+        cursor: pointer;
+    }
+}

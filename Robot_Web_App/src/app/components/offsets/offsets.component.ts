@@ -21,9 +21,7 @@ export class OffsetsComponent implements OnInit {
   ngOnInit(): void {
     this.setOffsets();
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
-      if(this.offsetValA?.toString() == "NaN"){
-        this.setOffsets();
-      }
+      this.setOffsets();
 
       if(document.getElementById("iconA")){ // Ensure the element is rendered before transforming them all
         (document.getElementById("iconA") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("A_Angle") + "deg)";

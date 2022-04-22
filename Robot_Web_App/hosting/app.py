@@ -16,19 +16,18 @@ def handleRobotData():
     sd = NetworkTables.getTable("SmartDashboard")
     limelightData = NetworkTables.getTable("limelight")
     for entry in sd.getKeys():
-      try:
-        val = sd.getEntry(entry).get()
-        val = float(val)
-        dataDict[entry] = val
-      except (ValueError, TypeError):
+      val = sd.getEntry(entry).getDouble(9876)
+      if(val == 9876):
         dataDict[entry] = sd.getEntry(entry).getString("")
+      else:
+        dataDict[entry] = val
     for entry in limelightData.getKeys():
-      try:
-        val = limelightData.getEntry(entry).get()
+      val = limelightData.getEntry(entry).getDouble(9876)
+      if(val == 9876):
+        dataDict[entry] = limelightData.getEntry(entry).getString("")
+      else:
         val = float(val)
         dataDict[entry] = val
-      except (ValueError, TypeError):
-        dataDict[entry] = limelightData.getEntry(entry).getString("")
     return jsonify(dataDict)
 
 @app.route("/to_robot")
@@ -41,6 +40,7 @@ def sendRobotData():
       val = float(val)
       sd.putNumber(key, val)
     except(TypeError, ValueError):
+      print("Exception reached")
       sd.putString(key, val)
 
     return jsonify({"status": 200})
@@ -74,9 +74,9 @@ def testBackend():
         "Gyro Angle": random.randint(0, 360),
         "visionMode": "Hub Track",
         "Shooter A Speed": 900 + random.randint(0, 100),
-        "Shooter A Setpoint": 950,
+        "Shooter A Setpoint": random.randint(1700, 1800),
         "Shooter B Speed": 800 + random.randint(0, 100),
-        "Shooter B Setpoint": 950,
+        "Shooter B Setpoint": random.randint(1700, 1800),
         "Battery Voltage": 10.8 + random.random(),
         "ta": random.random() * 20 + 5,
         "tx": random.random() * 20,

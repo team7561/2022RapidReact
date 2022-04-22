@@ -13,15 +13,17 @@ export class ShooterControlComponent implements OnInit {
   public shooterBVal: number;
   public shooterASetPoint: number |null = 0;
   public shooterBSetPoint: number |null = 0;
+  public shooterADisplaySetPoint: number |null = 0;
+  public shooterBDisplaySetPoint: number |null = 0;
 
   private gloabalSub: Subscription;
 
   constructor(private globalVar: DynamicGlobalsService, private robotData: GetRobotDataService) { }
 
   ngOnInit(): void {
-    this.shooterASetPoint = parseInt(this.globalVar.getVar("Shooter A Setpoint")); // Get the default shooter set point
-    this.shooterBSetPoint = parseInt(this.globalVar.getVar("Shooter B Setpoint"));
     this.gloabalSub = this.globalVar.getSubject().subscribe(()=>{
+      this.shooterADisplaySetPoint =  parseInt(this.globalVar.getVar("Shooter A Setpoint"));// Get the default shooter set point
+      this.shooterBDisplaySetPoint = parseInt(this.globalVar.getVar("Shooter B Setpoint"));
       this.shooterAVal = parseInt(this.globalVar.getVar("Shooter A Speed"));
       this.shooterBVal = parseInt(this.globalVar.getVar("Shooter B Speed"));
     });
@@ -32,8 +34,19 @@ export class ShooterControlComponent implements OnInit {
   }
 
   updateShooterVal():void{
-    this.robotData.sendRobotData("Shooter A Setpoint", this.shooterASetPoint?.toString() as string); // Send the robot the new setpoints when they are updated
-    this.robotData.sendRobotData("Shooter B Setpoint", this.shooterBSetPoint?.toString() as string);
+    setTimeout(()=>{
+      this.robotData.sendRobotData("Shooter A Setpoint", this.shooterASetPoint?.toString() as string); // Send the robot the new setpoints when they are updated
+      this.robotData.sendRobotData("Shooter B Setpoint", this.shooterBSetPoint?.toString() as string);
+    }, 100)
+  }
+
+  setShooterVal(shooterType: string, val: number){
+    this.updateShooterVal();
+    if(shooterType == "A"){
+      this.shooterAVal = val;
+    }else{
+      this.shooterBVal = val;
+    }
   }
 
 }
