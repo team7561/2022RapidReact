@@ -70,7 +70,7 @@ def testBackend():
         "Intake Speed": random.randint(0, 1000),
         "Injector Mode": "idle",
         "Auto": "Auto_3_Ball",
-        "Drivetrain Mode": "Crab",
+        "Drivetrain Mode": "ULTIMATESWERVE",
         "Gyro Angle": random.randint(0, 360),
         "visionMode": "Hub Track",
         "Shooter A Speed": 900 + random.randint(0, 100),

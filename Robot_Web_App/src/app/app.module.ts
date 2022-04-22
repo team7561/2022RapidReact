@@ -28,6 +28,9 @@ import { GraphsComponent } from './components/graphs/graphs.component';
 import { NgChartsModule } from 'ng2-charts';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { DrivetrainPopupComponent } from './components/drivetrain-popup/drivetrain-popup.component';
+import { LineGraphComponent } from './components/line-graph/line-graph.component';
+import { VisionGraphComponent } from './components/vision-graph/vision-graph.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { FooterComponent } from './components/footer/footer.component';
     GraphsComponent,
     NotificationsComponent,
     FooterComponent,
+    DrivetrainPopupComponent,
+    LineGraphComponent,
+    VisionGraphComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,30 @@
+<div class="heading-container">
+    <h1 class="heading-text">Drivetrain</h1>
+</div>
+
+
+<div class="container">
+    <div class="mode-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Selected Drivetrain Mode: {{ driveMode }}</h3>
+        </div>
+        <div class="mode-select-container">
+            <p class="mode-text">Select New Drive mode</p>
+            <mat-form-field class="mode-field">
+                <mat-label>Drivetrain Mode</mat-label>
+                <mat-select [(value)]="driveMode" (valueChange)="updateDriveMode()">
+                    <mat-option *ngFor="let mode of driveModes"
+                        value="{{ mode }}">{{ mode }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="offsets-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Swerve Offsets</h3>
+        </div>
+        <div class="offsets-component-container">
+            <app-offsets></app-offsets>
+        </div>
+    </div>
+</div>

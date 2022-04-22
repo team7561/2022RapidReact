@@ -37,15 +37,17 @@ export class ShooterControlComponent implements OnInit {
     setTimeout(()=>{
       this.robotData.sendRobotData("Shooter A Setpoint", this.shooterASetPoint?.toString() as string); // Send the robot the new setpoints when they are updated
       this.robotData.sendRobotData("Shooter B Setpoint", this.shooterBSetPoint?.toString() as string);
-    }, 100)
+    }, 25)
   }
 
   setShooterVal(shooterType: string, val: number){
     this.updateShooterVal();
     if(shooterType == "A"){
-      this.shooterAVal = val;
+      this.shooterADisplaySetPoint = val;
+      this.shooterASetPoint = val;
     }else{
-      this.shooterBVal = val;
+      this.shooterBDisplaySetPoint = val;
+      this.shooterBSetPoint = val;
     }
   }
 

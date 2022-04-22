@@ -38,3 +38,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         
     }
 }
+
+.hidden{
+    display: none ;
+}
+
+@keyframes fade-in-center {
+    0% {
+      transform: scale(1.5);
+      filter: blur(5px);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      filter: blur(0px);
+      opacity: 1;
+    }
+}

@@ -21,7 +21,11 @@ export class GeneralStatsComponent implements OnInit {
   public shooterBTarget: number;
   public batteryVoltage: number;
 
+  public popuptype: string = "drivetrain";
+  // TODO  Remove default popup string
+
   private globalSub: Subscription;
+
 
   constructor(private globalVars: DynamicGlobalsService) { }
 
@@ -45,6 +49,12 @@ export class GeneralStatsComponent implements OnInit {
   ngOnDestroy():void{
     if(this.globalSub){
       this.globalSub.unsubscribe();
+    }
+  }
+  
+  onParentPopupClick(event: Event):void{ // Hides the popup IF the click originates from parent div
+    if((event.target as HTMLElement).id == "popUpParent"){
+      document.getElementById("popUpParent")?.classList.toggle("hidden");
     }
   }
 

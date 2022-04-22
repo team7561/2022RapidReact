@@ -1,86 +1,84 @@
-<div class="container">
-    <div class="heading-container">
-        <h1 class="heading-text">Shooter Options</h1>
-    </div>
+<div class="heading-container">
+    <h1 class="heading-text">Shooter Options</h1>
+</div>
 
-    <div class="options-container">
-        <div class="option-container">
-            <div class="heading-container">
-                <h2 class="heading-text">Shooter A</h2>
-            </div>
-            <div class="heading-container">
-                <h2 class="heading-text">Value: {{ shooterAVal | number}}</h2>
-            </div>
-            <div class="slide-container">
-                <mat-slider
-                    class="slider"
-                    color="primary"
-                    thumbLabel
-                    disabled="disabled"
-                    min="-2000"
-                    max="2000"
-                    value="{{ shooterAVal }}"></mat-slider>
-            </div>
-            <div class="heading-container">
-                <h2 class="heading-text">Setpoint: {{ shooterADisplaySetPoint | number}}</h2>
-            </div>
-            <div class="slide-container">
-                <mat-slider
-                    class="slider"
-                    color="primary"
-                    thumbLabel
-                    min="-2000"
-                    max="2000"
-                    (valueChange)="updateShooterVal()"
-                    [(value)]="shooterASetPoint"></mat-slider>
-            </div>
-            <div class="heading-container">
-                <h3 class="heading-text">Standard Setpoints</h3>
-            </div>
-            <div class="button-container">
-                <button class="button-setpoint" (click)="setShooterVal('A', 750)">Close</button>
-                <button class="button-setpoint" (click)="setShooterVal('A', 1250)">Far</button>
-                <button class="button-setpoint" (click)="setShooterVal('A', 1500)">MAX POWA</button>
-            </div>
-
+<div class="options-container">
+    <div class="option-container">
+        <div class="heading-container">
+            <h2 class="heading-text">Shooter A</h2>
         </div>
-        <div class="option-container">
-            <div class="heading-container">
-                <h2 class="heading-text">Shooter B</h2>
-            </div>
-            <div class="heading-container">
-                <h2 class="heading-text">Value: {{ shooterADisplaySetPoint | number}}</h2>
-            </div>
-            <div class="slide-container">
-                <mat-slider
-                    class="slider"
-                    thumbLabel
-                    disabled="disabled"
-                    min="-2000"
-                    max="2000"
-                    value="{{ shooterBVal }}"></mat-slider>
-            </div>
-            <div class="heading-container">
-                <h2 class="heading-text">Setpoint: {{ shooterBDisplaySetPoint | number}}</h2>
-            </div>
-            <div class="slide-container">
-                <mat-slider
-                    class="slider"
-                    color="primary"
-                    thumbLabel
-                    min="-2000"
-                    max="2000"
-                    (valueChange)="updateShooterVal()"
-                    [(value)]="shooterBSetPoint"></mat-slider>
-            </div>
-            <div class="heading-container">
-                <h3 class="heading-text">Standard Setpoints</h3>
-            </div>
-            <div class="button-container">
-                <button class="button-setpoint" (click)="setShooterVal('B', 750)">Close</button>
-                <button class="button-setpoint" (click)="setShooterVal('B', 1250)">Far</button>
-                <button class="button-setpoint" (click)="setShooterVal('B', 1500)">MAX POWA</button>
-            </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Value: {{ shooterAVal | number}}</h2>
+        </div>
+        <div class="slide-container">
+            <mat-slider
+                class="slider"
+                color="primary"
+                thumbLabel
+                disabled="disabled"
+                min="-2000"
+                max="2000"
+                value="{{ shooterAVal }}"></mat-slider>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Setpoint: {{ shooterADisplaySetPoint | number}}</h2>
+        </div>
+        <div class="slide-container">
+            <mat-slider
+                class="slider"
+                color="primary"
+                thumbLabel
+                min="-2000"
+                max="2000"
+                (valueChange)="updateShooterVal()"
+                [(value)]="shooterASetPoint"></mat-slider>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Standard Setpoints</h2>
+        </div>
+        <div class="button-container">
+            <button class="button-setpoint" (click)="setShooterVal('A', 750)">Close</button>
+            <button class="button-setpoint" (click)="setShooterVal('A', 1250)">Far</button>
+            <button class="button-setpoint" (click)="setShooterVal('A', 1500)">MAX POWA</button>
+        </div>
+
+    </div>
+    <div class="option-container">
+        <div class="heading-container">
+            <h2 class="heading-text">Shooter B</h2>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Value: {{ shooterBVal | number}}</h2>
+        </div>
+        <div class="slide-container">
+            <mat-slider
+                class="slider"
+                thumbLabel
+                disabled="disabled"
+                min="-2000"
+                max="2000"
+                value="{{ shooterBVal }}"></mat-slider>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Setpoint: {{ shooterBDisplaySetPoint | number}}</h2>
+        </div>
+        <div class="slide-container">
+            <mat-slider
+                class="slider"
+                color="primary"
+                thumbLabel
+                min="-2000"
+                max="2000"
+                (valueChange)="updateShooterVal()"
+                [(value)]="shooterBSetPoint"></mat-slider>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Standard Setpoints</h2>
+        </div>
+        <div class="button-container">
+            <button class="button-setpoint" (click)="setShooterVal('B', 750)">Close</button>
+            <button class="button-setpoint" (click)="setShooterVal('B', 1250)">Far</button>
+            <button class="button-setpoint" (click)="setShooterVal('B', 1500)">MAX POWA</button>
         </div>
     </div>
 </div>
