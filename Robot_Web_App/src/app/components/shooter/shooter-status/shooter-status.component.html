@@ -1,0 +1,18 @@
+<div class="status-container">
+    <div class="action-container sub-container">
+        <div class="heading-container">
+            <h2 class="heading-text">Shooter Actions</h2>
+        </div>
+        <h3 class="status-text" [ngStyle]="{'background-color': shooterAColor}">Shooter A Action: {{shooterAAction}}</h3>
+        <h3 class="status-text" [ngStyle]="{'background-color': shooterBColor}">Shooter B Action: {{shooterBAction}}</h3>
+    </div>
+    <div class="gap-container"></div>
+
+    <div class="defecit-container sub-container">
+        <div class="heading-container">
+            <h2 class="heading-text">Shooter Defecits</h2>
+        </div>
+        <h3 class="status-text" [ngStyle]="{'background-color': shooterAColor}">Shooter A Deficit: {{shooterADeficit | number}}</h3>
+        <h3 class="status-text" [ngStyle]="{'background-color': shooterBColor}">Shooter B Deficit: {{shooterBDeficit | number}}</h3>
+    </div>
+</div>

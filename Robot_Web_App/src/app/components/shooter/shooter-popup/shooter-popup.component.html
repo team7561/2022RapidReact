@@ -1,0 +1,25 @@
+<div class="heading-container">
+    <h1 class="heading-text">Shooters</h1>
+</div>
+
+
+<div class="data-container">
+    <div class="controls-container">
+        <div class="heading-container">
+            <h2 class="heading-text">Shooter Vals</h2>
+        </div>
+        <app-shooter-control></app-shooter-control>
+    </div>
+
+    <div class="graph-container">
+        <app-line-graph
+                [trackLabels]="['Shooter A Val', 'Shooter B Val']"
+                [trackKeys]="['Shooter A Speed', 'Shooter B Speed']"
+                [minVal]="-2000"
+                [maxVal]="2000"
+        ></app-line-graph>
+        <div class="status-container">
+            <app-shooter-status></app-shooter-status>
+        </div>
+    </div>
+</div>

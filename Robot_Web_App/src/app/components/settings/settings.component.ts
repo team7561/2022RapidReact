@@ -12,6 +12,10 @@ export class SettingsComponent implements OnInit {
   public routineList: Array<string>;
   public gameLength: number | null;
   public notifList: Array<notificationObj>;
+  public driveModeList: Array<string>;
+  public intakeModeList: Array<string>;
+  public injectorModeList: Array<string>;
+
   public globalVarData: Array<keyValPair> = [];
 
   private globalSub: Subscription;
@@ -28,28 +32,39 @@ export class SettingsComponent implements OnInit {
       if(this.routineList != JSON.parse(this.globalVar.getVar("autoModes"))){
         this.routineList = JSON.parse(this.globalVar.getVar("autoModes")); // Auto update routine list when changed
       }
+      if(this.driveModeList != JSON.parse(this.globalVar.getVar("driveModes"))){
+        this.driveModeList = JSON.parse(this.globalVar.getVar("driveModes")); // Auto update routine list when changed
+      }
+      if(this.intakeModeList != JSON.parse(this.globalVar.getVar("intakeModes"))){
+        this.intakeModeList = JSON.parse(this.globalVar.getVar("intakeModes")); // Auto update routine list when changed
+      }
+      if(this.injectorModeList != JSON.parse(this.globalVar.getVar("injectorModes"))){
+        this.injectorModeList = JSON.parse(this.globalVar.getVar("injectorModes")); // Auto update routine list when changed
+      }
       this.globalVarData = this.globalVar.getAllVars();
     })
   }
 
-  addAutoRoutine(event: Event):void{ 
+  addDataPoint(event: Event, key: string):void{
     event.preventDefault();
-    var currentAutoList = JSON.parse(this.globalVar.getVar("autoModes"));
-    currentAutoList.push((document.getElementById("newRoutineInput") as HTMLInputElement).value);
-    (document.getElementById("newRoutineInput") as HTMLInputElement).value = ""
-    this.globalVar.addVar("autoModes", JSON.stringify(currentAutoList), false);
+    var currentDataList = JSON.parse(this.globalVar.getVar(key));
+    currentDataList.push((document.getElementById(key + "Input") as HTMLInputElement).value);
+    (document.getElementById(key + "Input") as HTMLInputElement).value = "";
+    this.globalVar.addVar(key, JSON.stringify(currentDataList), false);
   }
 
-  deleteRoutine(event: Event):void{
-    var valToDelete = (event.target as HTMLElement).id
-    for(var i=0; i<this.routineList.length; i++){
-      if(this.routineList[i] == valToDelete){
-        this.routineList.splice(i, 1);
+  deleteDataPoint(event: Event, key: string): void{
+    var valToDelete = (event.target as HTMLElement).id;
+    var dataList: Array<string> = JSON.parse(this.globalVar.getVar(key));
+
+    for(var i=0; i<dataList.length; i++){
+      if(dataList[i] == valToDelete){
+        dataList.splice(i, 1);
         break;
       }
     }
-    this.globalVar.addVar("autoModes", JSON.stringify(this.routineList), false);
-    
+    this.globalVar.addVar(key, JSON.stringify(dataList), true);
+
   }
 
   changeMatchTime():void{

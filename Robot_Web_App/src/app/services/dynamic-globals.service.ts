@@ -14,10 +14,9 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
 
   constructor(){
     // Read past global variables from localstorage and init default fields
-    if(!this.runInit){ // Ensure the variables only gett initialized once`
+    if(!this.runInit){ // Ensure the variables only gett initialized once
       if(localStorage.getItem("globalVars")){
         this.globalVars = JSON.parse(localStorage.getItem("globalVars") as string);
-        this.addVar("doConnection", "true", false); // Assume user always wants to connect
       }else{
         // Load the default values
         this.addVar("connectionURL", environment.defaultURL, false);
@@ -27,8 +26,11 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
         this.addVar("autoModes", JSON.stringify(environment.autoList), false);
         this.addVar("notificationList", JSON.stringify(environment.notificationList), false);
         this.addVar("driveModes", JSON.stringify(environment.driveModes), false);
+        this.addVar("intakeModes", JSON.stringify(environment.intakeModes), false);
+        this.addVar("injectorModes", JSON.stringify(environment.injectorModes), false);
         console.log("CANNOT FIND LOCAL STORAGE VARIABLES")
       }
+      this.addVar("doConnection", "true", false); // Assume user always wants to connect
     }
     this.runInit = true;
     setTimeout(()=>{ // Buffer the first update to allow components to load

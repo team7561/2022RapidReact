@@ -1,0 +1,94 @@
+.subsystems{
+    &-container{
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+}
+
+.system{
+    &-container{
+        height: 75px;
+        width: 350px;
+        background-color: #6096BA;
+        box-shadow: #8aa5bb 5px 5px 5px;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    &-icon{
+        height: 35px;
+        width: 35px;
+        margin-left: 10px;
+    }
+
+    &-text{
+        margin-left: 15px;
+    }
+}
+
+.popup{
+    &-container{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        background-color: rgba(0, 0, 0, 0.8);
+        animation: fade-in-center 0.25s ease;
+        // TODO Add animation back 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+    }
+
+    &-content{
+        &-container{
+            z-index: 3;
+            width: 80vw;
+            height: 80vh;
+            background-color: #A3CEF1;
+        }
+    }
+
+    &-close{
+        &-container{
+            position: absolute;  
+            top: 11%;
+            right: 10.5%;
+            width: 50px;
+            height: 50px;
+            background-color: #6096BA;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        &-icon{
+            width: 45px;
+            height: 45px;
+            transition: all 0.75s ease;
+        }
+    
+    }
+}
+
+.warning-box{
+    height: 75%;
+    aspect-ratio: 1/1;
+    background-color: #fff;
+    margin-left: 15px;
+}
+
+.hidden{
+    display: none;
+}

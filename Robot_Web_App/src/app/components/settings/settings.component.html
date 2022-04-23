@@ -7,10 +7,10 @@
         <div class="heading-container">
             <h3 class="heading-text">Add Auto Routine</h3>
         </div>
-        <form (submit)="addAutoRoutine($event)" class="option-form" autocomplete="off">
+        <form (submit)="addDataPoint($event, 'autoModes')" class="option-form" autocomplete="off">
             <mat-form-field class="option-field" appearance="fill">
                 <mat-label>Routine Name</mat-label>
-                <input matInput class="option-input" id="newRoutineInput">
+                <input matInput class="option-input" id="autoModesInput">
             </mat-form-field>
             <button class="option-submit">Submit</button>
         </form>
@@ -22,7 +22,7 @@
         <ul class="option-list">
             <li *ngFor="let item of routineList" 
             class="option-list-item" 
-            (click)="deleteRoutine($event)"
+            (click)="deleteDataPoint($event, 'autoModes')"
             id="{{ item }}">{{ item }}</li>
         </ul>
     </div>
@@ -63,6 +63,75 @@
             class="option-list-item" 
             (click)="deleteNotification($event)"
             id="{{ item['title'] }}">{{ item["title"] }} - {{ item["timeVal"] | number}} Seconds To go</li>
+        </ul>
+    </div>
+    <div class="option-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Add Drive Mode</h3>
+        </div>
+        <form (submit)="addDataPoint($event, 'driveModes')" class="option-form" autocomplete="off">
+            <mat-form-field class="option-field" appearance="fill">
+                <mat-label>Drive Mode</mat-label>
+                <input matInput class="option-input" id="driveModesInput">
+            </mat-form-field>
+            <button class="option-submit">Submit</button>
+        </form>
+    </div>
+    <div class="option-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Delete Existing Drive Modes</h3>
+        </div>
+        <ul class="option-list">
+            <li *ngFor="let item of driveModeList" 
+            class="option-list-item" 
+            (click)="deleteDataPoint($event, 'driveModes')"
+            id="{{ item }}">{{ item }}</li>
+        </ul>
+    </div>
+    <div class="option-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Add Intake Mode</h3>
+        </div>
+        <form (submit)="addDataPoint($event, 'intakeModes')" class="option-form" autocomplete="off">
+            <mat-form-field class="option-field" appearance="fill">
+                <mat-label>Intake Mode</mat-label>
+                <input matInput class="option-input" id="intakeModesInput">
+            </mat-form-field>
+            <button class="option-submit">Submit</button>
+        </form>
+    </div>
+    <div class="option-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Delete Existing Intake Modes</h3>
+        </div>
+        <ul class="option-list">
+            <li *ngFor="let item of intakeModeList" 
+            class="option-list-item" 
+            (click)="deleteDataPoint($event, 'intakeModes')"
+            id="{{ item }}">{{ item }}</li>
+        </ul>
+    </div>
+    <div class="option-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Add Injector Mode</h3>
+        </div>
+        <form (submit)="addDataPoint($event, 'injectorModes')" class="option-form" autocomplete="off">
+            <mat-form-field class="option-field" appearance="fill">
+                <mat-label>Injector Mode</mat-label>
+                <input matInput class="option-input" id="injectorModesInput">
+            </mat-form-field>
+            <button class="option-submit">Submit</button>
+        </form>
+    </div>
+    <div class="option-container">
+        <div class="heading-container">
+            <h3 class="heading-text">Delete Existing Injector Modes</h3>
+        </div>
+        <ul class="option-list">
+            <li *ngFor="let item of injectorModeList" 
+            class="option-list-item" 
+            (click)="deleteDataPoint($event, 'injectorModes')"
+            id="{{ item }}">{{ item }}</li>
         </ul>
     </div>
     <div class="option-container">

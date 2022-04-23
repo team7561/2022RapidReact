@@ -1,0 +1,41 @@
+<div class="heading-container">
+    <h1 class="heading-text">Subsystems</h1>
+</div>
+
+<div class="subsystems-container">
+    <div class="system-container" (click)="popup.classList.toggle('hidden'); popuptype='drivetrain'">
+        <img src="../../../assets/epand_icon.svg" alt="" class="system-icon">
+        <h2 class="system-text">Drivetrain</h2>
+    </div>
+    <div class="system-container" (click)="popup.classList.toggle('hidden'); popuptype='shooter'">
+        <img src="../../../assets/epand_icon.svg" alt="" class="system-icon">
+        <h2 class="system-text">Shooter</h2>
+        <div class="warning-box" [ngStyle]="{'background-color': shooterAStatusColor}">
+            <p>A</p>
+        </div>
+        <div class="warning-box" [ngStyle]="{'background-color': shooterBStatusColor}">
+            <p>B</p>
+        </div>
+    </div>
+    <div class="system-container" (click)="popup.classList.toggle('hidden'); popuptype='intake'">
+        <img src="../../../assets/epand_icon.svg" alt="" class="system-icon">
+        <h2 class="system-text">Intake</h2>
+    </div>
+    <div class="system-container" (click)="popup.classList.toggle('hidden'); popuptype='injector'">
+        <img src="../../../assets/epand_icon.svg" alt="" class="system-icon">
+        <h2 class="system-text">Injector</h2>
+    </div>
+</div>
+
+<!-- TODO, Add hidden class to popup container on init -->
+<div class="popup-container hidden" #popup (click)="onParentPopupClick($event)" id="popUpParent">
+    <div class="popup-content-container">
+        <div class="popup-close-container" (click)="popup.classList.add('hidden')">
+            <img src="../../../assets/close_icon.svg" alt="Close" class="popup-close-icon">
+        </div>
+        <app-drivetrain-popup *ngIf="popuptype == 'drivetrain'"></app-drivetrain-popup>
+        <app-shooter-popup *ngIf="popuptype =='shooter'"></app-shooter-popup>
+        <app-intake-injector-popup *ngIf="popuptype == 'intake'"></app-intake-injector-popup>
+        <app-injector-popup *ngIf="popuptype == 'injector'"></app-injector-popup>
+    </div>
+</div>

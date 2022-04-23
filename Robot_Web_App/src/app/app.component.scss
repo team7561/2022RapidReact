@@ -64,6 +64,10 @@
     }
 }
 
+.settings-container{
+    height: fit-content;
+}
+
 // For different screen sizes
 @media screen and(max-width: 1800px){
     .connection{

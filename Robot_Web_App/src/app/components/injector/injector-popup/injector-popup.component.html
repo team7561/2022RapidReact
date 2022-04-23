@@ -1,0 +1,17 @@
+<div class="heading-container">
+    <h1 class="heading-text">Injector</h1>
+</div>
+
+<div class="content-container">
+    <div class="control-container">
+        <app-intake-control></app-intake-control>
+    </div>
+    <div class="graph-container">
+        <app-line-graph
+            [trackLabels]="['Injector Speed']"
+            [trackKeys]="['Injector Speed']"
+            [minVal]="-500"
+            [maxVal]="500"
+        ></app-line-graph>
+    </div>
+</div>

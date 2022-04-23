@@ -6,8 +6,8 @@ import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-graphs',
-  templateUrl: './graphs.component.html',
-  styleUrls: ['./graphs.component.scss'],
+  templateUrl: './graph.component.html',
+  styleUrls: ['./graph.component.scss'],
 })
 export class GraphsComponent implements OnInit {
   

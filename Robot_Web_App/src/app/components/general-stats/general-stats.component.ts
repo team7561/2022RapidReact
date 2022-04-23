@@ -21,7 +21,7 @@ export class GeneralStatsComponent implements OnInit {
   public shooterBTarget: number;
   public batteryVoltage: number;
 
-  public popuptype: string = "drivetrain";
+  public popuptype: string = "shooter";
   // TODO  Remove default popup string
 
   private globalSub: Subscription;
@@ -52,10 +52,6 @@ export class GeneralStatsComponent implements OnInit {
     }
   }
   
-  onParentPopupClick(event: Event):void{ // Hides the popup IF the click originates from parent div
-    if((event.target as HTMLElement).id == "popUpParent"){
-      document.getElementById("popUpParent")?.classList.toggle("hidden");
-    }
-  }
+
 
 }

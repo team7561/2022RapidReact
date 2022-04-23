@@ -13,18 +13,12 @@
         <h2 class="info-text">Selected Auto: {{ selectedAuto }}</h2>
     </div>
     <div class="info-item">
-        <div class="info-icon-container" (click)="popup.classList.toggle('hidden'); popuptype='drivetrain'">
-            <img class="info-icon" src="../../../assets/epand_icon.svg" alt="Expand">
-        </div>
         <h2 class="info-text">Drivetrain Mode: {{ selectedDrivetrain }}</h2>
     </div>
     <div class="info-item">
         <h2 class="info-text">Gyro Angle: {{ gyroAngle | number }}</h2>
     </div>
     <div class="info-item">
-        <div class="info-icon-container" (click)="popup.classList.toggle('hidden'); popuptype='visionMode'">
-            <img class="info-icon" src="../../../assets/epand_icon.svg" alt="Expand">
-        </div>
         <h2 class="info-text">Vision Mode: {{ visionMode }}</h2>
     </div>
     <div class="info-item">
@@ -50,12 +44,4 @@
     <img class="image" src="../../../assets/no_img.png" alt="Robot Web Cam Feed">
 </div>
 
-<!-- TODO, Add hidden class to popup container on init -->
-<div class="popup-container hidden" #popup (click)="onParentPopupClick($event)" id="popUpParent">
-    <div class="popup-content-container">
-        <div class="popup-close-container" (click)="popup.classList.add('hidden')">
-            <img src="../../../assets/close_icon.svg" alt="Close" class="popup-close-icon">
-        </div>
-        <app-drivetrain-popup *ngIf="popuptype == 'drivetrain'"></app-drivetrain-popup>
-    </div>
-</div>
+

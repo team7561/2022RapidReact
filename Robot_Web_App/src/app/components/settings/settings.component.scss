@@ -46,6 +46,8 @@
         width: fit-content;
         text-decoration: none;
         list-style-type: circle;
+        max-height: 200px;
+        overflow: auto;
 
         &-item{
             cursor: pointer;
@@ -74,7 +76,6 @@
         height: 175px;
         width: 85%;
         overflow-x: hidden;
-        overflow-y: scroll;
     }
     &-option{
         width: 100%;

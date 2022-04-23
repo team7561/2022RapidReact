@@ -21,19 +21,9 @@
         <app-general-stats></app-general-stats>
       </div>
     </mat-tab>
-    <mat-tab label="Offsets">
+    <mat-tab label="Sub Systems">
       <div class="container">
-        <div class="heading-container">
-          <h1 class="heading-text">Swerve Offsets</h1>
-        </div>
-        <div class="offset-container">
-          <app-offsets></app-offsets>
-        </div>
-      </div>
-    </mat-tab>
-    <mat-tab label="Shooter">
-      <div class="container">
-        <app-shooter-control></app-shooter-control>
+        <app-subsystems></app-subsystems>
       </div>
     </mat-tab>
     <mat-tab label="Graphs">
@@ -47,10 +37,11 @@
       </div>
     </mat-tab>
     <mat-tab label="Settings">
-      <div class="container">
+      <div class="container settings-container">
         <app-settings></app-settings>
       </div>
     </mat-tab>
+
   </mat-tab-group>
 </div>
 <span class="footer-container">

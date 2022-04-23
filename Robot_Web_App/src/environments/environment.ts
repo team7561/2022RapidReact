@@ -21,6 +21,19 @@ export const environment = {
     "TANK_X",
     "BALL_TRACK",
     "HUB_TRACK"
+  ],
+  intakeModes: [
+    "INTAKE_DEPLOY_REQUESTED",
+    "INTAKE_RETRACT_REQUESTED",
+    "INTAKE_DEPLOYED",
+    "INTAKE_RETRACTED"
+  ],
+  injectorModes: [
+    "INJECTOR_REVERSE",
+    "INJECTOR_FORWARD",
+    "INJECTOR_INDEX_BALL",
+    "INJECTOR_REVERSE_INDEX_BALL",
+    "INJECTOR_STOP"
   ]
 };
 
