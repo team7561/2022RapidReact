@@ -1,0 +1,33 @@
+<div class="menu-container">
+    <p class="menu-text">Start Recording</p>
+    <div class="start-container">
+        <div class="end-button" (click)="saveRecording()"></div>
+        <div class="start-button" (click)="startRecording()"></div>
+        <p class="start-text">{{ recordingTimeString }}</p>
+    </div>
+
+    <p class="menu-text load-text">Load Recording</p>
+    <div class="load-container">
+        <form>
+            <input type="file" name="Upload Recording" id="recordingUpload" (change)="loadRecording($event)" accept=".json">
+        </form>
+        <div class="playback-container">
+            <img src="../../../assets/play.svg" alt="Play" 
+                class="playback-icon active" 
+                #playBtn 
+                (click)="playBtn.classList.add('active'); pauseBtn.classList.remove('active'); resumePlayBack()">
+            <img src="../../../assets/pause.svg" alt="Pause" 
+                class="playback-icon" 
+                #pauseBtn
+                (click)="playBtn.classList.remove('active'); pauseBtn.classList.add('active'); pausePlayBack()">
+            <p>{{ playBackTimeString }} / {{ totalPlayBackTimeString }}</p>
+            <mat-slider 
+                class="playback-slider"
+                disabled="disabled"
+                [max]="totalplayBackTimeVal"
+                [min]="0"
+                [(value)]="playBackTimeVal"
+            ></mat-slider>
+        </div>
+    </div>
+</div>

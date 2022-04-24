@@ -8,7 +8,8 @@ import { GetRobotDataService } from './services/get-robot-data.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Robot_Web_App';
+  title = 'Robot Web App';
+  public inputType: string = "connection";
 
   constructor(private robotDataService: GetRobotDataService){}
 

@@ -67,7 +67,6 @@ def testBackend():
         "B_Offset_Angle": -0.368438,
         "C_Offset_Angle": -0.78405,
         "D_Offset_Angle": 0.6279069,
-        "Intake Speed": random.randint(-500, 500),
         "Intake Mode": "INTAKE_RETRACTED",
         "Injector Speed": random.randint(-100, 100),
         "Injector Mode": "INJECTOR_REVERSE",

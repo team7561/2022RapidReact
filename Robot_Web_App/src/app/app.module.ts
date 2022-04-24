@@ -38,6 +38,7 @@ import { IntakePopupComponent } from './components/intake/intake-popup/intake-po
 import { IntakeControlComponent } from './components/intake/intake-control/intake-control.component';
 import { InjectorPopupComponent } from './components/injector/injector-popup/injector-popup.component';
 import { InjectorControlComponent } from './components/injector/injector-control/injector-control.component';
+import { RecordingMenuComponent } from './components/recording-menu/recording-menu.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { InjectorControlComponent } from './components/injector/injector-control
     IntakeControlComponent,
     InjectorPopupComponent,
     InjectorControlComponent,
+    RecordingMenuComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,14 +7,30 @@
         }
     }
 }
-
-.connection{
+.input{
     &-container{
         width: 25%;
-        height: 100px;
+        height: 220px;
+        border-radius: 15px;
+        transition: all 0.25s ease;
+        background-color: #A3CEF1;
+        box-shadow: #83a2bb 5px 5px 5px;
+    }
+    &-btn{
+        border: none;
+        background-color: #83a2bb;
+        height: 35px;
+        cursor: pointer;
 
-        margin-top: 10px;
-        margin-left: 10px;
+        &-container{
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            padding-top: 10px;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
     }
 }
 
@@ -68,16 +84,21 @@
     height: fit-content;
 }
 
+.pressed{
+    background-color: #80ffdb;
+    cursor: default;
+}
+
 // For different screen sizes
 @media screen and(max-width: 1800px){
-    .connection{
+    .input{
         &-container{
             width: 25%;
         }
     }
 }
 @media screen and(max-width: 1550px){
-    .connection{
+    .input{
         &-container{
             width: 30%;
         }
@@ -90,7 +111,7 @@
 }
 
 @media screen and(max-width: 1300px){
-    .connection{
+    .input{
         &-container{
             width: 35%;
         }
@@ -98,7 +119,7 @@
 }
 
 @media screen and(max-width: 1200px){
-    .connection{
+    .input{
         &-container{
             width: 40%;
         }
@@ -116,7 +137,7 @@
 
 }
 @media screen and(max-width: 1050px){
-    .connection{
+    .input{
         &-container{
             width: 50%;
         }
@@ -129,14 +150,14 @@
     }
 }
 @media screen and(max-width: 750px){
-    .connection{
+    .input{
         &-container{
             width: 60%;
         }
     }
 }
 @media screen and(max-width: 500px){
-    .connection{
+    .input{
         &-container{
             width: 90%;
         }
