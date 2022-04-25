@@ -1,1 +1,28 @@
-<p>injector-control works!</p>
+<div class="option-container">
+    <div class="heading-container">
+        <h2 class="heading-text">Injector Vals</h2>
+    </div>
+    <h3 class="option-text">Current Injector Speed: {{ injectorSpeed }}</h3>
+    <h3 class="option-text">The Injector is currently: {{ injectorMode }}</h3>
+    <hr class="option-divider">
+    <div class="mode-container">
+        <p class="option-text">Select Injector Mode</p>
+        <mat-form-field class="mode-field">
+            <mat-label>Injector Mode</mat-label>
+            <mat-select [(value)]="selectedInjectorMode" (valueChange)="updateIntakeMode()">
+                <mat-option *ngFor="let mode of injectorModes" value="{{mode}}">{{mode}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="mode-container">
+        <p class="option-text">Select Injector Speed : {{ selectedInjectorSpeed }}</p>
+        <mat-slider
+            class="option-slider"
+            color="primary"
+            thumbLabel
+            min="-100"
+            max="100"
+            (valueChange)="updateIntakeSpeed()"
+            [(value)]="selectedInjectorSpeed"></mat-slider>
+    </div>
+</div>

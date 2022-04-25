@@ -92,3 +92,14 @@
 .hidden{
     display: none;
 }
+
+@media screen and(max-width: 500px){
+    .popup{
+        &-content{
+            &-container{
+                height: 90vh;
+            }
+        }
+    }
+
+}

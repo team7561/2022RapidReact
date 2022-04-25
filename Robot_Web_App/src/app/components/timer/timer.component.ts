@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { interval, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 
 @Component({

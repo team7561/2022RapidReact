@@ -27,7 +27,10 @@
         </mat-form-field>
         <mat-form-field class="info-field info-polling" appearance="fill">
             <mat-label>Polling Rate (ms)</mat-label>
-            <input type="number" matInput class="info-input info-polling-input " id="pollingRateInput" value="{{ pollingRate }}">
+            <input type="number" matInput 
+            class="info-input info-polling-input"
+            readonly = "{{ doReadOnlyPollingRate }}"
+            id="pollingRateInput" value="{{ pollingRate }}">
         </mat-form-field>
         <button class="info-submit" (click)="updateConnectionSettings($event)">Submit</button>
     </form>

@@ -97,3 +97,20 @@
 .indicator-error{
     background-color: #fb3640;
 }
+
+
+@media screen and(max-width: 500px){
+    .status{
+        &-container{
+            margin-top: 0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    .info{
+        &-field{
+            width: 35%;
+        }
+    }
+}

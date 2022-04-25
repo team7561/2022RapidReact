@@ -43,6 +43,12 @@ export class LineGraphComponent implements OnInit {
     })
   }
 
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
+  }
+
   initChart():void{
     // Get Blank Data
     for(var i=0; i<this.trackLabels.length; i++){

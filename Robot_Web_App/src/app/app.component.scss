@@ -159,7 +159,22 @@
 @media screen and(max-width: 500px){
     .input{
         &-container{
-            width: 90%;
+            width: 100%;
+        }
+    }
+
+    .swerve{
+        &-container{
+            top: 50%;
+            left: 0%;
+            width: 50%;
+            margin: auto;
+        }
+    }
+
+    .timer{
+        &-container{
+            margin-top: 250px;
         }
     }
 }

@@ -16,12 +16,12 @@ export class ShooterControlComponent implements OnInit {
   public shooterADisplaySetPoint: number |null = 0;
   public shooterBDisplaySetPoint: number |null = 0;
 
-  private gloabalSub: Subscription;
+  private globalSub: Subscription;
 
   constructor(private globalVar: DynamicGlobalsService, private robotData: GetRobotDataService) { }
 
   ngOnInit(): void {
-    this.gloabalSub = this.globalVar.getSubject().subscribe(()=>{
+    this.globalSub = this.globalVar.getSubject().subscribe(()=>{
       this.shooterADisplaySetPoint =  parseInt(this.globalVar.getVar("Shooter A Setpoint"));// Get the default shooter set point
       this.shooterBDisplaySetPoint = parseInt(this.globalVar.getVar("Shooter B Setpoint"));
       this.shooterAVal = parseInt(this.globalVar.getVar("Shooter A Speed"));
@@ -30,7 +30,9 @@ export class ShooterControlComponent implements OnInit {
   }
 
   ngOnDestroy():void{
-    this.gloabalSub.unsubscribe();
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
   }
 
   updateShooterVal():void{

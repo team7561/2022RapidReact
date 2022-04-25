@@ -27,9 +27,11 @@ export class RecordingMenuComponent implements OnInit {
       this.recordingTimeString = this.formatTime(this.recorder.getTimeRecorded());
     }, parseFloat(this.globalVars.getVar("pollingRate")));
   }
+
   
   startRecording():void{
     this.recorder.startRecording();
+    this.globalVars.addVar("doRecording", "true", true);
   }
 
   saveRecording():void{

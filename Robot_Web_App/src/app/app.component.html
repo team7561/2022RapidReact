@@ -40,7 +40,7 @@
         <app-subsystems></app-subsystems>
       </div>
     </mat-tab>
-    <mat-tab label="Graphs">
+    <mat-tab label="Graphs" *ngIf="innerWidth > 499">
       <div class="container">
         <app-graphs></app-graphs>
       </div>

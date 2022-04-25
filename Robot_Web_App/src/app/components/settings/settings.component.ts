@@ -45,6 +45,12 @@ export class SettingsComponent implements OnInit {
     })
   }
 
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
+  }
+
   addDataPoint(event: Event, key: string):void{
     event.preventDefault();
     var currentDataList = JSON.parse(this.globalVar.getVar(key));

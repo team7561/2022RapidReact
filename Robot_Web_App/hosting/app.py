@@ -1,8 +1,16 @@
 from flask import Flask, send_from_directory, jsonify, request
 from networktables import NetworkTables 
 import random
+import socket
 from flask_cors import CORS
+from scipy import rand
 
+
+doPublicHosting = False
+if(doPublicHosting):
+  hostingName = socket.gethostbyname(socket.gethostname())
+else:
+  hostingName = "localhost"
 
 app = Flask("Robot Wep app")
 CORS(app)
@@ -68,6 +76,7 @@ def testBackend():
         "C_Offset_Angle": -0.78405,
         "D_Offset_Angle": 0.6279069,
         "Intake Mode": "INTAKE_RETRACTED",
+        "Intake Speed": random.randint(-500, 500),
         "Injector Speed": random.randint(-100, 100),
         "Injector Mode": "INJECTOR_REVERSE",
         "Auto": "Auto_3_Ball",
@@ -88,5 +97,5 @@ def testBackend():
 
 
 if __name__ == '__main__':
-  app.run(host='localhost', port=portNumber, debug=False)
+  app.run(host=hostingName, port=portNumber, debug=False)
 

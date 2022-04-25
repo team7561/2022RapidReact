@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 // Angular modules
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-// Custom modules
+// Custom Components
 import { ConnectionMenuComponent } from './components/connection-menu/connection-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SwerveDirectionComponent } from './components/drivetrain/swerve-direction/swerve-direction.component';
@@ -15,17 +15,7 @@ import { GeneralStatsComponent } from './components/general-stats/general-stats.
 import { AutoComponent } from './components/auto/auto.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ShooterControlComponent } from './components/shooter/shooter-control/shooter-control.component';
-
-// Angular material imports
-import { MatInputModule } from '@angular/material/input';
-import { TimerComponent } from './components/timer/timer.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSelectModule } from '@angular/material/select';
 import { GraphsComponent } from './components/graphs/graph/graph.component';
-import { NgChartsModule } from 'ng2-charts';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DrivetrainPopupComponent } from './components/drivetrain/drivetrain-popup/drivetrain-popup.component';
@@ -39,6 +29,19 @@ import { IntakeControlComponent } from './components/intake/intake-control/intak
 import { InjectorPopupComponent } from './components/injector/injector-popup/injector-popup.component';
 import { InjectorControlComponent } from './components/injector/injector-control/injector-control.component';
 import { RecordingMenuComponent } from './components/recording-menu/recording-menu.component';
+
+// Angular material imports
+import { MatInputModule } from '@angular/material/input';
+import { TimerComponent } from './components/timer/timer.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
+
+// Others
+import { NgChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [

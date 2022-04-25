@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import {FormControl} from '@angular/forms';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 import { GetRobotDataService } from 'src/app/services/get-robot-data.service';
 import { Subscription } from 'rxjs';
@@ -33,6 +31,11 @@ export class AutoComponent implements OnInit {
     });
 
     this.selectedAuto = this.globalVars.getVar("Auto")
+  }
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
   }
 
   updateAuto():void{

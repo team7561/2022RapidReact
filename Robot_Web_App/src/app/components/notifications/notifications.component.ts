@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 import { notificationObj } from 'src/model';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -57,7 +57,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   ngOnDestroy():void{
-    this.globalSub.unsubscribe();
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
   }
 
 }

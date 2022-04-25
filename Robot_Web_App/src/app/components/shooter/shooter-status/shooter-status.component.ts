@@ -59,4 +59,10 @@ export class ShooterStatusComponent implements OnInit {
     });
   }
 
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
+  }
+
 }

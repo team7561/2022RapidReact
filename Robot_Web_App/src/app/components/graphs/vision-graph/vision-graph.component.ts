@@ -34,6 +34,11 @@ export class VisionGraphComponent implements OnInit {
       }
     })
   }
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
+  }
 
   initChart():void{
     this.visionChartConfig = {

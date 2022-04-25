@@ -59,3 +59,12 @@
     }
 }
 
+@media screen and(max-width: 500px){
+    .image{
+        &-container{
+            width: 250px;
+            height: auto;
+            margin: auto;
+        }
+    }
+}

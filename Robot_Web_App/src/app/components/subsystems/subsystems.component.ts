@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 
@@ -38,11 +38,24 @@ export class SubsystemsComponent implements OnInit {
       }
     });
   }
-
+  
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
+  }
   onParentPopupClick(event: Event):void{ // Hides the popup IF the click originates from parent div
     if((event.target as HTMLElement).id == "popUpParent"){
       document.getElementById("popUpParent")?.classList.toggle("hidden");
     }
   }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydownHandler(event: KeyboardEvent) {
+    if(event.key == "Escape"){
+      document.getElementById("popUpParent")?.classList.add("hidden");
+    }
+  }
+
 
 }

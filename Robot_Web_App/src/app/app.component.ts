@@ -10,11 +10,13 @@ import { GetRobotDataService } from './services/get-robot-data.service';
 export class AppComponent {
   title = 'Robot Web App';
   public inputType: string = "connection";
+  public innerWidth: number;
 
   constructor(private robotDataService: GetRobotDataService){}
 
   ngOnInit():void{
     this.robotDataService.startDataStream(); // Initialize the data stream between robot and client
+    this.innerWidth = window.innerWidth
   }
 }
 

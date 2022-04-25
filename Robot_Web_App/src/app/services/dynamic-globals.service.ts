@@ -31,6 +31,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
         console.log("CANNOT FIND LOCAL STORAGE VARIABLES")
       }
       this.addVar("doConnection", "true", false); // Assume user always wants to connect
+      this.addVar("doRecording", "false", false);
     }
     this.runInit = true;
     setTimeout(()=>{ // Buffer the first update to allow components to load

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Numeric } from 'd3';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
 import { GetRobotDataService } from 'src/app/services/get-robot-data.service';
@@ -26,6 +25,11 @@ export class IntakePopupComponent implements OnInit {
       this.intakeSpeed = parseInt(this.globalVars.getVar("Intake Speed"));
       this.intakeMode = this.globalVars.getVar("Intake Mode");
     });
+  }
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
   }
 
   updateIntakeMode():void{

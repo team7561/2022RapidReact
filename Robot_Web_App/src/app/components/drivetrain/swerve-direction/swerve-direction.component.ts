@@ -21,8 +21,10 @@ export class SwerveDirectionComponent implements OnInit {
     });
   }
 
-  ngOnDestory():void{
-    this.globalSub.unsubscribe();
+  ngOnDestroy():void{
+    if(this.globalSub){
+      this.globalSub.unsubscribe();
+    }
   }
 
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-connection-menu',
@@ -13,13 +12,21 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
   public connectionURL: string = this.globalVarService.getVar("connectionURL");
   public sendURL: string = this.globalVarService.getVar("sendURL");
   public pollingRate: number = parseInt(this.globalVarService.getVar("pollingRate"));
+  public doReadOnlyPollingRate: string = "false";
+
   private globalSub: Subscription;
 
   constructor(private globalVarService: DynamicGlobalsService) { }
 
   ngOnInit(): void {
+    this.reloadStats();
     this.globalSub = this.globalVarService.getSubject().subscribe((res)=>{
       this.reloadStats();
+      if(this.globalVarService.getVar("doRecording") == "true"){
+        this.doReadOnlyPollingRate = "true";
+      }else{
+        this.doReadOnlyPollingRate = "false";
+      }
     });
   }
 
