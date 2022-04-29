@@ -50,6 +50,17 @@
     }
 }
 
+@media screen and(max-width: 1600px){
+    .mode-container{
+        height: 450px;
+    }
+
+    .offsets-container{
+        height: 450px;
+        width: 60%;
+    }
+}
+
 @media screen and(max-width: 500px){
     .container{
         flex-direction: column;

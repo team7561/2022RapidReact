@@ -25,6 +25,20 @@
     height: 200px;
 }
 
+@media screen and(max-width: 1600px){
+    .data-container{
+        margin-top: 0px;
+    }
+
+    .controls-container{
+        height: 300px;
+        margin-top: 0px;
+    }
+    .shooter-heading{
+        margin-top: -50px;
+    }
+}
+
 @media screen and(max-width: 500px){
     .data-container{
         flex-direction: column;

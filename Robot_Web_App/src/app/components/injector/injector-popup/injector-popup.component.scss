@@ -23,6 +23,21 @@
     }
 }
 
+
+@media screen and(max-width: 1600px){
+    .content{
+        &-container{
+            margin-top: 0px;
+        }
+    }
+    .control{
+        &-container{
+            width: 40%;
+            height: 400px;
+        }
+    }
+}
+
 @media screen and(max-width: 500px){
     .content{
         &-container{

@@ -18,6 +18,7 @@ export class IntakeControlComponent implements OnInit {
 
   private globalSub: Subscription;
 
+
   constructor(private globalVars: DynamicGlobalsService, private robotData: GetRobotDataService) { }
 
   ngOnInit(): void {

@@ -50,6 +50,23 @@
 }
 
 
+@media screen and(max-width: 1600px){
+    *{
+        margin-top: 0px;
+    }
+    .button{
+        &-container{
+            padding-bottom: 10px;
+        }
+    }
+
+    .heading{
+        &-container{
+            font-size: 0.85rem;
+        }
+    }
+}
+
 @media screen and(max-width: 500px){
     *{
         margin-top: 0px;

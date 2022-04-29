@@ -93,6 +93,15 @@
     display: none;
 }
 
+@media screen and(max-width: 1600px){
+    .popup{
+        &-content-container{
+            height: 90vh;
+        }
+    }
+    
+}
+
 @media screen and(max-width: 500px){
     .popup{
         &-content{
