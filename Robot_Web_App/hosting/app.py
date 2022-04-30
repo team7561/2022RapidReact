@@ -3,8 +3,7 @@ from networktables import NetworkTables
 import random
 import socket
 from flask_cors import CORS
-from scipy import rand
-
+import time
 
 doPublicHosting = False
 if(doPublicHosting):
@@ -17,6 +16,8 @@ CORS(app)
 robotIP = "10.75.61.2"
 NetworkTables.initialize(server=robotIP)
 portNumber = 3000
+
+startTime = time.time()
 
 @app.route("/robot_info") # Get robot data 
 def handleRobotData():
@@ -88,6 +89,7 @@ def testBackend():
         "Shooter B Speed": 800 + random.randint(0, 100),
         "Shooter B Setpoint": random.randint(1700, 1800),
         "Battery Voltage": 10.8 + random.random(),
+        "Game Time": round(time.time() - startTime),
         "ta": random.random() * 20 + 5,
         "tx": random.random() * 20,
         "ty": random.random() * 20,

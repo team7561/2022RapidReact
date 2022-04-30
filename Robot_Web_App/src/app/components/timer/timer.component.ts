@@ -9,7 +9,7 @@ import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service'
   styleUrls: ['./timer.component.scss']
 })
 export class TimerComponent implements OnInit {
-  private doTimer: boolean = true;
+  public doLocalTimer: boolean = false;
   public timerStarted: boolean = false;
   private timerVal: number; 
   public timerString: string;
@@ -21,13 +21,9 @@ export class TimerComponent implements OnInit {
   ngOnInit(): void {
     this.timerVal = parseInt(this.globalVar.getVar("matchTime")); // Get the number of seconds a match lasts for 
     this.globalVar.addVar("timeRemaining", this.timerVal.toString(), false);
-    var blankSpace = ""
-    if((this.timerVal % 60).toString().length <= 1){ // Add an extra 0 to seconds if necessary
-      blankSpace = "0"
-    }
-    this.timerString =  Math.floor(this.timerVal / 60).toString() + ":" + blankSpace + (this.timerVal % 60).toString();
+    this.timerString =  this.formatTime(this.timerVal);
     this.globalSub = this.globalVar.getSubject().subscribe(()=>{
-      if(this.globalVar.getVar("connectionStatus") == "connected" && this.doTimer){
+      if(this.globalVar.getVar("connectionStatus") == "connected"){
         if(!this.timerStarted){ // Ensure the timer hasn't already begun
           this.startTime = new Date(); // Time from which the timer is measured
           this.countDownTimer() 
@@ -45,24 +41,51 @@ export class TimerComponent implements OnInit {
   }
 
   timerChange(event: MatCheckboxChange):void{
-    this.doTimer = event.checked // Only begin the timer if a connection is established AND the user has indicated to start
+    this.doLocalTimer = event.checked // Only begin the timer if a connection is established AND the user has indicated to start
   }
 
   countDownTimer():void{
-    setInterval(()=>{ // Update the timer once per second
+    setInterval(()=>{ // Update the 4 times per second
       var timeElapsed = Math.round((new Date().getTime()- this.startTime.getTime()) / 1000);
       if(timeElapsed >= this.timerVal){
         timeElapsed = this.timerVal;
       }
       var timeRemaining = this.timerVal - timeElapsed;
 
-      var blankSpace = "";
-      if((timeRemaining % 60).toString().length <= 1){ // Add an extra 0 to seconds if necessary
-        blankSpace = "0";
-      }
+      console.log(this.doLocalTimer)
+
       this.globalVar.addVar("timeRemaining", timeRemaining.toString(), false);
-      this.timerString =  Math.floor(timeRemaining / 60).toString() + ":" + blankSpace + (timeRemaining % 60).toString();
-    }, 1000)
+      if(this.doLocalTimer){
+        this.timerString = this.formatTime(timeRemaining);
+      }else{
+        this.timerString = this.formatTime(parseInt(this.globalVar.getVar("Game Time")));
+        console.log("HIU")
+      }
+    }, 250)
+  }
+
+
+  formatTime(seconds: number): string{
+    var timeString = "";
+    var minutes = Math.floor(seconds / 60);
+    if(minutes != 0){
+      if(minutes >= 10){
+        timeString += minutes.toString();
+      }else{
+        timeString += "0" + minutes.toString();
+      }
+    }else{
+      timeString += "00";
+    }
+    timeString += ":";
+    seconds = seconds - (60 * Math.floor(seconds / 60));
+    if(seconds < 10){
+      timeString += "0" + seconds.toString();
+    }else{
+      timeString += seconds.toString();
+    }
+
+    return timeString;
   }
 
 }

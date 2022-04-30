@@ -4,10 +4,10 @@
     </div>
     <div class="options-container">
         <mat-checkbox class="options-check" 
+            #timerCheck
             [color]="'primary'"
-            [checked]=true 
-            disabled="{{ timerStarted }}"
+            [checked]="doLocalTimer" 
             (change)="timerChange($event)"
-            id="timerCheckBox">Do Timer?</mat-checkbox>
+            id="timerCheckBox">Do Local Timer?</mat-checkbox>
     </div>
 </div>

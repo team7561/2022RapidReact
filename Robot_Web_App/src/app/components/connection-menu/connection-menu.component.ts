@@ -13,6 +13,7 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
   public sendURL: string = this.globalVarService.getVar("sendURL");
   public pollingRate: number = parseInt(this.globalVarService.getVar("pollingRate"));
   public doReadOnlyPollingRate: string = "false";
+  public isChecked: boolean = true;
 
   private globalSub: Subscription;
 
@@ -98,8 +99,10 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
 
   updateDoConnection(event: MatCheckboxChange): void{
     if(event.checked){
+      this.isChecked = true;
       this.globalVarService.addVar("doConnection", "true", true)
     }else{
+      this.isChecked = false;
       this.globalVarService.addVar("doConnection", "false", true)
     }
   }

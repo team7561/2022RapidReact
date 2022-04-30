@@ -254,6 +254,7 @@ public class Drivetrain extends SubsystemBase {
         moduleB.updateDashboard();
         moduleD.updateDashboard();
         moduleC.updateDashboard();
+        SmartDashboard.putNumber("Game Time", DriverStation.getMatchTime());
         SmartDashboard.putNumber("Gyro Angle", imu.getAngle());
     }
 
