@@ -111,7 +111,10 @@ public class SwerveModule extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
+        if (SmartDashboard.getNumber(m_pos+"_Offset_Angle",getAngleOffset()) != getAngleOffset())
+        {
+            SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
+        }
         SmartDashboard.putNumber(m_pos+"Encoder", absolute_encoder.getOutput());
         currentAngle = SmartDashboard.getNumber(m_pos+"_Angle", 0)-m_offset*360;
 

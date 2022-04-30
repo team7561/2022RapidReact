@@ -75,6 +75,11 @@ public class Drivetrain extends SubsystemBase {
         moduleD.resetEncoders();
         moduleC.resetEncoders();
 	}
+
+    public double getAvgEncoderCount(){
+        return (moduleA.getPulses() + moduleB.getPulses() + moduleC.getPulses()  + moduleD.getPulses()) / 4;
+    }
+
 	public void resetPose() {
         m_x = 0;
         m_y = 0;
@@ -256,6 +261,8 @@ public class Drivetrain extends SubsystemBase {
         moduleC.updateDashboard();
         SmartDashboard.putNumber("Game Time", DriverStation.getMatchTime());
         SmartDashboard.putNumber("Gyro Angle", imu.getAngle());
+        SmartDashboard.putNumber("Avg Encoder count", getAvgEncoderCount());
+
     }
 
 }

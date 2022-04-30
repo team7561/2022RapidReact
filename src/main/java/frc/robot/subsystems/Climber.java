@@ -67,6 +67,7 @@ public class Climber extends SubsystemBase{
     }
     public void updateDashboard()
     {
+        SmartDashboard.putNumber("Battery Voltage", climberMotorA.getBusVoltage());
         if (Constants.DEBUG_CLIMBER)
         {
             SmartDashboard.putNumber("Climber A Speed", climberMotorA.getMotorOutputPercent());
