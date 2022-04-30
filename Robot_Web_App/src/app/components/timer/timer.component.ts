@@ -52,14 +52,11 @@ export class TimerComponent implements OnInit {
       }
       var timeRemaining = this.timerVal - timeElapsed;
 
-      console.log(this.doLocalTimer)
-
       this.globalVar.addVar("timeRemaining", timeRemaining.toString(), false);
       if(this.doLocalTimer){
         this.timerString = this.formatTime(timeRemaining);
       }else{
         this.timerString = this.formatTime(parseInt(this.globalVar.getVar("Game Time")));
-        console.log("HIU")
       }
     }, 250)
   }

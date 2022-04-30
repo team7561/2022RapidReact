@@ -19,11 +19,16 @@ body{
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+:root{
+    --back-bg-color: #A3CEF1;
+    --mid-bg-color: #6096BA;
+}
+
 .container{
     width: 95%;
     margin: auto;
     height: 750px;
-    background-color: #A3CEF1;
+    background-color: var(--back-bg-color);
     border-radius: 15px;
     margin-top: 20px;
     padding-bottom: 30px;

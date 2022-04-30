@@ -3,6 +3,7 @@ import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service'
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Subscription } from 'rxjs';
+import { GraphDataService } from 'src/app/services/graph-data.service';
 
 @Component({
   selector: 'app-line-graph',
@@ -27,20 +28,17 @@ export class LineGraphComponent implements OnInit {
   
   public chartConfig: ChartConfiguration["options"];
 
-  constructor(private globalVar: DynamicGlobalsService) { }
+  constructor(private globalVar: DynamicGlobalsService, private graphData: GraphDataService) { }
 
   ngOnInit(): void {
     this.initChart();
-    this.globalSub = this.globalVar.getSubject().subscribe(()=>{
-      if(new Date().getTime() - this.lastUpdateDate.getTime() > parseInt(this.globalVar.getVar("pollingRate")) - 150){
-        for(var i=0; i<this.trackKeys.length; i++){
-          this.addPoint(parseFloat(this.globalVar.getVar(this.trackKeys[i])), i);
-        }
-        this.chartLabels = this.chartLabels?.slice(1);
-        this.chartLabels?.push(this.totalTicksAdded);
-        this.totalTicksAdded += 1;
-      }
+    this.setChart();
+
+    this.graphData.getSubject().subscribe(()=>{
+      this.setChart();
+      this.chart.update();
     })
+
   }
 
   ngOnDestroy():void{
@@ -50,18 +48,13 @@ export class LineGraphComponent implements OnInit {
   }
 
   initChart():void{
-    // Get Blank Data
     for(var i=0; i<this.trackLabels.length; i++){
       this.chartData.push({
         "label": this.trackLabels[i],
         "data": []
       });
-      for(var k=0; k<this.tickCount; k++){
-        this.chartData[i]["data"].push(0);
-      }
-    }
-    for(var k=0; k<this.tickCount; k++){
-      this.chartLabels?.push("")
+      this.chartData[i]["data"] = [];
+      
     }
 
     this.chartConfig = {
@@ -85,13 +78,35 @@ export class LineGraphComponent implements OnInit {
     };
   }
 
-  addPoint(val: number, index: number):void{
-    if(this.chartData[index]["data"].length == 20){
-      this.chartData[index]["data"] = this.chartData[index]["data"].slice(1); // Remove the last point and label from the chart
-    } 
-    this.chartData[index]["data"].push(val); // Add the new point and label
-    
-    this.lastUpdateDate = new Date();
+
+  setChart():void{
+    // Get Blank Data
+    for(var i=0; i<this.trackLabels.length; i++){
+      var currentGraphData = this.graphData.getGraphData(this.trackKeys[i]);
+      if(currentGraphData.length > this.tickCount){
+        currentGraphData = currentGraphData.slice(-(this.tickCount));
+      }else{
+        for(var k=0; k<this.tickCount - currentGraphData.length; k++){
+          currentGraphData.unshift(0)
+        }
+      }
+      this.chartData[i]["data"] = currentGraphData;
+    }
+    var currentGraphTimes = this.graphData.getGraphTimeVals();
+    if(currentGraphTimes.length > this.tickCount){
+      currentGraphTimes = currentGraphTimes.slice(-(this.tickCount));
+    }else{
+      for(var k=0; k<this.tickCount - currentGraphTimes.length; k++){
+        currentGraphTimes.unshift(0);
+      }
+    }
+    this.chartLabels = currentGraphTimes;
+  }
+
+  wipeData():void{
+    for(var i=0; i<this.trackKeys.length; i++){
+      this.graphData.deleteSection(this.trackKeys[i]);
+    }
   }
 
 }

@@ -94,7 +94,8 @@ def testBackend():
         "tx": random.random() * 20,
         "ty": random.random() * 20,
         "robotX": random.random(),
-        "robotY": random.random()
+        "robotY": random.random(),
+        "ball_x_coord": random.randint(-30, 30)
     });
 
 

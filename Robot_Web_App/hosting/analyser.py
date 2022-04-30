@@ -1,11 +1,7 @@
 # Reads data from a robotData.json file
-from cProfile import label
-from calendar import c
 import matplotlib.pyplot as plt
 import json
 import csv
-import numpy as np
-from regex import F
 
 # Defines what values are plotted
 '''
@@ -17,7 +13,7 @@ Special Keywords:
 '''
 
 valsToPlot = ["Shooter Data A", "Shooter Data B", "vision", "drivetrain"]
-filePath = "./robotData (1).json"
+filePath = "./robotData.json"
 
 graphCols = 2  # How many columns the plt window will have
 graphRows = 2  # How many rows the window will have

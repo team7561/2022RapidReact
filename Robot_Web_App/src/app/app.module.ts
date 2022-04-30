@@ -41,6 +41,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 // Others
 import { NgChartsModule } from 'ng2-charts';
+import { BallGraphComponent } from './components/graphs/ball-graph/ball-graph.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { NgChartsModule } from 'ng2-charts';
     InjectorPopupComponent,
     InjectorControlComponent,
     RecordingMenuComponent,
+    BallGraphComponent,
   ],
   imports: [
     BrowserModule,

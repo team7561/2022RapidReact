@@ -1,4 +1,4 @@
-<div class="graph-battery-container">
+<div class="graph-battery-container" (show)="setChart()">
     <canvas baseChart 
             id="chart"
             width="100%" height="30"
@@ -7,4 +7,6 @@
             [options]="chartConfig"
             [type]="'line'">
     </canvas>
+
+    <button class="wipe-btn" (click)="wipeData()">Erase</button>
 </div>

@@ -9,10 +9,15 @@ import { GetRobotDataService } from 'src/app/services/get-robot-data.service';
   styleUrls: ['./offsets.component.scss']
 })
 export class OffsetsComponent implements OnInit {
-  public offsetValA: number | null;
-  public offsetValB: number | null;
-  public offsetValC: number | null;
-  public offsetValD: number | null;
+  public offsetValA: number;
+  public offsetValB: number;
+  public offsetValC: number;
+  public offsetValD: number;
+
+  public offsetSetpointA: number | null;
+  public offsetSetpointB: number | null;
+  public offsetSetpointC: number | null;
+  public offsetSetpointD: number | null;
 
   private globalSub: Subscription;
 
@@ -20,6 +25,7 @@ export class OffsetsComponent implements OnInit {
 
   ngOnInit(): void {
     this.setOffsets();
+    this.initOffsets();
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
       this.setOffsets();
 
@@ -38,6 +44,13 @@ export class OffsetsComponent implements OnInit {
     }
   }
 
+  initOffsets():void{
+    this.offsetSetpointA = this.offsetValA
+    this.offsetSetpointB = this.offsetValB
+    this.offsetSetpointC = this.offsetValC
+    this.offsetSetpointD = this.offsetValD
+  }
+
   setOffsets(): void{
     this.offsetValA = parseFloat(parseFloat(this.globalVars.getVar("A_Offset_Angle")).toFixed(2));
     this.offsetValB = parseFloat(parseFloat(this.globalVars.getVar("B_Offset_Angle")).toFixed(2));
@@ -46,10 +59,10 @@ export class OffsetsComponent implements OnInit {
   }
 
   updateOffsets():void{
-    this.robotData.sendRobotData("A_Offset_Angle", this.offsetValA?.toString() as string); // Send the new offsets to the robot
-    this.robotData.sendRobotData("B_Offset_Angle", this.offsetValB?.toString() as string);
-    this.robotData.sendRobotData("C_Offset_Angle", this.offsetValC?.toString() as string);
-    this.robotData.sendRobotData("D_Offset_Angle", this.offsetValD?.toString() as string);
+    this.robotData.sendRobotData("A_Offset_Angle", this.offsetSetpointA?.toString() as string); // Send the new offsets to the robot
+    this.robotData.sendRobotData("B_Offset_Angle", this.offsetSetpointB?.toString() as string);
+    this.robotData.sendRobotData("C_Offset_Angle", this.offsetSetpointC?.toString() as string);
+    this.robotData.sendRobotData("D_Offset_Angle", this.offsetSetpointD?.toString() as string);
   }
 
 

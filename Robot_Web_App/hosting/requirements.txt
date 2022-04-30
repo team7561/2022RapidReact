@@ -1,3 +1,4 @@
 pynetworktables
 flask
 flask-cors
+matplotlib
