@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Subscription } from 'rxjs';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
+import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
 
 @Component({
   selector: 'app-ball-graph',

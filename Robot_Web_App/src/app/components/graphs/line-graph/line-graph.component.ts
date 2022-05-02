@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
+import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Subscription } from 'rxjs';
-import { GraphDataService } from 'src/app/services/graph-data.service';
+import { GraphDataService } from 'src/app/services/graph-data/graph-data.service';
 
 @Component({
   selector: 'app-line-graph',

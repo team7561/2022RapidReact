@@ -29,6 +29,8 @@ import { IntakeControlComponent } from './components/intake/intake-control/intak
 import { InjectorPopupComponent } from './components/injector/injector-popup/injector-popup.component';
 import { InjectorControlComponent } from './components/injector/injector-control/injector-control.component';
 import { RecordingMenuComponent } from './components/recording-menu/recording-menu.component';
+import { HomeScreenComponent } from './components/home/home-screen/home-screen.component';
+import { PanelScreenComponent } from './components/control panel/panel-screen/panel-screen.component';
 
 // Angular material imports
 import { MatInputModule } from '@angular/material/input';
@@ -42,7 +44,11 @@ import { MatSelectModule } from '@angular/material/select';
 // Others
 import { NgChartsModule } from 'ng2-charts';
 import { BallGraphComponent } from './components/graphs/ball-graph/ball-graph.component';
-
+import { KtdGridModule } from '@katoid/angular-grid-layout';
+import { NewBoardComponent } from './components/control panel/new-board/new-board.component';
+import { ShooterHoodPopupComponent } from './components/shooter-hood/shooter-hood-popup/shooter-hood-popup.component';
+import { ShooterHoodControlComponent } from './components/shooter-hood/shooter-hood-control/shooter-hood-control.component';
+import { BoardContentComponent } from './components/control panel/board-content/board-content.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +76,12 @@ import { BallGraphComponent } from './components/graphs/ball-graph/ball-graph.co
     InjectorControlComponent,
     RecordingMenuComponent,
     BallGraphComponent,
+    PanelScreenComponent,
+    HomeScreenComponent,
+    NewBoardComponent,
+    ShooterHoodPopupComponent,
+    ShooterHoodControlComponent,
+    BoardContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,7 +94,8 @@ import { BallGraphComponent } from './components/graphs/ball-graph/ball-graph.co
     MatIconModule,
     MatSliderModule,
     MatSelectModule,
-    NgChartsModule
+    NgChartsModule,
+    KtdGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { BaseChartDirective } from 'ng2-charts';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
+import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
 import { ChartConfiguration } from 'chart.js';
 import { Subscription } from 'rxjs';
 

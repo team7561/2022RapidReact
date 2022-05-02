@@ -1,0 +1,43 @@
+<div class="input-container">
+    <app-connection-menu></app-connection-menu>
+</div>
+
+<div class="new-container">
+    <app-new-board></app-new-board>
+</div>
+
+<div class="grid-container">
+    <ktd-grid [cols]="columnCount"
+        [rowHeight]="rowheight"
+        [layout]="layout"
+        [compactType]="compactType"
+        [preventCollision]="'True'"
+        [scrollableParent]="'True' ? document : null"
+        scrollSpeed="4"
+        (layoutUpdated)="onLayoutUpdated($event)">
+        <ktd-grid-item 
+            *ngFor="let board of layout"
+            [id]="board['id']"
+            class="grid-item-container"
+            [dragStartThreshold]="'0'"
+            [draggable]="'True'"
+            [resizable]="'True'">
+            
+            
+            <div class="grid-item-content">
+                <div class="grid-item-ico-container">
+                    <div ktdGridDragHandle class="handle-1">
+                        <img src="../../../../assets/grip-solid.svg" alt="Move Card" class="grid-item-ico grid-item-grip">
+                    </div>
+                    <div ktdGridDragHandle class="handle-1">
+                        <img src="../../../../assets/delete.svg" alt="Move Card" class="grid-item-ico grid-item-delte" (click)="deleteBoard(board['id'])">
+                    </div>
+                </div>
+                <div class="content-container">
+                    <app-board-content id="{{board['id']}}"></app-board-content>
+                </div>
+
+            </div>
+        </ktd-grid-item>
+    </ktd-grid>
+</div>

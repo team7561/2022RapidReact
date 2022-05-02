@@ -1,0 +1,31 @@
+<div class="board-container">
+    <div class="heading-container">
+        <h1 class="heading-text">Add new Board</h1>
+    </div>
+    <div class="section-container">
+        <div class="section-item">
+            <div class="heading-container">
+                <h2 class="heading-text">From Smart Dashboard</h2>
+            </div>
+            <ul class="section-list">
+                <li class="section-list-item" 
+                    *ngFor="let key of globalVarKeys" 
+                    id="{{key}}"
+                    (click)="updateBoardList(key, false)">{{key}}</li>
+            </ul>
+            
+        </div>
+        <div class="section-item">
+            <div class="heading-container">
+                <h2 class="heading-text">From Library</h2>
+            </div>
+            <ul class="section-list">
+                <li class="section-list-item" (click)="updateBoardList('Offsets', true)">Offsets</li>
+                <li class="section-list-item" (click)="updateBoardList('Swerve Angle', true)">Swerve Angle</li>
+                <li class="section-list-item" (click)="updateBoardList('Shooter Control', true)">Shooter Control</li>
+                <li class="section-list-item" (click)="updateBoardList('Auto Position', true)">Auto Position</li>
+                <li class="section-list-item" (click)="updateBoardList('Camera Feed', true)">Camera Feed</li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="heading-container">
+    <h1 class="heading-text shooter-heading">Shooter Hood</h1>
+</div>
+
+
+<div class="data-container">
+    <div class="controls-container">
+        <div class="heading-container">
+            <h2 class="heading-text">Shooter Hood Vals</h2>
+        </div>
+        <app-shooter-hood-control></app-shooter-hood-control>
+    </div>
+
+    <div class="graph-container">
+        <app-line-graph
+                [trackLabels]="['Shooter Hood Val']"
+                [trackKeys]="['ShooterHood']"
+                [minVal]="-1"
+                [maxVal]="1"
+        ></app-line-graph>
+    </div>
+</div>

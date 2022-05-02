@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
+import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
 
 @Component({
   selector: 'app-swerve-direction',

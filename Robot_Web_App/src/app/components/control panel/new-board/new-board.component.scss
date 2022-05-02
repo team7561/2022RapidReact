@@ -1,0 +1,42 @@
+.board{
+    &-container{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.section{
+    &-container{
+        width: 100%;
+        height: 75%;
+        display: flex;
+        flex-direction: row;
+    }
+    &-item{
+        width: 50%;
+        border-right: 5px #000 solid;
+    }
+    &-list{
+        width: 93%;
+        height: 65%;
+        overflow-y: scroll;
+        &-item{
+            cursor: pointer;
+            width: fit-content;
+            &:hover{
+                background-color: #537992;
+            }
+        }
+    }
+}
+
+
+.heading{
+    &-container{
+        margin: auto;
+        margin-top: 0px;
+    }
+    &-text{
+        margin: 0px;
+    }
+}

@@ -28,6 +28,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
         this.addVar("driveModes", JSON.stringify(environment.driveModes), false);
         this.addVar("intakeModes", JSON.stringify(environment.intakeModes), false);
         this.addVar("injectorModes", JSON.stringify(environment.injectorModes), false);
+        this.addVar("boardList", JSON.stringify([]), false);
         console.log("CANNOT FIND LOCAL STORAGE VARIABLES")
       }
       this.addVar("doConnection", "true", false); // Assume user always wants to connect

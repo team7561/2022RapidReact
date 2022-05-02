@@ -1,0 +1,41 @@
+<div class="options-container">
+    <div class="option-container">
+        <div class="heading-container">
+            <h2 class="heading-text">Shooter Hood</h2>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Value: {{ shooterHoodVal | number}}</h2>
+        </div>
+        <div class="slide-container">
+            <mat-slider
+                class="slider"
+                thumbLabel
+                disabled="disabled"
+                min="-1"
+                max="1"
+                value="{{ shooterHoodVal }}"></mat-slider>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Setpoint: {{ shooterHoodSetpoint | number}}</h2>
+        </div>
+        <div class="slide-container">
+            <mat-slider
+                class="slider"
+                color="primary"
+                thumbLabel
+                step="0.1"
+                min="-1"
+                max="1"
+                (valueChange)="updateShooterHoodVal()"
+                [(value)]="shooterHoodSetpoint"></mat-slider>
+        </div>
+        <div class="heading-container">
+            <h2 class="heading-text">Standard Setpoints</h2>
+        </div>
+        <div class="button-container">
+            <button class="button-setpoint" (click)="setShooterHoodVal(0)">0</button>
+            <button class="button-setpoint" (click)="setShooterHoodVal(0.5)">0.5</button>
+            <button class="button-setpoint" (click)="setShooterHoodVal(1)">1</button>
+        </div>
+    </div>
+</div>

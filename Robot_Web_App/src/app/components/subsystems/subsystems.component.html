@@ -17,6 +17,10 @@
             <p>B</p>
         </div>
     </div>
+    <div class="system-container" (click)="popup.classList.toggle('hidden'); popuptype='shooterHood'">
+        <img src="../../../assets/epand_icon.svg" alt="" class="system-icon">
+        <h2 class="system-text">Shooter Hood</h2>
+    </div>
     <div class="system-container" (click)="popup.classList.toggle('hidden'); popuptype='intake'">
         <img src="../../../assets/epand_icon.svg" alt="" class="system-icon">
         <h2 class="system-text">Intake</h2>
@@ -37,5 +41,6 @@
         <app-shooter-popup *ngIf="popuptype =='shooter'"></app-shooter-popup>
         <app-intake-injector-popup *ngIf="popuptype == 'intake'"></app-intake-injector-popup>
         <app-injector-popup *ngIf="popuptype == 'injector'"></app-injector-popup>
+        <app-shooter-hood-popup *ngIf="popuptype == 'shooterHood'"></app-shooter-hood-popup>
     </div>
 </div>

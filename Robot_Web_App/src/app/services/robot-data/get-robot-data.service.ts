@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DynamicGlobalsService } from './dynamic-globals.service';
+import { DynamicGlobalsService } from '../globals/dynamic-globals.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http"
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';

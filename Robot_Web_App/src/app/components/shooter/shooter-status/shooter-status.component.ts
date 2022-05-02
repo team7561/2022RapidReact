@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
+import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
 
 @Component({
   selector: 'app-shooter-status',
@@ -33,10 +33,10 @@ export class ShooterStatusComponent implements OnInit {
           this.shooterAAction = "STABLE";
           this.shooterAColor = "#20bf55";
         }else if(this.shooterADeficit > 0){
-          this.shooterAAction = "SPEEDING UP";
+          this.shooterAAction = "TOO SLOW";
           this.shooterAColor = "#eec643";
         }else{
-          this.shooterAAction = "SLOWING DOWN";
+          this.shooterAAction = "TOO FAST";
           this.shooterAColor = "#eec643";
         }
       }
@@ -48,10 +48,10 @@ export class ShooterStatusComponent implements OnInit {
           this.shooterBAction = "STABLE";
           this.shooterBColor = "#20bf55";
         }else if(this.shooterBDeficit > 0){
-          this.shooterBAction = "SPEEDING UP";
+          this.shooterBAction = "TOO SLOW";
           this.shooterBColor = "#eec643";
         }else{
-          this.shooterBAction = "SLOWING DOWN";
+          this.shooterBAction = "TOO FAST";
           this.shooterBColor = "#eec643";
         }
       }

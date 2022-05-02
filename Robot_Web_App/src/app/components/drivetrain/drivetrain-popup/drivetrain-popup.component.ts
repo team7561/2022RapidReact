@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
-import { GetRobotDataService } from 'src/app/services/get-robot-data.service';
+import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
+import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.service';
 
 @Component({
   selector: 'app-drivetrain-popup',

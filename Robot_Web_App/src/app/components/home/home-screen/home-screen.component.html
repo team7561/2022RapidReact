@@ -1,0 +1,63 @@
+<div class="input-container">
+    <div class="input-btn-container">
+      <button class="input-btn pressed" 
+        #connectionBtn 
+        (click)="connectionBtn.classList.add('pressed'); recordingBtn.classList.remove('pressed'); inputType = 'connection'"
+        >Connection Settings</button>
+      <button class="input-btn" 
+        #recordingBtn 
+        (click)="connectionBtn.classList.remove('pressed'); recordingBtn.classList.add('pressed'); inputType = 'recording'">
+        Recording Settings</button>
+    </div>
+    <div class="input-child-container">
+      <app-connection-menu *ngIf="inputType == 'connection'"></app-connection-menu>
+      <app-recording-menu *ngIf="inputType == 'recording'"></app-recording-menu>
+    </div>
+  </div>
+  
+  
+  <div class="notification-container">
+    <app-notifications></app-notifications>
+  </div>
+  
+  <div class="swerve-container">
+    <app-swerve-direction></app-swerve-direction>
+  </div>
+  
+  <div class="timer-container">
+    <app-timer></app-timer>
+  </div>
+  
+  <div class="subsystems-container">
+    <mat-tab-group mat-align-tabs="center" [backgroundColor]="'primary'">
+      <mat-tab label="General">
+        <div class="container">
+          <app-general-stats></app-general-stats>
+        </div>
+      </mat-tab>
+      <mat-tab label="Sub Systems">
+        <div class="container">
+          <app-subsystems></app-subsystems>
+        </div>
+      </mat-tab>
+      <mat-tab label="Graphs" *ngIf="innerWidth > 499">
+        <div class="container">
+          <app-graphs></app-graphs>
+        </div>
+      </mat-tab>
+      <mat-tab label="Auto">
+        <div class="container">
+          <app-auto></app-auto>
+        </div>
+      </mat-tab>
+      <mat-tab label="Settings">
+        <div class="container settings-container">
+          <app-settings></app-settings>
+        </div>
+      </mat-tab>
+  
+    </mat-tab-group>
+  </div>
+  <span class="footer-container">
+    <app-footer></app-footer>
+  </span>

@@ -1,8 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
-import { ChartConfiguration } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { Component, OnInit  } from '@angular/core';
 
 @Component({
   selector: 'app-graphs',

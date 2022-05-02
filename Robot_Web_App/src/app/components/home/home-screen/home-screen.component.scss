@@ -1,0 +1,180 @@
+.top{
+    &-cards{
+        &-container{
+            width: 100%;
+            height: auto;
+
+        }
+    }
+}
+.input{
+    &-container{
+        width: 25%;
+        height: 220px;
+        border-radius: 15px;
+        transition: all 0.25s ease;
+        background-color: var(--back-bg-color);
+        box-shadow: #83a2bb 5px 5px 5px;
+    }
+    &-btn{
+        border: none;
+        background-color: #83a2bb;
+        height: 35px;
+        cursor: pointer;
+
+        &-container{
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            padding-top: 10px;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+    }
+}
+
+.notification{
+    &-container{
+        width: 25%;
+        height: 100px;
+        margin: auto;
+        margin-top: -120px;
+    }
+}
+
+.swerve{
+    &-container{
+        height: 100px;
+        width: 20%;
+        position: absolute;
+        top: 0px;    
+        right: 0px;
+    }
+}
+
+.timer{
+    &-container{
+        width: 25%;
+        height: 12%;
+        padding-top: 10px;
+        margin: auto;
+        margin-top: 25px;
+    }
+}
+
+.subsystems{
+    &-container{
+        margin: auto;
+        margin-top: 100px;
+        width: 85%;
+        height: fit-content;
+    }
+}
+
+.offset{
+    &-container{
+        width: 600px;
+        height: 700px;
+        margin: auto;
+    }
+}
+
+.settings-container{
+    height: fit-content;
+}
+
+.pressed{
+    background-color: #80ffdb;
+    cursor: default;
+}
+
+// For different screen sizes
+@media screen and(max-width: 1800px){
+    .input{
+        &-container{
+            width: 25%;
+        }
+    }
+}
+@media screen and(max-width: 1550px){
+    .input{
+        &-container{
+            width: 30%;
+        }
+    }
+    .timer{
+        &-container{
+            height: 15%;
+        }
+    }
+}
+
+@media screen and(max-width: 1300px){
+    .input{
+        &-container{
+            width: 35%;
+        }
+    }
+}
+
+@media screen and(max-width: 1200px){
+    .input{
+        &-container{
+            width: 40%;
+        }
+    }
+    .top{
+        &-cards{
+            &-container{
+                display: block;
+                justify-content: center;
+                margin-left: 5px;
+    
+            }
+        }
+    }    
+
+}
+@media screen and(max-width: 1050px){
+    .input{
+        &-container{
+            width: 50%;
+        }
+    }
+    .timer{
+        &-container{
+            margin-top: 45px;
+            width: 50%;       
+        }
+    }
+}
+@media screen and(max-width: 750px){
+    .input{
+        &-container{
+            width: 60%;
+        }
+    }
+}
+@media screen and(max-width: 500px){
+    .input{
+        &-container{
+            width: 100%;
+        }
+    }
+
+    .swerve{
+        &-container{
+            top: 50%;
+            left: 0%;
+            width: 50%;
+            margin: auto;
+        }
+    }
+
+    .timer{
+        &-container{
+            margin-top: 250px;
+        }
+    }
+}

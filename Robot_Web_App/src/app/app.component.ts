@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { DynamicGlobalsService } from './services/dynamic-globals.service';
-import { GetRobotDataService } from './services/get-robot-data.service';
-import { GraphDataService } from './services/graph-data.service';
+import { GetRobotDataService } from './services/robot-data/get-robot-data.service';
+import { GraphDataService } from './services/graph-data/graph-data.service';
 
 @Component({
   selector: 'app-root',

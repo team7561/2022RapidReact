@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicGlobalsService } from 'src/app/services/dynamic-globals.service';
-import { GetRobotDataService } from 'src/app/services/get-robot-data.service';
-import { RecordLoadDataService } from 'src/app/services/record-load-data.service';
+import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
+import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.service';
+import { RecordLoadDataService } from 'src/app/services/record-data/record-load-data.service';
 import { keyValPair } from 'src/model';
 
 @Component({

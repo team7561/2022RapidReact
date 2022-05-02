@@ -9,3 +9,5 @@ https://fonts.google.com/specimen/Oxygen
 Animations
 https://animista.net/
 
+Dynamic Grid
+https://github.com/katoid/angular-grid-layout

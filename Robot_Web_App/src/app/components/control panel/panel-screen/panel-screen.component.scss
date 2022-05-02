@@ -1,0 +1,76 @@
+.input{
+    &-container{
+        width: 25%;
+        height: 220px;
+        border-radius: 15px;
+        transition: all 0.25s ease;
+        background-color: var(--back-bg-color);
+        box-shadow: #83a2bb 5px 5px 5px;
+        z-index: 3;
+    }
+}
+.new{
+    &-container{
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        width: 65%;
+        height: 220px;  
+        margin-top: 10px; 
+        background-color: var(--back-bg-color); 
+        box-shadow: #83a2bb 5px 5px 5px;
+        border-radius: 15px;
+    }
+}
+
+.grid{
+    &-container{
+        height: 150vh;
+        width: 100vw;
+        position: absolute;
+        top: 25%;
+        left: 0%;
+        z-index: 1;
+        background-color: #83a2bb;
+        
+    }
+    
+    &-item{
+        &-container{
+            background-color: var(--mid-bg-color);
+            border-radius: 0px 25px 0px 25px;
+            box-shadow: #536a7c 5px 5px 5px;
+        }
+        &-content{
+            width: 100%;
+            height: 100%;
+        }
+
+        &-ico{
+            height: 30px;
+            aspect-ratio: 1/1;
+            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(39deg) brightness(109%) contrast(101%);
+            cursor: pointer;
+
+            &-container{
+                width: 100%;
+                height: fit-content;
+                display: flex;
+                flex-direction: row;
+                gap: 15px;
+            }
+        }
+        &-grip{
+            transform: rotate(90deg);
+            cursor: grab;
+        }
+    }
+}
+
+.content{
+    &-container{
+        width: 98%;
+        height: 80%;
+        margin-bottom: 10px;
+    }
+}

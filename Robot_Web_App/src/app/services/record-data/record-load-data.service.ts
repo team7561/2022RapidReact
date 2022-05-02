@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { keyValPair } from 'src/model';
-import { DynamicGlobalsService } from './dynamic-globals.service';
+import { DynamicGlobalsService } from '../globals/dynamic-globals.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { DynamicGlobalsService } from './dynamic-globals.service';
+import { DynamicGlobalsService } from '../globals/dynamic-globals.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GraphDataService {
   // The keys used to get necessary data from the globalvars
-  private graphKeys: Array<string> = ["Battery Voltage", "Shooter A Speed", "Shooter B Speed", "Injector Speed", "Intake Speed"];
+  private graphKeys: Array<string> = ["Battery Voltage", "Shooter A Speed", "Shooter B Speed", "Injector Speed", "Intake Speed", "ShooterHood"];
   private graphData: Map<string, Array<number>> = new Map();
   private graphTimeVals: Array<number> = [];
   private static subject: Subject<void> = new Subject();

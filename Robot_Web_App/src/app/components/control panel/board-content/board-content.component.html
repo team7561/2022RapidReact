@@ -1,0 +1,14 @@
+<div class="content-container">
+    <div class="heading-container">
+        <h3 class="heading-text">{{thisBoard['presetType']}}</h3>
+    </div>
+
+    <div class="display-container">
+        <div class="display-text-container" *ngIf="thisBoard['displayType'] == 'number'">
+            <h1 class="display-text-item">{{currentVal | number}}</h1>
+        </div>
+        <div class="display-text-container" *ngIf="thisBoard['displayType'] == 'string'">
+            <h1 class="display-text-item">{{currentString}}</h1>
+        </div>
+    </div>
+</div>
