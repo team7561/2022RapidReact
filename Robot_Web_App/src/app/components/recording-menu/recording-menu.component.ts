@@ -10,6 +10,7 @@ import { keyValPair } from 'src/model';
   styleUrls: ['./recording-menu.component.scss']
 })
 export class RecordingMenuComponent implements OnInit {
+  // Defualt time strings
   public recordingTimeString: string = "00:00";
   public playBackTimeString: string = "00:00";
   public totalPlayBackTimeString: string = "00:00";
@@ -24,6 +25,7 @@ export class RecordingMenuComponent implements OnInit {
   ngOnInit(): void {
     this.recordingTimeString = this.formatTime(this.recorder.getTimeRecorded());
     setInterval(()=>{
+      // Update recording time string every polling rate
       this.recordingTimeString = this.formatTime(this.recorder.getTimeRecorded());
     }, parseFloat(this.globalVars.getVar("pollingRate")));
   }
@@ -35,6 +37,7 @@ export class RecordingMenuComponent implements OnInit {
   }
 
   saveRecording():void{
+    // Get file download and open download window for user
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(this.recorder.getTotalData());
     var downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
@@ -45,6 +48,7 @@ export class RecordingMenuComponent implements OnInit {
   }
 
   loadRecording(event: Event): void{
+    // Read recording and pass the data to the recorder service
     const dataReader = this.robotData;
     const target = event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
@@ -52,6 +56,7 @@ export class RecordingMenuComponent implements OnInit {
     let reader = new FileReader();
     var hasReadText = false;
 
+    // Whenever the reader has a file loaded 
     reader.onload = function(){
       var preData: Array<string> = JSON.parse(reader.result as string)
       var newData: Array<Array<keyValPair>> = [];
@@ -77,6 +82,7 @@ export class RecordingMenuComponent implements OnInit {
     }, 500)
   }
 
+
   setPlayBackStrings(totalTime: number):void{
     this.totalPlayBackTimeString = this.formatTime(totalTime);
     this.totalplayBackTimeVal = totalTime;
@@ -92,6 +98,7 @@ export class RecordingMenuComponent implements OnInit {
   }
 
   formatTime(seconds: number): string{
+    // Returns time in format MM:SS for any given seconds count
     var timeString = "";
     var minutes = Math.floor(seconds / 60);
     if(minutes != 0){

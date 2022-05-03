@@ -1,14 +1,82 @@
 <div class="content-container">
-    <div class="heading-container">
-        <h3 class="heading-text">{{thisBoard['presetType']}}</h3>
-    </div>
-
     <div class="display-container">
-        <div class="display-text-container" *ngIf="thisBoard['displayType'] == 'number'">
-            <h1 class="display-text-item">{{currentVal | number}}</h1>
+        <div class="standard-container" *ngIf="!thisBoard['isPreset']">
+            <div class="display-type-container" *ngIf="thisBoard['displayType'] == 'number' || thisBoard['displayType'] == 'graph'|| thisBoard['displayType'] == 'numberLine'">
+                <mat-form-field appearance="fill">
+                    <mat-label>Display Type</mat-label>
+                    <mat-select class="display-type-selector" appearence="fill" [(value)]="thisBoard['displayType']" (valueChange)="updateGlobals()">
+                        <mat-option *ngFor="let displayType of selectableDisplayTypes" [value]="displayType">{{displayType}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="outer-container" *ngIf="thisBoard['displayType'] != 'number'">
+                <div class="display-settings-container" *ngIf="thisBoard['displayType'] != 'string'">
+                    <mat-form-field class="display-settings-field " appearance="fill">
+                        <mat-label>Min Val</mat-label>
+                        <input type="number" matInput 
+                        id="minNumInput"
+                        class="display-settings-input"
+                        [value]="minVal"
+                        (change)="updateDataGraph()">
+                    </mat-form-field>
+                    <mat-form-field class="display-settings-field " appearance="fill">
+                        <mat-label>Max Val</mat-label>
+                        <input type="number" matInput 
+                        id="maxNumInput"
+                        class="display-settings-input"
+                        [value]="maxVal"
+                        (change)="updateDataGraph()">
+                    </mat-form-field>
+                </div>
+            </div>
+            
+
+            <div class="info-container" [ngStyle]="{'width': thisBoard['displayType'] === 'string' ? '100%' : 'calc(100% - 230px)'}">
+                <div class="heading-container">
+                    <h3 class="heading-text" *ngIf="thisBoard['displayType'] == 'string'||thisBoard['displayType'] == 'number'">{{thisBoard['presetType']}}</h3>
+                    <h3 class="heading-text" *ngIf="thisBoard['displayType'] == 'graph'||thisBoard['displayType'] == 'numberLine'">{{thisBoard['presetType']}} - {{ currentVal }}</h3>
+                </div>
+                <div class="display-text-container" *ngIf="thisBoard['displayType'] == 'number'">
+                    <h1 class="display-text-item">{{currentVal | number}}</h1>
+                </div>
+                <div class="display-text-container" *ngIf="thisBoard['displayType'] == 'string'">
+                    <h1 class="display-text-item">{{currentString}}</h1>
+                </div>
+                <div class="display-graph-container" id="dataGraph">
+                    <app-line-graph
+                        *ngIf="thisBoard['displayType'] == 'graph'" 
+                        [isStandardGraph]="false"
+                        [trackLabels]="[thisBoard['presetType']]"
+                        [trackKeys]="[thisBoard['presetType']]"
+                        [minVal]="minVal"
+                        [maxVal]="maxVal"
+                    ></app-line-graph>
+                    <mat-slider
+                        class="display-numberLine"
+                        *ngIf="thisBoard['displayType'] == 'numberLine'"
+                        [(value)]="currentVal"
+                        disabled="disabled"
+                        [min]="minVal"
+                        [max]="maxVal"
+                    ></mat-slider>
+                </div>
+            </div>
         </div>
-        <div class="display-text-container" *ngIf="thisBoard['displayType'] == 'string'">
-            <h1 class="display-text-item">{{currentString}}</h1>
+
+        <div class="component-container" *ngIf="thisBoard['isPreset']">
+            <div class="heading-container">
+                <h3 class="heading-text">{{thisBoard['presetType']}}</h3>
+            </div>
+
+            <app-offsets *ngIf="thisBoard['presetType'] == 'Offsets'"></app-offsets>
+            <app-swerve-direction *ngIf="thisBoard['presetType'] == 'Swerve Angle'"></app-swerve-direction>
+            <app-shooter-control *ngIf="thisBoard['presetType'] == 'Shooter Control'"></app-shooter-control>
+            <app-shooter-status *ngIf="thisBoard['presetType'] == 'Shooter Status'"></app-shooter-status>
+            <app-shooter-hood-control *ngIf="thisBoard['presetType'] == 'Shooter Hood Control'"></app-shooter-hood-control>
+            <app-injector-control *ngIf="thisBoard['presetType'] == 'Injector Control'"></app-injector-control>
+            <app-intake-control *ngIf="thisBoard['presetType'] == 'Intake Control'"></app-intake-control>
+            <app-ball-graph *ngIf="thisBoard['presetType'] == 'Ball Position'"></app-ball-graph>
+            <app-vision-graph *ngIf="thisBoard['presetType'] == 'Vision Target'"></app-vision-graph>
         </div>
     </div>
 </div>

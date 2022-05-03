@@ -9,10 +9,13 @@ import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.
   styleUrls: ['./shooter-control.component.scss']
 })
 export class ShooterControlComponent implements OnInit {
+  // The robot values
   public shooterAVal: number;
   public shooterBVal: number;
   public shooterASetPoint: number |null = 0;
   public shooterBSetPoint: number |null = 0;
+
+  // Values inputed by user
   public shooterADisplaySetPoint: number |null = 0;
   public shooterBDisplaySetPoint: number |null = 0;
 
@@ -22,6 +25,7 @@ export class ShooterControlComponent implements OnInit {
 
   ngOnInit(): void {
     this.globalSub = this.globalVar.getSubject().subscribe(()=>{
+      // Update valuse for each new packet
       this.shooterADisplaySetPoint =  parseInt(this.globalVar.getVar("Shooter A Setpoint"));// Get the default shooter set point
       this.shooterBDisplaySetPoint = parseInt(this.globalVar.getVar("Shooter B Setpoint"));
       this.shooterAVal = parseInt(this.globalVar.getVar("Shooter A Speed"));
@@ -36,6 +40,7 @@ export class ShooterControlComponent implements OnInit {
   }
 
   updateShooterVal():void{
+    // Send the new shooter vals to the robot
     setTimeout(()=>{
       this.robotData.sendRobotData("Shooter A Setpoint", this.shooterASetPoint?.toString() as string); // Send the robot the new setpoints when they are updated
       this.robotData.sendRobotData("Shooter B Setpoint", this.shooterBSetPoint?.toString() as string);

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShooterPopupComponent implements OnInit {
 
+  // I'm sure the other files are more interesting
+
   constructor() { }
 
   ngOnInit(): void {

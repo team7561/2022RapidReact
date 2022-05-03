@@ -58,6 +58,10 @@ def sendRobotData():
 def root(): # Send the html file
   return send_from_directory('./public', 'index.html')
 
+@app.route('/control_panel')
+def send_control_panel(): # Send the html file
+  return send_from_directory('./public', 'index.html')
+
 # Returns requested file (Allows for angular to get external .js and .css files)
 @app.route('/<path:path>', methods=['GET'])
 def static_proxy(path):
@@ -102,4 +106,3 @@ def testBackend():
 
 if __name__ == '__main__':
   app.run(host=hostingName, port=portNumber, debug=False)
-

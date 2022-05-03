@@ -8,10 +8,14 @@ import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.
   styleUrls: ['./intake-control.component.scss']
 })
 export class IntakeControlComponent implements OnInit {
+  
+  //Vals from the robot
   public intakeSpeed: number;
   public intakeMode: string;
 
-  public intakeModes: Array<string> = JSON.parse(this.globalVars.getVar("intakeModes"));;
+  public intakeModes: Array<string> = JSON.parse(this.globalVars.getVar("intakeModes"));
+
+  // Vals from the user  
   public selectedIntakeMode: string = this.globalVars.getVar("Intake Mode");
   public selectedIntakeSpeed: number | null = 0;
 
@@ -38,6 +42,7 @@ export class IntakeControlComponent implements OnInit {
   }
   
   updateIntakeSpeed():void{
+    // Send data to the robot
     setTimeout(()=>{
       this.robotData.sendRobotData("Intake Speed", (this.selectedIntakeSpeed as number).toString());
     }, 20)

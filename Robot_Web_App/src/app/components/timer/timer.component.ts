@@ -63,6 +63,7 @@ export class TimerComponent implements OnInit {
 
 
   formatTime(seconds: number): string{
+    // Returns time in format MM:SS for any second counr
     var timeString = "";
     var minutes = Math.floor(seconds / 60);
     if(minutes != 0){

@@ -24,13 +24,14 @@ export class GraphDataService {
     }
 
     setInterval(()=>{
+      // Log the values for each key given in graphKeys
       for(var i=0; i<this.graphKeys.length; i++){
         var currentDataList: Array<number> = (this.graphData.get(this.graphKeys[i]) as number[]);
         currentDataList.push(parseFloat(this.globalData.getVar(this.graphKeys[i])));
         this.graphData.set(this.graphKeys[i], currentDataList)
       }
       this.graphTimeVals.push(this.graphTimeVals.length + 1);
-      GraphDataService.subject.next();
+      GraphDataService.subject.next(); // Update any subscribers to the event
     }, parseInt(this.globalData.getVar("pollingRate")));
   }
 

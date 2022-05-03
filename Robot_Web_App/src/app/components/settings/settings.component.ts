@@ -52,6 +52,7 @@ export class SettingsComponent implements OnInit {
   }
 
   addDataPoint(event: Event, key: string):void{
+    // Add new elem to specified list stored in global vars
     event.preventDefault();
     var currentDataList = JSON.parse(this.globalVar.getVar(key));
     currentDataList.push((document.getElementById(key + "Input") as HTMLInputElement).value);
@@ -60,6 +61,7 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteDataPoint(event: Event, key: string): void{
+    // Remove specified elem from list in global vars
     var valToDelete = (event.target as HTMLElement).id;
     var dataList: Array<string> = JSON.parse(this.globalVar.getVar(key));
 
@@ -74,11 +76,13 @@ export class SettingsComponent implements OnInit {
   }
 
   changeMatchTime():void{
+    // Adjust how long a match lasts
     this.gameLength = parseInt((document.getElementById("gameLengthInput") as HTMLInputElement).value);
     this.globalVar.addVar("matchTime", this.gameLength.toString(), false);
   }
 
   addNotification():void{
+    // Add new notificaton
     var newNotifName: string = (document.getElementById("newNotifNameInput") as HTMLInputElement).value;
     var newNotifTime: number = parseInt((document.getElementById("newNotifTimeInput") as HTMLInputElement).value);
     this.notifList.push({"title": newNotifName, "timeVal": newNotifTime});
@@ -89,6 +93,7 @@ export class SettingsComponent implements OnInit {
   }
 
   deleteNotification(event: Event){
+    // Remove notification
     var valToDelete = (event.target as HTMLElement).id
     console.log(valToDelete)
     for(var i=0; i<this.notifList.length; i++){
@@ -104,6 +109,7 @@ export class SettingsComponent implements OnInit {
   }
 
   wipeLocalStorage():void{
+    // Remove all variables stored in local storage (Nuke it)
     if(confirm("Are you sure you want to delete ALL locally stored variables?")){ // Only wipe data if user confirms
       this.globalVar.setDoLocalBackup(false); // Stop the global vars from backing up between clearing local storage and reloading
       setTimeout(()=>{

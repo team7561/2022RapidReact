@@ -9,8 +9,8 @@
 .robot{
     &-frame{
         border: 3px black solid;
-        height: 90px;
         width: 90px;
+        aspect-ratio: 1/1;
         margin: auto;
         margin-top: 2px;
         display: grid;

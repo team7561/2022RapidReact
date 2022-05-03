@@ -8,6 +8,7 @@ import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.
   styleUrls: ['./general-stats.component.scss']
 })
 export class GeneralStatsComponent implements OnInit {
+  // Values shown on this page
   public climberStatus: string;
   public intakeStatus: string;
   public injectorMode: string;
@@ -21,8 +22,7 @@ export class GeneralStatsComponent implements OnInit {
   public shooterBTarget: number;
   public batteryVoltage: number;
 
-  public popuptype: string = "shooter";
-  // TODO  Remove default popup string
+  public popuptype: string = "";
 
   private globalSub: Subscription;
 

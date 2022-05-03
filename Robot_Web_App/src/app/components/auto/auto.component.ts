@@ -20,9 +20,11 @@ export class AutoComponent implements OnInit {
   ngOnInit(): void {
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
       if(this.autoOptions != JSON.parse(this.globalVars.getVar("autoModes"))){
+        // Gather auto options
         this.autoOptions = JSON.parse(this.globalVars.getVar("autoModes"));
       }
       if(this.robotX != parseFloat(this.globalVars.getVar("robotX"))){
+        // Dather data about robot position and heading
         this.robotX = parseFloat(this.globalVars.getVar("robotX"));
         this.robotY = parseFloat(this.globalVars.getVar("robotY"));
         this.robotHeading = parseFloat(this.globalVars.getVar("Gyro Angle"));

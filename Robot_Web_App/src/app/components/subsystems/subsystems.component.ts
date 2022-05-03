@@ -52,6 +52,7 @@ export class SubsystemsComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {
+    // Hide the popup when the escape key is pressed
     if(event.key == "Escape"){
       document.getElementById("popUpParent")?.classList.add("hidden");
     }

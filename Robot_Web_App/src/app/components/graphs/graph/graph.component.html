@@ -32,11 +32,12 @@
                 <h2 class="heading-text">Shooter Speeds</h2>
             </div>
             <app-line-graph
+                [isStandardGraph]="true"
                 [trackLabels]="['Shooter A Val', 'Shooter B Val']"
                 [trackKeys]="['Shooter A Speed', 'Shooter B Speed']"
                 [minVal]="-2000"
                 [maxVal]="2000"
-            ></app-line-graph>
+        ></app-line-graph>
         </mat-tab>
     </mat-tab-group>
 </div>

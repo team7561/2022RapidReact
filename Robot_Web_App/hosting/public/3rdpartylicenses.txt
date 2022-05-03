@@ -66,6 +66,9 @@ MIT
 @angular/router
 MIT
 
+@katoid/angular-grid-layout
+MIT
+
 chart.js
 MIT
 The MIT License (MIT)

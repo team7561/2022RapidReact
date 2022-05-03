@@ -9,11 +9,16 @@ import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.
   styleUrls: ['./injector-control.component.scss']
 })
 export class InjectorControlComponent implements OnInit {
+  
+  // Values reported by the robot
   public injectorSpeed: number;
   public injectorMode: string;
 
-  public injectorModes: Array<string> = JSON.parse(this.globalVars.getVar("injectorModes"));;
-  public selectedInjectorMode: string = this.globalVars.getVar("Injector Mode");
+  // Assume selected Injector mode is the 1st on the array
+  public injectorModes: Array<string> = JSON.parse(this.globalVars.getVar("injectorModes"));
+
+  // Values inputted by user
+  public selectedInjectorMode: string = this.globalVars.getVar("Injector Mode"); 
   public selectedInjectorSpeed: number | null = 0;
 
   private globalSub: Subscription;
@@ -33,11 +38,13 @@ export class InjectorControlComponent implements OnInit {
     }
   }
 
-  updateIntakeMode():void{
+  updateInjectorMode():void{
     this.robotData.sendRobotData("Injector Mode", this.selectedInjectorMode); 
   }
   
-  updateIntakeSpeed():void{
+  updateInjectorSpeed():void{
+    // Sends the new Injector speed to the robot 
+    // NB, for some reason only works if reading data from component is delayed?
     setTimeout(()=>{
       this.robotData.sendRobotData("Injector Speed", (this.selectedInjectorSpeed as number).toString());
     }, 20)

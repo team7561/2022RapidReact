@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./vision-graph.component.scss']
 })
 export class VisionGraphComponent implements OnInit {
+  // It's basically the same as thue ball graph, look over there
+
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   public visionChartLabels: ChartConfiguration["data"]["labels"] = [];
   public visionChartData: ChartConfiguration["data"]["datasets"] = [
@@ -62,12 +64,13 @@ export class VisionGraphComponent implements OnInit {
             min: -30,
             max: 30
         }
-      }
+      },
+      responsive : true,
     };
   }
 
   movePoint(tx: number, ty: number, ta: number):void{
-    this.visionChartData[0]["data"] = [{x: tx, y: ty, r: ta * 5}];
+    this.visionChartData[0]["data"] = [{x: tx, y: ty, r: ta * 2}];
     this.lastVisionXVal = tx;
     this.chart.update();
   }

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InjectorPopupComponent implements OnInit {
 
+  // Pretty empty if you ask me
+
   constructor() { }
 
   ngOnInit(): void {

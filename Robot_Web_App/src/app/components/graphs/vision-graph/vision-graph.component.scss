@@ -1,7 +1,10 @@
 .graph-shooter-container{
-    height: 500px;
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 16/9;
 }
 
 #visionChart{
-    height: 500px;
+    height: 100%;
+    width: 100%;
 }

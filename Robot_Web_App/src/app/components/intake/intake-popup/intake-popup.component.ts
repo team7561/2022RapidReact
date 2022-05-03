@@ -9,37 +9,14 @@ import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.
   styleUrls: ['./intake-popup.component.scss']
 })
 export class IntakePopupComponent implements OnInit {
-  public intakeSpeed: number;
-  public intakeMode: string;
 
-  public intakeModes: Array<string> = JSON.parse(this.globalVars.getVar("intakeModes"));;
-  public selectedIntakeMode: string = this.globalVars.getVar("Intake Mode");
-  public selectedIntakeSpeed: number | null = 0;
+  // Crickets
 
-  private globalSub: Subscription;
-
-  constructor(private globalVars: DynamicGlobalsService, private robotData: GetRobotDataService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.globalSub = this.globalVars.getSubject().subscribe(()=>{
-      this.intakeSpeed = parseInt(this.globalVars.getVar("Intake Speed"));
-      this.intakeMode = this.globalVars.getVar("Intake Mode");
-    });
-  }
-  ngOnDestroy():void{
-    if(this.globalSub){
-      this.globalSub.unsubscribe();
-    }
+    
   }
 
-  updateIntakeMode():void{
-    this.robotData.sendRobotData("Intake Mode", this.selectedIntakeMode);
-  }
-  
-  updateIntakeSpeed():void{
-    setTimeout(()=>{
-      this.robotData.sendRobotData("Intake Speed", (this.selectedIntakeSpeed as number).toString());
-    }, 20)
-  }
 
 }

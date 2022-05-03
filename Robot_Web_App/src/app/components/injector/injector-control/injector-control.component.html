@@ -9,7 +9,7 @@
         <p class="option-text">Select Injector Mode</p>
         <mat-form-field class="mode-field">
             <mat-label>Injector Mode</mat-label>
-            <mat-select [(value)]="selectedInjectorMode" (valueChange)="updateIntakeMode()">
+            <mat-select [(value)]="selectedInjectorMode" (valueChange)="updateInjectorMode()">
                 <mat-option *ngFor="let mode of injectorModes" value="{{mode}}">{{mode}}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -22,7 +22,7 @@
             thumbLabel
             min="-100"
             max="100"
-            (valueChange)="updateIntakeSpeed()"
+            (valueChange)="updateInjectorSpeed()"
             [(value)]="selectedInjectorSpeed"></mat-slider>
     </div>
 </div>

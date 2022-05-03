@@ -30,7 +30,7 @@ export class BallGraphComponent implements OnInit {
     this.initChart();
     this.globalVars.getSubject().subscribe(()=>{
       if(parseFloat(this.globalVars.getVar("ball_x_coord")) != this.lastVisionXVal){
-        this.movePoint(parseFloat(this.globalVars.getVar("ball_x_coord")))
+        this.movePoint(parseFloat(this.globalVars.getVar("ball_x_coord")));
       }
     })
   }
@@ -41,6 +41,7 @@ export class BallGraphComponent implements OnInit {
   }
 
   initChart():void{
+    // Initializes basic chart config
     this.ballChartConfig = {
       animation: {
         duration: 250
@@ -67,6 +68,7 @@ export class BallGraphComponent implements OnInit {
   }
 
   movePoint(ballX: number):void{
+    // Update ball pos position on the chart
     this.ballChartData[0]["data"] = [{x: ballX, y: 0, r: 20}];
     this.lastVisionXVal = ballX;
     this.chart.update();

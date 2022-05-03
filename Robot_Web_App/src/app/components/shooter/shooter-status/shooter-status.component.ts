@@ -8,6 +8,7 @@ import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.
   styleUrls: ['./shooter-status.component.scss']
 })
 export class ShooterStatusComponent implements OnInit {
+  // Defualt shooter actions and warning states
   public shooterAAction: string;
   public shooterBAction: string;
   public shooterADeficit: number;
@@ -22,6 +23,7 @@ export class ShooterStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
+      // Get the difference between setpoint and desired goal
       this.shooterADeficit = parseInt(this.globalVars.getVar("Shooter A Setpoint")) -  parseInt(this.globalVars.getVar("Shooter A Speed"));
       this.shooterBDeficit = parseInt(this.globalVars.getVar("Shooter B Setpoint")) - parseInt(this.globalVars.getVar("Shooter B Speed"));
 

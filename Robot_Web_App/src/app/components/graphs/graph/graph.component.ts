@@ -7,6 +7,8 @@ import { Component, OnInit  } from '@angular/core';
 })
 export class GraphsComponent implements OnInit {
   
+  // Not alot going on in here,
+
   constructor() {}
 
   ngOnInit() {    

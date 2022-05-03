@@ -12,8 +12,8 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
   public connectionURL: string = this.globalVarService.getVar("connectionURL");
   public sendURL: string = this.globalVarService.getVar("sendURL");
   public pollingRate: number = parseInt(this.globalVarService.getVar("pollingRate"));
-  public doReadOnlyPollingRate: string = "false";
-  public isChecked: boolean = true;
+  public doReadOnlyPollingRate: string = "false"; // Disables adjusting the polling rate when the program is recording 
+  public isChecked: boolean = true; // If the connection indicator is checked
 
   private globalSub: Subscription;
 
@@ -85,19 +85,18 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
     this.sendURL = (<HTMLInputElement>document.getElementById("sendURLInput")).value
     this.pollingRate = parseInt((<HTMLInputElement>document.getElementById("pollingRateInput")).value)
 
-    console.log(this.connectionURL);
-    console.log(this.sendURL);
-
     this.globalVarService.addVar("connectionURL", this.connectionURL, false);
     this.globalVarService.addVar("sendURL", this.sendURL, false);
     this.globalVarService.addVar("pollingRate", this.pollingRate.toString(), false);
 
     setTimeout(()=>{
+      // Reload the page when connection settings updated
       location.reload();
     }, 250)
   }
 
   updateDoConnection(event: MatCheckboxChange): void{
+    // Calls when user updates wether or not to connect to the robot
     if(event.checked){
       this.isChecked = true;
       this.globalVarService.addVar("doConnection", "true", true)

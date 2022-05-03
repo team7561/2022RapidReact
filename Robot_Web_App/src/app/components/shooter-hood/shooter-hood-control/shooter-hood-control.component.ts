@@ -9,6 +9,9 @@ import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.
   styleUrls: ['./shooter-hood-control.component.scss']
 })
 export class ShooterHoodControlComponent implements OnInit {
+
+  // Similar code to the shooter control
+
   public shooterHoodVal: number;
   public shooterHoodSetpoint: number | null = 0;
 
@@ -35,7 +38,7 @@ export class ShooterHoodControlComponent implements OnInit {
   }
 
   setShooterHoodVal(val: number):void{
-    this.shooterHoodVal = val;
+    this.shooterHoodSetpoint = val;
     this.updateShooterHoodVal();
   }
 }

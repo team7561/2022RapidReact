@@ -3,10 +3,52 @@
         width: 100%;
         height: 85%;
     }
+    &-type{
+        &-container{
+            position: absolute;
+            top: 50px;
+            left: 10px;
+        }
+    }
+    &-settings{
+        &-container{
+            position: absolute;
+            top: 130px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
     &-text{
         &-container{
             width: 100%;
             text-align: center;
         }
     }
+
+    &-graph{
+        &-container{
+            width: 85%;
+            height: 50%;
+            margin-top: -10px;
+        }
+    }
+
+    &-numberLine{
+        width: 100%;
+    }
 }
+
+.info{
+    &-container{
+        position: absolute;
+        top: 50px;
+        right: 0px;
+    } 
+}
+
+.hidden{
+    display: none;
+}
+

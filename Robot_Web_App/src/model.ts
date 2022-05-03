@@ -22,4 +22,5 @@ export interface board{
     isPreset: boolean;
     presetType: string;
     displayType: "number" | "string" | "graph" | "img" | "numberLine";
+    additionalData: keyValPair[];
 }

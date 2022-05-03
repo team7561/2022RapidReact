@@ -17,6 +17,7 @@ export class NewBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
+      // Get total list of all the global vars present
       let currentGlobals: keyValPair[] = this.globalVars.getAllVars();
       this.globalVarKeys = [];
       for(var i=0; i<currentGlobals.length; i++){
@@ -25,56 +26,76 @@ export class NewBoardComponent implements OnInit {
     });
   }
 
-  updateBoardList(boardType: string, isPresent: boolean):void{
+  updateBoardList(boardType: string, isPreset: boolean):void{
     let currentBoardsList: board[] = JSON.parse(this.globalVars.getVar("boardList"));
     let mostRecentBoardId: number = -1;
-    let mostRecentBoardX: number = -1;
+    // All possible display types
     let displayType: "number" | "string" | "graph" | "img" | "numberLine" = "number"
 
     if(currentBoardsList.length != 0){
       mostRecentBoardId = (currentBoardsList.slice(-1) as unknown as board[])[0]['id'];
-      mostRecentBoardX = (currentBoardsList.slice(-1) as unknown as board[])[0]['x'];
     }
 
-    let thisHeight = 1;    
-    let thisWidth = 1;
+    // Default height and width of a board
+    let thisHeight = 2;    
+    let thisWidth = 4;
 
-    if(isPresent){
+    if(isPreset){ // If the board is a preset
+      displayType = "graph"
       switch(boardType){
         case("Offsets"):
-          thisHeight = 3
-          thisWidth = 3
+          thisHeight = 5;
+          thisWidth = 4;
           break;
         case("Swerve Angle"):
-          thisHeight = 2
-          thisWidth = 2
+          thisHeight = 3;
+          thisWidth = 2;
           break;
         case("Shooter Control"):
-          thisHeight = 3
-          thisWidth = 2
+          thisHeight = 6;
+          thisWidth = 3;
           break;
-        case("Auto Position"):
-          thisHeight = 3
-          thisWidth = 6
+        case("Shooter Status"):
+          thisHeight = 3;
+          thisWidth = 6;
           break;
-        case("Camera Feed"):
-          thisHeight = 3
-          thisWidth = 6
+        case("Shooter Hood Control"):
+          thisHeight = 6;
+          thisWidth = 3;
+          break;
+        case("Injector Control"):
+          thisHeight = 4;
+          thisWidth = 6;
+          break;
+        case("Intake Control"):
+          thisHeight = 4;
+          thisWidth = 6;
+          break;
+        case("Ball Position"):
+          thisHeight = 5;
+          thisWidth = 8;
+          break;
+        case("Vision Target"):
+          thisHeight = 5;
+          thisWidth = 8;
           break;
       }
     }else{
-      if(isNaN(parseFloat(this.globalVars.getVar("boardType")))){
-        displayType = "string"
+      // Determine if data being stored is a number or string
+      if(isNaN(parseFloat(this.globalVars.getVar(boardType)))){
+        displayType = "string";
       }
     }
+    // Add it to the global vars
     currentBoardsList.push({"id": mostRecentBoardId + 1, 
-                          "x": mostRecentBoardX + 1,
+                          "x": 0,
                           "y": 0,
                           "height": thisHeight,
                           "width": thisWidth,
-                          "isPreset": isPresent,
+                          "isPreset": isPreset,
                           "presetType": boardType,
-                          "displayType": displayType});
+                          "displayType": displayType,
+                          "additionalData": []});
     this.globalVars.addVar("boardList", JSON.stringify(currentBoardsList), true);
 
   }

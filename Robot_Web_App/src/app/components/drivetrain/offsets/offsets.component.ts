@@ -9,6 +9,9 @@ import { GetRobotDataService } from 'src/app/services/robot-data/get-robot-data.
   styleUrls: ['./offsets.component.scss']
 })
 export class OffsetsComponent implements OnInit {
+  // Setpoint Offset refers to what the User has submitted
+  // Offset Val refers to what is being read from the robot
+
   public offsetValA: number;
   public offsetValB: number;
   public offsetValC: number;
@@ -52,6 +55,7 @@ export class OffsetsComponent implements OnInit {
   }
 
   setOffsets(): void{
+    // Read the values from global vars
     this.offsetValA = parseFloat(parseFloat(this.globalVars.getVar("A_Offset_Angle")).toFixed(2));
     this.offsetValB = parseFloat(parseFloat(this.globalVars.getVar("B_Offset_Angle")).toFixed(2));
     this.offsetValC = parseFloat(parseFloat(this.globalVars.getVar("C_Offset_Angle")).toFixed(2));
@@ -59,7 +63,8 @@ export class OffsetsComponent implements OnInit {
   }
 
   updateOffsets():void{
-    this.robotData.sendRobotData("A_Offset_Angle", this.offsetSetpointA?.toString() as string); // Send the new offsets to the robot
+    // Send the new offsets to the robot
+    this.robotData.sendRobotData("A_Offset_Angle", this.offsetSetpointA?.toString() as string); 
     this.robotData.sendRobotData("B_Offset_Angle", this.offsetSetpointB?.toString() as string);
     this.robotData.sendRobotData("C_Offset_Angle", this.offsetSetpointC?.toString() as string);
     this.robotData.sendRobotData("D_Offset_Angle", this.offsetSetpointD?.toString() as string);
