@@ -6,7 +6,36 @@
         transition: all 0.25s ease;
         background-color: var(--back-bg-color);
         box-shadow: #83a2bb 5px 5px 5px;
+    }
+    &-btn{
+        border: none;
+        background-color: #83a2bb;
+        height: 35px;
+        cursor: pointer;
 
+        &-container{
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            padding-top: 10px;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+    }
+}
+
+.home{
+    &-container{
+        position: absolute;
+        top: 1%;
+        left: 0.5%;
+        width: 30px;
+        aspect-ratio: 1/1;
+        cursor: pointer;
+    }
+    &-img{
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(39deg) brightness(109%) contrast(101%);
     }
 }
 
@@ -80,3 +109,76 @@
         margin-bottom: 10px;
     }
 }
+
+
+
+// For different screen sizes
+@media screen and(max-width: 1800px){
+    .input{
+        &-container{
+            width: 25%;
+        }
+    }
+    .grid{
+        &-container{
+            top: 45%;
+        }
+    }
+}
+@media screen and(max-width: 1550px){
+    .input{
+        &-container{
+            width: 30%;
+        }
+    }
+}
+
+@media screen and(max-width: 1250px){
+    .grid{
+        &-container{
+            top: 90%;
+        }
+    }
+    .input{
+        &-container{
+            position: absolute;
+            width: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    .new{
+        &-container{
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 55%;
+        }
+    }
+}
+
+@media screen and(max-width: 500px){
+    .input{
+        &-container{
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+    .new{
+        &-container{
+            top: 45%;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 85%;
+            width: 100%;
+        }
+    }
+    .grid{
+        &-container{
+            top: 140%;
+        }
+    }
+}
+

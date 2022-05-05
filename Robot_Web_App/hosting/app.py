@@ -5,7 +5,7 @@ import socket
 from flask_cors import CORS
 import time
 
-doPublicHosting = False
+doPublicHosting = True  
 if(doPublicHosting):
   hostingName = socket.gethostbyname(socket.gethostname())
 else:

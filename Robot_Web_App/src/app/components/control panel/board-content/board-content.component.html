@@ -31,10 +31,10 @@
             </div>
             
 
-            <div class="info-container" [ngStyle]="{'width': thisBoard['displayType'] === 'string' ? '100%' : 'calc(100% - 230px)'}">
+            <div class="info-container" [ngStyle]="{'min-width': thisBoard['displayType'] === 'string' ? '100%' : 'calc(100% - 230px)'}">
                 <div class="heading-container">
                     <h3 class="heading-text" *ngIf="thisBoard['displayType'] == 'string'||thisBoard['displayType'] == 'number'">{{thisBoard['presetType']}}</h3>
-                    <h3 class="heading-text" *ngIf="thisBoard['displayType'] == 'graph'||thisBoard['displayType'] == 'numberLine'">{{thisBoard['presetType']}} - {{ currentVal }}</h3>
+                    <h3 class="heading-text" *ngIf="thisBoard['displayType'] == 'graph'||thisBoard['displayType'] == 'numberLine'">{{thisBoard['presetType']}} | {{ currentVal }}</h3>
                 </div>
                 <div class="display-text-container" *ngIf="thisBoard['displayType'] == 'number'">
                     <h1 class="display-text-item">{{currentVal | number}}</h1>

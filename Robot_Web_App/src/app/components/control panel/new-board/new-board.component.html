@@ -7,12 +7,24 @@
             <div class="heading-container">
                 <h2 class="heading-text">From Smart Dashboard</h2>
             </div>
-            <ul class="section-list">
-                <li class="section-list-item" 
-                    *ngFor="let key of globalVarKeys" 
+            <div class="section-content-container">
+                <ul class="section-list">
+                    <li class="section-list-item" 
+                    *ngFor="let key of displayKeys" 
                     id="{{key}}"
                     (click)="updateBoardList(key, false)">{{key}}</li>
-            </ul>
+                </ul>
+                
+                <div class="search-container">
+                    <mat-form-field class="search-field" appearance="fill">
+                        <mat-label>Search</mat-label>
+                        <input matInput 
+                            class="search-input" 
+                            id="searchInput"
+                            (keyup)="updateDisplayKeys()">
+                    </mat-form-field>
+                </div>
+            </div>
             
         </div>
         <div class="section-item">

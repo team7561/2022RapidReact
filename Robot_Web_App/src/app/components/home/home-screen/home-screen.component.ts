@@ -14,9 +14,6 @@ export class HomeScreenComponent implements OnInit {
   constructor(private robotDataService: GetRobotDataService, private graphData: GraphDataService){}
 
   ngOnInit():void{
-    this.robotDataService.startDataStream(); // Initialize the data stream between robot and client
-    this.graphData.beginGraphStream(); // Starts recording the graph data
-    this.innerWidth = window.innerWidth
   }
 
 }

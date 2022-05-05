@@ -17,19 +17,16 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     if(!this.runInit){ // Ensure the variables only gett initialized once
       if(localStorage.getItem("globalVars")){
         this.globalVars = JSON.parse(localStorage.getItem("globalVars") as string);
+        if(this.getVar("versionNumber") != environment.versionNumber){
+          this.addVar("dataStatus", "unMatchedVersion", true); // Alert user if stored data was created with an older version of the web app
+        }else{
+          this.addVar("dataStatus", "good", true);
+        }
       }else{
         // Load the default values
-        this.addVar("connectionURL", environment.defaultURL, false);
-        this.addVar("sendURL", environment.sendURL, false)
-        this.addVar("pollingRate", environment.defaultPollingRate.toString(), false);
-        this.addVar("matchTime", environment.matchTime.toString(), false);
-        this.addVar("autoModes", JSON.stringify(environment.autoList), false);
-        this.addVar("notificationList", JSON.stringify(environment.notificationList), false);
-        this.addVar("driveModes", JSON.stringify(environment.driveModes), false);
-        this.addVar("intakeModes", JSON.stringify(environment.intakeModes), false);
-        this.addVar("injectorModes", JSON.stringify(environment.injectorModes), false);
-        this.addVar("boardList", JSON.stringify([]), false);
-        console.log("CANNOT FIND LOCAL STORAGE VARIABLES")
+        this.initGlobalVals();
+        console.log("CANNOT FIND LOCAL STORAGE VARIABLES");
+        this.addVar("dataStatus", "new", true); // Alert user that the was no stored data in localstorage
       }
       this.addVar("doConnection", "true", false); // Assume user always wants to connect
       this.addVar("doRecording", "false", false);
@@ -39,6 +36,20 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
       this.saveVar();
       DynamicGlobalsService.varSubject.next(this.globalVars);
     }, 250)
+  }
+
+  initGlobalVals():void{
+    this.addVar("versionNumber", environment.versionNumber, false);
+    this.addVar("connectionURL", environment.defaultURL, false);
+    this.addVar("sendURL", environment.sendURL, false)
+    this.addVar("pollingRate", environment.defaultPollingRate.toString(), false);
+    this.addVar("matchTime", environment.matchTime.toString(), false);
+    this.addVar("autoModes", JSON.stringify(environment.autoList), false);
+    this.addVar("notificationList", JSON.stringify(environment.notificationList), false);
+    this.addVar("driveModes", JSON.stringify(environment.driveModes), false);
+    this.addVar("intakeModes", JSON.stringify(environment.intakeModes), false);
+    this.addVar("injectorModes", JSON.stringify(environment.injectorModes), false);
+    this.addVar("boardList", JSON.stringify([]), false);
   }
 
   getSubject(): Subject<Array<keyValPair>>{ // Gets the subject so components can subscribe to it 

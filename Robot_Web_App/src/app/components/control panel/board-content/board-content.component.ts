@@ -19,12 +19,14 @@ export class BoardContentComponent implements OnInit {
   public minVal: number;
   public maxVal: number;
 
+  private screenWidth: number = window.innerWidth;
+
   // Allows for control of location of elem
   public marginLeftVal: number = 500;
   
 
   // The types of display that can be selected if the data type = number
-  public selectableDisplayTypes: Array<string> = ["number", "graph",  "numberLine"]
+  public selectableDisplayTypes: Array<string> = ["number",  "numberLine", "graph"]
 
   private globalSub: Subscription;
   constructor(private globalVars: DynamicGlobalsService) { }
@@ -33,6 +35,12 @@ export class BoardContentComponent implements OnInit {
     this.initBoard();
     this.updateGlobals();
     
+    if(this.screenWidth <= 500){
+      this.selectableDisplayTypes.pop();
+      // Remove graphs from the list if the user's screen is narrower then 500px
+      // Graphs cause formatting issues on small screens
+    }
+
     // Set the same min and max vals as the last time the board was rendered
     if(this.thisBoard["additionalData"]){ 
       for(var i=0; i<this.thisBoard["additionalData"].length; i++){

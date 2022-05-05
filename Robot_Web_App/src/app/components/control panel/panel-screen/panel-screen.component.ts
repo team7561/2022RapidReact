@@ -19,6 +19,8 @@ export class PanelScreenComponent implements OnInit {
   public compactType: 'vertical' | 'horizontal' | null = null;
   public layout: KtdGridLayout = [];
 
+  public inputType: string = "connection";
+
   private globalSub: Subscription;
 
   constructor(@Inject(DOCUMENT) public document: Document, private globalVar: DynamicGlobalsService) { }

@@ -63,6 +63,24 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
       commsIndictaor.classList.add("indicator-unknown")
     }
 
+    // Set the local data indicator
+    var commsIndictaor: HTMLElement = document.getElementById("dataIndicator") as HTMLElement; 
+    commsIndictaor.classList.remove("indicator-unknown");
+    commsIndictaor.classList.remove("indicator-warning");
+    commsIndictaor.classList.remove("indicator-good");
+    commsIndictaor.classList.remove("indicator-error");
+    switch(this.globalVarService.getVar("dataStatus")){
+      case "new" :{
+        commsIndictaor.classList.add("indicator-warning");
+        break;
+      }case "good":{
+        commsIndictaor.classList.add("indicator-good");
+        break;
+      }case "unMatchedVersion": {
+        commsIndictaor.classList.add("indicator-error")
+      }
+    }
+
     // Set the battery indicator to the correct status
     var batteryIndicator: HTMLElement = document.getElementById("batteryIndicator") as HTMLElement;
     batteryIndicator.classList.remove("indicator-unknown");
@@ -77,7 +95,10 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
     }else{
       batteryIndicator.classList.add("indicator-good")
     }
+
+
   }
+
 
   updateConnectionSettings(event: Event):void{
     event.preventDefault();

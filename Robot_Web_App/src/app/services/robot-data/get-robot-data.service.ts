@@ -15,13 +15,16 @@ export class GetRobotDataService {
   private globalPollingRate: number;
   private playPauseStatus: string = "play";
 
+  private lastConnectionTime = new Date();
+
   constructor(private globalVars: DynamicGlobalsService,
               private httpClient: HttpClient) { }
 
   startDataStream(): void{ // Begins the data stream to the robot
     this.globalVars.addVar("connectionStatus", "connecting", true);
     this.dataInterval = setInterval(()=>{
-      if(!this.doReadData){ // Only Connect to robot if not scanning from local data source
+      if(!this.doReadData && new Date().getTime() - this.lastConnectionTime.getTime() > parseInt(this.globalVars.getVar("pollingRate")) - 100){ 
+        // Only Connect to robot if not scanning from local data source AND enough time has elapsed
         if(this.globalVars.getVar("doConnection") == "true"){ // Only connect to robot if user enables it 
           this.getRobotData().subscribe((res: Object)=>{
             if(this.globalVars.getVar("connectionStatus") != "connected"){

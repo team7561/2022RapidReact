@@ -45,6 +45,7 @@
         position: absolute;
         top: 50px;
         right: 0px;
+        
     } 
 }
 
@@ -52,3 +53,16 @@
     display: none;
 }
 
+
+@media screen and(max-width: 500px){
+    .info{
+        &-container{
+            top: 275px;
+            margin: 0px;
+            left: 50%;
+            width: 100%;
+            transform: translateX(-50%);
+
+        }
+    }
+}

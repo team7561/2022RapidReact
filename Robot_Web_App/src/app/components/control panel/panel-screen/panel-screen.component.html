@@ -1,7 +1,25 @@
 <div class="input-container">
-    <app-connection-menu></app-connection-menu>
-</div>
+    <div class="home-container">
+        <a href="/" class="info-link">
+            <img src="../../../../assets/home.svg" alt="Home" class="home-img">
+        </a>
+    </div>
 
+    <div class="input-btn-container">
+      <button class="input-btn pressed" 
+        #connectionBtn 
+        (click)="connectionBtn.classList.add('pressed'); recordingBtn.classList.remove('pressed'); inputType = 'connection'"
+        >Connection Settings</button>
+      <button class="input-btn" 
+        #recordingBtn 
+        (click)="connectionBtn.classList.remove('pressed'); recordingBtn.classList.add('pressed'); inputType = 'recording'">
+        Recording Settings</button>
+    </div>
+    <div class="input-child-container">
+      <app-connection-menu *ngIf="inputType == 'connection'"></app-connection-menu>
+      <app-recording-menu *ngIf="inputType == 'recording'"></app-recording-menu>
+    </div>
+</div>
 <div class="new-container">
     <app-new-board></app-new-board>
 </div>

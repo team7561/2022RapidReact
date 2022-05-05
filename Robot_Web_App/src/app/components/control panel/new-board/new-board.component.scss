@@ -16,9 +16,17 @@
         width: 50%;
         border-right: 5px #000 solid;
     }
+    
+    &-content{
+        &-container{
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+        }
+    }
     &-list{
-        width: 93%;
-        height: 65%;
+        width: 35%;
+        height: 75%;
         overflow-y: scroll;
         &-item{
             cursor: pointer;
@@ -38,5 +46,38 @@
     }
     &-text{
         margin: 0px;
+    }
+}
+
+.search{
+    &-container{
+        margin-left: 50px;
+        margin-top: 15px;
+    }
+}
+
+@media screen  and(max-width: 1250px){
+    .section{
+        &-container{
+            height: 45%;
+            flex-direction: column;
+        }
+        &-item{
+            border: none;
+            width: 100%;
+            flex-direction: column;
+        }
+        &-content{
+            &-container{
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width: 100%;
+            }
+        }
+        &-list{
+            height: 100px;
+            width: 70%;
+        }
     }
 }

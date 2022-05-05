@@ -9,8 +9,12 @@ import { board, keyValPair } from 'src/model';
   styleUrls: ['./new-board.component.scss']
 })
 export class NewBoardComponent implements OnInit {
-  public globalVarKeys: Array<string>;
+  public displayKeys: Array<string>;
 
+
+  public searchStr: string = "";
+
+  private globalKeys: Array<string> = [];
   private globalSub: Subscription;
 
   constructor(private globalVars: DynamicGlobalsService) { }
@@ -19,11 +23,25 @@ export class NewBoardComponent implements OnInit {
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
       // Get total list of all the global vars present
       let currentGlobals: keyValPair[] = this.globalVars.getAllVars();
-      this.globalVarKeys = [];
+      this.globalKeys = [];
       for(var i=0; i<currentGlobals.length; i++){
-        this.globalVarKeys.push(currentGlobals[i]["key"]);
+        this.globalKeys.push(currentGlobals[i]["key"]);
       }
+      this.updateDisplayKeys();
     });
+  }
+
+  updateDisplayKeys():void{
+    setTimeout(() => {
+      this.searchStr = (document.getElementById("searchInput") as HTMLInputElement).value;
+      console.log(this.searchStr);
+      this.displayKeys = [];
+      for(var i=0; i<this.globalKeys.length; i++){
+        if(this.globalKeys[i].toLowerCase().indexOf(this.searchStr.toLowerCase()) >=0){
+          this.displayKeys.push(this.globalKeys[i])
+        }
+      }
+    }, 50);
   }
 
   updateBoardList(boardType: string, isPreset: boolean):void{

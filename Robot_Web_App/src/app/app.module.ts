@@ -20,7 +20,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { FooterComponent } from './components/footer/footer.component';
 import { DrivetrainPopupComponent } from './components/drivetrain/drivetrain-popup/drivetrain-popup.component';
 import { LineGraphComponent } from './components/graphs/line-graph/line-graph.component';
-import { VisionGraphComponent } from './components/graphs/vision-graph/vision-graph.component';
+import { VisionGraphComponent } from './components/vision/vision-graph/vision-graph.component';
 import { ShooterPopupComponent } from './components/shooter/shooter-popup/shooter-popup.component';
 import { ShooterStatusComponent } from './components/shooter/shooter-status/shooter-status.component';
 import { SubsystemsComponent } from './components/subsystems/subsystems.component';
@@ -49,6 +49,7 @@ import { NewBoardComponent } from './components/control panel/new-board/new-boar
 import { ShooterHoodPopupComponent } from './components/shooter-hood/shooter-hood-popup/shooter-hood-popup.component';
 import { ShooterHoodControlComponent } from './components/shooter-hood/shooter-hood-control/shooter-hood-control.component';
 import { BoardContentComponent } from './components/control panel/board-content/board-content.component';
+import { CameraViewComponent } from './components/vision/camera-view/camera-view.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { BoardContentComponent } from './components/control panel/board-content/
     ShooterHoodPopupComponent,
     ShooterHoodControlComponent,
     BoardContentComponent,
+    CameraViewComponent,
   ],
   imports: [
     BrowserModule,
