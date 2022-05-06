@@ -24,3 +24,8 @@ export interface board{
     displayType: "number" | "string" | "graph" | "img" | "numberLine";
     additionalData: keyValPair[];
 }
+
+export interface cameraData{
+    ip: string,
+    name: string
+}

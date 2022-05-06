@@ -21,10 +21,23 @@
                 <h2 class="heading-text">Battery Voltage</h2>
             </div>
             <app-line-graph 
+                [isStandardGraph] = 'true'
                 [trackLabels]="['Battery Voltage']"
                 [trackKeys]="['Battery Voltage']"
                 [minVal]="0"
                 [maxVal]="12"
+            ></app-line-graph>
+        </mat-tab>
+        <mat-tab label="LiDAR">
+            <div class="heading-container">
+                <h2 class="heading-text">LiDAR Values</h2>
+            </div>
+            <app-line-graph 
+                [isStandardGraph] = "true"
+                [trackLabels]="['Lidar Distance (mm)']"
+                [trackKeys]="['Lidar Value']"
+                [minVal]="0"
+                [maxVal]="3000"
             ></app-line-graph>
         </mat-tab>
         <mat-tab label="Shooter Speeds">

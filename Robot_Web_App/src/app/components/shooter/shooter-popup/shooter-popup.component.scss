@@ -17,12 +17,15 @@
         margin-top: 50px;
         margin-right: 10px;
         width: 65%;
+        margin-bottom: 0px;
+        height: fit-content;
 
     }
 }
 .status-container{
     width: 100%;
     height: 200px;
+    margin-top: 0px;
 }
 
 @media screen and(max-width: 1600px){

@@ -14,6 +14,7 @@ export class HomeScreenComponent implements OnInit {
   constructor(private robotDataService: GetRobotDataService, private graphData: GraphDataService){}
 
   ngOnInit():void{
+    this.innerWidth = window.innerWidth;
   }
 
 }

@@ -1,0 +1,30 @@
+.container{
+    width: 95%;
+    margin: auto;
+    height: 750px;
+    background-color: var(--back-bg-color);
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.select{
+    &-container{
+        width: fit-content;
+        height: fit-content;
+        margin: auto;
+    }
+    &-form{
+        &-field{
+            margin: auto;
+            height: 50px;
+            width: 300px;
+            margin-top: 10px;
+        }
+    }
+}
+
+.robot-pos{
+    width: 75%;
+    margin: auto;
+}
+

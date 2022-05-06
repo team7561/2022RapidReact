@@ -34,7 +34,6 @@ export class NewBoardComponent implements OnInit {
   updateDisplayKeys():void{
     setTimeout(() => {
       this.searchStr = (document.getElementById("searchInput") as HTMLInputElement).value;
-      console.log(this.searchStr);
       this.displayKeys = [];
       for(var i=0; i<this.globalKeys.length; i++){
         if(this.globalKeys[i].toLowerCase().indexOf(this.searchStr.toLowerCase()) >=0){
@@ -58,7 +57,7 @@ export class NewBoardComponent implements OnInit {
     let thisHeight = 2;    
     let thisWidth = 4;
 
-    if(isPreset){ // If the board is a preset
+    if(isPreset){ // If the board is a preset Applu custom default sizing to match component
       displayType = "graph"
       switch(boardType){
         case("Offsets"):
@@ -96,6 +95,14 @@ export class NewBoardComponent implements OnInit {
         case("Vision Target"):
           thisHeight = 5;
           thisWidth = 8;
+          break;
+        case("Camera View"):
+          thisHeight = 8;
+          thisWidth = 5;
+          break;
+        case("Robot Pos"):
+          thisHeight = 7;
+          thisWidth = 16;
           break;
       }
     }else{

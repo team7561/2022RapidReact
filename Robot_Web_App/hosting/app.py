@@ -5,7 +5,7 @@ import socket
 from flask_cors import CORS
 import time
 
-doPublicHosting = True  
+doPublicHosting = False  
 if(doPublicHosting):
   hostingName = socket.gethostbyname(socket.gethostname())
 else:
@@ -101,6 +101,7 @@ def testBackend():
         "robotY": random.random(),
         "ball_x_coord": random.randint(-30, 30),
         "ShooterHood": random.randint(-10, 10) / 10,
+        "Lidar Value": random.randint(3, 3000),
     });
 
 

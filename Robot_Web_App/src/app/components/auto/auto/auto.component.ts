@@ -11,9 +11,7 @@ export class AutoComponent implements OnInit {
   public autoOptions: string[];
   public selectedAuto : string;
 
-  private robotX: number;
-  private robotY: number;
-  private robotHeading: number;
+  
   private globalSub: Subscription;
   constructor(private globalVars: DynamicGlobalsService, private robotData: GetRobotDataService) { }
 
@@ -22,13 +20,6 @@ export class AutoComponent implements OnInit {
       if(this.autoOptions != JSON.parse(this.globalVars.getVar("autoModes"))){
         // Gather auto options
         this.autoOptions = JSON.parse(this.globalVars.getVar("autoModes"));
-      }
-      if(this.robotX != parseFloat(this.globalVars.getVar("robotX"))){
-        // Dather data about robot position and heading
-        this.robotX = parseFloat(this.globalVars.getVar("robotX"));
-        this.robotY = parseFloat(this.globalVars.getVar("robotY"));
-        this.robotHeading = parseFloat(this.globalVars.getVar("Gyro Angle"));
-        this.moveRobot();
       }
     });
 
@@ -45,13 +36,6 @@ export class AutoComponent implements OnInit {
     this.robotData.sendRobotData("Auto", this.selectedAuto);
   }
 
-  moveRobot():void{ // Move the robot iconm to a given point and adjust the heading
-    var robotElem = document.getElementById("robot") as HTMLElement;
-    if(robotElem){
-      robotElem.style.top = (this.robotY * 440).toString() + "px"
-      robotElem.style.left = (this.robotX * window.innerWidth * 0.71).toString() + "px"
-      robotElem.style.transform = "rotate(" + this.robotHeading.toString() + "deg)"
-    }
-  }
+
 
 }

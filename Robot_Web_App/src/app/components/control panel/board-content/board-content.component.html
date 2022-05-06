@@ -77,6 +77,8 @@
             <app-intake-control *ngIf="thisBoard['presetType'] == 'Intake Control'"></app-intake-control>
             <app-ball-graph *ngIf="thisBoard['presetType'] == 'Ball Position'"></app-ball-graph>
             <app-vision-graph *ngIf="thisBoard['presetType'] == 'Vision Target'"></app-vision-graph>
+            <app-camera-view *ngIf="thisBoard['presetType'] == 'Camera View'"></app-camera-view>
+            <app-robot-pos *ngIf="thisBoard['presetType'] == 'Robot Pos'"></app-robot-pos>
         </div>
     </div>
 </div>

@@ -50,6 +50,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     this.addVar("intakeModes", JSON.stringify(environment.intakeModes), false);
     this.addVar("injectorModes", JSON.stringify(environment.injectorModes), false);
     this.addVar("boardList", JSON.stringify([]), false);
+    this.addVar("cameraAdresses", JSON.stringify([{"ip": "deleteMe", "name": "sample"}]), false);
   }
 
   getSubject(): Subject<Array<keyValPair>>{ // Gets the subject so components can subscribe to it 

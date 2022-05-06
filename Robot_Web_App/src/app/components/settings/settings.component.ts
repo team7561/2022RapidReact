@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DynamicGlobalsService } from 'src/app/services/globals/dynamic-globals.service';
-import { keyValPair, notificationObj } from 'src/model';
+import { cameraData, keyValPair, notificationObj } from 'src/model';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   public driveModeList: Array<string>;
   public intakeModeList: Array<string>;
   public injectorModeList: Array<string>;
+  public cameraList: cameraData[];
 
   public globalVarData: Array<keyValPair> = [];
 
@@ -40,7 +41,9 @@ export class SettingsComponent implements OnInit {
       }
       if(this.injectorModeList != JSON.parse(this.globalVar.getVar("injectorModes"))){
         this.injectorModeList = JSON.parse(this.globalVar.getVar("injectorModes")); // Auto update routine list when changed
-      }
+      }if(this.cameraList != JSON.parse(this.globalVar.getVar("cameraAdresses"))){{
+        this.cameraList = JSON.parse(this.globalVar.getVar("cameraAdresses"))
+      }}
       this.globalVarData = this.globalVar.getAllVars();
     })
   }
@@ -73,6 +76,18 @@ export class SettingsComponent implements OnInit {
     }
     this.globalVar.addVar(key, JSON.stringify(dataList), true);
 
+  }
+
+  deleteCamData(ip: string){
+  // Remove specified elem from list in global vars
+  var dataList: cameraData[] = JSON.parse(this.globalVar.getVar("cameraAdresses"));
+  for(var i=0; i<dataList.length; i++){
+    if(dataList[i]['ip'] == ip){
+      dataList.splice(i, 1);
+      break;
+    }
+  }
+  this.globalVar.addVar("cameraAdresses", JSON.stringify(dataList), true);
   }
 
   changeMatchTime():void{

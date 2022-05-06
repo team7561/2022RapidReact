@@ -1,1 +1,46 @@
-<p>camera-view works!</p>
+<div class="camera-container">
+    <video class="camera-video" *ngIf="linkWorks">
+        <source src="http://{{selectedCameraOption['ip']}}">
+        Your browser doens't support video
+    </video>
+    <img src="../../../../assets/no_img.png" alt="" *ngIf="!linkWorks" class="camera-img">
+</div>
+
+<div class="input-container">
+    <div class="heading-container">
+        <h3 class="heading-text">Input Source | {{selectedCameraOption['name']}} - http://{{selectedCameraOption['ip']}}</h3>
+    </div>
+    <div class="input-select-container">
+        <div class="input-select-item">
+            <h4 class="input-select-text">From Library</h4>
+            <mat-form-field appearance="fill" class="input-select-field library-field">
+                <mat-select class="input-select-selector" 
+                    [(value)]="selectedCameraOptionName"
+                    (valueChange)="updateSelectedSource()"
+                    >
+                    <mat-option *ngFor="let option of cameraDataOptions"
+                        [value]="option['name']">
+                        {{ option['name'] }} - {{ option['ip'] }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="input-select-item">
+            <h4 class="input-select-text">Add New</h4>
+            <form (submit)="addNewSource($event)">
+                <mat-form-field class="input-select-field" appearance="fill">
+                    <mat-label>Camera Name</mat-label>
+                    <input matInput class="input-select-input" id="nameInput">
+                </mat-form-field>
+                <mat-form-field class="input-select-field" appearance="fill">
+                    <mat-label>Camera IP</mat-label>
+                    <input matInput class="input-select-input" id="ipInput">
+                </mat-form-field>
+                <button class="input-select-button">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
