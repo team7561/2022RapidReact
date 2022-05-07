@@ -56,6 +56,41 @@
     }
 }
 
+.export{
+    &-btn{
+        border: none;
+        cursor: pointer;
+        background-color: var(--mid-bg-color);
+
+        &-container{
+            position: absolute;
+            top: 2%;
+            left: 2%;
+        }
+    }
+}
+.import-btn-container{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+}
+
+.import-uploader{
+    margin-left: 0px;
+    width: 200px;
+}
+
+@media screen and(max-width: 1550px){
+    .section{
+        &-item{
+            width: 61%;
+        }
+        &-list{
+            width: 100%;
+        }
+    }
+}
+
 @media screen  and(max-width: 1250px){
     .section{
         &-container{

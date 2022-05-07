@@ -125,4 +125,35 @@ export class NewBoardComponent implements OnInit {
 
   }
 
+  loadRecording(event: Event):void{
+    // Read recording and set the board layout to uploaded data
+    const target = event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    let reader = new FileReader();
+    var fileData: board[] = [];
+    // Whenever the reader has a file loaded 
+    reader.onload = function(){
+      fileData = JSON.parse(reader.result as string)
+    }
+    reader.readAsText(file);
+    setTimeout(()=>{
+      // Allow time for filereader to read file data 
+      this.globalVars.addVar("boardList", JSON.stringify(fileData), true);
+      setTimeout(()=>{
+        // Reload page to force changes to take place
+        location.reload();
+      }, 100);
+    }, 50);
+    
+  }
+  exportLayout():void{
+    // Get file download and open download window for user
+    var dataStr = "data:text/json;charset=utf-8," + this.globalVars.getVar("boardList");
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download",  "controlBoardLayout.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
 }

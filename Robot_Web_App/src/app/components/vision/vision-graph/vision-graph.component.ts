@@ -70,7 +70,7 @@ export class VisionGraphComponent implements OnInit {
   }
 
   movePoint(tx: number, ty: number, ta: number):void{
-    this.visionChartData[0]["data"] = [{x: tx, y: ty, r: ta * 2}];
+    this.visionChartData[0]["data"] = [{x: tx, y: ty, r: ta * 5}];
     this.lastVisionXVal = tx;
     this.chart.update();
   }

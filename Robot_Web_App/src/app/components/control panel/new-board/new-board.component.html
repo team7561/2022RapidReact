@@ -2,6 +2,14 @@
     <div class="heading-container">
         <h1 class="heading-text">Add new Board</h1>
     </div>
+    <div class="export-btn-container" (click)="exportLayout()">
+        <button class="export-btn">Export Layout</button>
+    </div>
+    <div class="import-btn-container">
+        <form>
+            <input type="file" name="Upload Layout" class="import-uploader" id="layoutUpload" (change)="loadRecording($event)" accept=".json">
+        </form>
+    </div>
     <div class="section-container">
         <div class="section-item">
             <div class="heading-container">

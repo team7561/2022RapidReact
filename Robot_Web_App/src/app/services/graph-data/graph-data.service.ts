@@ -7,7 +7,7 @@ import { DynamicGlobalsService } from '../globals/dynamic-globals.service';
 })
 export class GraphDataService {
   // The keys used to get necessary data from the globalvars
-  private graphKeys: Array<string> = ["Battery Voltage", "Shooter A Speed", "Shooter B Speed", "Injector Speed", "Intake Speed", "ShooterHood", "Lidar Value"];
+  private graphKeys: Array<string> = ["Battery Voltage", "Shooter A Speed", "Shooter B Speed", "Injector Speed", "Intake Speed", "ShooterHood", "Vis Dist"];
   private graphData: Map<string, Array<number>> = new Map();
   private graphTimeVals: Array<number> = [];
   private static subject: Subject<void> = new Subject();

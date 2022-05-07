@@ -24,6 +24,8 @@ def handleRobotData():
     dataDict = {"sucess": True}
     sd = NetworkTables.getTable("SmartDashboard")
     limelightData = NetworkTables.getTable("limelight")
+    photonVisionData = NetworkTables.getTable("photonvision")
+    cameraData = photonVisionData.getSubTable("Microsoft_LifeCam_HD-3000")
     for entry in sd.getKeys():
       val = sd.getEntry(entry).getDouble(9876)
       if(val == 9876):
@@ -37,6 +39,15 @@ def handleRobotData():
       else:
         val = float(val)
         dataDict[entry] = val
+    for entry in cameraData.getKeys():
+      val = cameraData.getEntry(entry).getDouble(9876)
+      if(val == 9876):
+        dataDict[entry] = limelightData.getEntry(entry).getString("")
+      else:
+        val = float(val)
+        dataDict[entry] = val
+
+
     return jsonify(dataDict)
 
 @app.route("/to_robot")

@@ -88,9 +88,9 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
     batteryIndicator.classList.remove("indicator-good");
     batteryIndicator.classList.remove("indicator-error");
     var batteryVoltage: number = parseFloat(this.globalVarService.getVar("Battery Voltage"));
-    if(batteryVoltage < 11){
+    if(batteryVoltage < 10){
       batteryIndicator.classList.add("indicator-error")
-    }else if(batteryVoltage < 11.5){
+    }else if(batteryVoltage < 11){
       batteryIndicator.classList.add("indicator-warning")
     }else{
       batteryIndicator.classList.add("indicator-good")

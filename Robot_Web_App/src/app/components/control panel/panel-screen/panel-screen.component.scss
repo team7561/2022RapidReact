@@ -60,7 +60,7 @@
 
 .grid{
     &-container{
-        height: 150vh;
+        height: 300vh;
         width: 100vw;
         position: absolute;
         top: 25%;
@@ -128,12 +128,23 @@
 @media screen and(max-width: 1550px){
     .input{
         &-container{
-            width: 30%;
+            top: 3%;
+            width: 35.5%;
+        }
+    }
+    .new{
+        &-container{
+            width: 62%;
         }
     }
 }
 
 @media screen and(max-width: 1250px){
+    .input{
+        &-container{
+            width: 40%;
+        }
+    }
     .grid{
         &-container{
             top: 90%;

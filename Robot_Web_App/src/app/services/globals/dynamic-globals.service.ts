@@ -16,7 +16,12 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     // Read past global variables from localstorage and init default fields
     if(!this.runInit){ // Ensure the variables only gett initialized once
       if(localStorage.getItem("globalVars")){
-        this.globalVars = JSON.parse(localStorage.getItem("globalVars") as string);
+        try{
+          this.globalVars = JSON.parse(localStorage.getItem("globalVars") as string);
+        }catch(SyntaxError){
+          localStorage.clear();
+          this.initGlobalVals();
+        }
         if(this.getVar("versionNumber") != environment.versionNumber){
           this.addVar("dataStatus", "unMatchedVersion", true); // Alert user if stored data was created with an older version of the web app
         }else{
@@ -50,7 +55,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
     this.addVar("intakeModes", JSON.stringify(environment.intakeModes), false);
     this.addVar("injectorModes", JSON.stringify(environment.injectorModes), false);
     this.addVar("boardList", JSON.stringify([]), false);
-    this.addVar("cameraAdresses", JSON.stringify([{"ip": "deleteMe", "name": "sample"}]), false);
+    this.addVar("cameraAdresses", JSON.stringify([{"ip": "http://10.75.61.12:1182/stream.mjpg?1651897315379", "name": "Front Facing"}]), false);
   }
 
   getSubject(): Subject<Array<keyValPair>>{ // Gets the subject so components can subscribe to it 

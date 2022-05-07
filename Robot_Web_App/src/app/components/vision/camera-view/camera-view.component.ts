@@ -10,9 +10,9 @@ import { cameraData } from 'src/model';
   styleUrls: ['./camera-view.component.scss']
 })
 export class CameraViewComponent implements OnInit {
-  public cameraDataOptions: cameraData[] = JSON.parse(this.globalVars.getVar("cameraAdresses"));
-  public selectedCameraOption: cameraData = this.cameraDataOptions[0];
-  public selectedCameraOptionName: string = this.selectedCameraOption['name'];
+  public cameraDataOptions: cameraData[]
+  public selectedCameraOption: cameraData;
+  public selectedCameraOptionName: string;
 
   public linkWorks: boolean = true;
 
@@ -20,6 +20,14 @@ export class CameraViewComponent implements OnInit {
   constructor(private globalVars: DynamicGlobalsService, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
+    try{
+      this.cameraDataOptions = JSON.parse(this.globalVars.getVar("cameraAdresses"));
+    }catch(SyntaxError){
+      this.cameraDataOptions = [{"ip": "http://10.75.61.12:1182/stream.mjpg?1651897315379", "name": "Front Facing"}];
+      this.globalVars.addVar("cameraAdresses", JSON.stringify(this.cameraDataOptions), false)
+    }
+    this.selectedCameraOption = this.cameraDataOptions[0];
+    this.selectedCameraOptionName = this.selectedCameraOption["name"];
     this.globalVars.getSubject().subscribe(()=>{
       this.cameraDataOptions = JSON.parse(this.globalVars.getVar("cameraAdresses"));
     });
@@ -48,21 +56,5 @@ export class CameraViewComponent implements OnInit {
         break;
       }
     }
-    this.checkLinkWorks("http://" + this.selectedCameraOption["ip"]);
   }
-
-  checkLinkWorks(link: string): void{
-    console.log(link)
-    this.httpClient.get(link).pipe(catchError(()=>{
-      console.log("FAILED");
-      this.linkWorks = false;
-      return throwError("Couldn't get camera info")
-    })).subscribe((res)=>{
-      console.log(res)
-      this.linkWorks = true;
-    });
-  }
-
-
-
 }

@@ -14,10 +14,10 @@ export class SwerveDirectionComponent implements OnInit {
 
   ngOnInit(): void { // Shows the angle if each swerve module
     this.globalSub = this.globalVars.getSubject().subscribe(()=>{
-      (document.getElementById("moduleAIcon") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("A_Angle") + "deg)";
-      (document.getElementById("moduleBIcon") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("B_Angle") + "deg)";
-      (document.getElementById("moduleCIcon") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("C_Angle") + "deg)";
-      (document.getElementById("moduleDIcon") as HTMLElement).style.transform = "rotate(" + this.globalVars.getVar("D_Angle") + "deg)"; 
+      (document.getElementById("moduleAIcon") as HTMLElement).style.transform = "rotate(" + this.calculateAbsoluteAngle("A") + "deg)";
+      (document.getElementById("moduleBIcon") as HTMLElement).style.transform = "rotate(" + this.calculateAbsoluteAngle("B") + "deg)";
+      (document.getElementById("moduleCIcon") as HTMLElement).style.transform = "rotate(" + (this.calculateAbsoluteAngle("C") - 90) + "deg)";
+      (document.getElementById("moduleDIcon") as HTMLElement).style.transform = "rotate(" + this.calculateAbsoluteAngle("D") + "deg)"; 
     });
   }
 
@@ -25,6 +25,15 @@ export class SwerveDirectionComponent implements OnInit {
     if(this.globalSub){
       this.globalSub.unsubscribe();
     }
+  }
+
+  calculateAbsoluteAngle(motorChar: string): number{
+    var angle: number = parseInt(this.globalVars.getVar(motorChar + "_Angle"));
+    var offsetAngle: number = parseFloat(this.globalVars.getVar(motorChar + "_Offset_Angle")) * 360 
+    
+    var absoluteAngle: number = Math.abs(angle - offsetAngle) % 360;
+
+    return absoluteAngle; 
   }
 
 }

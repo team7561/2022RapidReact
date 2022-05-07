@@ -6,6 +6,13 @@
         border: 5px #8aa5bb solid;
         margin: auto;
     }
+
+    &-video{
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
     &-img{
         height: 100%;
         max-width: 100%;
