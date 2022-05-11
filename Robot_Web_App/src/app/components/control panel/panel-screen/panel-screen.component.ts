@@ -42,7 +42,13 @@ export class PanelScreenComponent implements OnInit {
 
   renderBoards():void{
     // Get board data
-    let currentBoards: board[] = JSON.parse(this.globalVar.getVar("boardList"));
+    let currentBoards: board[] = []
+    try{
+      currentBoards = JSON.parse(this.globalVar.getVar("boardList"));
+    }catch(SyntaxError){
+      // If there is no board list present in the global data, 
+      // display no boards
+    }
     for(var i=0; i<currentBoards.length; i++){
       // Convert locally stored board data to data usable by module
       let thisBoard: {id: string, x: number, y: number, w: number, h: number} = {
@@ -73,7 +79,7 @@ export class PanelScreenComponent implements OnInit {
   }
 
   deleteBoard(id: string){
-    // Layout obj is not mutable and needs to be replaced instead of updated
+    // Layout obj is imutable and needs to be replaced instead of updated
     let newLayout: {id: string, x: number, y: number, w: number, h: number}[] = [];
     let currentBoards: board[] = JSON.parse(this.globalVar.getVar("boardList"));
     for(var i: number = 0; i<this.layout.length; i++){
