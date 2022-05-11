@@ -22,7 +22,7 @@ export class DynamicGlobalsService { // Keeps track of variables across componen
           localStorage.clear();
           this.initGlobalVals();
         }
-        if(this.getVar("versionNumber") != environment.versionNumber){
+        if(this.getVar("versionNumber")[2] != environment.versionNumber[2]){
           this.addVar("dataStatus", "unMatchedVersion", true); // Alert user if stored data was created with an older version of the web app
         }else{
           this.addVar("dataStatus", "good", true);
