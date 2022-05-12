@@ -162,7 +162,6 @@ public class Shooter extends SubsystemBase{
     }
 
     public void periodic(){
-        m_angle = SmartDashboard.getNumber("ShooterHood", 0.2);
         shooterServoA.set(1-m_angle);
         shooterServoB.set(m_angle);
 
@@ -192,7 +191,14 @@ public class Shooter extends SubsystemBase{
         {
             SmartDashboard.putNumber("Shooter A Voltage", shooterMotorA.get());
             SmartDashboard.putNumber("Shooter A Speed", -shooterMotorA.getEncoder().getVelocity());
+            SmartDashboard.putNumber("Shooter A Temp", shooterMotorA.getMotorTemperature());
+            SmartDashboard.putNumber("Shooter A Current", shooterMotorA.getOutputCurrent());
+
             SmartDashboard.putNumber("Shooter B Voltage", shooterMotorB.get());
+            SmartDashboard.putNumber("Shooter B Speed", -shooterMotorB.getEncoder().getVelocity());
+            SmartDashboard.putNumber("Shooter B Current", shooterMotorB.getOutputCurrent());
+            SmartDashboard.putNumber("Shooter B Temp", shooterMotorB.getMotorTemperature());
+            
             SmartDashboard.putNumber("Shooter B Speed", -shooterMotorB.getEncoder().getVelocity());
             SmartDashboard.putNumber("Shooter A Setpoint", m_Atarget);
             SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);

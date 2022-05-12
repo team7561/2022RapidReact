@@ -10,18 +10,22 @@ import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.Speeds;
 import frc.robot.InjectorMode;
+//import frc.robot.LIDARSensor;
 
 public class Injector extends SubsystemBase{
     double m_deployTarget;
     CANSparkMax injectorMotor;
-    public double m_hood_position, m_hood_setpoint;
+    //public double m_distance;
     public boolean balls;
-
+    //public LIDARSensor lidarSensor;
     public InjectorMode m_mode = InjectorMode.INJECTOR_STOP;
 
     public Injector(){
         injectorMotor = new CANSparkMax(Ports.CAN_ID_INJECTOR, MotorType.kBrushless);
         
+        //lidarSensor = new LIDARSensor();
+        //lidarSensor.LIDARSensorInit(Ports.DIO_PORT_LIDAR);
+
         injectorMotor.restoreFactoryDefaults();
         injectorMotor.setIdleMode(IdleMode.kBrake);
         injectorMotor.setSmartCurrentLimit(20);
@@ -58,6 +62,7 @@ public class Injector extends SubsystemBase{
         injectorMotor.set(Speeds.INJ_stop_SPEED);
     }
     public void periodic(){
+        //m_distance = lidarSensor.getDistance();
         if(m_mode == InjectorMode.INJECTOR_FORWARD) {
             balls = true;
             forward();
@@ -67,6 +72,15 @@ public class Injector extends SubsystemBase{
             balls = true;
             reverse();
         }
+        /*if(m_mode == InjectorMode.INJECTOR_PREPARE_BALL) {
+            balls = true;
+            if (m_distance > 5)  {
+                forward();
+            }
+            else    {
+                stop();
+            }
+        }*/
   
         if(m_mode == InjectorMode.INJECTOR_INDEX_BALL){
             if(
@@ -102,6 +116,7 @@ public class Injector extends SubsystemBase{
             SmartDashboard.putNumber("Injector Speed", injectorMotor.get());
             SmartDashboard.putNumber("Injector Encoder Count", getEncoderCount());
             SmartDashboard.putString("Injector Mode", m_mode.name());
+            //SmartDashboard.putNumber("Injector Distance", m_distance);
         }
     }
 }

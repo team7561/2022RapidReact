@@ -14,14 +14,26 @@ import frc.robot.Ports;
 import frc.robot.SwerveMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 
 public class Drivetrain extends SubsystemBase {
     /**
      * Creates a new ExampleSubsystem.
      */
     public SwerveModule moduleA, moduleB, moduleD, moduleC;
+
+    Translation2d moduleA_location, moduleB_location, moduleC_location, moduleD_location;
+    SwerveDriveKinematics m_kinemtics;
+    SwerveDriveOdometry m_odometry;
+    Pose2d m_pose;
+
+
+
     public Timer timer;
     double angleA, angleB, angleD, angleC;
     double m_x, m_y;
@@ -35,6 +47,19 @@ public class Drivetrain extends SubsystemBase {
         moduleB = new SwerveModule(Constants.SWERVE_B_OFFSET_ANGLE, Constants.SWERVE_B_ENCODER_PORT, Ports.CAN_ID_DRIVING_B, Ports.CAN_ID_STEERING_B, "B");
         moduleD = new SwerveModule(Constants.SWERVE_D_OFFSET_ANGLE, Constants.SWERVE_D_ENCODER_PORT, Ports.CAN_ID_DRIVING_D, Ports.CAN_ID_STEERING_D, "D");
         moduleC = new SwerveModule(Constants.SWERVE_C_OFFSET_ANGLE, Constants.SWERVE_C_ENCODER_PORT, Ports.CAN_ID_DRIVING_C, Ports.CAN_ID_STEERING_C, "C");
+        
+        moduleA_location = new Translation2d(0.5, 0.5);
+        moduleB_location = new Translation2d(0.5, 0.5);
+        moduleC_location = new Translation2d(0.5, 0.5);
+        moduleD_location = new Translation2d(0.5, 0.5);
+        
+        m_kinemtics = new SwerveDriveKinematics(
+        moduleA_location, moduleB_location, moduleC_location, moduleD_location
+        );
+        m_pose = new Pose2d(5, 13.5, new Rotation2d());
+
+        m_odometry = new SwerveDriveOdometry(m_kinemtics, imu.getRotation2d(), m_pose);
+
         resetEncoders();
         m_x = 0;
         m_y = 0;
@@ -44,6 +69,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE);
         SmartDashboard.putNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE);
         SmartDashboard.putNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE);    
+
 
         timer = new Timer();
         timer.reset();
@@ -60,6 +86,8 @@ public class Drivetrain extends SubsystemBase {
         // This method will be called once per scheduler run
         updateDashboard();
         SmartDashboard.putString("Drivetrain Mode", m_mode.name());
+
+        m_pose = m_odometry.update(imu.getRotation2d(), moduleA.getState(), moduleB.getState(), moduleC.getState(), moduleD.getState());
     }
 
 	public void stop() {

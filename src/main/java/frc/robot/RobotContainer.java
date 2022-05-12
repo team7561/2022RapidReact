@@ -39,7 +39,8 @@ public class RobotContainer {
   private final Climber climber = new Climber();
   SendableChooser<Command> mAutoChooser = new SendableChooser<>();
 
-  private final OnboardVisionController onboardVisionController = new OnboardVisionController();
+//  private final OnboardVisionController onboardVisionController = new OnboardVisionController();
+private final PiVisionController piVisionController = new PiVisionController();
   
   private final LimeLightController limeLightController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);

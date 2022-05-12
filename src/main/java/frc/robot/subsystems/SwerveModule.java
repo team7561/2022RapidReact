@@ -15,6 +15,9 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.DutyCycle;
@@ -60,6 +63,7 @@ public class SwerveModule extends SubsystemBase {
         SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
         m_angle = 0;
         m_driveMotor = new CANSparkMax(driveChannel, MotorType.kBrushless);
+        m_driveMotor.getEncoder().setVelocityConversionFactor(20);
         m_steeringMotor = new CANSparkMax(steerChannel, MotorType.kBrushless);
 
         absolute_encoder_source = new DigitalInput(encoderPort);
@@ -111,7 +115,7 @@ public class SwerveModule extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if (SmartDashboard.getNumber(m_pos+"_Offset_Angle",getAngleOffset()) != getAngleOffset())
+        if (Math.abs(SmartDashboard.getNumber(m_pos+"_Offset_Angle",getAngleOffset()) - getAngleOffset())< 0.01)
         {
             SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
         }
@@ -176,6 +180,10 @@ public class SwerveModule extends SubsystemBase {
         return absolute_encoder.getOutput()*360;
     }
 
+    public SwerveModuleState getState()
+    {
+        return new SwerveModuleState(getSpeed(), new Rotation2d(getAngle()));
+    }
     public void resetEncoders()
     {
         m_driveMotor.getEncoder().setPosition(0);

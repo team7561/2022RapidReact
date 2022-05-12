@@ -3,8 +3,6 @@ package frc.robot.commands.shooter;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.LimeLightController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.smartdashboard.*;
-import frc.robot.Constants;
 
 public class SH_Shooting_Stop extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

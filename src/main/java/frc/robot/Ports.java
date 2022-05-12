@@ -31,10 +31,7 @@ public class Ports {
     public static int PWM_LED_CONTROLLER_CHANNEL = 4;
 
     // DIO ports
-    public static int LIMIT_ARM_LOWER = 0;
-    public static int LIMIT_ARM_UPPER = 1;
-    public static int LIMIT_LIFT_UPPER = 2;
-    public static int LIMIT_CLIMB_LOWER = 3;
+    public static int DIO_PORT_LIDAR = 4;
 
     public static int LIMELIGHT_SERVO_L = 0;
     public static int LIMELIGHT_SERVO_R = 1;

@@ -1,17 +1,15 @@
-package frc.robot.commands.shooter;
+package frc.robot.commands.injector;
 
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Injector;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LimeLightController;
+import frc.robot.InjectorMode;
 
-public class SH_Shooting_Start extends CommandBase {
+public class INJ_Prepare_Ball extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Shooter m_subsystem;
-  private final LimeLightController m_lc;
+  private final Injector m_subsystem;
 
-  public SH_Shooting_Start(Shooter subsystem, LimeLightController lc) {
+  public INJ_Prepare_Ball(Injector subsystem) {
     m_subsystem = subsystem;
-    m_lc = lc;
     addRequirements(subsystem);
   }
 
@@ -21,12 +19,13 @@ public class SH_Shooting_Start extends CommandBase {
 
   @Override
   public void execute() {
-    m_lc.turnOnLED();
-    m_subsystem.start();
+    m_subsystem.resetEncoder();
+    m_subsystem.setMode(InjectorMode.INJECTOR_INDEX_BALL);
   }
 
   @Override
   public void end(boolean interrupted) {
+
   }
 
   @Override
