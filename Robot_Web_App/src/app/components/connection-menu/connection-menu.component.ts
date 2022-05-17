@@ -15,6 +15,7 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
   public doReadOnlyPollingRate: string = "false"; // Disables adjusting the polling rate when the program is recording 
   public isChecked: boolean = true; // If the connection indicator is checked
 
+
   private globalSub: Subscription;
 
   constructor(private globalVarService: DynamicGlobalsService) { }
@@ -49,14 +50,14 @@ export class ConnectionMenuComponent implements OnInit { // Displays basic conne
         case "disconnected": {
           commsIndictaor.classList.add("indicator-unknown");
           break;
+        } case "failed": {
+          commsIndictaor.classList.add("indicator-error");
+          break;
         } case "connecting" :{
           commsIndictaor.classList.add("indicator-warning");
           break;
         }case "connected":{
           commsIndictaor.classList.add("indicator-good");
-          break;
-        }case "failed": {
-          commsIndictaor.classList.add("indicator-error")
         }
       }
     }else{

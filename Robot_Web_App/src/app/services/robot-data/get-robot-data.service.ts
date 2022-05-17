@@ -73,6 +73,7 @@ export class GetRobotDataService {
   getRobotData(): Observable<any>{ // Connect to and recive data from the robot
     return this.httpClient.get(this.globalVars.getVar("connectionURL")).pipe(catchError(()=>{
       if(this.globalVars.getVar("connectionStatus") != "failed"){
+        alert("FATAL CONNECTION ERROR\n\nRobot could not be connected on\n" + this.globalVars.getVar("connectionURL") + "\n\nThe standard place to connect is\nhttp://localhost:3000/robot_info");
         this.globalVars.addVar("connectionStatus", "failed", true);
       }
       return throwError("CANNOT CONNECT TO ROBOT")

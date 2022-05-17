@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  versionNumber: "0.7.3",
+  versionNumber: "0.7.4",
   defaultURL: "http://localhost:3000/robot_info",
   sendURL: "http://localhost:3000/to_robot",
   defaultPollingRate: 1000,
