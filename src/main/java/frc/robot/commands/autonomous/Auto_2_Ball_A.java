@@ -12,6 +12,7 @@ import frc.robot.subsystems.*;
 public class Auto_2_Ball_A extends SequentialCommandGroup  {
 
     public Auto_2_Ball_A(Drivetrain drivetrain, Intake intake, Shooter shooter, Injector injector, LEDController ledController, LimeLightController visionController) {
+        // Starting on the climber side of the Tarmac 
         addCommands(
             new DT_Drive_Reset_Gyro(drivetrain),
             new INT_Deploy(intake),

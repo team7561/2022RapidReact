@@ -27,6 +27,6 @@ public class DT_Drive_Stop extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -50,12 +50,12 @@ public class Shooter extends SubsystemBase{
         shooterMotorB.setSmartCurrentLimit(45);
 
         // PID coefficients
-        kP_shooterMotorA = 0.08; 
-        kI_shooterMotorA = 0.000001;
-        kD_shooterMotorA = 2;
-        kP_shooterMotorB = 0.05; 
-        kI_shooterMotorB = 0.000001;
-        kD_shooterMotorB = 1;
+        kP_shooterMotorA = 0.0005; 
+        kI_shooterMotorA = 0.00;//00001;
+        kD_shooterMotorA = 0;//2;
+        kP_shooterMotorB = 0.0005; 
+        kI_shooterMotorB = 0.00;//0001;
+        kD_shooterMotorB = 0;//1;
         kIz = 400; // Error process value must be within before I is used.
         kFF = 0; 
         m_setpoint = 0;
@@ -148,8 +148,8 @@ public class Shooter extends SubsystemBase{
     public void set_RPM(double a, double b)
     {
         RPMcontrol = true;
-        m_Atarget = a;
-        m_Btarget = b;
+        m_Atarget = 2*a;
+        m_Btarget = 2*b;
         SmartDashboard.putNumber("Shooter A Setpoint", m_Atarget);
         SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);
     }
