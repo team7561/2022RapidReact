@@ -32,7 +32,7 @@ public class SH_Perfect_Shot extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.stop_auto_hood();
-    m_subsystem.set_RPM(1127, 1145);
+    m_subsystem.set_RPM(1167, 1185);
     m_subsystem.setHood(0.58);
   }
 

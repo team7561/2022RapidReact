@@ -162,6 +162,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void periodic(){
+        m_angle = SmartDashboard.getNumber("ShooterHood", 0.0);
         shooterServoA.set(1-m_angle);
         shooterServoB.set(m_angle);
 
