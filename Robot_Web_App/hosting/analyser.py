@@ -13,7 +13,7 @@ Special Keywords:
 '''
 
 valsToPlot = ["Shooter Data A", "Shooter Data B", "vision", "drivetrain"]
-filePath = "./robotData.json"
+filePath = "./robotData/help"
 
 graphCols = 2  # How many columns the plt window will have
 graphRows = 2  # How many rows the window will have
@@ -38,7 +38,7 @@ def getGraphData(key, pollingRate, data):
 
 
 # Load Data
-with open(filePath, "r") as robotFile:
+with open(filePath + ".json", "r") as robotFile:
     rawData = json.load(robotFile)
 
 # Clean Datadict
@@ -64,10 +64,14 @@ for rowNum in range(graphCols):
         setXLabel = True
         if valsToPlot[count][0:-1] == "Shooter Data ":
             shooterType = valsToPlot[count][-1]
-            valXVals, valYVals = getGraphData("Shooter " + shooterType + " Speed", pollingRate, robotData)
-            setpointXVals, setpointYVals = getGraphData("Shooter " + shooterType + " Setpoint", pollingRate, robotData)
-            ax[rowNum, colNum].plot(valXVals, valYVals, label="Shooter " + shooterType + " Values")
-            ax[rowNum, colNum].plot(setpointXVals, setpointYVals, label="Shooter " + shooterType + " Setpoints")
+            valXVals, valYVals = getGraphData(
+                "Shooter " + shooterType + " Speed", pollingRate, robotData)
+            setpointXVals, setpointYVals = getGraphData(
+                "Shooter " + shooterType + " Setpoint", pollingRate, robotData)
+            ax[rowNum, colNum].plot(
+                valXVals, valYVals, label="Shooter " + shooterType + " Values")
+            ax[rowNum, colNum].plot(
+                setpointXVals, setpointYVals, label="Shooter " + shooterType + " Setpoints")
             ax[rowNum, colNum].legend()
         elif valsToPlot[count] == "vision":
             tXVals = getGraphData("tx", pollingRate, robotData)[1]
@@ -82,13 +86,14 @@ for rowNum in range(graphCols):
             setXLabel = False
         elif valsToPlot[count] == "drivetrain":
             for letter in letterList:
-                xVals, yVals = getGraphData(letter + "_Angle", pollingRate, robotData)
+                xVals, yVals = getGraphData(
+                    letter + "_Angle", pollingRate, robotData)
                 ax[rowNum, colNum].plot(xVals, yVals, label=letter + " Angle")
                 ax[rowNum, colNum].legend()
 
-
         else:
-            xVals, yVals = getGraphData(valsToPlot[count], pollingRate, robotData)
+            xVals, yVals = getGraphData(
+                valsToPlot[count], pollingRate, robotData)
             ax[rowNum, colNum].plot(xVals, yVals)
 
         if setXLabel:
@@ -118,9 +123,7 @@ if input("Save ALL data as .csv file (y/n) ").lower() == "y":
         for timeIndex, timePeriod in enumerate(robotData):
             csvData[keyIndex + 2][timeIndex + 1] = timePeriod[key]
 
-
-
-    with open("./robotData.csv", "w+", newline='', encoding="UTF-8") as csvFile:
+    with open(filePath + ".csv", "w+", newline='', encoding="UTF-8") as csvFile:
         writer = csv.writer(csvFile)
 
         writer.writerows(csvData)
