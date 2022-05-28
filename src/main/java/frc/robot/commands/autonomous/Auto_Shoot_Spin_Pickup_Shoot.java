@@ -27,7 +27,7 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
             new ParallelCommandGroup(
                 new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOWGLITTER),
                 new DT_Drive_Reset_Gyro(drivetrain),
-                new SH_Perfect_Shot(shooter)
+                new SH_Auto_Shot_Setpoints(shooter)
                 ),
             //new DT_TurnToAngle(drivetrain,0.4,30), //Add this if robot isn't starting pointing to goal
             
@@ -61,8 +61,7 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
             // Turn the robot 180 deg
             new ParallelDeadlineGroup(
                 new TimerCommand(2),
-                new DT_TurnToAbsoluteAngle(drivetrain, 0.13, 0),
-                new INT_Grabbing_Stop(intake)
+                new DT_TurnToAbsoluteAngle(drivetrain, 0.13, 0)
             ),
             // Drive forward for 0.45 seconds
             new ParallelCommandGroup(
@@ -79,6 +78,7 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
             new ParallelDeadlineGroup(
                 new TimerCommand(1),
                 new SH_Stop(shooter),
+                new INT_Grabbing_Stop(intake),
                 new INJ_Stop(injector)
             )
         );
