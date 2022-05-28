@@ -31,8 +31,9 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
                 ),
             //new DT_TurnToAngle(drivetrain,0.4,30), //Add this if robot isn't starting pointing to goal
             
-            // Shooter has up to 3 seconds to get to setpoint
-            new ParallelCommandGroup(
+            // Shooter has up to 3 seconds to get to setpoint            
+            new ParallelDeadlineGroup(
+                new TimerCommand(3),
                 new SH_Get_To_Speed(shooter)
             ),
             // Shoot Preloaded ball
@@ -43,7 +44,8 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
                 new LED_Set_Colour_Mode(ledController, Constants.BLINKIN_RAINBOW)
             ),
             // Turn the robot 180 deg
-            new ParallelCommandGroup(
+            new ParallelDeadlineGroup(
+                new TimerCommand(2),
                 new DT_TurnToRelativeAngle(drivetrain, 0.13, 180),
                 new INJ_Stop(injector)
             ),
@@ -57,7 +59,8 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
                 new INT_Grabbing_Start(intake)
             ),
             // Turn the robot 180 deg
-            new SequentialCommandGroup(
+            new ParallelDeadlineGroup(
+                new TimerCommand(2),
                 new DT_TurnToAbsoluteAngle(drivetrain, 0.13, 0),
                 new INT_Grabbing_Stop(intake)
             ),

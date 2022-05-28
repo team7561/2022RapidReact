@@ -1,5 +1,5 @@
 # Reads data from a robotData.json file
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import json
 import csv
 
@@ -13,7 +13,7 @@ Special Keywords:
 '''
 
 valsToPlot = ["Shooter Data A", "Shooter Data B", "vision", "drivetrain"]
-filePath = "./robotData/help"
+filePath = "./robotData/rapidReact2/robotData"
 
 graphCols = 2  # How many columns the plt window will have
 graphRows = 2  # How many rows the window will have
@@ -55,53 +55,53 @@ for moment in rawData:
 
 
 pollingRate = int(robotData[0]["pollingRate"])
-fig, ax = plt.subplots(graphRows, graphCols)
+# fig, ax = plt.subplots(graphRows, graphCols)
 
-count = 0
-letterList = ["A", "B", "C", "D"]
-for rowNum in range(graphCols):
-    for colNum in range(graphCols):
-        setXLabel = True
-        if valsToPlot[count][0:-1] == "Shooter Data ":
-            shooterType = valsToPlot[count][-1]
-            valXVals, valYVals = getGraphData(
-                "Shooter " + shooterType + " Speed", pollingRate, robotData)
-            setpointXVals, setpointYVals = getGraphData(
-                "Shooter " + shooterType + " Setpoint", pollingRate, robotData)
-            ax[rowNum, colNum].plot(
-                valXVals, valYVals, label="Shooter " + shooterType + " Values")
-            ax[rowNum, colNum].plot(
-                setpointXVals, setpointYVals, label="Shooter " + shooterType + " Setpoints")
-            ax[rowNum, colNum].legend()
-        elif valsToPlot[count] == "vision":
-            tXVals = getGraphData("tx", pollingRate, robotData)[1]
-            tYVals = getGraphData("ty", pollingRate, robotData)[1]
-            tAVals = getGraphData("ta", pollingRate, robotData)[1]
-            avgTXVal = [sum(tXVals) / len(tXVals)]
-            avgTYVal = [sum(tYVals) / len(tYVals)]
-            avgTAVal = [sum(tAVals) / len(tAVals) * 100]
-            ax[rowNum, colNum].scatter(avgTXVal, avgTYVal, s=avgTAVal)
-            ax[rowNum, colNum].set_xlim([-30, 30])
-            ax[rowNum, colNum].set_ylim([-30, 30])
-            setXLabel = False
-        elif valsToPlot[count] == "drivetrain":
-            for letter in letterList:
-                xVals, yVals = getGraphData(
-                    letter + "_Angle", pollingRate, robotData)
-                ax[rowNum, colNum].plot(xVals, yVals, label=letter + " Angle")
-                ax[rowNum, colNum].legend()
+# count = 0
+# letterList = ["A", "B", "C", "D"]
+# for rowNum in range(graphCols):
+#     for colNum in range(graphCols):
+#         setXLabel = True
+#         if valsToPlot[count][0:-1] == "Shooter Data ":
+#             shooterType = valsToPlot[count][-1]
+#             valXVals, valYVals = getGraphData(
+#                 "Shooter " + shooterType + " Speed", pollingRate, robotData)
+#             setpointXVals, setpointYVals = getGraphData(
+#                 "Shooter " + shooterType + " Setpoint", pollingRate, robotData)
+#             ax[rowNum, colNum].plot(
+#                 valXVals, valYVals, label="Shooter " + shooterType + " Values")
+#             ax[rowNum, colNum].plot(
+#                 setpointXVals, setpointYVals, label="Shooter " + shooterType + " Setpoints")
+#             ax[rowNum, colNum].legend()
+#         elif valsToPlot[count] == "vision":
+#             tXVals = getGraphData("tx", pollingRate, robotData)[1]
+#             tYVals = getGraphData("ty", pollingRate, robotData)[1]
+#             tAVals = getGraphData("ta", pollingRate, robotData)[1]
+#             avgTXVal = [sum(tXVals) / len(tXVals)]
+#             avgTYVal = [sum(tYVals) / len(tYVals)]
+#             avgTAVal = [sum(tAVals) / len(tAVals) * 100]
+#             ax[rowNum, colNum].scatter(avgTXVal, avgTYVal, s=avgTAVal)
+#             ax[rowNum, colNum].set_xlim([-30, 30])
+#             ax[rowNum, colNum].set_ylim([-30, 30])
+#             setXLabel = False
+#         elif valsToPlot[count] == "drivetrain":
+#             for letter in letterList:
+#                 xVals, yVals = getGraphData(
+#                     letter + "_Angle", pollingRate, robotData)
+#                 ax[rowNum, colNum].plot(xVals, yVals, label=letter + " Angle")
+#                 ax[rowNum, colNum].legend()
 
-        else:
-            xVals, yVals = getGraphData(
-                valsToPlot[count], pollingRate, robotData)
-            ax[rowNum, colNum].plot(xVals, yVals)
+#         else:
+#             xVals, yVals = getGraphData(
+#                 valsToPlot[count], pollingRate, robotData)
+#             ax[rowNum, colNum].plot(xVals, yVals)
 
-        if setXLabel:
-            ax[rowNum, colNum].set_xlabel("Time (Seconds)")
-        ax[rowNum, colNum].set_title(valsToPlot[count])
-        count += 1
+#         if setXLabel:
+#             ax[rowNum, colNum].set_xlabel("Time (Seconds)")
+#         ax[rowNum, colNum].set_title(valsToPlot[count])
+#         count += 1
 
-plt.show()
+# plt.show()
 
 if input("Save ALL data as .csv file (y/n) ").lower() == "y":
     keys = list(robotData[0].keys())

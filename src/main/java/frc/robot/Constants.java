@@ -33,9 +33,9 @@ public class Constants {
     public static double SHOOTER_TOLERANCE = 50;
     
     public static double SWERVE_A_OFFSET_ANGLE = -0.09;
-    public static double SWERVE_B_OFFSET_ANGLE = 0.13;
-    public static double SWERVE_C_OFFSET_ANGLE = 0.59;
-    public static double SWERVE_D_OFFSET_ANGLE = -0.90;
+    public static double SWERVE_B_OFFSET_ANGLE = 0.15;
+    public static double SWERVE_C_OFFSET_ANGLE = 0.60;
+    public static double SWERVE_D_OFFSET_ANGLE = -0.87;
 
     public static int SWERVE_A_ENCODER_PORT = 0;
     public static int SWERVE_B_ENCODER_PORT = 3;
