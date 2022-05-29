@@ -13,7 +13,7 @@ Special Keywords:
 '''
 
 valsToPlot = ["Shooter Data A", "Shooter Data B", "vision", "drivetrain"]
-filePath = "./robotData/rapidReact2/robotData"
+filePath = "./robotData/rapidReact2/robotData(6)"
 
 graphCols = 2  # How many columns the plt window will have
 graphRows = 2  # How many rows the window will have

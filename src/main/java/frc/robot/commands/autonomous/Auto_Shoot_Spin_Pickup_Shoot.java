@@ -53,7 +53,7 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
             new ParallelDeadlineGroup(
                 new INT_Deploy(intake)
             ),
-            // Drive forward for 0.45 seconds
+            // Drive forward for 2 seconds
             new ParallelCommandGroup(
                 new DT_DriveVectorTime(drivetrain,0, 0, 0.2, 2),
                 new INT_Grabbing_Start(intake)
@@ -68,7 +68,7 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
                 new DT_DriveVectorTime(drivetrain,0, 0, 0.1, 1),
                 new INT_Retract(intake)
             ),
-            // Shoot recently acquired ball
+           // Shoot recently acquired ball
             new ParallelDeadlineGroup(
                 new TimerCommand(1),
                 new INJ_Forward(injector),
