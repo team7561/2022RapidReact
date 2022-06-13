@@ -29,6 +29,7 @@ public class Auto_Injector_Detect_Ball extends SequentialCommandGroup  {
         ),
         // Shoot Preloaded ball
         new ParallelDeadlineGroup(
+            new TimerCommand(10),
             new INJ_Detect_Ball_Intaken(injector, 10),
             new INT_Grabbing_Start(intake),
             //new INJ_Index_Ball(injector), // Or index ball if this command works to be quicker

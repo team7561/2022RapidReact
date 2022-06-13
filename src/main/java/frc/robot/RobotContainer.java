@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,7 +41,7 @@ public class RobotContainer {
   SendableChooser<Command> mAutoChooser = new SendableChooser<>();
 
 //  private final OnboardVisionController onboardVisionController = new OnboardVisionController();
-private final PiVisionController piVisionController = new PiVisionController();
+  private final PiVisionController piVisionController = new PiVisionController();
   
   private final LimeLightController limeLightController = new LimeLightController();
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -63,6 +64,9 @@ private final PiVisionController piVisionController = new PiVisionController();
     //CameraServer.startAutomaticCapture(); //Commented out as this is part of OnboardVisionController
 
     LiveWindow.disableAllTelemetry();
+
+    SmartDashboard.putNumber("Left Vibrate", 0);
+    SmartDashboard.putNumber("Right Vibrate", 0);
     
     mAutoChooser.setDefaultOption("Auto_Shoot_Spin_Pickup_Shoot", new Auto_Shoot_Spin_Pickup_Shoot(shooter, injector, drivetrain, leds, intake));
     mAutoChooser.addOption("90 degrees turn", new Auto_Turn_90_Degrees(drivetrain, leds));
@@ -148,13 +152,12 @@ private final PiVisionController piVisionController = new PiVisionController();
     back.whenPressed(new SH_Shooting_Stop(shooter, limeLightController), true);
     start.whenPressed(new SH_Shooting_Start(shooter, limeLightController), true);
 
-    dpad_Up.whenPressed(new CLB_ReverseWinch(climber, intake), true);
     dpad_Up.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Down.whenPressed(new CLB_StartWinch(climber, intake), true);
+    dpad_Down.whenPressed(new CLB_StartWinch(climber, intake, shooter), true);
     dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Left.whenPressed(new CLB_Deploy(climber, intake), true);
+    dpad_Left.whenPressed(new CLB_Deploy(climber, intake, shooter), true);
     dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Right.whenPressed(new CLB_ReverseWinchSlow(climber, intake), true);
+    dpad_Right.whenPressed(new CLB_ReverseWinchSlow(climber, intake, shooter), true);
     dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
 
     left_joystick_button.whenPressed(new INT_Toggle(intake));
@@ -172,5 +175,16 @@ private final PiVisionController piVisionController = new PiVisionController();
     // An ExampleCommand will run in autonomous
     return mAutoChooser.getSelected();
       //return new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake);
+  }
+
+  public void updateVibration()
+  {
+    xboxController.setRumble(RumbleType.kLeftRumble, SmartDashboard.getNumber("Left Vibrate", 0));
+    xboxController.setRumble(RumbleType.kRightRumble, SmartDashboard.getNumber("Right Vibrate", 0));
+  }
+  public void cancelVibration()
+  {
+    xboxController.setRumble(RumbleType.kLeftRumble, 0);
+    xboxController.setRumble(RumbleType.kRightRumble, 0);
   }
 }

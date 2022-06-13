@@ -23,7 +23,7 @@ public class Shooter extends SubsystemBase{
     private SparkMaxPIDController m_ApidController;
     private SparkMaxPIDController m_BpidController;
 
-    public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM, m_setpoint;
+    public double kIz, kFF, kMaxOutput, kMinOutput, maxRPM, m_setpoint;
     public double kP_shooterMotorA, kI_shooterMotorA, kD_shooterMotorA;
     public double kP_shooterMotorB, kI_shooterMotorB, kD_shooterMotorB;
     public double m_hood_position, m_hood_setpoint;
@@ -50,14 +50,14 @@ public class Shooter extends SubsystemBase{
         shooterMotorB.setSmartCurrentLimit(45);
 
         // PID coefficients
-        kP_shooterMotorA = 0.0031; 
-        kI_shooterMotorA = 0.00000;//004;
-        kD_shooterMotorA = 0.015;//1;//2;
-        kP_shooterMotorB = 0.0031; 
-        kI_shooterMotorB = 0.0000;//03;
-        kD_shooterMotorB = 0.15 ;//1;//1;
+        kP_shooterMotorA = 0.00172; 
+        kI_shooterMotorA = 0.00000;
+        kD_shooterMotorA = 0.0036;
+        kP_shooterMotorB = 0.0017; 
+        kI_shooterMotorB = 0.0000;
+        kD_shooterMotorB = 0.015 ;
         kIz = 400; // Error process value must be within before I is used.
-        kFF = 0; 
+        kFF = 0.00017; 
         m_setpoint = 0;
         m_hood_setpoint = 0.2;
         kMaxOutput = 0.85; 
@@ -81,6 +81,31 @@ public class Shooter extends SubsystemBase{
         m_BpidController.setOutputRange(kMinOutput, kMaxOutput);
 
         m_shooterMultiplier = 0;
+
+
+/*
+        // display PID coefficients on SmartDashboard
+        SmartDashboard.putNumber("P Gain", kP_shooterMotorA);
+        SmartDashboard.putNumber("I Gain", kI_shooterMotorA);
+        SmartDashboard.putNumber("D Gain", kD_shooterMotorA);
+        SmartDashboard.putNumber("I Zone", kIz);
+        SmartDashboard.putNumber("Feed Forward", kFF);
+        SmartDashboard.putNumber("Max Output", kMaxOutput);
+        SmartDashboard.putNumber("Min Output", kMinOutput);
+
+*/
+
+        // display PID coefficients on SmartDashboard
+        SmartDashboard.putNumber("P Gain", kP_shooterMotorB);
+        SmartDashboard.putNumber("I Gain", kI_shooterMotorB);
+        SmartDashboard.putNumber("D Gain", kD_shooterMotorB);
+        SmartDashboard.putNumber("I Zone", kIz);
+        SmartDashboard.putNumber("Feed Forward", kFF);
+        SmartDashboard.putNumber("Max Output", kMaxOutput);
+        SmartDashboard.putNumber("Min Output", kMinOutput);
+
+
+
     }
 
     public void setMotorA(double target){
@@ -168,6 +193,39 @@ public class Shooter extends SubsystemBase{
 
         m_Atarget = SmartDashboard.getNumber("Shooter A Setpoint", 0);
         m_Btarget = SmartDashboard.getNumber("Shooter B Setpoint", 0);
+
+        double p = SmartDashboard.getNumber("P Gain", 0);
+        double i = SmartDashboard.getNumber("I Gain", 0);
+        double d = SmartDashboard.getNumber("D Gain", 0);
+        double iz = SmartDashboard.getNumber("I Zone", 0);
+        double ff = SmartDashboard.getNumber("Feed Forward", 0);
+        double max = SmartDashboard.getNumber("Max Output", 0);
+        double min = SmartDashboard.getNumber("Min Output", 0);
+
+        /*
+        // if PID coefficients on SmartDashboard have changed, write new values to controller
+        if((p != kP_shooterMotorA)) { m_ApidController.setP(p); kP_shooterMotorA = p; }
+        if((i != kI_shooterMotorA)) { m_ApidController.setI(i); kI_shooterMotorA = i; }
+        if((d != kD_shooterMotorA)) { m_ApidController.setD(d); kD_shooterMotorA = d; }
+        if((iz != kIz)) { m_ApidController.setIZone(iz); kIz = iz; }
+        if((ff != kFF)) { m_ApidController.setFF(ff); kFF = ff; }
+        if((max != kMaxOutput) || (min != kMinOutput)) { 
+            m_ApidController.setOutputRange(min, max); 
+            kMinOutput = min; kMaxOutput = max; 
+        }   
+        */    
+        // if PID coefficients on SmartDashboard have changed, write new values to controller
+        if((p != kP_shooterMotorB)) { m_BpidController.setP(p); kP_shooterMotorB = p; }
+        if((i != kI_shooterMotorB)) { m_BpidController.setI(i); kI_shooterMotorB = i; }
+        if((d != kD_shooterMotorB)) { m_BpidController.setD(d); kD_shooterMotorB = d; }
+        if((iz != kIz)) { m_BpidController.setIZone(iz); kIz = iz; }
+        if((ff != kFF)) { m_BpidController.setFF(ff); kFF = ff; }
+        if((max != kMaxOutput) || (min != kMinOutput)) { 
+            m_BpidController.setOutputRange(min, max); 
+            kMinOutput = min; kMaxOutput = max; 
+        }
+
+        
         if (shooting)
         {
             if (RPMcontrol && (m_Atarget > 25 || m_Btarget > 25))
@@ -188,19 +246,19 @@ public class Shooter extends SubsystemBase{
     }
     public void updateDashboard()
     {
+            
         if (Constants.DEBUG_SHOOTER)
         {
-            SmartDashboard.putNumber("Shooter A Voltage", shooterMotorA.get());
+            SmartDashboard.putNumber("Shooter A Voltage", shooterMotorA.getAppliedOutput());
             SmartDashboard.putNumber("Shooter A Speed", -shooterMotorA.getEncoder().getVelocity());
             SmartDashboard.putNumber("Shooter A Temp", shooterMotorA.getMotorTemperature());
             SmartDashboard.putNumber("Shooter A Current", shooterMotorA.getOutputCurrent());
 
-            SmartDashboard.putNumber("Shooter B Voltage", shooterMotorB.get());
+            SmartDashboard.putNumber("Shooter B Voltage", shooterMotorB.getAppliedOutput());
             SmartDashboard.putNumber("Shooter B Speed", -shooterMotorB.getEncoder().getVelocity());
             SmartDashboard.putNumber("Shooter B Current", shooterMotorB.getOutputCurrent());
             SmartDashboard.putNumber("Shooter B Temp", shooterMotorB.getMotorTemperature());
             
-            SmartDashboard.putNumber("Shooter B Speed", -shooterMotorB.getEncoder().getVelocity());
             SmartDashboard.putNumber("Shooter A Setpoint", m_Atarget);
             SmartDashboard.putNumber("Shooter B Setpoint", m_Btarget);
             SmartDashboard.putNumber("ShooterHood", m_angle);
