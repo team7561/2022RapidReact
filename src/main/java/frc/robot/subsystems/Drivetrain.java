@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -42,11 +43,23 @@ public class Drivetrain extends SubsystemBase {
     public static final ADXRS450_Gyro imu = new ADXRS450_Gyro();
 
     public Drivetrain() {
+        
         m_mode = SwerveMode.ULTIMATESWERVE;
-        moduleA = new SwerveModule(Constants.SWERVE_A_OFFSET_ANGLE, Constants.SWERVE_A_ENCODER_PORT, Ports.CAN_ID_DRIVING_A, Ports.CAN_ID_STEERING_A, "A");
-        moduleB = new SwerveModule(Constants.SWERVE_B_OFFSET_ANGLE, Constants.SWERVE_B_ENCODER_PORT, Ports.CAN_ID_DRIVING_B, Ports.CAN_ID_STEERING_B, "B");
-        moduleD = new SwerveModule(Constants.SWERVE_D_OFFSET_ANGLE, Constants.SWERVE_D_ENCODER_PORT, Ports.CAN_ID_DRIVING_D, Ports.CAN_ID_STEERING_D, "D");
-        moduleC = new SwerveModule(Constants.SWERVE_C_OFFSET_ANGLE, Constants.SWERVE_C_ENCODER_PORT, Ports.CAN_ID_DRIVING_C, Ports.CAN_ID_STEERING_C, "C");
+
+        Preferences.initDouble("A Offset", Constants.SWERVE_A_OFFSET_ANGLE);
+        Preferences.initDouble("B Offset", Constants.SWERVE_B_OFFSET_ANGLE);
+        Preferences.initDouble("C Offset", Constants.SWERVE_C_OFFSET_ANGLE);
+        Preferences.initDouble("D Offset", Constants.SWERVE_D_OFFSET_ANGLE);
+
+        SmartDashboard.putNumber("A_Offset_Angle", Preferences.getDouble("A Offset", 0));
+        SmartDashboard.putNumber("B_Offset_Angle", Preferences.getDouble("B Offset", 0));
+        SmartDashboard.putNumber("C_Offset_Angle", Preferences.getDouble("C Offset", 0));
+        SmartDashboard.putNumber("D_Offset_Angle", Preferences.getDouble("D Offset", 0));  
+
+        moduleA = new SwerveModule(Preferences.getDouble("A Offset",0), Constants.SWERVE_A_ENCODER_PORT, Ports.CAN_ID_DRIVING_A, Ports.CAN_ID_STEERING_A, "A");
+        moduleB = new SwerveModule(Preferences.getDouble("B Offset",0), Constants.SWERVE_B_ENCODER_PORT, Ports.CAN_ID_DRIVING_B, Ports.CAN_ID_STEERING_B, "B");
+        moduleD = new SwerveModule(Preferences.getDouble("D Offset",0), Constants.SWERVE_D_ENCODER_PORT, Ports.CAN_ID_DRIVING_D, Ports.CAN_ID_STEERING_D, "D");
+        moduleC = new SwerveModule(Preferences.getDouble("C Offset",0), Constants.SWERVE_C_ENCODER_PORT, Ports.CAN_ID_DRIVING_C, Ports.CAN_ID_STEERING_C, "C");
         
         moduleA_location = new Translation2d(0.5, 0.5);
         moduleB_location = new Translation2d(0.5, 0.5);
@@ -65,11 +78,6 @@ public class Drivetrain extends SubsystemBase {
         m_y = 0;
         imu.calibrate();
         imu.reset();
-        SmartDashboard.putNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE);
-        SmartDashboard.putNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE);
-        SmartDashboard.putNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE);
-        SmartDashboard.putNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE);    
-
 
         timer = new Timer();
         timer.reset();
@@ -83,7 +91,7 @@ public class Drivetrain extends SubsystemBase {
         } else {
             DriverStation.reportError("Robot Gyro Failed!", false);
         }
-        // This method will be called once per scheduler run
+        
         updateDashboard();
         SmartDashboard.putString("Drivetrain Mode", m_mode.name());
 

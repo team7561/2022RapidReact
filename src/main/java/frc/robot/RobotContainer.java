@@ -23,6 +23,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.NetworkButton;
 
 /**
  * This class is where the bulk of the robot sho
@@ -115,7 +116,9 @@ public class RobotContainer {
     final DPadButton dpad_Down = new DPadButton(xboxController, DPadButton.Direction.DOWN);
     final DPadButton dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
     final DPadButton dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
-    
+
+    SmartDashboard.putData("Save swerve steer offsets", new DT_Save_Offsets());
+   
     //trigger.whenPressed(new DT_ArcadeDrive(drivetrain, 0.4, 0.4, 0.5),true);
     
     trigger.whenPressed(new INT_Grabbing_Start(intake), true);

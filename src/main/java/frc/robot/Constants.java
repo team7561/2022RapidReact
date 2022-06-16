@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Preferences;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -32,10 +34,10 @@ public class Constants {
 
     public static double SHOOTER_TOLERANCE = 50;
     
-    public static double SWERVE_A_OFFSET_ANGLE = -0.47;
-    public static double SWERVE_B_OFFSET_ANGLE = 0.15;
-    public static double SWERVE_C_OFFSET_ANGLE = 0.60;
-    public static double SWERVE_D_OFFSET_ANGLE = -0.87;
+    public static double SWERVE_A_OFFSET_ANGLE = Preferences.getDouble("A Offset", -0.47);
+    public static double SWERVE_B_OFFSET_ANGLE = Preferences.getDouble("A Offset", 0.15);
+    public static double SWERVE_C_OFFSET_ANGLE = Preferences.getDouble("A Offset", 0.60);
+    public static double SWERVE_D_OFFSET_ANGLE = Preferences.getDouble("A Offset", -0.87);
 
     public static int SWERVE_A_ENCODER_PORT = 0;
     public static int SWERVE_B_ENCODER_PORT = 3;
