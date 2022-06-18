@@ -118,6 +118,7 @@ public class RobotContainer {
     final DPadButton dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
 
     SmartDashboard.putData("Save swerve steer offsets", new DT_Save_Offsets());
+    SmartDashboard.putData("Drive manual align", new DT_ManualAlign(drivetrain));
    
     //trigger.whenPressed(new DT_ArcadeDrive(drivetrain, 0.4, 0.4, 0.5),true);
     

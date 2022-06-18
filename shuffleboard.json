@@ -44,7 +44,7 @@
               "_title": "/SmartDashboard/FL_EncoderOutput"
             }
           },
-          "2,4": {
+          "1,3": {
             "size": [
               2,
               1
@@ -98,23 +98,6 @@
               "Slider Settings/Max": 1.0,
               "Slider Settings/Block increment": 0.0625,
               "Visuals/Display value": true
-            }
-          },
-          "6,5": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Graph",
-              "_source0": "network_table:///SmartDashboard/target_angle",
-              "_title": "SmartDashboard/target_angle",
-              "Graph/Visible time": 30.0,
-              "Graph/X-axis auto scrolling": true,
-              "Y-axis/Automatic bounds": true,
-              "Y-axis/Upper bound": 1.0,
-              "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
             }
           },
           "7,3": {
@@ -174,6 +157,65 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/BL_Offset_Angle",
               "_title": "/SmartDashboard/BL_Offset_Angle"
+            }
+          },
+          "10,4": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///SmartDashboard/Left Vibrate",
+              "_title": "SmartDashboard/Left Vibrate",
+              "Slider Settings/Min": -1.0,
+              "Slider Settings/Max": 1.0,
+              "Slider Settings/Block increment": 0.0625,
+              "Visuals/Display value": true
+            }
+          },
+          "10,5": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///SmartDashboard/Right Vibrate",
+              "_title": "SmartDashboard/Right Vibrate",
+              "Slider Settings/Min": -1.0,
+              "Slider Settings/Max": 1.0,
+              "Slider Settings/Block increment": 0.0625,
+              "Visuals/Display value": true
+            }
+          },
+          "1,4": {
+            "size": [
+              5,
+              3
+            ],
+            "content": {
+              "_type": "Field",
+              "_source0": "network_table:///SmartDashboard/Field 2d",
+              "_title": "/SmartDashboard/Field 2d",
+              "Game/Game": "A2022_Rapid_React",
+              "Visuals/Robot Icon Size": 50.0,
+              "Visuals/Show Outside Circles": false
+            }
+          },
+          "7,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/Gyro",
+              "_title": "/SmartDashboard/Gyro",
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
             }
           }
         }
@@ -486,7 +528,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/A_Angle",
-              "_title": "SmartDashboard/A_Angle"
+              "_title": "/SmartDashboard/A_Angle"
             }
           },
           "4,5": {
@@ -497,7 +539,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/B_Angle",
-              "_title": "SmartDashboard/B_Angle"
+              "_title": "/SmartDashboard/B_Angle"
             }
           },
           "4,6": {
@@ -508,7 +550,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/C_Angle",
-              "_title": "SmartDashboard/C_Angle"
+              "_title": "/SmartDashboard/C_Angle"
             }
           },
           "4,7": {
@@ -519,7 +561,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/D_Angle",
-              "_title": "SmartDashboard/D_Angle"
+              "_title": "/SmartDashboard/D_Angle"
             }
           },
           "5,4": {
@@ -530,7 +572,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/AEncoder",
-              "_title": "SmartDashboard/AEncoder"
+              "_title": "/SmartDashboard/AEncoder"
             }
           },
           "5,5": {
@@ -541,7 +583,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/BEncoder",
-              "_title": "SmartDashboard/BEncoder"
+              "_title": "/SmartDashboard/BEncoder"
             }
           },
           "3,4": {
@@ -552,7 +594,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/A_AngleCorrected",
-              "_title": "SmartDashboard/A_AngleCorrected"
+              "_title": "/SmartDashboard/A_AngleCorrected"
             }
           },
           "3,5": {
@@ -563,7 +605,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/B_AngleCorrected",
-              "_title": "SmartDashboard/B_AngleCorrected"
+              "_title": "/SmartDashboard/B_AngleCorrected"
             }
           },
           "3,6": {
@@ -574,7 +616,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/C_AngleCorrected",
-              "_title": "SmartDashboard/C_AngleCorrected"
+              "_title": "/SmartDashboard/C_AngleCorrected"
             }
           },
           "3,7": {
@@ -585,7 +627,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/D_AngleCorrected",
-              "_title": "SmartDashboard/D_AngleCorrected"
+              "_title": "/SmartDashboard/D_AngleCorrected"
             }
           },
           "6,3": {
@@ -596,7 +638,103 @@
             "content": {
               "_type": "Command",
               "_source0": "network_table:///SmartDashboard/Save swerve steer offsets",
-              "_title": "SmartDashboard/Save swerve steer offsets"
+              "_title": "/SmartDashboard/Save swerve steer offsets"
+            }
+          },
+          "10,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Accel X",
+              "_title": "SmartDashboard/Accel X",
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
+            }
+          },
+          "10,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Accel Y",
+              "_title": "SmartDashboard/Accel Y",
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
+            }
+          },
+          "10,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Number Bar",
+              "_source0": "network_table:///SmartDashboard/Accel Z",
+              "_title": "SmartDashboard/Accel Z",
+              "Range/Min": -1.0,
+              "Range/Max": 1.0,
+              "Range/Center": 0.0,
+              "Visuals/Num tick marks": 5,
+              "Visuals/Show text": true
+            }
+          },
+          "4,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Drive manual align",
+              "_title": "/SmartDashboard/Drive manual align"
+            }
+          },
+          "4,2": {
+            "size": [
+              3,
+              1
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///SmartDashboard/Drive fixed angle",
+              "_title": "SmartDashboard/Drive fixed angle",
+              "Slider Settings/Min": 0.0,
+              "Slider Settings/Max": 360.0,
+              "Slider Settings/Block increment": 2.0,
+              "Visuals/Display value": true
+            }
+          },
+          "5,6": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/CEncoder",
+              "_title": "/SmartDashboard/CEncoder"
+            }
+          },
+          "5,7": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/DEncoder",
+              "_title": "/SmartDashboard/DEncoder"
             }
           }
         }

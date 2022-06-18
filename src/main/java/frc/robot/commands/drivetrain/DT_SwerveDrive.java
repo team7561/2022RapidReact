@@ -30,17 +30,16 @@ public class DT_SwerveDrive extends CommandBase {
 
   @Override
   public void execute() {
-    //Set module offsets
-    setOffsets();
 
     //Joystick input in magnitude/direction from
     m_power = Math.sqrt(Math.pow(m_x.getAsDouble() , 2) + Math.pow(m_y.getAsDouble() , 2)) * m_speed.getAsDouble();
     target_angle = Math.atan2(m_y.getAsDouble(), m_x.getAsDouble()) + Math.PI;
     target_angle = target_angle * 360 / (2 * Math.PI);
 
+    double twist = m_twist.getAsDouble()*m_twist.getAsDouble()*Math.signum(m_twist.getAsDouble());
     //Mode specific code
     if (m_subsystem.getMode() == SwerveMode.SPIN){
-      m_power = m_twist.getAsDouble() * m_speed.getAsDouble();
+      m_power = twist * m_speed.getAsDouble();
       m_subsystem.setTargetAngle(target_angle);
       drive(m_power, m_power);
     }
@@ -64,15 +63,11 @@ public class DT_SwerveDrive extends CommandBase {
       double swPower = 0;
 
       //Filtering Inputs for central deadzone in twist input
-      if (Math.abs(m_twist.getAsDouble()) > 0.01){
-        swTwist = m_twist.getAsDouble() * 0.3;
-      }
+      swTwist = twist * 0.3;
 
-      //Filtering Inputs for central deadzone in translatoin input
-      if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
-        swPower = -m_power * m_speed.getAsDouble();
-      } 
-
+      //Filtering Inputs for central deadzone in translation input
+      swPower = -m_power * m_speed.getAsDouble();
+      
       if (swPower != 0 || swTwist != 0){
         if (m_subsystem.getMode() == SwerveMode.ROBOTCENTRICSWERVE){
           m_subsystem.setSwerveVectorNoGyro(swTwist, target_angle + 180, swPower);
@@ -90,9 +85,8 @@ public class DT_SwerveDrive extends CommandBase {
       double swPower = 0;
 
       //Filtering Inputs for central deadzone in twist input
-      if (Math.abs(m_twist.getAsDouble()) > 0.01){
-        swTwist = m_twist.getAsDouble() * 0.6;
-      }
+      swTwist = twist * 0.6;
+      
 
       //Filtering Inputs for central deadzone in translatoin input
       if(Math.abs(m_power * m_speed.getAsDouble()) > 0.01 ){
@@ -110,24 +104,6 @@ public class DT_SwerveDrive extends CommandBase {
     m_subsystem.moduleB.setVelocity(-rightSpeed);
   }
 
-  public void setOffsets(){
-    if (m_subsystem.moduleD.getAngleOffset() != SmartDashboard.getNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE))
-    {
-      m_subsystem.moduleD.setAngleOffset(SmartDashboard.getNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE));
-    }
-    if (m_subsystem.moduleC.getAngleOffset() != SmartDashboard.getNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE))
-    {
-      m_subsystem.moduleC.setAngleOffset(SmartDashboard.getNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE));
-    }
-    if (m_subsystem.moduleA.getAngleOffset() != SmartDashboard.getNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE))
-    {
-      m_subsystem.moduleA.setAngleOffset(SmartDashboard.getNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE));
-    }
-    if (m_subsystem.moduleB.getAngleOffset() != SmartDashboard.getNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE))
-    {
-      m_subsystem.moduleB.setAngleOffset(SmartDashboard.getNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE));
-    }
-  }
 
   @Override
   public void end(boolean interrupted) {

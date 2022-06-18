@@ -59,14 +59,11 @@ public class SwerveModule extends SubsystemBase {
         SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
         m_angle = 0;
         m_driveMotor = new CANSparkMax(driveChannel, MotorType.kBrushless);
-        m_driveMotor.getEncoder().setVelocityConversionFactor(20);
+        m_driveMotor.getEncoder().setVelocityConversionFactor(2.08921623); // 24:11, 45:15, 4" wheel
         m_steeringMotor = new CANSparkMax(steerChannel, MotorType.kBrushless);
 
         absolute_encoder_source = new DigitalInput(encoderPort);
         absolute_encoder = new DutyCycle(absolute_encoder_source);
-
-        //m_steering_encoder = m_steeringMotor.getAlternateEncoder();
-
 
         m_driveMotor.restoreFactoryDefaults();
         m_steeringMotor.restoreFactoryDefaults();
@@ -105,7 +102,7 @@ public class SwerveModule extends SubsystemBase {
         m_driving_pidController.setFF(driving_kFF);
         m_driving_pidController.setOutputRange(driving_kMinOutput, driving_kMaxOutput);
 
-        // display PID coefficients on SmartDashboard
+        
         SmartDashboard.putNumber(m_pos+"Encoder", absolute_encoder.getOutput());
     }
 
@@ -181,7 +178,7 @@ public class SwerveModule extends SubsystemBase {
 
     public SwerveModuleState getState()
     {
-        return new SwerveModuleState(getSpeed(), new Rotation2d(currentAngle));
+        return new SwerveModuleState(getSpeed(), new Rotation2d(moduleAngle));
     }
     public void resetEncoders()
     {
@@ -207,7 +204,7 @@ public class SwerveModule extends SubsystemBase {
 
     public double getSpeed(){
         //Gets speed in rs^-1
-        return m_driveMotor.getEncoder().getVelocity();
+        return m_driveMotor.getEncoder().getVelocity()/1000;
     }
 
     public double getSteerSpeed(){

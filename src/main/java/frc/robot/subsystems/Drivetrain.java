@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Ports;
@@ -32,6 +33,7 @@ public class Drivetrain extends SubsystemBase {
     SwerveDriveKinematics m_kinemtics;
     SwerveDriveOdometry m_odometry;
     Pose2d m_pose;
+    Field2d m_field2d;
 
 
 
@@ -40,6 +42,7 @@ public class Drivetrain extends SubsystemBase {
     double m_x, m_y;
     double prevGyro = 0;
     SwerveMode m_mode;
+    
     public static final ADXRS450_Gyro imu = new ADXRS450_Gyro();
 
     public Drivetrain() {
@@ -61,15 +64,14 @@ public class Drivetrain extends SubsystemBase {
         moduleD = new SwerveModule(Preferences.getDouble("D Offset",0), Constants.SWERVE_D_ENCODER_PORT, Ports.CAN_ID_DRIVING_D, Ports.CAN_ID_STEERING_D, "D");
         moduleC = new SwerveModule(Preferences.getDouble("C Offset",0), Constants.SWERVE_C_ENCODER_PORT, Ports.CAN_ID_DRIVING_C, Ports.CAN_ID_STEERING_C, "C");
         
-        moduleA_location = new Translation2d(0.5, 0.5);
-        moduleB_location = new Translation2d(0.5, 0.5);
-        moduleC_location = new Translation2d(0.5, 0.5);
-        moduleD_location = new Translation2d(0.5, 0.5);
+        moduleA_location = new Translation2d(-0.3, 0.3); //FL
+        moduleB_location = new Translation2d(0.3, 0.3); //FR
+        moduleC_location = new Translation2d(0.3, -0.3); //BR
+        moduleD_location = new Translation2d(0.3, -0.3); //BL
         
-        m_kinemtics = new SwerveDriveKinematics(
-        moduleA_location, moduleB_location, moduleC_location, moduleD_location
-        );
+        m_kinemtics = new SwerveDriveKinematics(moduleA_location, moduleB_location, moduleC_location, moduleD_location);
         m_pose = new Pose2d(5, 13.5, new Rotation2d());
+        m_field2d = new Field2d();
 
         m_odometry = new SwerveDriveOdometry(m_kinemtics, imu.getRotation2d(), m_pose);
 
@@ -86,6 +88,7 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
+        updateOffsets();
         if(prevGyro != imu.getAngle()){
             prevGyro = imu.getAngle();
         } else {
@@ -96,6 +99,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putString("Drivetrain Mode", m_mode.name());
 
         m_pose = m_odometry.update(imu.getRotation2d(), moduleA.getState(), moduleB.getState(), moduleC.getState(), moduleD.getState());
+        m_field2d.setRobotPose(m_pose);
     }
 
 	public void stop() {
@@ -202,6 +206,24 @@ public class Drivetrain extends SubsystemBase {
     }
 
 
+    public void updateOffsets(){
+        if (moduleD.getAngleOffset() != SmartDashboard.getNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE))
+        {
+          moduleD.setAngleOffset(SmartDashboard.getNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE));
+        }
+        if (moduleC.getAngleOffset() != SmartDashboard.getNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE))
+        {
+          moduleC.setAngleOffset(SmartDashboard.getNumber("C_Offset_Angle", Constants.SWERVE_C_OFFSET_ANGLE));
+        }
+        if (moduleA.getAngleOffset() != SmartDashboard.getNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE))
+        {
+          moduleA.setAngleOffset(SmartDashboard.getNumber("A_Offset_Angle", Constants.SWERVE_A_OFFSET_ANGLE));
+        }
+        if (moduleB.getAngleOffset() != SmartDashboard.getNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE))
+        {
+          moduleB.setAngleOffset(SmartDashboard.getNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE));
+        }
+    }
     public void setSwerveVector(double twist, double target_angle, double mag){
         setSwerveVectorNoGyro(twist, target_angle + imu.getAngle(), mag);
     }
@@ -298,6 +320,13 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Game Time", DriverStation.getMatchTime());
         SmartDashboard.putNumber("Gyro Angle", imu.getAngle());
         SmartDashboard.putNumber("Avg Encoder count", getAvgEncoderCount());
+        
+        SmartDashboard.putData("Gyro", imu);
+        SmartDashboard.putData("Field 2d", m_field2d);
+
+        SmartDashboard.putNumber("Pose X", m_pose.getX());
+        SmartDashboard.putNumber("Pose Y", m_pose.getY());
+        SmartDashboard.putNumber("Pose Angle", m_pose.getRotation().getDegrees());
 
     }
 
