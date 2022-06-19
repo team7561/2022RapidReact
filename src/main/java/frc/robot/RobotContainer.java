@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.NetworkButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot sho
@@ -112,10 +113,15 @@ public class RobotContainer {
     final JoystickAnalogButton button_LT = new JoystickAnalogButton(xboxController, 2);
     final JoystickAnalogButton button_RT = new JoystickAnalogButton(xboxController, 3);
   
-    final DPadButton dpad_Up = new DPadButton(xboxController, DPadButton.Direction.UP);
-    final DPadButton dpad_Down = new DPadButton(xboxController, DPadButton.Direction.DOWN);
-    final DPadButton dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
-    final DPadButton dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
+    final DPadButton xbox_dpad_Up = new DPadButton(xboxController, DPadButton.Direction.UP);
+    final DPadButton xbox_dpad_Down = new DPadButton(xboxController, DPadButton.Direction.DOWN);
+    final DPadButton xbox_dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
+    final DPadButton xbox_dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
+
+    final POVButton joystick_dpad_Up = new POVButton(joystick, 0);
+    final POVButton joystick_dpad_Down = new POVButton(joystick, 180);
+    final POVButton joystick_dpad_Left = new POVButton(joystick, 270);
+    final POVButton joystick_dpad_Right = new POVButton(joystick, 90);
 
     SmartDashboard.putData("Save swerve steer offsets", new DT_Save_Offsets());
     SmartDashboard.putData("Drive manual align", new DT_ManualAlign(drivetrain));
@@ -156,13 +162,24 @@ public class RobotContainer {
     back.whenPressed(new SH_Shooting_Stop(shooter, limeLightController), true);
     start.whenPressed(new SH_Shooting_Start(shooter, limeLightController), true);
 
-    dpad_Up.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Down.whenPressed(new CLB_StartWinch(climber, intake, shooter), true);
-    dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Left.whenPressed(new CLB_Deploy(climber, intake, shooter), true);
-    dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
-    dpad_Right.whenPressed(new CLB_ReverseWinchSlow(climber, intake, shooter), true);
-    dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
+    xbox_dpad_Up.whenPressed(new CLB_ReverseWinch(climber, intake, shooter), true);
+    xbox_dpad_Up.whenReleased(new CLB_StopWinch(climber), true);
+    xbox_dpad_Down.whenPressed(new CLB_StartWinch(climber, intake, shooter), true);
+    xbox_dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
+    xbox_dpad_Left.whenPressed(new CLB_Deploy(climber, intake, shooter), true);
+    xbox_dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
+    xbox_dpad_Right.whenPressed(new CLB_ReverseWinchSlow(climber, intake, shooter), true);
+    xbox_dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
+
+        
+    joystick_dpad_Up.whenPressed(new CLB_ReverseWinch(climber, intake, shooter), true);
+    joystick_dpad_Up.whenReleased(new CLB_StopWinch(climber), true);
+    joystick_dpad_Down.whenPressed(new CLB_StartWinch(climber, intake, shooter), true);
+    joystick_dpad_Down.whenReleased(new CLB_StopWinch(climber), true);
+    joystick_dpad_Left.whenPressed(new CLB_Deploy(climber, intake, shooter), true);
+    joystick_dpad_Left.whenReleased(new CLB_StopWinch(climber), true);
+    joystick_dpad_Right.whenPressed(new CLB_ReverseWinchSlow(climber, intake, shooter), true);
+    joystick_dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
 
     left_joystick_button.whenPressed(new INT_Toggle(intake));
     right_joystick_button.whenPressed(new INT_Toggle(intake));

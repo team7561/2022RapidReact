@@ -57,7 +57,7 @@ public class Shooter extends SubsystemBase{
         kI_shooterMotorB = 0.0000;
         kD_shooterMotorB = 0.015 ;
         kIz = 400; // Error process value must be within before I is used.
-        kFF = 0.00017; 
+        kFF = 0.0002; 
         m_setpoint = 0;
         m_hood_setpoint = 0.2;
         kMaxOutput = 0.85; 
@@ -187,7 +187,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void periodic(){
-        m_angle = SmartDashboard.getNumber("ShooterHood", 0.0);
+        m_angle = SmartDashboard.getNumber("ShooterHood", 0.58);
         shooterServoA.set(1-m_angle);
         shooterServoB.set(m_angle);
 

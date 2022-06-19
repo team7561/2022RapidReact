@@ -31,19 +31,35 @@ public class DT_SwerveDrive extends CommandBase {
 
   @Override
   public void execute() {
+    double x_power = 0;
+    if (Math.abs(m_x.getAsDouble()) > 0.05)
+    {
+      x_power = m_x.getAsDouble();
+    }
+
+    double y_power = 0;
+    if (Math.abs(m_y.getAsDouble()) > 0.05)
+    {
+      y_power = m_y.getAsDouble();
+    }
 
     //Joystick input in magnitude/direction from
-    m_power = Math.sqrt(Math.pow(m_x.getAsDouble() , 2) + Math.pow(m_y.getAsDouble() , 2)) * m_speed.getAsDouble();
-    target_angle = Math.atan2(m_y.getAsDouble(), m_x.getAsDouble()) + Math.PI;
+    m_power = Math.sqrt(Math.pow(x_power , 2) + Math.pow(y_power , 2)) * m_speed.getAsDouble();
+    target_angle = Math.atan2(y_power, x_power) + Math.PI;
     target_angle = target_angle * 360 / (2 * Math.PI);
 
     
     double twist = 0;
     
-    if (m_twist.getAsDouble() < -0.05 || m_twist.getAsDouble() > 0.05)
+    if (m_twist.getAsDouble() > 0.1)
     {
-      //twist = (0.5*Math.sin((Math.PI*m_twist.getAsDouble())-Math.PI/2))+0.5;
-      twist = m_twist.getAsDouble();
+      twist = (0.5*Math.sin((Math.PI*m_twist.getAsDouble())-Math.PI/2))+0.5;
+      //twist = m_twist.getAsDouble();
+    }
+    if (m_twist.getAsDouble() < -0.1)
+    {
+      twist = -((0.5*Math.sin((Math.PI*m_twist.getAsDouble())-Math.PI/2))+0.5);
+      //twist = m_twist.getAsDouble();
     }
     
     //Math.pow(m_twist.getAsDouble(), 1.5);//.getAsDouble()*m_twist.getAsDouble()*Math.signum(m_twist.getAsDouble());

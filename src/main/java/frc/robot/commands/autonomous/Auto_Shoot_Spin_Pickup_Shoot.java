@@ -62,7 +62,7 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
                 new TimerCommand(2),
                 new DT_TurnToAbsoluteAngle(drivetrain, 0.13, 0)
             ),
-            // Drive forward for 0.45 seconds
+            // Drive forward for 1 seconds
             new ParallelCommandGroup(
                 new DT_DriveVectorTime(drivetrain,0, 0, 0.1, 1),
                 new INT_Retract(intake)

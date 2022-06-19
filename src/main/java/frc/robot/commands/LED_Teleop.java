@@ -65,10 +65,10 @@ public class LED_Teleop extends CommandBase {
     else if (m_drivetrain.getMode() == SwerveMode.ULTIMATESWERVE){
         if (m_drivetrain.timer.get() < 1){
             SmartDashboard.putNumber("LED Value", 0.85);
-            SmartDashboard.putNumber("Right Vibrate", 0.5);
         }
         else if (m_lc.get_ta() != 0 && m_shooter.atSetpoint() && Math.abs(m_lc.get_tx()) < 4){
             SmartDashboard.putNumber("LED Value", 0.77);
+            SmartDashboard.putNumber("Right Vibrate", 0.5);
         }
         else if (m_lc.get_ta() != 0){
             SmartDashboard.putNumber("LED Value", -0.99);
