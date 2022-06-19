@@ -26,7 +26,7 @@ public class SwerveModule extends SubsystemBase {
     /**
      * Creates a new ExampleSubsystem.
      */
-    double m_offset, m_angle, m_steering_target, m_steering_sp, currentAngle, moduleAngle;
+    double m_offset, m_angle, m_steering_target, m_steering_sp, currentAngle, moduleAngle, m_rawSteeringTarget;
 
     String m_pos;
 
@@ -113,12 +113,7 @@ public class SwerveModule extends SubsystemBase {
             SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
         }
         SmartDashboard.putNumber(m_pos+"Encoder", absolute_encoder.getOutput());
-        currentAngle = (SmartDashboard.getNumber(m_pos+"_Angle", 0)-m_offset*360)%360;
-
-        if (currentAngle < 0)
-        {
-            currentAngle += 360;
-        }
+        currentAngle = ((SmartDashboard.getNumber(m_pos+"_Angle", 0)-m_offset*360)+360)%360;
 
         //Error defines the magnitued and direction of the target angle from the current angle
         double error = m_steering_target-currentAngle;
@@ -178,7 +173,9 @@ public class SwerveModule extends SubsystemBase {
 
     public SwerveModuleState getState()
     {
+        //return new SwerveModuleState(getSpeed(), new Rotation2d(moduleAngle));
         return new SwerveModuleState(getSpeed(), new Rotation2d(moduleAngle));
+
     }
     public void resetEncoders()
     {
@@ -187,8 +184,9 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void setTargetAngle(double angle){
+        m_rawSteeringTarget = angle;
         //Modules are inverted if the target angle is greater than 90 degrees.
-        if(getAngleError() > 90){
+        /*if(getAngleError() > 90){
             m_inverted = !m_inverted;
         }
 
@@ -199,12 +197,13 @@ public class SwerveModule extends SubsystemBase {
 
         else{
             m_steering_target = angle;
-        }
+        }*/
+        m_steering_target = angle;
     }
 
     public double getSpeed(){
         //Gets speed in rs^-1
-        return m_driveMotor.getEncoder().getVelocity()/1000;
+        return m_driveMotor.getEncoder().getVelocity()/100;
     }
 
     public double getSteerSpeed(){
@@ -262,12 +261,16 @@ public class SwerveModule extends SubsystemBase {
     {
         /*SmartDashboard.putNumber(m_pos+"_DrivingSP", driving_m_setpoint);
         SmartDashboard.putNumber(m_pos+"_Speed", getSpeed());
-        SmartDashboard.putNumber(m_pos+"_RawDrivespeed", getRawSpeed());
         SmartDashboard.putNumber(m_pos+"_RawSteerSpeed", getSteerSpeed());*/
+        SmartDashboard.putNumber(m_pos+"_RawDrivespeed", getRawSpeed());
+        SmartDashboard.putNumber(m_pos+"_Drivespeed", getSpeed());
         SmartDashboard.putNumber(m_pos+"_Angle", getAngle());
         SmartDashboard.putNumber(m_pos+"_AngleCorrected", moduleAngle);
+        SmartDashboard.putNumber(m_pos+"_AngleTarget", m_steering_target);
+        SmartDashboard.putNumber(m_pos+"_RawAngleTarget", m_rawSteeringTarget);
         SmartDashboard.putNumber(m_pos+"_AngleEncoderOutput", absolute_encoder.getOutput());
         SmartDashboard.putNumber(m_pos+"_DriveEncoderOutput", m_driveMotor.getEncoder().getPosition());
+        SmartDashboard.putBoolean(m_pos+"_Inverted", m_inverted);
         /*SmartDashboard.putNumber(m_pos+"_CurrentAngle", currentAngle);
         SmartDashboard.putNumber(m_pos+"_PV", m_steeringMotor.getEncoder().getPosition());
         SmartDashboard.putNumber(m_pos+"_SP", steering_m_setpoint);

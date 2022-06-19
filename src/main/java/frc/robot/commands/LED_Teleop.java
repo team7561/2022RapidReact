@@ -38,6 +38,9 @@ public class LED_Teleop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+      
+    SmartDashboard.putNumber("Left Vibrate", 0);
+    SmartDashboard.putNumber("Right Vibrate", 0);
       if (m_drivetrain.isStill() && !m_shooter.shooting){
           SmartDashboard.putNumber("LED Value", -0.20);
       }

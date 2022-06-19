@@ -7,6 +7,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.lang.Math;
 
 public class DT_SwerveDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -36,7 +37,16 @@ public class DT_SwerveDrive extends CommandBase {
     target_angle = Math.atan2(m_y.getAsDouble(), m_x.getAsDouble()) + Math.PI;
     target_angle = target_angle * 360 / (2 * Math.PI);
 
-    double twist = m_twist.getAsDouble()*m_twist.getAsDouble()*Math.signum(m_twist.getAsDouble());
+    
+    double twist = 0;
+    
+    if (m_twist.getAsDouble() < -0.05 || m_twist.getAsDouble() > 0.05)
+    {
+      //twist = (0.5*Math.sin((Math.PI*m_twist.getAsDouble())-Math.PI/2))+0.5;
+      twist = m_twist.getAsDouble();
+    }
+    
+    //Math.pow(m_twist.getAsDouble(), 1.5);//.getAsDouble()*m_twist.getAsDouble()*Math.signum(m_twist.getAsDouble());
     //Mode specific code
     if (m_subsystem.getMode() == SwerveMode.SPIN){
       m_power = twist * m_speed.getAsDouble();
