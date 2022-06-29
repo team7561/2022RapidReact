@@ -64,7 +64,7 @@ public class Auto_Shoot_Spin_Pickup_Shoot extends SequentialCommandGroup  {
             ),
             // Drive forward for 1 seconds
             new ParallelCommandGroup(
-                new DT_DriveVectorTime(drivetrain,0, 0, 0.1, 1),
+                new DT_DriveVectorTime(drivetrain,0, 0, 0.15, 2),
                 new INT_Retract(intake)
             ),
            // Shoot recently acquired ball

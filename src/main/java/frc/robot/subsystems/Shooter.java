@@ -53,7 +53,7 @@ public class Shooter extends SubsystemBase{
         kP_shooterMotorA = 0.00172; 
         kI_shooterMotorA = 0.00000;
         kD_shooterMotorA = 0.0036;
-        kP_shooterMotorB = 0.0017; 
+        kP_shooterMotorB = 0.0015; 
         kI_shooterMotorB = 0.0000;
         kD_shooterMotorB = 0.015 ;
         kIz = 400; // Error process value must be within before I is used.
@@ -96,9 +96,9 @@ public class Shooter extends SubsystemBase{
 */
 
         // display PID coefficients on SmartDashboard
-        SmartDashboard.putNumber("P Gain", kP_shooterMotorB);
-        SmartDashboard.putNumber("I Gain", kI_shooterMotorB);
-        SmartDashboard.putNumber("D Gain", kD_shooterMotorB);
+        SmartDashboard.putNumber("P Gain", kP_shooterMotorA);
+        SmartDashboard.putNumber("I Gain", kI_shooterMotorA);
+        SmartDashboard.putNumber("D Gain", kD_shooterMotorA);
         SmartDashboard.putNumber("I Zone", kIz);
         SmartDashboard.putNumber("Feed Forward", kFF);
         SmartDashboard.putNumber("Max Output", kMaxOutput);
@@ -215,13 +215,13 @@ public class Shooter extends SubsystemBase{
         }   
         */    
         // if PID coefficients on SmartDashboard have changed, write new values to controller
-        if((p != kP_shooterMotorB)) { m_BpidController.setP(p); kP_shooterMotorB = p; }
-        if((i != kI_shooterMotorB)) { m_BpidController.setI(i); kI_shooterMotorB = i; }
-        if((d != kD_shooterMotorB)) { m_BpidController.setD(d); kD_shooterMotorB = d; }
-        if((iz != kIz)) { m_BpidController.setIZone(iz); kIz = iz; }
-        if((ff != kFF)) { m_BpidController.setFF(ff); kFF = ff; }
+        if((p != kP_shooterMotorA)) { m_ApidController.setP(p); kP_shooterMotorA = p; }
+        if((i != kI_shooterMotorA)) { m_ApidController.setI(i); kI_shooterMotorA = i; }
+        if((d != kD_shooterMotorA)) { m_ApidController.setD(d); kD_shooterMotorA = d; }
+        if((iz != kIz)) { m_ApidController.setIZone(iz); kIz = iz; }
+        if((ff != kFF)) { m_ApidController.setFF(ff); kFF = ff; }
         if((max != kMaxOutput) || (min != kMinOutput)) { 
-            m_BpidController.setOutputRange(min, max); 
+            m_ApidController.setOutputRange(min, max); 
             kMinOutput = min; kMaxOutput = max; 
         }
 

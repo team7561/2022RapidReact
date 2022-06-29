@@ -24,6 +24,7 @@ public class TimerCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+      m_timer.reset();
       m_timer.start();
       System.out.println("Timer started");
   }
