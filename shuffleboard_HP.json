@@ -226,7 +226,7 @@
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 80.0,
         "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
@@ -276,7 +276,8 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Shooter A Speed": true
             }
           },
           "0,3": {
@@ -293,7 +294,8 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul"
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Shooter B Speed": true
             }
           },
           "5,1": {
@@ -441,10 +443,10 @@
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
-        "gridSize": 128.0,
+        "gridSize": 80.0,
         "showGrid": true,
-        "hgap": 16.0,
-        "vgap": 16.0,
+        "hgap": 5.0,
+        "vgap": 5.0,
         "titleType": 0,
         "tiles": {
           "5,1": {
@@ -740,9 +742,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.333333492279053,
-    "y": -7.333333492279053,
-    "width": 2014.6666259765625,
-    "height": 1316.0
+    "x": -9.0,
+    "y": -9.0,
+    "width": 1550.4000244140625,
+    "height": 878.4000244140625
   }
 }

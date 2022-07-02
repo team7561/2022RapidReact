@@ -32,7 +32,7 @@ public class SH_Far_Shot extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.stop_auto_hood();
-    m_subsystem.set_RPM(1427, 1445);
+    m_subsystem.set_RPM(1457, 1475);
     m_subsystem.setHood(0.7);
   }
 

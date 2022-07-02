@@ -21,7 +21,6 @@ public class CLB_Deploy extends CommandBase {
   @Override
   public void initialize() {
     m_intake.setMode(IntakeMode.INTAKE_DEPLOY_REQUESTED);
-    m_shooter.stop();
   }
 
   @Override
