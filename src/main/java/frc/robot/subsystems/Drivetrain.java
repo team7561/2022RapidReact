@@ -138,8 +138,8 @@ public class Drivetrain extends SubsystemBase {
         {
             moduleA.setTargetAngle(angle);
             moduleB.setTargetAngle(angle);
-            moduleD.setTargetAngle(0);
-            moduleC.setTargetAngle(0);
+            moduleD.setTargetAngle(90);
+            moduleC.setTargetAngle(90);
         }
         if (m_mode == SwerveMode.CAR_X)
         {

@@ -49,7 +49,7 @@ public class RobotContainer {
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
-  private Joystick  joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
+  private Joystick  wheel = new Joystick(4); //Logitech Extreme 3D Pro Joysick Controller
   private XboxController xboxController = new XboxController(1);
   private final LEDController leds = new LEDController();
 
@@ -59,7 +59,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist()*0.7, () -> (joystick.getThrottle()+1)/2));
+    drivetrain.setDefaultCommand(new DT_WheelSwerveDrive(drivetrain, () -> wheel.getX(), () -> 1-wheel.getY(), () -> 0.7-wheel.getTwist()*0.7, () -> (wheel.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
     leds.setDefaultCommand(new LED_Teleop(leds, drivetrain, shooter, limeLightController));
@@ -85,18 +85,22 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    final JoystickButton trigger = new JoystickButton(joystick, 1);
-    final JoystickButton button_2 = new JoystickButton(joystick, 2);
-    final JoystickButton button_3 = new JoystickButton(joystick, 3);
-    final JoystickButton button_4 = new JoystickButton(joystick, 4);
-    final JoystickButton button_5 = new JoystickButton(joystick, 5);
-    final JoystickButton button_6 = new JoystickButton(joystick, 6);
-    final JoystickButton button_7 = new JoystickButton(joystick, 7);
-    final JoystickButton button_8 = new JoystickButton(joystick, 8);
-    final JoystickButton button_9 = new JoystickButton(joystick, 9);
-    final JoystickButton button_10 = new JoystickButton(joystick, 10);
-    final JoystickButton button_11 = new JoystickButton(joystick, 11);
-    final JoystickButton button_12 = new JoystickButton(joystick, 12);
+    final JoystickButton trigger = new JoystickButton(wheel, 1);
+    final JoystickButton button_2 = new JoystickButton(wheel, 2);
+    final JoystickButton button_3 = new JoystickButton(wheel, 3);
+    final JoystickButton button_4 = new JoystickButton(wheel, 4);
+    final JoystickButton button_5 = new JoystickButton(wheel, 5);
+    final JoystickButton button_6 = new JoystickButton(wheel, 6);
+    final JoystickButton button_7 = new JoystickButton(wheel, 7);
+    final JoystickButton button_8 = new JoystickButton(wheel, 8);
+    final JoystickButton button_9 = new JoystickButton(wheel, 9);
+    final JoystickButton button_10 = new JoystickButton(wheel, 10);
+    final JoystickButton button_11 = new JoystickButton(wheel, 11);
+    final JoystickButton button_12 = new JoystickButton(wheel, 12);
+    final JoystickButton button_13 = new JoystickButton(wheel, 13);
+    final JoystickButton button_14 = new JoystickButton(wheel, 14);
+    final JoystickButton button_15 = new JoystickButton(wheel, 15);
+    final JoystickButton button_16 = new JoystickButton(wheel, 16);
 
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
     final JoystickButton button_B = new JoystickButton(xboxController, 2);
@@ -118,47 +122,32 @@ public class RobotContainer {
     final DPadButton xbox_dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
     final DPadButton xbox_dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
 
-    final POVButton joystick_dpad_Up = new POVButton(joystick, 0);
-    final POVButton joystick_dpad_Down = new POVButton(joystick, 180);
-    final POVButton joystick_dpad_Left = new POVButton(joystick, 270);
-    final POVButton joystick_dpad_Right = new POVButton(joystick, 90);
+    final POVButton joystick_dpad_Up = new POVButton(wheel, 0);
+    final POVButton joystick_dpad_Down = new POVButton(wheel, 180);
+    final POVButton joystick_dpad_Left = new POVButton(wheel, 270);
+    final POVButton joystick_dpad_Right = new POVButton(wheel, 90);
 
     SmartDashboard.putData("Save swerve steer offsets", new DT_Save_Offsets());
     SmartDashboard.putData("Drive manual align", new DT_ManualAlign(drivetrain));
    
     //trigger.whenPressed(new DT_ArcadeDrive(drivetrain, 0.4, 0.4, 0.5),true);
     
-    trigger.whenPressed(new INT_Grabbing_Start(intake), true);
-    trigger.whenReleased(new INT_Grabbing_Stop(intake), true);
-    button_2.whenPressed(new INT_EjectBall(intake), true);
-    button_2.whenReleased(new INT_Grabbing_Stop(intake), true);
+    button_5.whenPressed(new INT_Grabbing_Start(intake), true);
+    button_5.whenReleased(new INT_Grabbing_Stop(intake), true);
+    button_6.whenPressed(new INT_EjectBall(intake), true);
+    button_6.whenReleased(new INT_Grabbing_Stop(intake), true);
 
-    button_3.whenPressed(new INT_Toggle(intake), true);
+    button_7.whenPressed(new INT_Toggle(intake), true);
 
-    button_4.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.HUB_TRACK),true);
+    trigger.whenPressed(new INJ_Reverse_Index_Ball(injector), true);
+    button_2.whenPressed(new INJ_Index_Ball(injector), true);
 
-    button_6.whenPressed(new SH_Perfect_Shot(shooter), true);
-    
-    button_7.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ROBOTCENTRICSWERVE),true);
-    button_8.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.SPIN),true);
-    button_9.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ULTIMATESWERVE),true);
-    button_10.whenPressed(new DT_Drive_Change_Mode(drivetrain, SwerveMode.ULTIMATEDEFENCE),true);
-    button_11.whenPressed(new DT_Drive_ResetEncoders(drivetrain),true);
-    button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
+    button_13.whenPressed(new SH_Far_Shot(shooter), true);
+    button_14.whenPressed(new SH_Close_Shot(shooter), true); 
+    button_15.whenPressed(new SH_Perfect_Shot(shooter), true);
 
-    button_LT.whenPressed(new INJ_Reverse_Index_Ball(injector), true);
-    button_RT.whenPressed(new INJ_Index_Ball(injector), true);
-    button_LB.whenPressed(new INJ_Reverse(injector), true);
-    button_LB.whenReleased(new INJ_Stop(injector), true);
-    button_RB.whenPressed(new INJ_Forward(injector), true);
-    button_RB.whenReleased(new INJ_Stop(injector), true);
-
-    button_Y.whenPressed(new SH_Far_Shot(shooter), true);
-    button_A.whenPressed(new SH_Close_Shot(shooter), true); 
-    button_X.whenPressed(new SH_Perfect_Shot(shooter), true);
-
-    back.whenPressed(new SH_Shooting_Stop(shooter, limeLightController), true);
-    start.whenPressed(new SH_Shooting_Start(shooter, limeLightController), true);
+    button_9.whenPressed(new SH_Shooting_Stop(shooter, limeLightController), true);
+    button_10.whenPressed(new SH_Shooting_Start(shooter, limeLightController), true);
 
     xbox_dpad_Up.whenPressed(new CLB_ReverseWinch(climber, intake, shooter), true);
     xbox_dpad_Up.whenReleased(new CLB_StopWinch(climber), true);

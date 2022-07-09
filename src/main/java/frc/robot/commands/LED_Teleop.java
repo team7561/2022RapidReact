@@ -41,51 +41,52 @@ public class LED_Teleop extends CommandBase {
       
     SmartDashboard.putNumber("Left Vibrate", 0);
     SmartDashboard.putNumber("Right Vibrate", 0);
-      if (m_drivetrain.isStill() && !m_shooter.shooting){
-          SmartDashboard.putNumber("LED Value", -0.20);
+      if (m_drivetrain.isStill() && !m_shooter.shooting){//If not shooting or moving
+          SmartDashboard.putNumber("LED Value", -0.21);//Heartbeat White
       }
       else if (m_drivetrain.getMode() == SwerveMode.ROBOTCENTRICSWERVE){
         if (m_lc.get_ta() != 0 && m_shooter.atSetpoint() && Math.abs(m_lc.get_tx()) < 4){
-            SmartDashboard.putNumber("LED Value", 0.77);
+            SmartDashboard.putNumber("LED Value", 0.77); // Green
             SmartDashboard.putNumber("Left Vibrate", 0.5);
         }
-        else if (m_lc.get_ta() != 0){
-            SmartDashboard.putNumber("LED Value", -0.99);
+        else if (m_lc.get_ta() != 0){//If target
+
+            SmartDashboard.putNumber("LED Value", -0.99);//Rainbow Palette
             SmartDashboard.putNumber("Left Vibrate", 1);
         }
 
-        else if (m_shooter.atSetpoint()){
-            SmartDashboard.putNumber("LED Value", -0.09);
+        else if (m_shooter.atSetpoint()){//Shooter up to speed
+            SmartDashboard.putNumber("LED Value", -0.09);//Strobe Blue
         }
         else{
-            SmartDashboard.putNumber("LED Value", -0.11); 
+            SmartDashboard.putNumber("LED Value", -0.11); //Strobe red
         }
     }
 
     else if (m_drivetrain.getMode() == SwerveMode.ULTIMATESWERVE){
         if (m_drivetrain.timer.get() < 1){
-            SmartDashboard.putNumber("LED Value", 0.85);
+            SmartDashboard.putNumber("LED Value", 0.85);//Dark Blue
         }
         else if (m_lc.get_ta() != 0 && m_shooter.atSetpoint() && Math.abs(m_lc.get_tx()) < 4){
-            SmartDashboard.putNumber("LED Value", 0.77);
+            SmartDashboard.putNumber("LED Value", 0.77);//Green
             SmartDashboard.putNumber("Right Vibrate", 0.5);
         }
         else if (m_lc.get_ta() != 0){
-            SmartDashboard.putNumber("LED Value", -0.99);
+            SmartDashboard.putNumber("LED Value", -0.99);//Rainbow Palette
         }
 
         else if (m_shooter.atSetpoint()){
-            SmartDashboard.putNumber("LED Value", -0.15);
+            SmartDashboard.putNumber("LED Value", -0.15);//Breathe Blue
         }
         else{
-            SmartDashboard.putNumber("LED Value", -0.17);    
+            SmartDashboard.putNumber("LED Value", -0.17);//Breathe Red
         }
       } else{
         if (m_lc.get_ta() != 0 && m_shooter.atSetpoint() && Math.abs(m_lc.get_tx()) < 4){
-            SmartDashboard.putNumber("LED Value", 0.77);
+            SmartDashboard.putNumber("LED Value", 0.77);//Green
         }
         else if (m_lc.get_ta() != 0){
-            SmartDashboard.putNumber("LED Value", -0.99);
+            SmartDashboard.putNumber("LED Value", -0.99);//Rainbow Palette
         }
       }
   }
