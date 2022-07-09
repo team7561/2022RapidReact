@@ -49,7 +49,8 @@ public class RobotContainer {
   // private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   //HID
-  private Joystick  joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
+  private Joystick  left_joystick = new Joystick(0); //Logitech Extreme 3D Pro Joysick Controller
+  private Joystick  right_joystick = new Joystick(2); //Logitech Extreme 3D Pro Joysick Controller
   private XboxController xboxController = new XboxController(1);
   private final LEDController leds = new LEDController();
 
@@ -59,7 +60,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist()*0.7, () -> (joystick.getThrottle()+1)/2));
+    drivetrain.setDefaultCommand(new DT_SwerveDrive(drivetrain, () -> left_joystick.getX(), () -> left_joystick.getY(), () -> right_joystick.getX()*0.7, () -> (left_joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
     climber.setDefaultCommand(new CLB_StopWinch(climber));
     leds.setDefaultCommand(new LED_Teleop(leds, drivetrain, shooter, limeLightController));
@@ -85,18 +86,18 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    final JoystickButton trigger = new JoystickButton(joystick, 1);
-    final JoystickButton button_2 = new JoystickButton(joystick, 2);
-    final JoystickButton button_3 = new JoystickButton(joystick, 3);
-    final JoystickButton button_4 = new JoystickButton(joystick, 4);
-    final JoystickButton button_5 = new JoystickButton(joystick, 5);
-    final JoystickButton button_6 = new JoystickButton(joystick, 6);
-    final JoystickButton button_7 = new JoystickButton(joystick, 7);
-    final JoystickButton button_8 = new JoystickButton(joystick, 8);
-    final JoystickButton button_9 = new JoystickButton(joystick, 9);
-    final JoystickButton button_10 = new JoystickButton(joystick, 10);
-    final JoystickButton button_11 = new JoystickButton(joystick, 11);
-    final JoystickButton button_12 = new JoystickButton(joystick, 12);
+    final JoystickButton trigger = new JoystickButton(left_joystick, 1);
+    final JoystickButton button_2 = new JoystickButton(left_joystick, 2);
+    final JoystickButton button_3 = new JoystickButton(left_joystick, 3);
+    final JoystickButton button_4 = new JoystickButton(left_joystick, 4);
+    final JoystickButton button_5 = new JoystickButton(left_joystick, 5);
+    final JoystickButton button_6 = new JoystickButton(left_joystick, 6);
+    final JoystickButton button_7 = new JoystickButton(left_joystick, 7);
+    final JoystickButton button_8 = new JoystickButton(left_joystick, 8);
+    final JoystickButton button_9 = new JoystickButton(left_joystick, 9);
+    final JoystickButton button_10 = new JoystickButton(left_joystick, 10);
+    final JoystickButton button_11 = new JoystickButton(left_joystick, 11);
+    final JoystickButton button_12 = new JoystickButton(left_joystick, 12);
 
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
     final JoystickButton button_B = new JoystickButton(xboxController, 2);
@@ -118,10 +119,10 @@ public class RobotContainer {
     final DPadButton xbox_dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
     final DPadButton xbox_dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);
 
-    final POVButton joystick_dpad_Up = new POVButton(joystick, 0);
-    final POVButton joystick_dpad_Down = new POVButton(joystick, 180);
-    final POVButton joystick_dpad_Left = new POVButton(joystick, 270);
-    final POVButton joystick_dpad_Right = new POVButton(joystick, 90);
+    final POVButton joystick_dpad_Up = new POVButton(left_joystick, 0);
+    final POVButton joystick_dpad_Down = new POVButton(left_joystick, 180);
+    final POVButton joystick_dpad_Left = new POVButton(left_joystick, 270);
+    final POVButton joystick_dpad_Right = new POVButton(left_joystick, 90);
 
     SmartDashboard.putData("Save swerve steer offsets", new DT_Save_Offsets());
     SmartDashboard.putData("Drive manual align", new DT_ManualAlign(drivetrain));
