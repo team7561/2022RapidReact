@@ -15,22 +15,24 @@ public class INJ_Index_Ball extends CommandBase {
 
   @Override
   public void initialize() {
+    m_subsystem.resetEncoder();
 
   }
 
   @Override
   public void execute() {
-    m_subsystem.resetEncoder();
-    m_subsystem.setMode(InjectorMode.INJECTOR_INDEX_BALL);
+    m_subsystem.setMode(InjectorMode.INJECTOR_FORWARD);
   }
 
   @Override
   public void end(boolean interrupted) {
+    m_subsystem.resetEncoder();
+    m_subsystem.setMode(InjectorMode.INJECTOR_STOP);
 
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return m_subsystem.getEncoderCount()< -10;
   }
 }

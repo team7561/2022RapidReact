@@ -147,9 +147,7 @@ public class RobotContainer {
     button_12.whenPressed(new DT_Drive_Reset_Gyro(drivetrain),true);
 
     button_LT.whenPressed(new INJ_Reverse_Index_Ball(injector), true);
-    button_LT.whenReleased(new INJ_Stop(injector), true);
     button_RT.whenPressed(new INJ_Index_Ball(injector), true);
-    button_RT.whenReleased(new INJ_Stop(injector), true);
     button_LB.whenPressed(new INJ_Reverse(injector), true);
     button_LB.whenReleased(new INJ_Stop(injector), true);
     button_RB.whenPressed(new INJ_Forward(injector), true);
