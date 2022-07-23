@@ -88,6 +88,11 @@ public class SwerveModule extends SubsystemBase {
         currentAngle = 0;
 
         // PID coefficients
+
+        steering_kP = 0.001;
+        steering_kI = 0;
+        steering_kD = 0;
+
         driving_kP = 0.01; 
         driving_kI = 0.00000;
         driving_kD = 0.00000; 
