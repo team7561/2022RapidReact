@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    m_robotContainer.cancelVibration();
+    //m_robotContainer.cancelVibration();
   }
 
   @Override
@@ -99,7 +99,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    m_robotContainer.updateVibration();
+    //m_robotContainer.updateVibration();
   }
 
   @Override

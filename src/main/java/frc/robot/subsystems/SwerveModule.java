@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -29,6 +30,7 @@ public class SwerveModule extends SubsystemBase {
     double m_offset, m_angle, m_steering_target, m_steering_sp, currentAngle, moduleAngle, m_rawSteeringTarget;
 
     String m_pos;
+    SwerveModuleState state = new SwerveModuleState();
 
     Boolean m_inverted;
     Boolean m_steering, m_driving;
@@ -41,6 +43,9 @@ public class SwerveModule extends SubsystemBase {
 
     DigitalSource absolute_encoder_source;
     DutyCycle absolute_encoder;
+
+    private PIDController m_turningPIDController = null;
+    private PIDController m_drivingPIDController = null;
 
     public double steering_kP, steering_kI, steering_kD, steering_kIz, steering_kFF, steering_kMaxOutput, steering_kMinOutput, steering_maxRPM, steering_m_setpoint;
     public double driving_kP, driving_kI, driving_kD, driving_kIz, driving_kFF, driving_kMaxOutput, driving_kMinOutput, driving_maxRPM, driving_m_setpoint;
@@ -102,52 +107,15 @@ public class SwerveModule extends SubsystemBase {
         m_driving_pidController.setFF(driving_kFF);
         m_driving_pidController.setOutputRange(driving_kMinOutput, driving_kMaxOutput);
 
+        m_turningPIDController = new PIDController(steering_kP, steering_kI, steering_kD);
+        m_drivingPIDController = new PIDController(driving_kP, driving_kI, driving_kD);
         
         SmartDashboard.putNumber(m_pos+"Encoder", absolute_encoder.getOutput());
     }
 
     @Override
     public void periodic() {
-        if (Math.abs(SmartDashboard.getNumber(m_pos+"_Offset_Angle",getAngleOffset()) - getAngleOffset())< 0.01)
-        {
-            SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
-        }
-        SmartDashboard.putNumber(m_pos+"Encoder", absolute_encoder.getOutput());
-        currentAngle = ((SmartDashboard.getNumber(m_pos+"_Angle", 0)-m_offset*360)+360)%360;
-
-        //Error defines the magnitued and direction of the target angle from the current angle
-        double error = m_steering_target-currentAngle;
-
-        //dir is the motor power set to the steering motors
-        double dir = 1;
-
-        moduleAngle = currentAngle;
-        //Alters magnitued and direction of error if it exceeds 180 degrees.
-        if (Math.abs(error) > 180){
-            error = (360 - Math.abs(error)) * -Math.signum(error);
-            dir = -1;
-            moduleAngle = (currentAngle + 180)%360; // Correct for being inverted
-        }
-
-        if (m_steering)
-        {
-            //Multiplies steering motor power by a function of the target drive power.
-            //This smooths the steering power for when modules are inverted.
-            m_steeringMotor.set((error * 0.1 / 4.6)* Math.pow(Math.abs(driving_m_setpoint), 0.25)); 
-        }
-        else
-        {
-            m_steeringMotor.set(0);
-        }
-
-        if (m_driving)
-        {
-            m_driveMotor.set(driving_m_setpoint);
-        }
-        else
-        {
-            m_driveMotor.set(0);
-        }
+        
     }
 
     public double getAngleError(){
@@ -169,6 +137,15 @@ public class SwerveModule extends SubsystemBase {
     public double getAngle()
     {
         return absolute_encoder.getOutput()*360;
+    }
+
+    public void setDesiredState(SwerveModuleState desiredState){
+        state = SwerveModuleState.optimize(state, new Rotation2d(getAngle()));
+        double turningOutput = m_turningPIDController.calculate(getAngle(), state.speedMetersPerSecond);
+        m_steeringMotor.set(turningOutput);
+        m_driveMotor.set(state.speedMetersPerSecond);
+        // setTargetAngle(state.angle.getDegrees());
+        // setSpeed(state.speedMetersPerSecond);
     }
 
     public SwerveModuleState getState()
@@ -204,6 +181,11 @@ public class SwerveModule extends SubsystemBase {
     public double getSpeed(){
         //Gets speed in rs^-1
         return m_driveMotor.getEncoder().getVelocity()/100;
+    }
+
+    public double getWheelVelocity(){
+        // Get the velocity of the wheel in m/s
+        return getSpeed() * 10 * 6.545454545454545;
     }
 
     public double getSteerSpeed(){

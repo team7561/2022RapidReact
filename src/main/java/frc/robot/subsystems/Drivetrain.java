@@ -14,14 +14,19 @@ import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.SwerveMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class Drivetrain extends SubsystemBase {
     /**
@@ -64,10 +69,10 @@ public class Drivetrain extends SubsystemBase {
         moduleD = new SwerveModule(Preferences.getDouble("D Offset",0), Constants.SWERVE_D_ENCODER_PORT, Ports.CAN_ID_DRIVING_D, Ports.CAN_ID_STEERING_D, "D");
         moduleC = new SwerveModule(Preferences.getDouble("C Offset",0), Constants.SWERVE_C_ENCODER_PORT, Ports.CAN_ID_DRIVING_C, Ports.CAN_ID_STEERING_C, "C");
         
-        moduleA_location = new Translation2d(-0.3, 0.3); //FL
-        moduleB_location = new Translation2d(0.3, 0.3); //FR
-        moduleC_location = new Translation2d(0.3, -0.3); //BR
-        moduleD_location = new Translation2d(0.3, -0.3); //BL
+        moduleA_location = new Translation2d(-0.2, 0.2); //FL
+        moduleB_location = new Translation2d(0.2, 0.2); //FR
+        moduleD_location = new Translation2d(0.2, -0.2); //BL
+        moduleC_location = new Translation2d(0.2, -0.2); //BR
         
         m_kinemtics = new SwerveDriveKinematics(moduleA_location, moduleB_location, moduleC_location, moduleD_location);
         m_pose = new Pose2d(5, 13.5, new Rotation2d());
@@ -228,6 +233,27 @@ public class Drivetrain extends SubsystemBase {
         setSwerveVectorNoGyro(twist, target_angle + imu.getAngle(), mag);
     }
 
+    public void drive(DoubleSupplier m_x,DoubleSupplier m_y,DoubleSupplier m_twist,DoubleSupplier m_speed, boolean fieldCentric)
+    {
+        ChassisSpeeds speeds = 
+            new ChassisSpeeds(m_y.getAsDouble() * m_speed.getAsDouble(), m_x.getAsDouble() * m_speed.getAsDouble(), m_twist.getAsDouble() * m_speed.getAsDouble()); 
+        SwerveModuleState[] swerveStates = m_kinemtics.toSwerveModuleStates(speeds);
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveStates, 1);
+        moduleA.setDesiredState(swerveStates[0]);
+        moduleB.setDesiredState(swerveStates[0]);
+        moduleC.setDesiredState(swerveStates[0]);
+        moduleD.setDesiredState(swerveStates[0]);
+        SmartDashboard.putNumber("Module A State Angle", swerveStates[0].angle.getDegrees());
+        SmartDashboard.putNumber("Module B State Angle", swerveStates[1].angle.getDegrees());
+        SmartDashboard.putNumber("Module C State Angle", swerveStates[2].angle.getDegrees());
+        SmartDashboard.putNumber("Module D State Angle", swerveStates[3].angle.getDegrees());
+
+        SmartDashboard.putNumber("Module A State Speed", swerveStates[0].speedMetersPerSecond);
+        SmartDashboard.putNumber("Module B State Speed", swerveStates[1].speedMetersPerSecond);
+        SmartDashboard.putNumber("Module C State Speed", swerveStates[2].speedMetersPerSecond);
+        SmartDashboard.putNumber("Module D State Speed", swerveStates[3].speedMetersPerSecond);
+
+    }
     public void setSwerveVectorNoGyro(double twist, double target_angle, double mag){
         //x and y component of translation vector (offest with imu value).
         double x = mag * Math.cos((target_angle) * Math.PI/180);
