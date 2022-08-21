@@ -21,6 +21,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalSource;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DutyCycle;
 
 public class SwerveModule extends SubsystemBase {
@@ -47,6 +48,7 @@ public class SwerveModule extends SubsystemBase {
     private PIDController m_turningPIDController = null;
     private PIDController m_drivingPIDController = null;
 
+    private double turningOutput;
     public double steering_kP, steering_kI, steering_kD, steering_kIz, steering_kFF, steering_kMaxOutput, steering_kMinOutput, steering_maxRPM, steering_m_setpoint;
     public double driving_kP, driving_kI, driving_kD, driving_kIz, driving_kFF, driving_kMaxOutput, driving_kMinOutput, driving_maxRPM, driving_m_setpoint;
 
@@ -58,6 +60,7 @@ public class SwerveModule extends SubsystemBase {
         TRAJECTORY,
         AZIMUTH
     }
+
 
     public SwerveModule(double angleOffset, int encoderPort, int driveChannel, int steerChannel, String pos) {
         setAngleOffset(angleOffset);
@@ -86,15 +89,15 @@ public class SwerveModule extends SubsystemBase {
         m_driving = true;
 
         currentAngle = 0;
-
+        turningOutput = 0;
         // PID coefficients
 
-        steering_kP = 0.001;
+        steering_kP = 0.0001;
         steering_kI = 0;
         steering_kD = 0;
 
-        driving_kP = 0.30; 
-        driving_kI = 0.01000;
+        driving_kP = 0.15; 
+        driving_kI = 0.05;
         driving_kD = 0.00000; 
         driving_kFF = 0; 
         driving_m_setpoint = 0;
@@ -123,17 +126,6 @@ public class SwerveModule extends SubsystemBase {
         
     }
 
-    public double getAngleError(){
-        //Gets magnitude and direction of target angle from current angle (-180 to 180)
-        double error = m_steering_target-currentAngle;
-
-        if (Math.abs(error) > 180){
-            error = (360 - Math.abs(error)) * -Math.signum(error);
-        }
-
-        return Math.abs(error);
-    }
-
     public double getPulses()
     {
         return absolute_encoder.getOutput();
@@ -145,10 +137,12 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void setDesiredState(SwerveModuleState desiredState){
-        state = SwerveModuleState.optimize(state, new Rotation2d(getAngle()));
-        double turningOutput = m_turningPIDController.calculate(getAngle(), state.speedMetersPerSecond);
+        //state = SwerveModuleState.optimize(desiredState, new Rotation2d(getAngle()));
+        state = desiredState;
+        turningOutput = m_turningPIDController.calculate(getAngle(), 45);
+        
         m_steeringMotor.set(turningOutput);
-        m_driveMotor.set(state.speedMetersPerSecond);
+        m_driveMotor.set(0.1);
         // setTargetAngle(state.angle.getDegrees());
         // setSpeed(state.speedMetersPerSecond);
     }
@@ -201,31 +195,7 @@ public class SwerveModule extends SubsystemBase {
         return m_driveMotor.get();
     }
 
-    public void setSpeed(double speed){
-        if (Math.abs(getAngleError()) < 10){
-            if (m_inverted)
-            {
-                m_driveMotor.set(-speed);
-            }
-            else 
-            {
-                m_driveMotor.set(speed);
-            }
-        } else {
-            m_driveMotor.set(0);
-        }
-    }
 
-    public void setVelocity(double velocity){
-        if (m_inverted)
-        {
-            driving_m_setpoint = -velocity;
-        }
-        else 
-        {
-            driving_m_setpoint = velocity;
-        }
-    }
 
     public void setToZeroAngle(){
         setTargetAngle(0);  //Sets current encoder value to zero
@@ -253,11 +223,12 @@ public class SwerveModule extends SubsystemBase {
         SmartDashboard.putNumber(m_pos+"_Drivespeed", getSpeed());
         SmartDashboard.putNumber(m_pos+"_Angle", getAngle());
         SmartDashboard.putNumber(m_pos+"_AngleCorrected", moduleAngle);
-        SmartDashboard.putNumber(m_pos+"_AngleTarget", m_steering_target);
+        SmartDashboard.putNumber(m_pos+"_AngleTarget", turningOutput);
         SmartDashboard.putNumber(m_pos+"_RawAngleTarget", m_rawSteeringTarget);
         SmartDashboard.putNumber(m_pos+"_AngleEncoderOutput", absolute_encoder.getOutput());
         SmartDashboard.putNumber(m_pos+"_DriveEncoderOutput", m_driveMotor.getEncoder().getPosition());
         SmartDashboard.putBoolean(m_pos+"_Inverted", m_inverted);
+        
         /*SmartDashboard.putNumber(m_pos+"_CurrentAngle", currentAngle);
         SmartDashboard.putNumber(m_pos+"_PV", m_steeringMotor.getEncoder().getPosition());
         SmartDashboard.putNumber(m_pos+"_SP", steering_m_setpoint);

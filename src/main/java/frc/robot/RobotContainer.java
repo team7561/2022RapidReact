@@ -64,16 +64,9 @@ private final PiVisionController piVisionController = new PiVisionController();
 
     LiveWindow.disableAllTelemetry();
     
-    mAutoChooser.setDefaultOption("Auto_Shoot_Spin_Pickup_Shoot", new Auto_Shoot_Spin_Pickup_Shoot(shooter, injector, drivetrain, leds, intake));
-    mAutoChooser.addOption("90 degrees turn", new Auto_Turn_90_Degrees(drivetrain, leds));
+    mAutoChooser.setDefaultOption("90 degrees turn", new Auto_Turn_90_Degrees(drivetrain, leds));
     mAutoChooser.addOption("5 second tracking cargo", new Auto_Drive_5s_Cargo(drivetrain, leds));
     mAutoChooser.addOption("1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake, limeLightController));
-    mAutoChooser.addOption("2 Balls (No tracking)", new Auto_Shoot_2_Balls_No_Tracking(shooter, injector, drivetrain,leds, intake, limeLightController));
-    mAutoChooser.addOption("2 Balls  (Tracking)", new Auto_Shoot_2_Balls_Tracking(shooter, injector, drivetrain,leds, intake, limeLightController));
-    mAutoChooser.addOption("3 Balls", new Auto_Shoot_3_Balls(shooter, injector, drivetrain,leds, intake));
-    mAutoChooser.addOption("3 Balls (Luke)", new Auto_3_Ball(drivetrain, intake, shooter, injector, leds, limeLightController));
-    mAutoChooser.addOption("2 Balls A", new Auto_2_Ball_A(drivetrain, intake, shooter, injector, leds, limeLightController));
-    mAutoChooser.addOption("2 Balls B", new Auto_2_Ball_B(drivetrain, intake, shooter, injector, leds, limeLightController));
     mAutoChooser.addOption("Auto_Injector_Detect_Ball", new Auto_Injector_Detect_Ball(shooter, injector, drivetrain, leds, intake));
     SmartDashboard.putData("Auto", mAutoChooser);
   }

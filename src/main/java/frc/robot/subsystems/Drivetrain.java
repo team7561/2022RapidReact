@@ -202,14 +202,6 @@ public class Drivetrain extends SubsystemBase {
             moduleC.setTargetAngle(-angle);
         }
     }
-    public void setSpeed(double speed)
-    {
-        moduleA.setVelocity(speed);
-        moduleB.setVelocity(speed);
-        moduleC.setVelocity(speed);
-        moduleD.setVelocity(speed);
-    }
-
 
     public void updateOffsets(){
         if (moduleD.getAngleOffset() != SmartDashboard.getNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE))
@@ -236,9 +228,9 @@ public class Drivetrain extends SubsystemBase {
     public void drive(DoubleSupplier m_x,DoubleSupplier m_y,DoubleSupplier m_twist,DoubleSupplier m_speed, boolean fieldCentric)
     {
         ChassisSpeeds speeds = 
-            new ChassisSpeeds(m_y.getAsDouble() * m_speed.getAsDouble(), m_x.getAsDouble() * m_speed.getAsDouble(), m_twist.getAsDouble() * m_speed.getAsDouble()); 
+        new ChassisSpeeds(m_y.getAsDouble() * m_speed.getAsDouble(), m_x.getAsDouble() * m_speed.getAsDouble(), m_twist.getAsDouble() * m_speed.getAsDouble()); 
         SwerveModuleState[] swerveStates = m_kinemtics.toSwerveModuleStates(speeds);
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveStates, 1);
+        // SwerveDriveKinematics.desaturateWheelSpeeds(swerveStates, 1);
         moduleA.setDesiredState(swerveStates[0]);
         moduleB.setDesiredState(swerveStates[0]);
         moduleC.setDesiredState(swerveStates[0]);
@@ -252,6 +244,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Module B State Speed", swerveStates[1].speedMetersPerSecond);
         SmartDashboard.putNumber("Module C State Speed", swerveStates[2].speedMetersPerSecond);
         SmartDashboard.putNumber("Module D State Speed", swerveStates[3].speedMetersPerSecond);
+
 
     }
     public void setSwerveVectorNoGyro(double twist, double target_angle, double mag){
@@ -276,30 +269,6 @@ public class Drivetrain extends SubsystemBase {
         double Dy = twist * Math.sin(Math.PI/4) + y;
         double Do = (Math.atan2(Dy, Dx) * 180/Math.PI + 180) % 360;
 
-        //Set drive motors
-        moduleA.setVelocity(
-            Math.sqrt(
-                Math.pow(Ax, 2) + Math.pow(Ay, 2)
-                )
-            );
-    
-        moduleB.setVelocity(
-            -Math.sqrt(
-                Math.pow(Bx, 2) + Math.pow(By, 2)
-                )
-            );
-
-        moduleC.setVelocity(
-            -Math.sqrt(
-                Math.pow(Cx, 2) + Math.pow(Cy, 2)
-                )
-            );
-
-        moduleD.setVelocity(
-            Math.sqrt(
-                Math.pow(Dx, 2) + Math.pow(Dy, 2)
-                )
-            );
 
         //Set module angle targets
         moduleA.setTargetAngle(Ao);
