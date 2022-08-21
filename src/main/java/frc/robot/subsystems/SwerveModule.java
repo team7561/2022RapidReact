@@ -64,13 +64,13 @@ public class SwerveModule extends SubsystemBase {
         SmartDashboard.putNumber(m_pos+"_Offset_Angle",getAngleOffset());
         m_angle = 0;
         m_driveMotor = new CANSparkMax(driveChannel, MotorType.kBrushless);
-        m_driveMotor.getEncoder().setVelocityConversionFactor(2.08921623); // 24:11, 45:15, 4" wheel
         m_steeringMotor = new CANSparkMax(steerChannel, MotorType.kBrushless);
 
         absolute_encoder_source = new DigitalInput(encoderPort);
         absolute_encoder = new DutyCycle(absolute_encoder_source);
 
         m_driveMotor.restoreFactoryDefaults();
+        m_driveMotor.getEncoder().setVelocityConversionFactor(2.08921623); // 24:11, 45:15, 4" wheel
         m_steeringMotor.restoreFactoryDefaults();
 
         m_driveMotor.setIdleMode(IdleMode.kCoast);
@@ -93,8 +93,8 @@ public class SwerveModule extends SubsystemBase {
         steering_kI = 0;
         steering_kD = 0;
 
-        driving_kP = 0.01; 
-        driving_kI = 0.00000;
+        driving_kP = 0.30; 
+        driving_kI = 0.01000;
         driving_kD = 0.00000; 
         driving_kFF = 0; 
         driving_m_setpoint = 0;
