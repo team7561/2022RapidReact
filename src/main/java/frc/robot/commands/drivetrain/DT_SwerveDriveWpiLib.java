@@ -1,23 +1,14 @@
 package frc.robot.commands.drivetrain;
 
-import frc.robot.SwerveMode;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.SwerveModule;
-import frc.robot.Constants;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import java.lang.Math;
 
 public class DT_SwerveDriveWpiLib extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Drivetrain m_subsystem;
   private DoubleSupplier m_x, m_y, m_twist, m_speed;
   private double target_angle, m_power;
-
-
 
   public DT_SwerveDriveWpiLib(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier twist, DoubleSupplier speed) {
     m_subsystem = drivetrain;
@@ -38,7 +29,6 @@ public class DT_SwerveDriveWpiLib extends CommandBase {
   public void execute() {
       m_subsystem.drive(m_x, m_y, m_twist, m_speed, false);
   }
-
 
   @Override
   public void end(boolean interrupted) {

@@ -40,8 +40,6 @@ public class Drivetrain extends SubsystemBase {
     Pose2d m_pose;
     Field2d m_field2d;
 
-
-
     public Timer timer;
     double angleA, angleB, angleD, angleC;
     double m_x, m_y;
@@ -138,71 +136,6 @@ public class Drivetrain extends SubsystemBase {
         m_y = pose.getY();
 	}
 
-	public void setTargetAngle(double angle) {
-        if (m_mode == SwerveMode.CAR)
-        {
-            moduleA.setTargetAngle(angle);
-            moduleB.setTargetAngle(angle);
-            moduleD.setTargetAngle(0);
-            moduleC.setTargetAngle(0);
-        }
-        if (m_mode == SwerveMode.CAR_X)
-        {
-            moduleA.setTargetAngle(angle);
-            moduleB.setTargetAngle(0);
-            moduleD.setTargetAngle(angle);
-            moduleC.setTargetAngle(0);
-        }
-        if (m_mode == SwerveMode.SPIN){
-            moduleA.setTargetAngle(315);
-            moduleB.setTargetAngle(45);
-            moduleD.setTargetAngle(225);
-            moduleC.setTargetAngle(135);
-        }
-        if (m_mode == SwerveMode.TANK)
-        {
-            moduleA.setTargetAngle(0);
-            moduleB.setTargetAngle(0);
-            moduleD.setTargetAngle(0);
-            moduleC.setTargetAngle(0);
-        }
-        if (m_mode == SwerveMode.TANK_X)
-        {
-            moduleA.setTargetAngle(90);
-            moduleB.setTargetAngle(90);
-            moduleD.setTargetAngle(90);
-            moduleC.setTargetAngle(90);
-        }
-        if (m_mode == SwerveMode.CRAB)
-        {
-            moduleA.setTargetAngle(angle);
-            moduleB.setTargetAngle(angle);
-            moduleD.setTargetAngle(angle);
-            moduleC.setTargetAngle(angle);
-        }
-        if (m_mode == SwerveMode.CRAB_X)
-        {
-            moduleA.setTargetAngle(90+angle);
-            moduleB.setTargetAngle(90+angle);
-            moduleD.setTargetAngle(90+angle);
-            moduleC.setTargetAngle(90+angle);
-        }
-        if (m_mode == SwerveMode.SNAKE)
-        {
-            moduleA.setTargetAngle(angle);
-            moduleB.setTargetAngle(angle);
-            moduleD.setTargetAngle(-angle);
-            moduleC.setTargetAngle(-angle);
-        }
-        if (m_mode == SwerveMode.SNAKE_X)
-        {
-            moduleA.setTargetAngle(angle);
-            moduleB.setTargetAngle(-angle);
-            moduleD.setTargetAngle(angle);
-            moduleC.setTargetAngle(-angle);
-        }
-    }
-
     public void updateOffsets(){
         if (moduleD.getAngleOffset() != SmartDashboard.getNumber("D_Offset_Angle", Constants.SWERVE_D_OFFSET_ANGLE))
         {
@@ -221,14 +154,11 @@ public class Drivetrain extends SubsystemBase {
           moduleB.setAngleOffset(SmartDashboard.getNumber("B_Offset_Angle", Constants.SWERVE_B_OFFSET_ANGLE));
         }
     }
-    public void setSwerveVector(double twist, double target_angle, double mag){
-        setSwerveVectorNoGyro(twist, target_angle + imu.getAngle(), mag);
-    }
 
     public void drive(DoubleSupplier m_x,DoubleSupplier m_y,DoubleSupplier m_twist,DoubleSupplier m_speed, boolean fieldCentric)
     {
         ChassisSpeeds speeds = 
-        new ChassisSpeeds(m_y.getAsDouble() * m_speed.getAsDouble(), m_x.getAsDouble() * m_speed.getAsDouble(), m_twist.getAsDouble() * m_speed.getAsDouble()); 
+        new ChassisSpeeds(m_x.getAsDouble() * m_speed.getAsDouble(), m_y.getAsDouble() * m_speed.getAsDouble(), m_twist.getAsDouble()); 
         SwerveModuleState[] swerveStates = m_kinemtics.toSwerveModuleStates(speeds);
         // SwerveDriveKinematics.desaturateWheelSpeeds(swerveStates, 1);
         moduleA.setDesiredState(swerveStates[0]);
@@ -244,37 +174,6 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("Module B State Speed", swerveStates[1].speedMetersPerSecond);
         SmartDashboard.putNumber("Module C State Speed", swerveStates[2].speedMetersPerSecond);
         SmartDashboard.putNumber("Module D State Speed", swerveStates[3].speedMetersPerSecond);
-
-
-    }
-    public void setSwerveVectorNoGyro(double twist, double target_angle, double mag){
-        //x and y component of translation vector (offest with imu value).
-        double x = mag * Math.cos((target_angle) * Math.PI/180);
-        double y = mag * Math.sin((target_angle) * Math.PI/180);
-
-        //Constants for individual modules (x component, y component, angle)
-        double Ax = twist * Math.cos(3 * Math.PI/4) + x; 
-        double Ay = twist * Math.sin(3 * Math.PI/4) + y;
-        double Ao = (Math.atan2(Ay, Ax) * 180/Math.PI + 180) % 360;
-
-        double Bx = twist * Math.cos(5 * Math.PI/4) + x; 
-        double By = twist * Math.sin(5 * Math.PI/4) + y;
-        double Bo = (Math.atan2(By, Bx) * 180/Math.PI + 180) % 360;
-
-        double Cx = twist * Math.cos(7 * Math.PI/4) + x; 
-        double Cy = twist * Math.sin(7 * Math.PI/4) + y;
-        double Co = (Math.atan2(Cy, Cx) * 180/Math.PI + 180) % 360;
-
-        double Dx = twist * Math.cos(Math.PI/4) + x; 
-        double Dy = twist * Math.sin(Math.PI/4) + y;
-        double Do = (Math.atan2(Dy, Dx) * 180/Math.PI + 180) % 360;
-
-
-        //Set module angle targets
-        moduleA.setTargetAngle(Ao);
-        moduleB.setTargetAngle(Bo);
-        moduleD.setTargetAngle(Do);
-        moduleC.setTargetAngle(Co);
     }
 
 	public double readGyro() {

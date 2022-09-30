@@ -11,14 +11,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.climber.*;
-import frc.robot.commands.drivetrain.*;
-import frc.robot.commands.injector.*;
-import frc.robot.commands.intake.*;
-import frc.robot.commands.shooter.*;
-import frc.robot.commands.autonomous.*;
-import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.commands.drivetrain.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -33,10 +27,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain();
-  private final Shooter shooter = new Shooter();
+  /*private final Shooter shooter = new Shooter();
   private final Intake intake = new Intake();
   private final Injector injector = new Injector();
-  private final Climber climber = new Climber();
+  private final Climber climber = new Climber();*/
   SendableChooser<Command> mAutoChooser = new SendableChooser<>();
 
 //  private final OnboardVisionController onboardVisionController = new OnboardVisionController();
@@ -58,16 +52,14 @@ private final PiVisionController piVisionController = new PiVisionController();
     configureButtonBindings();
     drivetrain.setDefaultCommand(new DT_SwerveDriveWpiLib(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getTwist()*0.7, () -> (joystick.getThrottle()+1)/2));
     //shooter.setDefaultCommand(new SH_Stop(shooter));//new SH_Stop(shooter));
-    climber.setDefaultCommand(new CLB_StopWinch(climber));
-    leds.setDefaultCommand(new LED_Teleop(leds, drivetrain, shooter, limeLightController));
+    //climber.setDefaultCommand(new CLB_StopWinch(climber));
+    //leds.setDefaultCommand(new LED_Teleop(leds, drivetrain, shooter, limeLightController));
     //CameraServer.startAutomaticCapture(); //Commented out as this is part of OnboardVisionController
 
     LiveWindow.disableAllTelemetry();
     
-    mAutoChooser.setDefaultOption("90 degrees turn", new Auto_Turn_90_Degrees(drivetrain, leds));
-    mAutoChooser.addOption("5 second tracking cargo", new Auto_Drive_5s_Cargo(drivetrain, leds));
-    mAutoChooser.addOption("1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake, limeLightController));
-    mAutoChooser.addOption("Auto_Injector_Detect_Ball", new Auto_Injector_Detect_Ball(shooter, injector, drivetrain, leds, intake));
+    //mAutoChooser.addOption("1 Ball", new Auto_Shoot_Ball(shooter, injector, drivetrain,leds, intake, limeLightController));
+    //mAutoChooser.addOption("Auto_Injector_Detect_Ball", new Auto_Injector_Detect_Ball(shooter, injector, drivetrain, leds, intake));
     SmartDashboard.putData("Auto", mAutoChooser);
   }
 
@@ -107,7 +99,7 @@ private final PiVisionController piVisionController = new PiVisionController();
     
     //trigger.whenPressed(new DT_ArcadeDrive(drivetrain, 0.4, 0.4, 0.5),true);
     SmartDashboard.putData("Save swerve steer offsets", new DT_Save_Offsets());
-    trigger.whenPressed(new INT_Grabbing_Start(intake), true);
+    /*trigger.whenPressed(new INT_Grabbing_Start(intake), true);
     trigger.whenReleased(new INT_Grabbing_Stop(intake), true);
     button_2.whenPressed(new INT_EjectBall(intake), true);
     button_2.whenReleased(new INT_Grabbing_Stop(intake), true);
@@ -151,7 +143,7 @@ private final PiVisionController piVisionController = new PiVisionController();
     dpad_Right.whenReleased(new CLB_StopWinch(climber), true);
 
     left_joystick_button.whenPressed(new INT_Toggle(intake));
-    right_joystick_button.whenPressed(new INT_Toggle(intake));
+    right_joystick_button.whenPressed(new INT_Toggle(intake));*/
   }
 
   /**
