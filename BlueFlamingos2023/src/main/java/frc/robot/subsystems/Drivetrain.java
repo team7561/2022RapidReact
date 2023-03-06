@@ -65,4 +65,11 @@ public Drivetrain() {
         rightMotorA.set(right);
         rightMotorB.set(right);
       }
+      public void updateDashboard() {
+        SmartDashboard.putNumber("Drive Left A Current",leftMotorA.getOutputCurrent());
+        SmartDashboard.putNumber("Drive Left B Current",leftMotorB.getOutputCurrent());
+        SmartDashboard.putNumber("Drive Right A Current",rightMotorA.getOutputCurrent());
+        SmartDashboard.putNumber("Drive Right B Current",rightMotorB.getOutputCurrent());
+
+      }
 }

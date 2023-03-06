@@ -1,47 +1,38 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Intake extends SubsystemBase {
 
 private DoubleSolenoid intakeOpenSolenoid;
-private Ultrasonic ultrasonic1;
-private CANSparkMax intakeMotorLeft, intakeMotorRight;
+private AnalogInput ultrasonicSensor;
+private Spark intakeSparkPWM;
 
-
+private double speed;
 public Intake() {
-    intakeOpenSolenoid = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 0, 1);
+
+    intakeOpenSolenoid = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 0, 2);
     addChild("intakeDeploySolenoid", intakeOpenSolenoid);
     
 
-    ultrasonic1 = new Ultrasonic(5, 6);
-    addChild("Ultrasonic 1", ultrasonic1);
-    
+    ultrasonicSensor = new AnalogInput(0);    
 
-    intakeMotorLeft = new CANSparkMax(21, MotorType.kBrushless);
-    intakeMotorRight = new CANSparkMax(22, MotorType.kBrushless);
-    
-    intakeMotorLeft.restoreFactoryDefaults();  
-    intakeMotorLeft.setInverted(false);
-    intakeMotorLeft.setIdleMode(IdleMode.kCoast);
-    intakeMotorLeft.burnFlash();
-    intakeMotorRight.restoreFactoryDefaults();  
-    intakeMotorRight.setInverted(false);
-    intakeMotorRight.setIdleMode(IdleMode.kCoast);
-    intakeMotorRight.burnFlash();
+    intakeSparkPWM = new Spark(1);
 
 }
-    @Override
-    public void periodic() {
 
+@Override
+    public void periodic() {
+        speed = 0;
+
+        intakeSparkPWM.set(speed);
+        updateDashboard();
     }
 
     public void open()
@@ -50,29 +41,31 @@ public Intake() {
     }
     public void close()
     {
+        speed = 0;
         intakeOpenSolenoid.set(Value.kReverse);
     }
 
     public void grab() {
-        intakeMotorLeft.set(-0.1);
-        intakeMotorRight.set(-0.1);
+        speed = -0.15;
     }
     public void reverse() {
-        intakeMotorLeft.set(0.15);
-        intakeMotorRight.set(0.1);
+        speed = 0.15;
     }
     public void stop() {
-        intakeMotorLeft.set(0);
-        intakeMotorRight.set(0);
+        speed = 0;
     }
     public void grabFast() {
-        intakeMotorLeft.set(-0.3);
-        intakeMotorRight.set(-0.3);
+        speed = -0.3;
     }
 
     public void reverseGrab() {
-        intakeMotorLeft.set(-0.25);
-        intakeMotorRight.set(0.25);
+        speed = 0.3;
+    }
+    public void updateDashboard()
+    {
+        SmartDashboard.putBoolean("Intake Open", intakeOpenSolenoid.get().compareTo(Value.kForward)==1);
+        SmartDashboard.putNumber("Intake Speed", speed);
+        SmartDashboard.putNumber("Ultrasonic Distance", ultrasonicSensor.getAverageVoltage());
     }
 }
 
