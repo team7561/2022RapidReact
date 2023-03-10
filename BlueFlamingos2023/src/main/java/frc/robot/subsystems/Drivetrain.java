@@ -13,6 +13,7 @@ private CANSparkMax leftMotorA;
 private CANSparkMax leftMotorB;
 private CANSparkMax rightMotorA;
 private CANSparkMax rightMotorB;
+private double spin = 1;
 
 public Drivetrain() {
 
@@ -40,6 +41,7 @@ public Drivetrain() {
 
     }
     public void arcadeDrive(double x, double y, double speed, boolean inverted) {
+        x = x*spin;
         double left = (-y + x)*speed;
         double right = (y + x)*speed;
       
@@ -58,6 +60,10 @@ public Drivetrain() {
         }
         SmartDashboard.putNumber("Left", left);
         SmartDashboard.putNumber("Right", right);
+    }
+    public void setSpin(double speed)
+    {
+        spin = speed;
     }
     public void set(double left, double right) {
         leftMotorA.set(left);

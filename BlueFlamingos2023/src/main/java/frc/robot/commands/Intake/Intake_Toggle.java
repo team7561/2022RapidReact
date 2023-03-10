@@ -2,11 +2,11 @@ package frc.robot.commands.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class Intake_Grab_Fast extends CommandBase {
+public class Intake_Toggle extends CommandBase {
 
     Intake m_intake;
 
-    public Intake_Grab_Fast(Intake intake) {
+    public Intake_Toggle(Intake intake) {
 
         m_intake = intake;
     }
@@ -20,7 +20,7 @@ public class Intake_Grab_Fast extends CommandBase {
     @Override
     public void execute() {
 
-        m_intake.grabFast();
+        m_intake.toggle();
     }
 
     // Called once the command ends or is interrupted.
@@ -31,7 +31,7 @@ public class Intake_Grab_Fast extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
 }

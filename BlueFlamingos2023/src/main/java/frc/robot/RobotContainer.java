@@ -4,12 +4,14 @@ import frc.robot.commands.*;
 import frc.robot.commands.Arm.*;
 import frc.robot.commands.Elevator.*;
 import frc.robot.commands.Intake.*;
+import frc.robot.commands.LED_Controller.LED_Set_Colour_Mode;
 import frc.robot.commands.drivetrain.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -23,6 +25,7 @@ public class RobotContainer {
   public final Drivetrain m_drivetrain = new Drivetrain();
   public final Elevator m_elevator = new Elevator();
   public final Arm m_Arm = new Arm();
+  public final LED_Controller m_Led_Controller = new LED_Controller();
 
 // Joysticks
 //private final XboxController xboxController1 = new XboxController(1);
@@ -42,19 +45,21 @@ private final XboxController xboxController = new XboxController(1);
     // SmartDashboard Buttons
     SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
     //SmartDashboard.putData("Intake_Grab", new Intake_Open(m_intake));
-    //SmartDashboard.putData("Intake_Release", new Intake_Close( m_intake ));
+    //SmartDashboard.putData("Intake_Release", new Intak-e_Close( m_intake ));
     //SmartDashboard.putData("Elevator_Raise", new Elevator_Raise());
     //SmartDashboard.putData("Elevator_Lower", new Elevator_Lower( m_elevator ));
 
+    CameraServer.startAutomaticCapture();
     configureButtonBindings();
 
   
-    m_chooser.setDefaultOption("Autonomous Command", new AutonomousCommand());
-    m_chooser.addOption("Drive forwards", new DT_AutoArcadeDrive(m_drivetrain, 0, 1, 0.2, 2));
+    m_chooser.setDefaultOption("Drive forwards", new DT_AutoArcadeDrive(m_drivetrain, 0, 1, 0.2, 1));
     
-    m_drivetrain.setDefaultCommand(new DT_ArcadeDrive(m_drivetrain, () -> joystick1.getX(), () -> joystick1.getY(), () -> joystick1.getThrottle()));
+    m_drivetrain.setDefaultCommand(new DT_ArcadeDrive(m_drivetrain, () -> joystick1.getX(), () -> joystick1.getY(), () -> joystick1.getThrottle(), () -> joystick1.getTrigger()));
     m_elevator.setDefaultCommand(new Elevator_Analog_Control(m_elevator, () -> xboxController.getRightY()));
     m_Arm.setDefaultCommand(new Arm_Analog_Control(m_Arm, () -> xboxController.getLeftY()));
+    
+
   
     SmartDashboard.putData("Auto Mode", m_chooser);
   }
@@ -66,7 +71,6 @@ private final XboxController xboxController = new XboxController(1);
 
 public void init()
 {
-  m_intake.stop();
   m_elevator.stop();
   m_Arm.stop();
 }
@@ -81,8 +85,8 @@ private void configureButtonBindings() {
   //final JoystickButton joystickButton8 = new JoystickButton(joystick1, 8);    
   //final JoystickButton joystickButton9 = new JoystickButton(joystick1, 9);        
   final JoystickButton joystickButton10 = new JoystickButton(joystick1, 10);        
-  final JoystickButton joystickButton11 = new JoystickButton(joystick1, 11);        
-  //final JoystickButton joystickButton12 = new JoystickButton(joystick1, 12);        
+  //final JoystickButton joystickButton11 = new JoystickButton(joystick1, 11);        
+  final JoystickButton joystickButton12 = new JoystickButton(joystick1, 12);        
 
 
   final JoystickButton button_A = new JoystickButton(xboxController, 1);
@@ -113,38 +117,38 @@ private void configureButtonBindings() {
 
 //  button_RT.onTrue(new Intake_Close(m_intake));
       
-  joystickButton1.onTrue(new Intake_Open(m_intake));
-  joystickButton2.onTrue(new Intake_Close(m_intake));
-  joystickButton3.onTrue(new Arm_Retract(m_Arm));
-  joystickButton5.onTrue(new Arm_Extend(m_Arm));
-  
-  back.onTrue(new Intake_Close(m_intake)); // to be left trigger
-  start.onTrue(new Intake_Open(m_intake));
+joystickButton10.onTrue(new DT_SetSpin(m_drivetrain, 0.1));
+joystickButton12.onTrue(new DT_SetSpin(m_drivetrain, 1));
 
+back.onTrue(new LED_Set_Colour_Mode(m_Led_Controller, Constants.BLINKIN_YELLOW)); 
+start.onTrue(new LED_Set_Colour_Mode(m_Led_Controller, Constants.BLINKIN_VIOLET)); 
+button_X.onTrue(new LED_Set_Colour_Mode(m_Led_Controller, Constants.BLINKIN_COLOUR_WAVE_RAINBOW)); 
+button_Y.onTrue(new LED_Set_Colour_Mode(m_Led_Controller, Constants.BLINKIN_RAINBOWGLITTER)); 
 
 /*   button_LB.onTrue(new Intake_Reverse(m_intake));
   button_LB.onFalse(new Intake_Stop(m_intake));
   button_RB.onTrue(new Intake_Grab(m_intake));
   button_RB.onFalse(new Intake_Stop(m_intake));
 */
-  button_LB.onTrue(new Intake_Close(m_intake));
+  /*button_LB.onTrue(new Intake_Close(m_intake));
   button_RB.onTrue(new Intake_Open(m_intake));
 
   button_LT.onTrue(new Intake_Close(m_intake));
-  button_RT.onTrue(new Intake_Open(m_intake));
+  button_RT.onTrue(new Intake_Open(m_intake));*/
 
-  button_A.onTrue(new Arm_Extend(m_Arm));
-  button_B.onTrue(new Arm_Retract(m_Arm));
+  button_LB.onTrue(new Intake_Toggle(m_intake));
+  button_RB.onTrue(new Intake_Toggle(m_intake));
+
+  button_LT.onTrue(new Intake_Toggle(m_intake));
+  button_RT.onTrue(new Intake_Toggle(m_intake));
+
+  button_A.onTrue(new Arm_Toggle(m_Arm));
+  button_B.onTrue(new Arm_Toggle(m_Arm));
 /*
   button_A.onTrue(new Elevator_Raise(m_elevator));
   button_A.onFalse(new Elevator_Stop(m_elevator));
   button_B.onTrue(new Elevator_Lower(m_elevator));
   button_B.onFalse(new Elevator_Stop(m_elevator));*/
-
-  button_X.onTrue(new Arm_Raise(m_Arm));
-  //button_X.onFalse(new Arm_Stop(m_Arm));
-  button_Y.onTrue(new Arm_Lower(m_Arm));
-  //button_Y.onFalse(new Arm_Stop(m_Arm));
 
   xbox_dpad_Left.onTrue(new Arm_Extend(m_Arm));
   xbox_dpad_Right.onTrue(new Arm_Retract(m_Arm));

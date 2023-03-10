@@ -22,6 +22,7 @@ elevatorWinchMotorA = new CANSparkMax(30, MotorType.kBrushless);
 elevatorWinchMotorA.restoreFactoryDefaults();  
 elevatorWinchMotorA.setInverted(false);
 elevatorWinchMotorA.setIdleMode(IdleMode.kCoast);
+elevatorWinchMotorA.setSmartCurrentLimit(10);
 elevatorWinchMotorA.burnFlash();
 
 elevatorWinchMotorB = new CANSparkMax(31, MotorType.kBrushless);
@@ -29,6 +30,7 @@ elevatorWinchMotorB = new CANSparkMax(31, MotorType.kBrushless);
 elevatorWinchMotorB.restoreFactoryDefaults();  
 elevatorWinchMotorB.setInverted(false);
 elevatorWinchMotorB.setIdleMode(IdleMode.kCoast);
+elevatorWinchMotorB.setSmartCurrentLimit(10);
 elevatorWinchMotorB.burnFlash();
 
 
@@ -39,7 +41,14 @@ elevatorWinchGroup = new MotorControllerGroup(elevatorWinchMotorA, elevatorWinch
 
     @Override
     public void periodic() {
-        elevatorWinchGroup.set(elevatorSpeed);
+        if (Math.abs(elevatorSpeed) > 0.05)
+        {
+            elevatorWinchGroup.set(elevatorSpeed*0.75);
+        }
+        else {
+            elevatorWinchGroup.set(0);
+        }
+        //elevatorWinchGroup.set(elevatorSpeed);
         //SmartDashboard.putBoolean("Elevator Upper Limit", limitSwitchUpper.get());
         updateDashboard();
     }
@@ -64,7 +73,7 @@ elevatorWinchGroup = new MotorControllerGroup(elevatorWinchMotorA, elevatorWinch
 
     public void updateDashboard()
     {
-        SmartDashboard.putNumber("Elevator Speed", elevatorWinchGroup.get());
+        SmartDashboard.putNumber("Elevator Speed", elevatorSpeed);
         SmartDashboard.putNumber("Elevator Current A", elevatorWinchMotorA.getOutputCurrent());
         SmartDashboard.putNumber("Elevator Current B", elevatorWinchMotorB.getOutputCurrent());
     }

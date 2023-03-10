@@ -1,5 +1,6 @@
 
 package frc.robot.commands.drivetrain;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 
@@ -10,9 +11,10 @@ import frc.robot.subsystems.Drivetrain;
 public class DT_ArcadeDrive extends CommandBase {
         private final Drivetrain m_drivetrain;
         private DoubleSupplier m_x, m_y, m_speed;
+        private BooleanSupplier m_trigger;
  
 
-    public DT_ArcadeDrive(Drivetrain subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier speed) {
+    public DT_ArcadeDrive(Drivetrain subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier speed, BooleanSupplier trigger) {
 
 
 
@@ -20,6 +22,7 @@ public class DT_ArcadeDrive extends CommandBase {
         m_x = x;
         m_y = y;
         m_speed = speed;
+        m_trigger = trigger;
         addRequirements(m_drivetrain);
 
     }
@@ -32,7 +35,14 @@ public class DT_ArcadeDrive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_drivetrain.arcadeDrive(m_x.getAsDouble(), m_y.getAsDouble(), 0.5*(1+m_speed.getAsDouble()), false);
+        if (m_trigger.getAsBoolean())
+        {
+            m_drivetrain.arcadeDrive(0, m_y.getAsDouble(), 0.5*(1+m_speed.getAsDouble()), false); 
+        }
+        else
+        {
+            m_drivetrain.arcadeDrive(m_x.getAsDouble()*0.7, m_y.getAsDouble(), 0.5*(1+m_speed.getAsDouble()), false);
+        }
     }
 
     // Called once the command ends or is interrupted.

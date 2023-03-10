@@ -1,14 +1,19 @@
-package frc.robot.commands.Intake;
+
+package frc.robot.commands.drivetrain;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
 
-public class Intake_Stop extends CommandBase {
+import frc.robot.subsystems.Drivetrain;
 
-    Intake m_intake;
+public class DT_SetSpin extends CommandBase {
+        private final Drivetrain m_drivetrain;
+        private double m_speed;
 
-    public Intake_Stop(Intake intake) {
+    public DT_SetSpin(Drivetrain subsystem, double speed) {
+        m_drivetrain = subsystem;
+        m_speed = speed;
+        addRequirements(m_drivetrain);
 
-        m_intake = intake;
     }
 
     // Called when the command is initially scheduled.
@@ -19,8 +24,7 @@ public class Intake_Stop extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
-        m_intake.stop();
+        m_drivetrain.setSpin(m_speed);
     }
 
     // Called once the command ends or is interrupted.
@@ -31,7 +35,12 @@ public class Intake_Stop extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
+    @Override
+    public boolean runsWhenDisabled() {
+        return false;
+
+    }
 }
