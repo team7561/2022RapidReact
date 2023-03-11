@@ -117,7 +117,7 @@ private void configureButtonBindings() {
 
 //  button_RT.onTrue(new Intake_Close(m_intake));
       
-joystickButton10.onTrue(new DT_SetSpin(m_drivetrain, 0.1));
+joystickButton10.onTrue(new DT_SetSpin(m_drivetrain, 0.7));
 joystickButton12.onTrue(new DT_SetSpin(m_drivetrain, 1));
 
 back.onTrue(new LED_Set_Colour_Mode(m_Led_Controller, Constants.BLINKIN_YELLOW)); 

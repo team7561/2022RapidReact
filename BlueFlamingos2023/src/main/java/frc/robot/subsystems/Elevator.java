@@ -43,7 +43,7 @@ elevatorWinchGroup = new MotorControllerGroup(elevatorWinchMotorA, elevatorWinch
     public void periodic() {
         if (Math.abs(elevatorSpeed) > 0.05)
         {
-            elevatorWinchGroup.set(elevatorSpeed*0.75);
+            elevatorWinchGroup.set(elevatorSpeed*0.85);
         }
         else {
             elevatorWinchGroup.set(0);
