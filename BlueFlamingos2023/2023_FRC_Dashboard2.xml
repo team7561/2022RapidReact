@@ -1,61 +1,78 @@
 <xml version="1.0">
-<dashboard>
-	<widget field="Ultrasonic Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="1177" y="341"/>
-	</widget>
-	<widget field="Elevator Current B" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
-		<location x="1152" y="13"/>
-	</widget>
-	<widget field="Elevator Current A" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
-		<location x="733" y="25"/>
-	</widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="7" y="315"/>
-		<width>1001</width>
-		<height>641</height>
-		<property name="Degrees Rotation" value="-90"/>
-		<property name="Camera Choice" value=""/>
-	</static-widget>
-	<widget field="Intake Open" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="162"/>
-	</widget>
-	<widget field="LED Pattern" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="117"/>
-	</widget>
-	<widget field="Right" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="96"/>
-	</widget>
-	<widget field="Left" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="42"/>
-	</widget>
-	<widget field="Arm Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="21"/>
-	</widget>
-	<widget field="Intake Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
-	</widget>
-	<widget field="Intake_Release" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="314" y="137"/>
-	</widget>
-	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="111" y="242"/>
-	</widget>
-	<widget field="Autonomous Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="285" y="55"/>
-	</widget>
-	<widget field="Intake_Grab" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="59" y="190"/>
-	</widget>
-	<widget field="Elevator Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="37" y="141"/>
-	</widget>
-	<widget field="Elevator Upper Limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="65" y="75"/>
-	</widget>
-	<widget field="Intake" type="Subsystem" class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
-		<location x="0" y="88"/>
-	</widget>
-</dashboard>
-<live-window>
-</live-window>
+  <dashboard>
+    <widget field="Ultrasonic Distance" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="1177" y="341" />
+    </widget>
+    <widget field="Elevator Current B" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+      <location x="1152" y="13" />
+    </widget>
+    <widget field="Elevator Current A" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+      <location x="733" y="25" />
+    </widget>
+    <static-widget
+      class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+      <location x="7" y="315" />
+      <width>1001</width>
+      <height>641</height>
+      <property name="Degrees Rotation" value="-90" />
+      <property name="Camera Choice" value="" />
+    </static-widget>
+    <widget field="Intake Open" type="Boolean"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="0" y="162" />
+    </widget>
+    <widget field="LED Pattern" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="0" y="117" />
+    </widget>
+    <widget field="Right" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="0" y="96" />
+    </widget>
+    <widget field="Left" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="0" y="42" />
+    </widget>
+    <widget field="Arm Speed" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="0" y="21" />
+    </widget>
+    <widget field="Intake Speed" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="0" y="0" />
+    </widget>
+    <widget field="Intake_Release" type="Command"
+      class="edu.wpi.first.smartdashboard.gui.elements.Command">
+      <location x="314" y="137" />
+    </widget>
+    <widget field="Auto Mode" type="String Chooser"
+      class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+      <location x="111" y="242" />
+    </widget>
+    <widget field="Autonomous Command" type="Command"
+      class="edu.wpi.first.smartdashboard.gui.elements.Command">
+      <location x="285" y="55" />
+    </widget>
+    <widget field="Intake_Grab" type="Command"
+      class="edu.wpi.first.smartdashboard.gui.elements.Command">
+      <location x="59" y="190" />
+    </widget>
+    <widget field="Elevator Speed" type="Number"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="37" y="141" />
+    </widget>
+    <widget field="Elevator Upper Limit" type="Boolean"
+      class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+      <location x="65" y="75" />
+    </widget>
+    <widget field="Intake" type="Subsystem"
+      class="edu.wpi.first.smartdashboard.gui.elements.Subsystem">
+      <location x="0" y="88" />
+    </widget>
+  </dashboard>
+  <live-window>
+  </live-window>
 </xml>
