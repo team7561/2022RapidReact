@@ -34,10 +34,10 @@ public class Constants {
 
     public static double SHOOTER_TOLERANCE = 50;
     
-    public static double SWERVE_A_OFFSET_ANGLE = Preferences.getDouble("A Offset", -0.47);
-    public static double SWERVE_B_OFFSET_ANGLE = Preferences.getDouble("B Offset", 0.15);
-    public static double SWERVE_C_OFFSET_ANGLE = Preferences.getDouble("C Offset", 0.60);
-    public static double SWERVE_D_OFFSET_ANGLE = Preferences.getDouble("D Offset", -0.87);
+    public static double SWERVE_A_OFFSET_ANGLE = Preferences.getDouble("A Offset", -0.51);
+    public static double SWERVE_B_OFFSET_ANGLE = Preferences.getDouble("B Offset", 0.14);
+    public static double SWERVE_C_OFFSET_ANGLE = Preferences.getDouble("C Offset", 0.51);
+    public static double SWERVE_D_OFFSET_ANGLE = Preferences.getDouble("D Offset", -0.90);
 
     public static int SWERVE_A_ENCODER_PORT = 0;
     public static int SWERVE_B_ENCODER_PORT = 3;

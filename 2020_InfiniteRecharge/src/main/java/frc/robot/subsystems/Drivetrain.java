@@ -66,7 +66,7 @@ public class Drivetrain extends SubsystemBase {
         // set up encoder conversion factor
         double conversionFactor = Constants.DRIVE_GEAR_RATIO * 2*Math.PI*3*2.54/100;
 
-        rightA.setInverted(true);
+        rightA.setInverted(false);
         m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
         m_drive.setSafetyEnabled(false);
         m_drive.setDeadband(0.05);
