@@ -1,55 +1,44 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import frc.robot.Ports;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 
-  private DoubleSolenoid intakeOpenSolenoid;
-  private AnalogInput ultrasonicSensor;
+  private CANSparkMax intakeMotorFront, intakeMotorRear;
 
   public Intake() {
-
-    intakeOpenSolenoid = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 0, 2);
-    addChild("intakeDeploySolenoid", intakeOpenSolenoid);
-    intakeOpenSolenoid.set(Value.kForward);
-
-    ultrasonicSensor = new AnalogInput(3);
+    intakeMotorFront = new CANSparkMax(Ports.Intake_Front_ID, MotorType.kBrushless);
+    intakeMotorRear = new CANSparkMax(Ports.Intake_Rear_ID, MotorType.kBrushless);
   }
 
   @Override
   public void periodic() {
     updateDashboard();
-    /*if (ultrasonicSensor.getAverageVoltage()>3)
-    {
-        intakeOpenSolenoid.set(Value.kReverse);
-    }*/
-
   }
 
-  public void open() {
-    intakeOpenSolenoid.set(Value.kForward);
+  public void grab() {
+    intakeMotorFront.set(1);
+    intakeMotorRear.set(1);
   }
-
-  public void close() {
-    intakeOpenSolenoid.set(Value.kReverse);
+  public void stop() {
+    intakeMotorRear.set(0);
+    intakeMotorFront.set(0);
   }
-
-  public void toggle() {
-    if (intakeOpenSolenoid.get().equals(Value.kForward)) {
-      intakeOpenSolenoid.set(Value.kReverse);
-    } else {
-      intakeOpenSolenoid.set(Value.kForward);
-    }
+  
+  public void reverse() {
+    intakeMotorFront.set(-0.2);
+    intakeMotorRear.set(-0.2);
   }
 
   public void updateDashboard() {
-    SmartDashboard.putBoolean(
-        "Intake Open", intakeOpenSolenoid.get().compareTo(Value.kForward) == 1);
-    SmartDashboard.putNumber("Ultrasonic Distance", ultrasonicSensor.getAverageVoltage());
+    SmartDashboard.putNumber("Intake Front Speed", intakeMotorFront.get());
+    SmartDashboard.putNumber("Intake Rear Speed", intakeMotorRear.get());
+    SmartDashboard.putNumber("Intake Front Current", intakeMotorFront.getOutputCurrent());
+    SmartDashboard.putNumber("Intake Rear Current", intakeMotorRear.getOutputCurrent());
   }
 }

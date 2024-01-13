@@ -1,0 +1,36 @@
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import frc.robot.Ports;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
+public class Shooter extends SubsystemBase {
+  private CANSparkMax m_shooter_motor_A, m_shooter_motor_B;
+  private final double speedFast = 0.5;
+  private final double speedSlow = 0.5;
+
+  public Shooter() {
+    m_shooter_motor_A = new CANSparkMax(Ports.Shooter_A_ID, MotorType.kBrushless);
+    m_shooter_motor_A.restoreFactoryDefaults();
+    m_shooter_motor_B = new CANSparkMax(Ports.Shooter_B_ID, MotorType.kBrushless);
+    m_shooter_motor_B.restoreFactoryDefaults();
+    m_shooter_motor_B.setInverted(true);
+  }
+
+  public void shootFast() {
+    m_shooter_motor_A.set(speedFast);
+    m_shooter_motor_B.set(speedFast);
+  }
+
+  public void shootSlow() {
+    m_shooter_motor_A.set(speedSlow);
+    m_shooter_motor_B.set(speedSlow);
+  }
+
+  public void stop() {
+    m_shooter_motor_A.set(0.0);
+    m_shooter_motor_B.set(0.0);
+  }
+}

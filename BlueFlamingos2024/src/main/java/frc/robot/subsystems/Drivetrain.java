@@ -1,50 +1,95 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Ports;
 
 public class Drivetrain extends SubsystemBase {
 
   private BuiltInAccelerometer mRioAccel;
 
+
   private CANSparkMax leftMotorA;
   private CANSparkMax leftMotorB;
   private CANSparkMax rightMotorA;
   private CANSparkMax rightMotorB;
+  private RelativeEncoder leftMotorA_Encoder, leftMotorB_Encoder, rightMotorA_Encoder, rightMotorB_Encoder;
   private double spin = 1;
 
   public Drivetrain() {
 
     mRioAccel = new BuiltInAccelerometer();
 
-    leftMotorA = new CANSparkMax(1, MotorType.kBrushless);
+    leftMotorA = new CANSparkMax(Ports.Drivetrain_FL_ID, MotorType.kBrushless);
     leftMotorA.restoreFactoryDefaults();
     leftMotorA.setIdleMode(IdleMode.kCoast);
     leftMotorA.burnFlash();
+    leftMotorA_Encoder = leftMotorA.getEncoder();
 
-    leftMotorB = new CANSparkMax(2, MotorType.kBrushless);
+    leftMotorB = new CANSparkMax(Ports.Drivetrain_BL_ID, MotorType.kBrushless);
     leftMotorB.restoreFactoryDefaults();
     leftMotorB.setIdleMode(IdleMode.kCoast);
+    leftMotorB_Encoder = leftMotorB.getEncoder();
 
-    rightMotorA = new CANSparkMax(4, MotorType.kBrushless);
+    rightMotorA = new CANSparkMax(Ports.Drivetrain_FR_ID, MotorType.kBrushless);
     rightMotorA.restoreFactoryDefaults();
     rightMotorA.setIdleMode(IdleMode.kCoast);
+    rightMotorA_Encoder = rightMotorA.getEncoder();
 
-    rightMotorB = new CANSparkMax(5, MotorType.kBrushless);
+    rightMotorB = new CANSparkMax(Ports.Drivetrain_BR_ID, MotorType.kBrushless);
     rightMotorB.restoreFactoryDefaults();
     rightMotorB.setIdleMode(IdleMode.kCoast);
     rightMotorB.burnFlash();
+    rightMotorB_Encoder = rightMotorB.getEncoder();
   }
 
   @Override
   public void periodic() {
     updateDashboard();
   }
+  
+  public double getGyroRotation() {
+    return 0;
+  }
 
+  public void resetEncoders() {
+    leftMotorA_Encoder.setPosition(0);
+    leftMotorB_Encoder.setPosition(0);
+    rightMotorA_Encoder.setPosition(0);
+    rightMotorB_Encoder.setPosition(0);
+  }
+
+  public void setBrake() {
+    leftMotorA.setIdleMode(IdleMode.kBrake);
+    leftMotorB.setIdleMode(IdleMode.kBrake);
+    rightMotorA.setIdleMode(IdleMode.kBrake);
+    rightMotorB.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setCoast() {
+    leftMotorA.setIdleMode(IdleMode.kCoast);
+    leftMotorB.setIdleMode(IdleMode.kCoast);
+    rightMotorA.setIdleMode(IdleMode.kCoast);
+    rightMotorB.setIdleMode(IdleMode.kCoast);
+  }
+
+  public void stop() {
+    set(0, 0);
+  }
+  public double getLeftEncoder() {
+    return 0.5*(leftMotorA_Encoder.getPosition()+leftMotorB_Encoder.getPosition());
+  }
+  public double getRightEncoder() {
+    return 0.5*(rightMotorA_Encoder.getPosition() + rightMotorB_Encoder.getPosition());
+  }
+  public void drive(double left, double right) {
+    set(left, right);
+  }
   public void arcadeDrive(double x, double y, double speed, boolean inverted) {
     x = x * spin;
     double left = (-y + x) * speed;
