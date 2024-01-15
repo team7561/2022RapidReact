@@ -4,6 +4,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,7 +15,7 @@ public class Drivetrain extends SubsystemBase {
 
   private BuiltInAccelerometer mRioAccel;
 
-
+  private ADXRS450_Gyro gyro;
   private CANSparkMax leftMotorA;
   private CANSparkMax leftMotorB;
   private CANSparkMax rightMotorA;
@@ -23,6 +25,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
+    gyro = new ADXRS450_Gyro();
     mRioAccel = new BuiltInAccelerometer();
 
     leftMotorA = new CANSparkMax(Ports.Drivetrain_FL_ID, MotorType.kBrushless);
@@ -46,6 +49,8 @@ public class Drivetrain extends SubsystemBase {
     rightMotorB.setIdleMode(IdleMode.kCoast);
     rightMotorB.burnFlash();
     rightMotorB_Encoder = rightMotorB.getEncoder();
+
+    gyro.calibrate();
   }
 
   @Override
@@ -54,7 +59,7 @@ public class Drivetrain extends SubsystemBase {
   }
   
   public double getGyroRotation() {
-    return 0;
+    return gyro.getAngle();
   }
 
   public void resetEncoders() {
@@ -148,6 +153,11 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Drive Right A Current", rightMotorA.getOutputCurrent());
     SmartDashboard.putNumber("Drive Right B Current", rightMotorB.getOutputCurrent());
 
+    SmartDashboard.putNumber("Robot Angle", getGyroRotation());
+    SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
+    SmartDashboard.putNumber("Right Encoder", getRightEncoder());
+
+    
     /*SmartDashboard.putNumber("Accel X", mRioAccel.getX());
     SmartDashboard.putNumber("Accel Y", mRioAccel.getY());
     SmartDashboard.putNumber("Accel Z", mRioAccel.getZ());
