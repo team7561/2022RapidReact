@@ -1,20 +1,20 @@
-package frc.robot.commands.shooter;
+package frc.robot.commands.conveyor;
 
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Conveyor;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class SH_Shoot extends Command {
-  private final Shooter m_shooter;
+public class CO_GoUp extends Command {
+  private final Conveyor m_conveyor;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public SH_Shoot(Shooter shooter) {
-    m_shooter = shooter;
+  public CO_GoUp(Conveyor conveyor) {
+    m_conveyor = conveyor;
     
-    addRequirements(shooter);
+    addRequirements(conveyor);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +26,7 @@ public class SH_Shoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.shootSlow();
+    m_conveyor.goUp();
   }
 
   // Called once the command ends or is interrupted.

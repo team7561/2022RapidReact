@@ -50,7 +50,7 @@ public class Drivetrain extends SubsystemBase {
     rightMotorB.burnFlash();
     rightMotorB_Encoder = rightMotorB.getEncoder();
 
-    gyro.calibrate();
+    //gyro.calibrate();
   }
 
   @Override

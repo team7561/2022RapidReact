@@ -22,8 +22,8 @@ public class Intake extends SubsystemBase {
   }
 
   public void grab() {
-    intakeMotorFront.set(1);
-    intakeMotorRear.set(1);
+    intakeMotorFront.set(0.2);
+    intakeMotorRear.set(0.2);
   }
   public void stop() {
     intakeMotorRear.set(0);
