@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Shooter extends SubsystemBase {
   
   private CANSparkMax m_shooter_motor_A, m_shooter_motor_B;
-  private final double speedFast = 1;
-  private final double speedSlow = 0.9;
+  private final double speedFast = -1;
+  private final double speedSlow = -0.9;
 
   public Shooter() {
 
