@@ -9,13 +9,17 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Ports;
+import frc.robot.utility.Coordinate;
 
 public class Drivetrain extends SubsystemBase {
 
   private BuiltInAccelerometer mRioAccel;
 
+  public Coordinate currentCoordinate;
   private ADXRS450_Gyro gyro;
+  private boolean intakeForwards;
   private CANSparkMax leftMotorA;
   private CANSparkMax leftMotorB;
   private CANSparkMax rightMotorA;
@@ -26,6 +30,7 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
 
     gyro = new ADXRS450_Gyro();
+    intakeForwards = false;
     mRioAccel = new BuiltInAccelerometer();
 
     leftMotorA = new CANSparkMax(Ports.Drivetrain_FL_ID, MotorType.kBrushless);
@@ -56,6 +61,10 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     updateDashboard();
+    if (Constants.AUTO_MODE)
+    {
+      intakeForwards = SmartDashboard.getBoolean("Holding Note", true);
+    }
   }
   
   public double getGyroRotation() {
@@ -93,6 +102,15 @@ public class Drivetrain extends SubsystemBase {
     return 0.5*(rightMotorA_Encoder.getPosition() + rightMotorB_Encoder.getPosition());
   }
   public void drive(double left, double right) {
+    if (intakeForwards)
+    {
+      set(left, right);
+
+    }
+    else 
+    {
+      set(-left, -right);
+    }
     set(left, right);
   }
   public void arcadeDrive(double x, double y, double speed, boolean inverted) {
@@ -156,6 +174,12 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Robot Angle", getGyroRotation());
     SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
     SmartDashboard.putNumber("Right Encoder", getRightEncoder());
+
+    
+    SmartDashboard.putString("Drive Left A Serial", leftMotorA.getSerialNumber().toString());
+    SmartDashboard.putString("Drive Left B Serial", leftMotorB.getSerialNumber().toString());
+    SmartDashboard.putString("Drive Right A Serial", rightMotorA.getSerialNumber().toString());
+    SmartDashboard.putString("Drive Right B Serial", rightMotorB.getSerialNumber().toString());
 
     
     /*SmartDashboard.putNumber("Accel X", mRioAccel.getX());

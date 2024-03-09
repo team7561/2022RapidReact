@@ -1,11 +1,11 @@
-package frc.robot.commands;
+package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** */
-public class AutonomousCommand extends Command {
+public class ShootPreloaded extends Command {
 
-  public AutonomousCommand() {}
+  public ShootPreloaded() {}
 
   // Called when the command is initially scheduled.
   @Override
@@ -22,7 +22,7 @@ public class AutonomousCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 
   @Override

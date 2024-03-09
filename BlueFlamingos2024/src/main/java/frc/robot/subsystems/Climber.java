@@ -24,11 +24,15 @@ CANSparkMax climberA, climberB;
     climberB = new CANSparkMax(Ports.ClimberB_ID, MotorType.kBrushless);
     climberA.setIdleMode(IdleMode.kBrake);
     climberB.setIdleMode(IdleMode.kBrake);
+    climberA.setSmartCurrentLimit(10);
+    climberB.setSmartCurrentLimit(10);
   }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Speed", climberA.get());
+        SmartDashboard.putString("Climber A Serial", climberA.getSerialNumber().toString());
+        SmartDashboard.putString("Climber B Serial", climberB.getSerialNumber().toString());
     }
 
     public void setSpeed(double speed) {
@@ -41,7 +45,8 @@ CANSparkMax climberA, climberB;
     }
 
     public void raise() {
-        setSpeed(0.3);
+        setSpeed(0.35);
+        retract();
     }
     public void lower() {
         setSpeed(-0.2);

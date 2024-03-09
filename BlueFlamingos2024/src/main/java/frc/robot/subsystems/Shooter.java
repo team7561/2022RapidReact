@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants;
 import frc.robot.Ports;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -11,7 +11,7 @@ public class Shooter extends SubsystemBase {
   
   private CANSparkMax m_shooter_motor_A, m_shooter_motor_B;
   private final double speedFast = -1;
-  private final double speedSlow = -0.9;
+  private final double speedSlow = -1;
 
   public Shooter() {
 
@@ -41,6 +41,25 @@ public class Shooter extends SubsystemBase {
     m_shooter_motor_A.set(0.0);
     m_shooter_motor_B.set(0.0);
   }
+  public void periodic() {
+    updateDashboard();
+  
+    if (Constants.AUTO_MODE) {
+      
+      if (m_shooter_motor_A.getOutputCurrent() > 25)
+      {
+        System.out.println(m_shooter_motor_A.getOutputCurrent());
+        SmartDashboard.putBoolean("Holding Note", false);
+      }
+      if (SmartDashboard.getBoolean("Holding Note", true)) {
+        shootFast();
+      }
+      else {
+        stop();
+      }
+    }
+  }
+
   public void updateDashboard()
   {
     SmartDashboard.putNumber("Shooter A Current", m_shooter_motor_A.getOutputCurrent());

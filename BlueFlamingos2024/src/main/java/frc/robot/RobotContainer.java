@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.drivetrain.DT_ArcadeDrive;
 import frc.robot.commands.intake.*;
-import frc.robot.commands.shooter.SH_Shoot;
-import frc.robot.commands.shooter.SH_Stop;
+import frc.robot.commands.shooter.*;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -34,6 +34,8 @@ public class RobotContainer {
     JoystickButton button3 = new JoystickButton(joystick, 3);
     JoystickButton button5 = new JoystickButton(joystick, 5);
     JoystickButton button6 = new JoystickButton(joystick, 6);
+    JoystickButton button11 = new JoystickButton(joystick, 11);
+    JoystickButton button12 = new JoystickButton(joystick, 12);
 
     triggerButton.onTrue(new IN_Grab(intake));
     triggerButton.onFalse(new IN_Stop(intake));
@@ -41,10 +43,14 @@ public class RobotContainer {
     thumbButton.onFalse(new IN_Stop(intake));
     button3.onTrue(new SH_Shoot(shooter));
     button3.onFalse(new SH_Stop(shooter));
-    button5.onTrue(new CO_GoUp(conveyor));
-    button5.onFalse(new CO_Stop(conveyor));
-    button6.onTrue(new CO_GoDown(conveyor));
+    button6.onTrue(new CO_GoUp(conveyor));
     button6.onFalse(new CO_Stop(conveyor));
+    button5.onTrue(new CO_GoDown(conveyor));
+    button5.onFalse(new CO_Stop(conveyor));
+    button11.onTrue(new CL_Lower(climber));
+    button11.onFalse(new CL_Stop(climber));
+    button12.onTrue(new CL_Climb(climber));
+    button12.onFalse(new CL_Stop(climber));
     
 
   }

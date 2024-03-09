@@ -1,6 +1,6 @@
 package frc.robot.utility;
 
-public class Math {
+public class Math_Utility {
     public static double clamp(double input)
     {
         if (input > 1)
