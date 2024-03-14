@@ -105,13 +105,11 @@ public class Drivetrain extends SubsystemBase {
     if (intakeForwards)
     {
       set(left, right);
-
     }
     else 
     {
       set(-left, -right);
     }
-    set(left, right);
   }
   public void arcadeDrive(double x, double y, double speed, boolean inverted) {
     x = x * spin;
@@ -125,9 +123,9 @@ public class Drivetrain extends SubsystemBase {
     right = Math.max(right, -1);
 
     if (inverted) {
-      set(left, right);
+      drive(left, right);
     } else {
-      set(left, right);
+      drive(left, right);
     }
     SmartDashboard.putNumber("Left", left);
     SmartDashboard.putNumber("Right", right);
@@ -174,14 +172,7 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Robot Angle", getGyroRotation());
     SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
     SmartDashboard.putNumber("Right Encoder", getRightEncoder());
-
-    
-    SmartDashboard.putString("Drive Left A Serial", leftMotorA.getSerialNumber().toString());
-    SmartDashboard.putString("Drive Left B Serial", leftMotorB.getSerialNumber().toString());
-    SmartDashboard.putString("Drive Right A Serial", rightMotorA.getSerialNumber().toString());
-    SmartDashboard.putString("Drive Right B Serial", rightMotorB.getSerialNumber().toString());
-
-    
+   
     /*SmartDashboard.putNumber("Accel X", mRioAccel.getX());
     SmartDashboard.putNumber("Accel Y", mRioAccel.getY());
     SmartDashboard.putNumber("Accel Z", mRioAccel.getZ());

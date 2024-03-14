@@ -16,6 +16,7 @@ public class Climber extends SubsystemBase {
     
 DoubleSolenoid climberSolenoid;
 CANSparkMax climberA, climberB;
+boolean robotClimbing;
 
   public Climber() {
     
@@ -26,13 +27,13 @@ CANSparkMax climberA, climberB;
     climberB.setIdleMode(IdleMode.kBrake);
     climberA.setSmartCurrentLimit(10);
     climberB.setSmartCurrentLimit(10);
+    robotClimbing = true;
   }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Climber Speed", climberA.get());
-        SmartDashboard.putString("Climber A Serial", climberA.getSerialNumber().toString());
-        SmartDashboard.putString("Climber B Serial", climberB.getSerialNumber().toString());
+        SmartDashboard.putBoolean("Robot Climbing?", robotClimbing);
     }
 
     public void setSpeed(double speed) {
@@ -45,18 +46,21 @@ CANSparkMax climberA, climberB;
     }
 
     public void raise() {
-        setSpeed(0.35);
+        setSpeed(0.6);
+        robotClimbing = true;
         retract();
     }
     public void lower() {
         setSpeed(-0.2);
+        robotClimbing = true;
     }
-
 
     public void extend() {
         climberSolenoid.set(Value.kForward);
+        robotClimbing = false;
     }
     public void retract() {
         climberSolenoid.set(Value.kReverse);
+        robotClimbing = true;
     }
 }

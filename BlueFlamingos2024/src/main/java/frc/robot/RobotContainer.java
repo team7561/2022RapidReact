@@ -7,8 +7,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.drivetrain.DT_ArcadeDrive;
-import frc.robot.commands.intake.*;
+//import frc.robot.commands.intake.*;
 import frc.robot.commands.shooter.*;
+import frc.robot.commands.states.ToggleClimbingMode;
+import frc.robot.commands.states.ToggleConveyorMode;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -17,7 +19,7 @@ public class RobotContainer {
   Shooter shooter = new Shooter();
   Conveyor conveyor = new Conveyor();
   Drivetrain drivetrain = new Drivetrain();
-  LED_Controller led_Controller = new LED_Controller();
+  //LED_Controller led_Controller = new LED_Controller();
   Vision_Controller vision_Controller = new Vision_Controller();
 
   Joystick joystick = new Joystick(0);
@@ -34,25 +36,38 @@ public class RobotContainer {
     JoystickButton button3 = new JoystickButton(joystick, 3);
     JoystickButton button5 = new JoystickButton(joystick, 5);
     JoystickButton button6 = new JoystickButton(joystick, 6);
+    JoystickButton button7 = new JoystickButton(joystick, 7);
+    JoystickButton button8 = new JoystickButton(joystick, 8);
+    JoystickButton button9 = new JoystickButton(joystick, 9);
+    JoystickButton button10 = new JoystickButton(joystick, 10);
+    
     JoystickButton button11 = new JoystickButton(joystick, 11);
     JoystickButton button12 = new JoystickButton(joystick, 12);
 
-    triggerButton.onTrue(new IN_Grab(intake));
+
+    
+    triggerButton.onTrue(new CO_GoUp(conveyor));
+    triggerButton.onFalse(new CO_Stop(conveyor));
+    thumbButton.onTrue(new CO_GoDown(conveyor));
+    thumbButton.onFalse(new CO_Stop(conveyor));
+    /*triggerButton.onTrue(new IN_Grab(intake));
     triggerButton.onFalse(new IN_Stop(intake));
     thumbButton.onTrue(new IN_Reverse(intake));
-    thumbButton.onFalse(new IN_Stop(intake));
+    thumbButton.onFalse(new IN_Stop(intake));*/
     button3.onTrue(new SH_Shoot(shooter));
     button3.onFalse(new SH_Stop(shooter));
     button6.onTrue(new CO_GoUp(conveyor));
     button6.onFalse(new CO_Stop(conveyor));
     button5.onTrue(new CO_GoDown(conveyor));
     button5.onFalse(new CO_Stop(conveyor));
+    button7.onTrue(new ToggleConveyorMode());
+    button8.onTrue(new ToggleClimbingMode());
+    button9.onTrue(new CL_Extend(climber));
+    button10.onTrue(new CL_Retract(climber));
     button11.onTrue(new CL_Lower(climber));
     button11.onFalse(new CL_Stop(climber));
     button12.onTrue(new CL_Climb(climber));
     button12.onFalse(new CL_Stop(climber));
-    
-
   }
 
   public Command getAutonomousCommand() {
