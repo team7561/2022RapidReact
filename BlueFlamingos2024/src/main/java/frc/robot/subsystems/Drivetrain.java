@@ -102,13 +102,14 @@ public class Drivetrain extends SubsystemBase {
     return 0.5*(rightMotorA_Encoder.getPosition() + rightMotorB_Encoder.getPosition());
   }
   public void drive(double left, double right) {
+    set(right, left);
     if (intakeForwards)
     {
-      set(right, left);
+      //set(right, left);
     }
     else 
     {
-      set(left,right);
+      //set(left,right);
     }
   }
   public void arcadeDrive(double x, double y, double speed, boolean inverted) {

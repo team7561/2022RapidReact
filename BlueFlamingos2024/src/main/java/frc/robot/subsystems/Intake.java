@@ -64,7 +64,7 @@ public class Intake extends SubsystemBase {
     {
       SmartDashboard.putBoolean("Holding Note", true);
     }
-
+    
     if (Constants.AUTO_MODE) {
       if (SmartDashboard.getBoolean("Holding Note", true)) {
         stop();

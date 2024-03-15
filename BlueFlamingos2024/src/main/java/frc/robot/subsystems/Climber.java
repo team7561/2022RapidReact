@@ -46,7 +46,7 @@ boolean robotClimbing;
     }
 
     public void raise() {
-        setSpeed(0.6);
+        setSpeed(0.65);
         robotClimbing = true;
         retract();
     }

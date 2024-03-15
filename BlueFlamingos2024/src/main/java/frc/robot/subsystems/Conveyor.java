@@ -23,7 +23,6 @@ public class Conveyor extends SubsystemBase {
         m_conveyor.setIdleMode(IdleMode.kBrake);
         m_holding_note = false;
         SmartDashboard.putBoolean("Holding Note", m_holding_note);
-
     }
 
     public void goUp() {
@@ -33,7 +32,7 @@ public class Conveyor extends SubsystemBase {
         m_conveyor.set(-speed/2);
     }
     public void goDown() {
-        m_conveyor.set(speed*0.8);
+        m_conveyor.set(speed*0.2);
     }
     public void stop() {
         m_conveyor.set(0.0);

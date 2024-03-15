@@ -4,14 +4,11 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.autonomous.ShootPreloaded;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.drivetrain.DT_ArcadeDrive;
-//import frc.robot.commands.intake.*;
-import frc.robot.commands.shooter.*;
 import frc.robot.commands.states.ToggleClimbingMode;
 import frc.robot.commands.states.ToggleConveyorMode;
 import frc.robot.subsystems.*;
@@ -32,15 +29,16 @@ public class RobotContainer {
     configureBindings();
     CameraServer.startAutomaticCapture();
     drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getThrottle()));
-    //drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getLeftX(), () -> xboxController.getLeftY(), () -> 0.1));
+    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getLeftX(), () -> xboxController.getLeftY(), () -> 0.5));
   }
 
   private void configureBindings()
+  
   {
-    configureBindingsJoystick(); 
+    configureBindingsXbox(); 
   }
 
-  /*private void configureBindingsXbox()
+  private void configureBindingsXbox()
   {
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
     //final JoystickButton button_B = new JoystickButton(xboxController, 2);
@@ -56,21 +54,28 @@ public class RobotContainer {
     //final JoystickButton right_joystick_button = new JoystickButton(xboxController, 10);
 
 
-    button_LB.onTrue(new CO_GoUp(conveyor));
-    button_LB.onFalse(new CO_Stop(conveyor));
-    button_RB.onTrue(new CO_GoDown(conveyor));
-    button_RB.onFalse(new CO_Stop(conveyor));
-    
-    button_A.onTrue(new SH_Shoot(shooter));
-    button_A.onFalse(new SH_Stop(shooter));
-    back.onTrue(new CL_Extend(climber));
-    start.onTrue(new CL_Retract(climber));
-    button_X.onTrue(new CL_Lower(climber));
-    button_X.onFalse(new CL_Stop(climber));
+    button_A.onTrue(new CL_Extend(climber));
+    button_X.onTrue(new CL_Retract(climber)); 
+  
     button_Y.onTrue(new CL_Climb(climber));
     button_Y.onFalse(new CL_Stop(climber));
 
-  }*/
+    back.onTrue(new CL_Lower(climber));
+    back.onFalse(new CL_Stop(climber));
+
+    start.onTrue(new CO_GoDown(conveyor));
+    start.onFalse(new CO_GoDown(conveyor));
+
+    button_LB.onTrue(new ToggleConveyorMode());
+    button_RB.onTrue(new CO_GoUp(conveyor));
+    button_RB.onFalse(new CO_Stop(conveyor));
+
+    start.onTrue(new CL_Retract(climber));
+    start.onFalse(new CL_Retract(climber));
+    button_Y.onTrue(new CL_Climb(climber));
+    button_Y.onFalse(new CL_Stop(climber));
+
+  }
 
   private void configureBindingsJoystick() {
 
@@ -117,6 +122,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new ShootPreloaded(shooter, conveyor, drivetrain);
+    return new ShootPreloaded(shooter, conveyor, drivetrain, intake);
   }
 }
