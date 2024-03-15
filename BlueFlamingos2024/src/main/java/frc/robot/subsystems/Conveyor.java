@@ -29,15 +29,12 @@ public class Conveyor extends SubsystemBase {
     public void goUp() {
         m_conveyor.set(-speed);
     }
-
     public void goUpSlow() {
         m_conveyor.set(-speed/2);
     }
-
     public void goDown() {
-        m_conveyor.set(speed);
+        m_conveyor.set(speed*0.8);
     }
-
     public void stop() {
         m_conveyor.set(0.0);
     }
@@ -45,7 +42,7 @@ public class Conveyor extends SubsystemBase {
     public void periodic()
     {
         updateDashboard();
-        m_holding_note = SmartDashboard.getBoolean("Holding Note", false);
+        m_holding_note = SmartDashboard.getBoolean("Holding Note", true);
         if (!m_holding_note)
         {
             conveyorTimer.reset();
@@ -53,7 +50,7 @@ public class Conveyor extends SubsystemBase {
         }
         else {
             conveyorTimer.start();
-            if (conveyorTimer.get()>0.1)
+            if (conveyorTimer.get()>0.15)
             {
                 stop();
             }
@@ -62,11 +59,6 @@ public class Conveyor extends SubsystemBase {
                 goUpSlow();
             }
         }
-
-        /*if (SmartDashboard.getBoolean("Robot Shooting?", false))
-        {
-          stop();
-        }*/
     }
 
     public void updateDashboard()

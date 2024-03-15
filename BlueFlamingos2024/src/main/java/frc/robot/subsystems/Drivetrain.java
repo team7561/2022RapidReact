@@ -104,11 +104,11 @@ public class Drivetrain extends SubsystemBase {
   public void drive(double left, double right) {
     if (intakeForwards)
     {
-      set(left, right);
+      set(right, left);
     }
     else 
     {
-      set(-left, -right);
+      set(left,right);
     }
   }
   public void arcadeDrive(double x, double y, double speed, boolean inverted) {

@@ -11,7 +11,7 @@ public class ToggleConveyorMode extends Command {
 
   @Override
   public void initialize() {
-    SmartDashboard.putBoolean("Holding Note", !SmartDashboard.getBoolean("Holding Note", false));
+    SmartDashboard.putBoolean("Holding Note", !SmartDashboard.getBoolean("Holding Note", true));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

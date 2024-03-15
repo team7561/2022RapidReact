@@ -24,8 +24,8 @@ public class Intake extends SubsystemBase {
   }
 
   public void grab() {
-    intakeMotorFront.set(0.25);
-    intakeMotorRear.set(0.25);
+    intakeMotorFront.set(0.5);
+    intakeMotorRear.set(0.5);
   }
   public void stop() {
     intakeMotorRear.set(0);
@@ -39,12 +39,12 @@ public class Intake extends SubsystemBase {
 
   public void periodic() {
     updateDashboard();
-    if (SmartDashboard.getBoolean("Holding Note", false))
+    if (SmartDashboard.getBoolean("Holding Note", true))
     {
       intakeAtSpeed = false;
       intakeLostSpeed = false;
     }
-    if (intakeAtSpeed && intakeMotorFront.getEncoder().getVelocity()<1150)
+    /*if (intakeAtSpeed && intakeMotorFront.getEncoder().getVelocity()<2100)
     {
       intakeLostSpeed   = true;
       System.out.println("Intake Lost Speed");
@@ -52,26 +52,17 @@ public class Intake extends SubsystemBase {
     else {
       intakeLostSpeed = false;
     }
-    if (intakeMotorFront.getEncoder().getVelocity()>1150)
+    if (intakeMotorFront.getEncoder().getVelocity()>2200)
     {
       intakeAtSpeed = true;
     }
     else
     {
       intakeAtSpeed = false;
-    }
+    }*/
     if (intakeLostSpeed)
     {
-      intakeTimer.start();
-      //SmartDashboard.putBoolean("Holding Note", true);
-    }
-    SmartDashboard.putNumber("Intake Timer", intakeTimer.get());
-    if (intakeTimer.get()>0.2) {
       SmartDashboard.putBoolean("Holding Note", true);
-      intakeTimer.stop();
-      intakeTimer.reset();
-      intakeLostSpeed=false;
-      intakeAtSpeed=false;
     }
 
     if (Constants.AUTO_MODE) {
@@ -83,14 +74,14 @@ public class Intake extends SubsystemBase {
       }
     }
 
-    if (intakeMotorFront.getOutputCurrent() + intakeMotorRear.getOutputCurrent() > 18)
+    if (intakeMotorFront.getOutputCurrent() + intakeMotorRear.getOutputCurrent() > 20)
     {
       intakeTimer.start();
     }
     else {
       intakeTimer.reset();
     }
-    if (intakeTimer.get()>0.25)
+    if (intakeTimer.get()>0.2)
     {
       SmartDashboard.putBoolean("Holding Note", true);
     }

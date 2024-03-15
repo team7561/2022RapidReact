@@ -1,9 +1,12 @@
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.autonomous.ShootPreloaded;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.drivetrain.DT_ArcadeDrive;
@@ -23,14 +26,60 @@ public class RobotContainer {
   Vision_Controller vision_Controller = new Vision_Controller();
 
   Joystick joystick = new Joystick(0);
-  
+  XboxController xboxController = new XboxController(2);
+
   public RobotContainer() {
     configureBindings();
-    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getThrottle()
-    ));
+    CameraServer.startAutomaticCapture();
+    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getThrottle()));
+    //drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getLeftX(), () -> xboxController.getLeftY(), () -> 0.1));
   }
 
-  private void configureBindings() {
+  private void configureBindings()
+  {
+    configureBindingsJoystick(); 
+  }
+
+  /*private void configureBindingsXbox()
+  {
+    final JoystickButton button_A = new JoystickButton(xboxController, 1);
+    //final JoystickButton button_B = new JoystickButton(xboxController, 2);
+    final JoystickButton button_X = new JoystickButton(xboxController, 3);
+    final JoystickButton button_Y = new JoystickButton(xboxController, 4);
+
+    final JoystickButton button_LB = new JoystickButton(xboxController, 5);
+    final JoystickButton button_RB = new JoystickButton(xboxController, 6);
+
+    final JoystickButton back = new JoystickButton(xboxController, 7);
+    final JoystickButton start = new JoystickButton(xboxController, 8);
+    //final JoystickButton left_joystick_button = new JoystickButton(xboxController, 9);
+    //final JoystickButton right_joystick_button = new JoystickButton(xboxController, 10);
+
+
+    button_LB.onTrue(new CO_GoUp(conveyor));
+    button_LB.onFalse(new CO_Stop(conveyor));
+    button_RB.onTrue(new CO_GoDown(conveyor));
+    button_RB.onFalse(new CO_Stop(conveyor));
+    
+    button_A.onTrue(new SH_Shoot(shooter));
+    button_A.onFalse(new SH_Stop(shooter));
+    back.onTrue(new CL_Extend(climber));
+    start.onTrue(new CL_Retract(climber));
+    button_X.onTrue(new CL_Lower(climber));
+    button_X.onFalse(new CL_Stop(climber));
+    button_Y.onTrue(new CL_Climb(climber));
+    button_Y.onFalse(new CL_Stop(climber));
+
+  }*/
+
+  private void configureBindingsJoystick() {
+
+  
+    /*final DPadButton xbox_dpad_Up = new DPadButton(xboxController, DPadButton.Direction.UP);
+    final DPadButton xbox_dpad_Down = new DPadButton(xboxController, DPadButton.Direction.DOWN);
+    final DPadButton xbox_dpad_Left = new DPadButton(xboxController, DPadButton.Direction.LEFT);
+    final DPadButton xbox_dpad_Right = new DPadButton(xboxController, DPadButton.Direction.RIGHT);*/
+    
     JoystickButton triggerButton = new JoystickButton(joystick, 1);
     JoystickButton thumbButton = new JoystickButton(joystick, 2);
     JoystickButton button3 = new JoystickButton(joystick, 3);
@@ -44,8 +93,6 @@ public class RobotContainer {
     JoystickButton button11 = new JoystickButton(joystick, 11);
     JoystickButton button12 = new JoystickButton(joystick, 12);
 
-
-    
     triggerButton.onTrue(new CO_GoUp(conveyor));
     triggerButton.onFalse(new CO_Stop(conveyor));
     thumbButton.onTrue(new CO_GoDown(conveyor));
@@ -54,8 +101,7 @@ public class RobotContainer {
     triggerButton.onFalse(new IN_Stop(intake));
     thumbButton.onTrue(new IN_Reverse(intake));
     thumbButton.onFalse(new IN_Stop(intake));*/
-    button3.onTrue(new SH_Shoot(shooter));
-    button3.onFalse(new SH_Stop(shooter));
+    button3.onTrue(new ToggleConveyorMode());
     button6.onTrue(new CO_GoUp(conveyor));
     button6.onFalse(new CO_Stop(conveyor));
     button5.onTrue(new CO_GoDown(conveyor));
@@ -71,7 +117,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    
-    return Commands.print("No autonomous command configured");
+    return new ShootPreloaded(shooter, conveyor, drivetrain);
   }
 }
