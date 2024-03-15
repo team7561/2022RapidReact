@@ -34,6 +34,7 @@ boolean robotClimbing;
     public void periodic() {
         SmartDashboard.putNumber("Climber Speed", climberA.get());
         SmartDashboard.putBoolean("Robot Climbing?", robotClimbing);
+        SmartDashboard.putBoolean("Cylinder Extended?", climberSolenoid.get()==Value.kForward);
     }
 
     public void setSpeed(double speed) {
@@ -46,9 +47,14 @@ boolean robotClimbing;
     }
 
     public void raise() {
-        setSpeed(0.65);
+        if (climberSolenoid.get() == Value.kForward)
+        {
+            System.out.println("Not retracting, pneumatic cylinder is up");
+        }
+        else {
+        setSpeed(0.7);
         robotClimbing = true;
-        retract();
+        }
     }
     public void lower() {
         setSpeed(-0.2);

@@ -102,7 +102,7 @@ public class Drivetrain extends SubsystemBase {
     return 0.5*(rightMotorA_Encoder.getPosition() + rightMotorB_Encoder.getPosition());
   }
   public void drive(double left, double right) {
-    set(right, left);
+    //set(right, left);
     if (intakeForwards)
     {
       //set(right, left);
@@ -110,6 +110,14 @@ public class Drivetrain extends SubsystemBase {
     else 
     {
       //set(left,right);
+    }
+    if (SmartDashboard.getBoolean("Cylinder Extended?", false))
+    {
+      set(right/5, left/5);
+    }
+    else 
+    {
+      set(left,right);
     }
   }
   public void arcadeDrive(double x, double y, double speed, boolean inverted) {
