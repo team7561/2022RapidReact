@@ -57,8 +57,9 @@ public class Shooter extends SubsystemBase {
       }
       else {
         shooterCurrentTimer.reset();
+        shooterCurrentTimer.stop();
       }
-      if (shooterCurrentTimer.get()>0.2)
+      if (shooterCurrentTimer.get()>0.17)
       {
         SmartDashboard.putBoolean("Holding Note", false);
         shooterCurrentTimer.stop();

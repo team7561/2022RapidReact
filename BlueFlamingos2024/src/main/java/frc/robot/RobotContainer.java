@@ -29,7 +29,7 @@ public class RobotContainer {
     configureBindings();
     CameraServer.startAutomaticCapture();
     drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getThrottle()));
-    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getLeftX(), () -> xboxController.getRightY(), () -> 0.5));
+    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getRightX(), () -> xboxController.getLeftY(), () -> 0.75));
   }
 
   private void configureBindings()

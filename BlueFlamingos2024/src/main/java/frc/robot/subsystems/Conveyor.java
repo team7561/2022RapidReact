@@ -5,7 +5,6 @@ import frc.robot.Ports;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -45,11 +44,12 @@ public class Conveyor extends SubsystemBase {
         if (!m_holding_note)
         {
             conveyorTimer.reset();
+            conveyorTimer.stop();
             goUp();
         }
         else {
             conveyorTimer.start();
-            if (conveyorTimer.get()>0.15)
+            if (conveyorTimer.get()>0.05)
             {
                 stop();
             }

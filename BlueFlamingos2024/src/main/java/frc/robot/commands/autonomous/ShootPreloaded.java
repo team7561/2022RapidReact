@@ -15,9 +15,9 @@ public class ShootPreloaded extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(new SH_Shoot_Time(shooter, 3), new CO_Stop_Time(conveyor, 3), Commands.print("Step 1")),
       new ParallelCommandGroup(new SH_Shoot_Time(shooter, 2), new CO_GoUp_Time(conveyor, 2), Commands.print("Step 2")),
-      new ParallelDeadlineGroup(new TimerCommand(2), new SH_Stop(shooter), new CO_Stop_Time(conveyor, 3), Commands.print("Step 3")), 
-      new ParallelDeadlineGroup(new DT_AutoArcadeDrive(drivetrain, -1, 0, 0.25, 1.5), new IN_Grab(intake), Commands.print("Step 4")),
-      new ParallelDeadlineGroup(new DT_AutoArcadeDrive(drivetrain, 1, 0, 0.25, 1.5), new IN_Grab(intake), Commands.print("Step 5")),
+      new ParallelDeadlineGroup(new TimerCommand(1), new SH_Stop(shooter), new CO_Stop_Time(conveyor, 1), Commands.print("Step 3")), 
+      new ParallelDeadlineGroup(new DT_AutoArcadeDrive(drivetrain, 0, -1, 0.25, 1.5), new IN_Grab(intake), new CO_GoUp_Time(conveyor, 1.5), Commands.print("Step 4")),
+      new ParallelDeadlineGroup(new DT_AutoArcadeDrive(drivetrain, 0, 1, 0.25, 1.5), new CO_GoDown_Time(conveyor, 0.5), Commands.print("Step 5")),
       new ParallelCommandGroup(new SH_Shoot_Time(shooter, 3), new CO_Stop_Time(conveyor, 3), Commands.print("Step 6")),
       new ParallelCommandGroup(new SH_Shoot_Time(shooter, 2), new CO_GoUp_Time(conveyor, 2), Commands.print("Step 7"))
     );
