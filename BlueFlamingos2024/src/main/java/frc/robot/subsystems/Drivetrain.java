@@ -99,7 +99,7 @@ public class Drivetrain extends SubsystemBase {
     return 0.5*(leftMotorA_Encoder.getPosition()+leftMotorB_Encoder.getPosition());
   }
   public double getRightEncoder() {
-    return 0.6*(rightMotorA_Encoder.getPosition() + rightMotorB_Encoder.getPosition());
+    return 0.5*(rightMotorA_Encoder.getPosition() + rightMotorB_Encoder.getPosition());
   }
   public void drive(double left, double right) {
     //set(right, left);

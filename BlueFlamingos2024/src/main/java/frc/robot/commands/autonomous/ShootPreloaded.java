@@ -2,6 +2,7 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.TimerCommand;
+import frc.robot.commands.climber.CL_Retract_auto;
 import frc.robot.commands.conveyor.*;
 import frc.robot.commands.drivetrain.DT_AutoArcadeDrive;
 import frc.robot.commands.intake.IN_Grab;
@@ -11,8 +12,9 @@ import frc.robot.subsystems.*;
 
 public class ShootPreloaded extends SequentialCommandGroup {
 
-  public ShootPreloaded(Shooter shooter, Conveyor conveyor, Drivetrain drivetrain, Intake intake) {
+  public ShootPreloaded(Shooter shooter, Conveyor conveyor, Drivetrain drivetrain, Intake intake, Climber climber) {
     addCommands(
+      new CL_Retract_auto(climber),
       new ParallelCommandGroup(new SH_Shoot_Time(shooter, 3), new CO_Stop_Time(conveyor, 3), Commands.print("Step 1")),
       new ParallelCommandGroup(new SH_Shoot_Time(shooter, 2), new CO_GoUp_Time(conveyor, 2), Commands.print("Step 2")),
       new ParallelDeadlineGroup(new TimerCommand(1), new SH_Stop(shooter), new CO_Stop_Time(conveyor, 1), Commands.print("Step 3")), 

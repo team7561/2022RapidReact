@@ -2,6 +2,7 @@ package frc.robot.commands.conveyor;
 
 import frc.robot.subsystems.Conveyor;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class CO_GoUp_Time extends Command {
@@ -37,7 +38,7 @@ public class CO_GoUp_Time extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    SmartDashboard.putBoolean("Holding Note", false);    
   }
 
   // Returns true when the command should end.

@@ -45,7 +45,7 @@ public class Conveyor extends SubsystemBase {
         {
             conveyorTimer.reset();
             conveyorTimer.stop();
-            goUp();
+            goUpSlow();
         }
         else {
             conveyorTimer.start();

@@ -29,7 +29,7 @@ public class RobotContainer {
     configureBindings();
     CameraServer.startAutomaticCapture();
     drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getThrottle()));
-    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getRightX(), () -> xboxController.getLeftY(), () -> 0.75));
+    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getRightX(), () -> xboxController.getLeftY(), () -> 0.8));
   }
 
   private void configureBindings()
@@ -67,8 +67,7 @@ public class RobotContainer {
     start.onFalse(new CO_GoDown(conveyor));
 
     button_LB.onTrue(new ToggleConveyorMode());
-    button_RB.onTrue(new CO_GoUp(conveyor));
-    button_RB.onFalse(new CO_Stop(conveyor));
+    button_RB.onTrue(new CO_GoUp_Time(conveyor, 2));
 
     start.onTrue(new CL_Retract(climber));
     start.onFalse(new CL_Retract(climber));
@@ -122,6 +121,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new ShootPreloaded(shooter, conveyor, drivetrain, intake);
+    return new ShootPreloaded(shooter, conveyor, drivetrain, intake, climber);
   }
 }

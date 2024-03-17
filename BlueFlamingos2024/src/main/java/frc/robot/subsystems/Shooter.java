@@ -50,22 +50,6 @@ public class Shooter extends SubsystemBase {
     updateDashboard();
     if (Constants.AUTO_MODE) {
      
-      if (m_shooter_motor_A.getOutputCurrent() > 30)
-      {
-        shooterCurrentTimer.start();
-        //System.out.println(m_shooter_motor_A.getOutputCurrent());
-      }
-      else {
-        shooterCurrentTimer.reset();
-        shooterCurrentTimer.stop();
-      }
-      if (shooterCurrentTimer.get()>0.17)
-      {
-        SmartDashboard.putBoolean("Holding Note", false);
-        shooterCurrentTimer.stop();
-        shooterCurrentTimer.reset();
-      }
-
       if (SmartDashboard.getBoolean("Holding Note", true)) {
         shootFast();
       }

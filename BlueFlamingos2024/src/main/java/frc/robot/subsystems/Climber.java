@@ -27,6 +27,7 @@ boolean robotClimbing;
     climberB.setIdleMode(IdleMode.kBrake);
     climberA.setSmartCurrentLimit(10);
     climberB.setSmartCurrentLimit(10);
+    retract();
     robotClimbing = true;
   }
 
