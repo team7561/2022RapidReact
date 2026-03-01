@@ -104,8 +104,6 @@ public class Shooter extends SubsystemBase{
         SmartDashboard.putNumber("Max Output", kMaxOutput);
         SmartDashboard.putNumber("Min Output", kMinOutput);
 
-
-
     }
 
     public void setMotorA(double target){

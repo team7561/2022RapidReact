@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Conveyor extends SubsystemBase {
   //private CANSparkMax m_conveyor;
   private CANSparkMax m_conveyor;
-  private final double speed = 0.4;
+  private final double speed = 0.6;
   private boolean m_holding_note;
   Timer conveyorTimer = new Timer();
 
@@ -31,7 +31,7 @@ public class Conveyor extends SubsystemBase {
         m_conveyor.set(-speed/2);
     }
     public void goDown() {
-        m_conveyor.set(speed*0.2);
+        m_conveyor.set(speed*0.3);
     }
     public void stop() {
         m_conveyor.set(0.0);
@@ -63,7 +63,8 @@ public class Conveyor extends SubsystemBase {
     public void updateDashboard()
     {
         SmartDashboard.putNumber("Conveyor Speed", m_conveyor.get());
-        SmartDashboard.putNumber("Conveyor Current", m_conveyor.getOutputCurrent());
-        SmartDashboard.putNumber("Conveyor Velocity", m_conveyor.getEncoder().getVelocity());
+        //SmartDashboard.putNumber("Conveyor Current", m_conveyor.getOutputCurrent());
+        //SmartDashboard.putNumber("Conveyor Velocity", m_conveyor.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Conveyor Timer", conveyorTimer.get());
     }
 }

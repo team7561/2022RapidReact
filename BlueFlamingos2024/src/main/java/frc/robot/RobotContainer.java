@@ -8,7 +8,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.autonomous.ShootPreloaded;
 import frc.robot.commands.climber.*;
 import frc.robot.commands.conveyor.*;
+import frc.robot.commands.shooter.*;
 import frc.robot.commands.drivetrain.DT_ArcadeDrive;
+import frc.robot.commands.intake.IN_Grab;
+import frc.robot.commands.intake.IN_Stop;
 import frc.robot.commands.states.ToggleClimbingMode;
 import frc.robot.commands.states.ToggleConveyorMode;
 import frc.robot.subsystems.*;
@@ -29,7 +32,7 @@ public class RobotContainer {
     configureBindings();
     CameraServer.startAutomaticCapture();
     drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> joystick.getX(), () -> joystick.getY(), () -> joystick.getThrottle()));
-    drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getRightX(), () -> xboxController.getLeftY(), () -> 0.8));
+    //drivetrain.setDefaultCommand( new DT_ArcadeDrive(drivetrain, () -> xboxController.getRightX(), () -> xboxController.getLeftY(), () -> 0.8));
   }
 
   private void configureBindings()
@@ -41,7 +44,7 @@ public class RobotContainer {
   private void configureBindingsXbox()
   {
     final JoystickButton button_A = new JoystickButton(xboxController, 1);
-    //final JoystickButton button_B = new JoystickButton(xboxController, 2);
+    final JoystickButton button_B = new JoystickButton(xboxController, 2);
     final JoystickButton button_X = new JoystickButton(xboxController, 3);
     final JoystickButton button_Y = new JoystickButton(xboxController, 4);
 
@@ -53,26 +56,18 @@ public class RobotContainer {
     //final JoystickButton left_joystick_button = new JoystickButton(xboxController, 9);
     //final JoystickButton right_joystick_button = new JoystickButton(xboxController, 10);
 
+    button_A.onTrue(new CO_GoUp(conveyor));
+    button_A.onFalse(new CO_Stop(conveyor));
+    button_A.onFalse(new IN_Grab(intake));
 
-    button_A.onTrue(new CL_Extend(climber));
-    button_X.onTrue(new CL_Retract(climber)); 
-  
-    button_Y.onTrue(new CL_Climb(climber));
-    button_Y.onFalse(new CL_Stop(climber));
+    
+    button_B.onTrue(new IN_Stop(intake));
+    button_B.onTrue(new CO_GoDown(conveyor));
+    button_B.onFalse(new CO_Stop(conveyor));
+    
+    button_LB.onTrue(new SH_Stop(shooter));
+    button_RB.onTrue(new SH_Shoot(shooter));
 
-    back.onTrue(new CL_Lower(climber));
-    back.onFalse(new CL_Stop(climber));
-
-    start.onTrue(new CO_GoDown(conveyor));
-    start.onFalse(new CO_GoDown(conveyor));
-
-    button_LB.onTrue(new ToggleConveyorMode());
-    button_RB.onTrue(new CO_GoUp_Time(conveyor, 2));
-
-    start.onTrue(new CL_Retract(climber));
-    start.onFalse(new CL_Retract(climber));
-    button_Y.onTrue(new CL_Climb(climber));
-    button_Y.onFalse(new CL_Stop(climber));
 
   }
 

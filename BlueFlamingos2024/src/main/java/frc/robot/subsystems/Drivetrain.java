@@ -173,7 +173,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void updateDashboard() {
-    SmartDashboard.putNumber("Drive Left A Current", leftMotorA.getOutputCurrent());
+    /*SmartDashboard.putNumber("Drive Left A Current", leftMotorA.getOutputCurrent());
     SmartDashboard.putNumber("Drive Left B Current", leftMotorB.getOutputCurrent());
     SmartDashboard.putNumber("Drive Right A Current", rightMotorA.getOutputCurrent());
     SmartDashboard.putNumber("Drive Right B Current", rightMotorB.getOutputCurrent());
@@ -181,7 +181,7 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Robot Angle", getGyroRotation());
     SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
     SmartDashboard.putNumber("Right Encoder", getRightEncoder());
-   
+   */
     /*SmartDashboard.putNumber("Accel X", mRioAccel.getX());
     SmartDashboard.putNumber("Accel Y", mRioAccel.getY());
     SmartDashboard.putNumber("Accel Z", mRioAccel.getZ());

@@ -89,7 +89,8 @@ public class Intake extends SubsystemBase {
       intakeTimer.stop();
     }
 
-    if (Constants.AUTO_MODE) {
+    //if (Constants.AUTO_MODE) {
+    if (true) {
       if (SmartDashboard.getBoolean("Holding Note", true)) {
         stop();
       }
@@ -101,18 +102,18 @@ public class Intake extends SubsystemBase {
   }
 
   public void updateDashboard() {
-    SmartDashboard.putNumber("Intake Front Speed", intakeMotorFront.get());
+    /*SmartDashboard.putNumber("Intake Front Speed", intakeMotorFront.get());
     SmartDashboard.putNumber("Intake Rear Speed", intakeMotorRear.get());
     SmartDashboard.putNumber("Intake Front RPM", intakeMotorFront.getEncoder().getVelocity());
     SmartDashboard.putNumber("Intake Rear RPM", intakeMotorRear.getEncoder().getVelocity());
     SmartDashboard.putNumber("Intake Front Current", intakeMotorFront.getOutputCurrent());
     SmartDashboard.putNumber("Intake Rear Current", intakeMotorRear.getOutputCurrent());
-    SmartDashboard.putBoolean("Intake Lost Speed", intakeLostSpeed);
+    SmartDashboard.putBoolean("Intake Lost Speed", intakeLostSpeed); */
     SmartDashboard.putBoolean("Intake At Speed", intakeAtSpeed);
     SmartDashboard.putNumber("LIDAR Distance", lidar.getDistance());
     SmartDashboard.putBoolean("Conveyor Limit Switch", limitSwitch.get());
-    SmartDashboard.putNumber("Intake Limit Timer", intakeTimer.get());
-    SmartDashboard.putBoolean("Robot Climbing Indicator", SmartDashboard.getBoolean("Holding Note", true));
+    //SmartDashboard.putNumber("Intake Limit Timer", intakeTimer.get());
+    //SmartDashboard.putBoolean("Robot Climbing Indicator", SmartDashboard.getBoolean("Holding Note", true));
       
 
   }

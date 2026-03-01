@@ -5,7 +5,7 @@ public class Constants {
 
     public static double ANGLE_TOLERANCE = 0.3;
 
-    public static boolean AUTO_MODE = true;
+    public static boolean AUTO_MODE = false;
 
     public static double DISTANCE_TOLERANCE = 0.08;
     public static double SLOW_DOWN_DISTANCE = 0.4;
